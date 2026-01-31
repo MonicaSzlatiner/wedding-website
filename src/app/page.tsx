@@ -16,11 +16,6 @@ export default function HomePage() {
       <section className="relative min-h-screen flex">
         {/* Left Panel - Sage Background with Content - 80px padding */}
         <div className="w-full lg:w-1/2 bg-sage-600 flex flex-col justify-center lg:justify-end p-12 md:p-16 lg:p-20 pt-28">
-          {/* Date */}
-          <p className="text-white text-sm tracking-widest uppercase mb-8" style={{ letterSpacing: "2px" }}>
-            {date.full}
-          </p>
-
           {/* Wedding Label */}
           <p className="text-white text-sm tracking-widest uppercase mb-4" style={{ letterSpacing: "2px" }}>
             The Wedding of
