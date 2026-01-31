@@ -18,7 +18,7 @@ export default function AccommodationsPage() {
       {/* Hero Section - Editorial framed style */}
       <section className="relative">
         {/* Mobile: Stacked with frame */}
-        <div className="lg:hidden p-3 sm:p-4 min-h-[90vh]" style={{ backgroundColor: "#A5A5A0" }}>
+        <div className="lg:hidden p-3 sm:p-4 min-h-[90vh]" style={{ backgroundColor: "#E8E6E1" }}>
           <div className="min-h-[calc(90vh-24px)] sm:min-h-[calc(90vh-32px)] flex flex-col" style={{ backgroundColor: "#6B705C" }}>
             {/* Image */}
             <div className="relative h-[50vh]">
@@ -50,7 +50,7 @@ export default function AccommodationsPage() {
         </div>
 
         {/* Desktop: Framed split layout */}
-        <div className="hidden lg:block p-5 xl:p-6 min-h-screen" style={{ backgroundColor: "#A5A5A0" }}>
+        <div className="hidden lg:block p-5 xl:p-6 min-h-screen" style={{ backgroundColor: "#E8E6E1" }}>
           <div className="flex h-[calc(100vh-40px)] xl:h-[calc(100vh-48px)]">
             {/* Left Panel */}
             <div 
@@ -137,8 +137,8 @@ export default function AccommodationsPage() {
         </Container>
       </section>
 
-      {/* CTA Section - Gray background */}
-      <section className="py-12 md:py-16 text-center" style={{ backgroundColor: "#A5A5A0" }}>
+      {/* CTA Section - Cream background */}
+      <section className="py-12 md:py-16 text-center" style={{ backgroundColor: "#E8E6E1" }}>
         <Container size="content">
           <h2 
             className="font-serif text-xl md:text-2xl mb-3 md:mb-4 px-2"

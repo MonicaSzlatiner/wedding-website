@@ -37,8 +37,8 @@ export default function RSVPPage() {
         </Container>
       </section>
 
-      {/* Coming Soon - Gray background */}
-      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#A5A5A0" }}>
+      {/* Coming Soon - Cream background */}
+      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#E8E6E1" }}>
         <Container size="content">
           <div className="text-center max-w-xl mx-auto py-8 md:py-16 px-2">
             <div 

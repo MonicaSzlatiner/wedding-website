@@ -46,8 +46,8 @@ export default function SchedulePage() {
         </Container>
       </section>
 
-      {/* Timeline Section - Gray frame background */}
-      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#A5A5A0" }}>
+      {/* Timeline Section - Cream frame background */}
+      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#E8E6E1" }}>
         <Container size="content">
           {/* Mobile: Simple stacked cards */}
           <div className="md:hidden space-y-4">
@@ -195,8 +195,8 @@ export default function SchedulePage() {
         </Container>
       </section>
 
-      {/* Dress Code Section - Gray background */}
-      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#A5A5A0" }}>
+      {/* Dress Code Section - Cream background */}
+      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#E8E6E1" }}>
         <Container size="content">
           <div className="text-center px-2">
             <p 

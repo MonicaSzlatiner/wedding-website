@@ -12,8 +12,8 @@ export default function HomePage() {
       {/* Modern Editorial Hero - Full viewport with khaki frame */}
       <AnimatedHero couple={couple} date={date} venue={venue} />
 
-      {/* Venue Preview Section - Gray frame background */}
-      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#A5A5A0" }}>
+      {/* Venue Preview Section - Cream frame background */}
+      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#E8E6E1" }}>
         <Container size="content">
           <FadeIn className="text-center px-2">
             <p 
@@ -77,8 +77,8 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* Final CTA Section - Gray frame background */}
-      <section className="py-16 md:py-24 text-center" style={{ backgroundColor: "#A5A5A0" }}>
+      {/* Final CTA Section - Cream frame background */}
+      <section className="py-16 md:py-24 text-center" style={{ backgroundColor: "#E8E6E1" }}>
         <Container size="content">
           <FadeIn>
             <h2 className="font-serif text-3xl md:text-5xl mb-4 md:mb-6 px-2" style={{ fontWeight: 400, color: "#1A1A1A" }}>

@@ -23,11 +23,11 @@ const config: Config = {
           600: "#5a5e4d",
         },
         
-        // Outer Frame - Cool Gray/Stone (matches reference)
+        // Outer Frame - Warm Cream/Stone (editorial, lighter)
         frame: {
-          DEFAULT: "#A5A5A0",
-          light: "#B0B0AB",
-          dark: "#959590",
+          DEFAULT: "#E8E6E1",
+          light: "#F0EEE9",
+          dark: "#D9D6D0",
         },
         
         // Typography colors

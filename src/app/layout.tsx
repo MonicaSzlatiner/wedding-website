@@ -41,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${cormorant.variable} ${montserrat.variable}`}>
-      <body className="min-h-screen flex flex-col font-sans antialiased" style={{ backgroundColor: "#A5A5A0", color: "#1A1A1A" }}>
+      <body className="min-h-screen flex flex-col font-sans antialiased" style={{ backgroundColor: "#E8E6E1", color: "#1A1A1A" }}>
         {/* Skip to main content link for keyboard users */}
         <a
           href="#main-content"

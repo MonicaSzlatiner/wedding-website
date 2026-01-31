@@ -40,7 +40,7 @@ export default function TravelPage() {
       {/* Hero Section - Editorial framed style */}
       <section className="relative">
         {/* Mobile: Stacked with frame */}
-        <div className="lg:hidden p-3 sm:p-4 min-h-[90vh]" style={{ backgroundColor: "#A5A5A0" }}>
+        <div className="lg:hidden p-3 sm:p-4 min-h-[90vh]" style={{ backgroundColor: "#E8E6E1" }}>
           <div className="min-h-[calc(90vh-24px)] sm:min-h-[calc(90vh-32px)] flex flex-col" style={{ backgroundColor: "#6B705C" }}>
             {/* Image */}
             <div className="relative h-[50vh]">
@@ -72,7 +72,7 @@ export default function TravelPage() {
         </div>
 
         {/* Desktop: Framed split layout */}
-        <div className="hidden lg:block p-5 xl:p-6 min-h-screen" style={{ backgroundColor: "#A5A5A0" }}>
+        <div className="hidden lg:block p-5 xl:p-6 min-h-screen" style={{ backgroundColor: "#E8E6E1" }}>
           <div className="flex h-[calc(100vh-40px)] xl:h-[calc(100vh-48px)]">
             {/* Left Panel */}
             <div 
@@ -110,8 +110,8 @@ export default function TravelPage() {
         </div>
       </section>
 
-      {/* Transportation Options - Gray background */}
-      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#A5A5A0" }}>
+      {/* Transportation Options - Cream background */}
+      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#E8E6E1" }}>
         <Container>
           <div className="grid gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
             {/* By Air */}
@@ -207,8 +207,8 @@ export default function TravelPage() {
         </Container>
       </section>
 
-      {/* Quick Links - Gray background */}
-      <section className="py-12 md:py-16 text-center" style={{ backgroundColor: "#A5A5A0" }}>
+      {/* Quick Links - Cream background */}
+      <section className="py-12 md:py-16 text-center" style={{ backgroundColor: "#E8E6E1" }}>
         <Container size="content">
           <h2 
             className="font-serif text-xl md:text-2xl mb-6 md:mb-8 px-2"

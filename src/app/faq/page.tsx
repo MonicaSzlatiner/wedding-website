@@ -40,8 +40,8 @@ export default function FAQPage() {
         </Container>
       </section>
 
-      {/* FAQ Section - Gray background */}
-      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#A5A5A0" }}>
+      {/* FAQ Section - Cream background */}
+      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#E8E6E1" }}>
         <Container size="content">
           <FAQAccordion items={faq.items} />
 

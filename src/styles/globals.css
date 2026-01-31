@@ -221,7 +221,7 @@
   select:focus-visible {
     @apply outline-none ring-2 ring-offset-2;
     --tw-ring-color: #6B705C; /* sage */
-    --tw-ring-offset-color: #A5A5A0; /* frame gray */
+    --tw-ring-offset-color: #E8E6E1; /* warm cream frame */
   }
 
   a:focus,

@@ -62,7 +62,7 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
           ============================================ */}
       <section className="lg:hidden">
         {/* Outer gray frame - matching reference */}
-        <div className="p-3 sm:p-4 min-h-screen" style={{ backgroundColor: "#A5A5A0" }}>
+        <div className="p-3 sm:p-4 min-h-screen" style={{ backgroundColor: "#E8E6E1" }}>
           {/* Inner content */}
           <div className="min-h-[calc(100vh-24px)] sm:min-h-[calc(100vh-32px)] flex flex-col" style={{ backgroundColor: "#6B705C" }}>
             {/* Image section */}
@@ -139,7 +139,7 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
           ============================================ */}
       <section className="hidden lg:block relative">
         {/* Outer gray frame - thinner like reference (~20-30px) */}
-        <div className="p-5 xl:p-6 min-h-screen" style={{ backgroundColor: "#A5A5A0" }}>
+        <div className="p-5 xl:p-6 min-h-screen" style={{ backgroundColor: "#E8E6E1" }}>
           {/* Inner split layout */}
           <div className="flex h-[calc(100vh-40px)] xl:h-[calc(100vh-48px)] relative">
             
