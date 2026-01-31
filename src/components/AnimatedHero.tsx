@@ -4,7 +4,6 @@ import { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { TIMING, EASING } from "@/lib/animations";
 
 interface AnimatedHeroProps {
   couple: { person1: string; person2: string };
@@ -14,195 +13,213 @@ interface AnimatedHeroProps {
 }
 
 /**
- * AnimatedHero - Homepage hero with subtle staggered animations
+ * AnimatedHero - Modern Editorial aesthetic
  * 
- * Desktop: Split layout with staggered text reveal
- * Mobile: Stacked layout with subtle fade-ins
- * Respects reduced motion preferences
+ * Design Philosophy:
+ * - Thick khaki outer frame (40-60px)
+ * - 50/50 split: Sage green left panel + Full-height image right
+ * - Bottom-left aligned text (magazine feel)
+ * - Ghost circle RSVP button overlapping the seam
+ * - Typography: Cormorant Garamond for names, Montserrat for utility
  */
 export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProps) {
   const shouldReduceMotion = useReducedMotion();
 
   // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 1 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.12,
-        delayChildren: shouldReduceMotion ? 0 : 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { 
-      opacity: shouldReduceMotion ? 1 : 0, 
-      y: shouldReduceMotion ? 0 : 20 
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: TIMING.normal,
-        ease: EASING.out,
-      },
-    },
-  };
-
   const imageVariants = {
     hidden: { opacity: shouldReduceMotion ? 1 : 0 },
     visible: {
       opacity: 1,
-      transition: {
-        duration: TIMING.slow,
-        ease: EASING.out,
-      },
+      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
+  };
+
+  const textVariants = {
+    hidden: { opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
     },
   };
 
   const floatingButtonVariants = {
-    hidden: { 
-      opacity: shouldReduceMotion ? 1 : 0, 
-      scale: shouldReduceMotion ? 1 : 0.9 
-    },
+    hidden: { opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.9 },
     visible: {
       opacity: 1,
       scale: 1,
-      transition: {
-        duration: TIMING.normal,
-        ease: EASING.out,
-        delay: shouldReduceMotion ? 0 : 0.6,
-      },
+      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94], delay: shouldReduceMotion ? 0 : 0.6 },
     },
   };
 
+  // Format date for editorial display (e.g., "08.01.2026")
+  const formattedDate = "08.01.2026";
+
   return (
-    <section className="relative">
-      {/* Mobile: Stacked layout */}
-      <div className="lg:hidden">
-        {/* Image section */}
-        <motion.div 
-          className="relative h-[65vh] w-full"
-          initial="hidden"
-          animate="visible"
-          variants={imageVariants}
-        >
-          <Image
-            src="/images/hero-home.jpg"
-            alt={`${couple.person1} and ${couple.person2}`}
-            fill
-            className="object-cover object-top"
-            priority
-            sizes="100vw"
-          />
-        </motion.div>
-        
-        {/* Content section */}
-        <motion.div 
-          className="bg-sage-600 px-6 py-10 text-center"
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-        >
-          <motion.p 
-            className="text-white/80 text-xs tracking-widest uppercase mb-3"
-            style={{ letterSpacing: "3px" }}
-            variants={itemVariants}
-          >
-            The Wedding of
-          </motion.p>
-          <motion.div className="mb-6" variants={itemVariants}>
-            <div className="font-serif text-display-sm text-white leading-tight" style={{ letterSpacing: "2px" }}>
-              <div>{couple.person1}</div>
-              <div>&</div>
-              <div>{couple.person2}</div>
+    <>
+      {/* ============================================
+          MOBILE: Stacked layout with gray frame
+          ============================================ */}
+      <section className="lg:hidden">
+        {/* Outer gray frame - matching reference */}
+        <div className="p-3 sm:p-4 min-h-screen" style={{ backgroundColor: "#A5A5A0" }}>
+          {/* Inner content */}
+          <div className="min-h-[calc(100vh-24px)] sm:min-h-[calc(100vh-32px)] flex flex-col" style={{ backgroundColor: "#6B705C" }}>
+            {/* Image section */}
+            <motion.div 
+              className="relative h-[55vh] w-full"
+              initial="hidden"
+              animate="visible"
+              variants={imageVariants}
+            >
+              <Image
+                src="/images/hero-home.jpg"
+                alt={`${couple.person1} and ${couple.person2}`}
+                fill
+                className="object-cover object-top"
+                priority
+                sizes="100vw"
+              />
+              
+              {/* Ghost circle RSVP button - overlapping at seam */}
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={floatingButtonVariants}
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-10"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Link
+                    href="/rsvp"
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-white/40 backdrop-blur-sm
+                               flex items-center justify-center text-white text-xs sm:text-sm font-sans font-normal
+                               hover:border-white/70 transition-all duration-300"
+                    style={{ letterSpacing: "0.15em", backgroundColor: "rgba(107, 112, 92, 0.6)" }}
+                  >
+                    RSVP
+                  </Link>
+                </motion.div>
+              </motion.div>
+            </motion.div>
+            
+            {/* Content section - bottom aligned */}
+            <div className="flex-1 flex flex-col justify-end p-6 sm:p-8 pt-16">
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={textVariants}
+              >
+                {/* Date - subtle, small */}
+                <p 
+                  className="text-white/50 text-xs font-sans mb-6"
+                  style={{ letterSpacing: "0.1em" }}
+                >
+                  {formattedDate}
+                </p>
+                
+                {/* Names - large serif, elegant */}
+                <h1 className="font-serif text-5xl sm:text-6xl text-white leading-[1.05] tracking-tight" style={{ fontWeight: 400 }}>
+                  <span>{couple.person1}</span>
+                  <span className="text-white/70"> &</span>
+                  <br />
+                  <span>{couple.person2}</span>
+                </h1>
+              </motion.div>
             </div>
-          </motion.div>
-          <motion.div className="space-y-2 mb-6 text-white/90 text-sm" variants={itemVariants}>
-            <div className="flex items-center justify-center gap-2">
-              <span>{venue.name}, {venue.city}</span>
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <span>{date.full}</span>
-            </div>
-          </motion.div>
-          <motion.div className="flex flex-col gap-3" variants={itemVariants}>
-            {children}
-          </motion.div>
-        </motion.div>
-      </div>
+          </div>
+        </div>
+      </section>
 
-      {/* Desktop: Split layout */}
-      <div className="hidden lg:flex min-h-screen">
-        {/* Left Panel */}
-        <motion.div 
-          className="w-1/2 bg-sage-600 flex flex-col justify-end p-20"
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-        >
-          <motion.p 
-            className="text-white text-sm tracking-widest uppercase mb-4"
-            style={{ letterSpacing: "2px" }}
-            variants={itemVariants}
-          >
-            The Wedding of
-          </motion.p>
-          <motion.div className="mb-10" variants={itemVariants}>
-            <div className="font-serif text-display-lg xl:text-display-xl text-white leading-tight w-fit" style={{ letterSpacing: "2px" }}>
-              <div>{couple.person1}</div>
-              <div className="text-center">&</div>
-              <div>{couple.person2}</div>
-            </div>
-          </motion.div>
-          <motion.div className="space-y-3 mb-12" variants={itemVariants}>
-            <div className="flex items-center gap-3 text-white">
-              <span>{venue.name}, {venue.city}</span>
-            </div>
-            <div className="flex items-center gap-3 text-white">
-              <span>{date.full} at {date.timeDisplay}</span>
-            </div>
-          </motion.div>
-          <motion.div className="flex flex-wrap gap-4" variants={itemVariants}>
-            {children}
-          </motion.div>
-        </motion.div>
+      {/* ============================================
+          DESKTOP: Split layout with gray frame (matching reference)
+          ============================================ */}
+      <section className="hidden lg:block relative">
+        {/* Outer gray frame - thinner like reference (~20-30px) */}
+        <div className="p-5 xl:p-6 min-h-screen" style={{ backgroundColor: "#A5A5A0" }}>
+          {/* Inner split layout */}
+          <div className="flex h-[calc(100vh-40px)] xl:h-[calc(100vh-48px)] relative">
+            
+            {/* Left Panel - Sage green with bottom-left aligned text */}
+            <motion.div 
+              className="w-[45%] flex flex-col justify-end p-10 xl:p-14 2xl:p-16"
+              style={{ backgroundColor: "#6B705C" }}
+              initial="hidden"
+              animate="visible"
+              variants={textVariants}
+            >
+              {/* Date - Subtle, small like reference */}
+              <motion.p 
+                className="text-white/50 text-xs xl:text-sm font-sans mb-8"
+                style={{ letterSpacing: "0.1em" }}
+                initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.2 }}
+              >
+                {formattedDate}
+              </motion.p>
+              
+              {/* Names - Large elegant serif like reference */}
+              <motion.h1 
+                className="font-serif text-6xl xl:text-7xl 2xl:text-8xl text-white leading-[1.02] tracking-tight"
+                style={{ fontWeight: 400 }}
+                initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.3 }}
+              >
+                <span>{couple.person1}</span>
+                <span className="text-white/60"> &</span>
+                <br />
+                <span>{couple.person2}</span>
+              </motion.h1>
+            </motion.div>
 
-        {/* Right Panel - Image */}
-        <motion.div 
-          className="w-1/2 relative"
-          initial="hidden"
-          animate="visible"
-          variants={imageVariants}
-        >
-          <Image
-            src="/images/hero-home.jpg"
-            alt={`${couple.person1} and ${couple.person2}`}
-            fill
-            className="object-cover"
-            priority
-            sizes="50vw"
-          />
-        </motion.div>
+            {/* Right Panel - Full-height image (55% width) */}
+            <motion.div 
+              className="w-[55%] relative"
+              initial="hidden"
+              animate="visible"
+              variants={imageVariants}
+            >
+              <Image
+                src="/images/hero-home.jpg"
+                alt={`${couple.person1} and ${couple.person2}`}
+                fill
+                className="object-cover"
+                priority
+                sizes="55vw"
+              />
+            </motion.div>
 
-        {/* Floating RSVP Button */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={floatingButtonVariants}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
-        >
-          <Link
-            href="/rsvp"
-            className="w-28 h-28 rounded-full border-2 border-white/40 bg-sage-600/90 backdrop-blur-sm
-                       flex items-center justify-center text-white text-sm font-medium tracking-wider uppercase
-                       hover:bg-sage-700 hover:border-white/60 hover:scale-105 transition-all duration-300 shadow-lg"
-          >
-            RSVP
-          </Link>
-        </motion.div>
-      </div>
-    </section>
+            {/* Ghost Circle RSVP - positioned at the seam like reference */}
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={floatingButtonVariants}
+              className="absolute left-[45%] top-1/3 -translate-x-1/2 z-10"
+            >
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Link
+                  href="/rsvp"
+                  className="w-24 h-24 xl:w-28 xl:h-28 rounded-full border border-white/40 backdrop-blur-sm
+                             flex items-center justify-center text-white text-sm font-sans font-normal
+                             hover:border-white/70 transition-all duration-300"
+                  style={{ letterSpacing: "0.15em", backgroundColor: "rgba(107, 112, 92, 0.5)" }}
+                >
+                  RSVP
+                </Link>
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

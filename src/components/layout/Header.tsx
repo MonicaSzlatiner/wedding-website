@@ -28,28 +28,22 @@ function NavLink({
       href={href}
       role="menuitem"
       aria-current={isActive ? "page" : undefined}
-      style={{ fontSize: "0.9rem", letterSpacing: "1.5px" }}
-      className={`relative font-sans font-normal uppercase transition-colors duration-200 group ${
+      style={{ fontSize: "0.75rem", letterSpacing: "0.2em" }}
+      className={`relative font-sans font-medium uppercase transition-colors duration-200 group ${
         isActive
-          ? showSolidHeader
-            ? "text-sage-600"
-            : "text-white"
+          ? showSolidHeader ? "text-white" : "text-white"
           : showSolidHeader
-          ? "text-stone-500 hover:text-stone-800"
-          : "text-ivory hover:text-white"
+          ? "text-white/60 hover:text-white"
+          : "text-white/60 hover:text-white"
       }`}
     >
       {children}
       {/* Animated underline */}
       <span
         className={`absolute -bottom-1 left-0 h-[1px] transition-all duration-200 ease-out ${
-          showSolidHeader ? "bg-sage-600" : "bg-white"
-        } ${
           isActive 
-            ? "w-full" 
-            : shouldReduceMotion 
-              ? "w-0 group-hover:w-full" 
-              : "w-0 group-hover:w-full"
+            ? "w-full bg-white"
+            : "w-0 group-hover:w-full bg-white/60"
         }`}
       />
     </Link>
@@ -96,9 +90,10 @@ export function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         showSolidHeader
-          ? "bg-stone-50/95 backdrop-blur-sm border-b border-stone-200"
+          ? "backdrop-blur-sm"
           : "bg-transparent"
       }`}
+      style={showSolidHeader ? { backgroundColor: "rgba(107, 112, 92, 0.95)" } : undefined}
     >
       <nav className="px-6 md:px-16 lg:px-20" aria-label="Main navigation">
         <div className="flex items-center justify-start h-16 md:h-20">
@@ -119,9 +114,7 @@ export function Header() {
           {/* Mobile Menu Button */}
           <button
             type="button"
-            className={`md:hidden p-2 -ml-2 transition-colors duration-200 ${
-              showSolidHeader ? "text-stone-800" : "text-white"
-            }`}
+            className={`md:hidden p-2 -ml-2 transition-colors duration-200 text-white`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
@@ -144,7 +137,8 @@ export function Header() {
               animate="open"
               exit="closed"
               variants={menuVariants}
-              className="md:hidden absolute top-full left-0 right-0 bg-stone-50 border-b border-stone-200 shadow-lg"
+              className="md:hidden absolute top-full left-0 right-0 shadow-lg"
+              style={{ backgroundColor: "#6B705C" }}
               role="menu"
             >
               <div className="py-4 px-6 space-y-1">
@@ -160,11 +154,11 @@ export function Header() {
                       role="menuitem"
                       aria-current={pathname === item.href ? "page" : undefined}
                       onClick={() => setMobileMenuOpen(false)}
-                      style={{ fontSize: "0.9rem", letterSpacing: "1.5px" }}
-                      className={`block py-3 font-sans font-normal uppercase transition-colors duration-200 ${
+                      style={{ fontSize: "0.75rem", letterSpacing: "0.2em" }}
+                      className={`block py-3 font-sans font-medium uppercase transition-colors duration-200 ${
                         pathname === item.href
-                          ? "text-sage-600"
-                          : "text-stone-600 hover:text-stone-800"
+                          ? "text-white"
+                          : "text-white/60 hover:text-white"
                       }`}
                     >
                       {item.label}

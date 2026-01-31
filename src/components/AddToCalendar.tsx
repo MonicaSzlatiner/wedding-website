@@ -37,18 +37,18 @@ export function AddToCalendar({ variant = "primary", size = "md", className = ""
 
   const buttonStyles = {
     primary:
-      "bg-sage-600 text-white hover:bg-sage-700 border-sage-600",
+      "bg-black text-white hover:bg-charcoal border-black",
     "outline-white":
-      "border-white text-white bg-transparent hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]",
+      "border-white text-white bg-transparent hover:bg-white/10",
   };
 
   const dropdownBg = {
-    primary: "bg-white border-stone-200 shadow-lg",
-    "outline-white": "bg-sage-700 border-white/20",
+    primary: "bg-white border-gray-300 shadow-lg",
+    "outline-white": "bg-black border-white/20",
   };
 
   const dropdownItem = {
-    primary: "text-stone-700 hover:bg-stone-100",
+    primary: "text-black hover:bg-gray-100",
     "outline-white": "text-white hover:bg-white/10",
   };
 

@@ -19,14 +19,15 @@ function formatReviewCount(count: number): string {
 export function HotelCard({ hotel }: HotelCardProps) {
   return (
     <article 
-      className="bg-white rounded-xl shadow-sm border border-stone-100 p-4 sm:p-5 md:p-6 
-                 hover:shadow-lg hover:scale-[1.02] hover:border-stone-200
+      className="rounded-xl p-4 sm:p-5 md:p-6 
+                 hover:shadow-lg hover:scale-[1.02]
                  transition-all duration-200 ease-out will-change-transform"
+      style={{ backgroundColor: "#F8F9FA" }}
       aria-labelledby={`hotel-${hotel.id}-name`}
     >
       {/* Header: Area and Badges */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
-        <div className="flex items-center gap-1 text-stone-500 text-xs sm:text-sm">
+        <div className="flex items-center gap-1 text-xs sm:text-sm" style={{ color: "rgba(26, 26, 26, 0.5)" }}>
           <MapPinIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" aria-hidden="true" />
           <span>{hotel.area}</span>
         </div>
@@ -37,7 +38,8 @@ export function HotelCard({ hotel }: HotelCardProps) {
             {hotel.badges.map((badge, index) => (
               <span 
                 key={index}
-                className="bg-sage-600 text-white text-xs font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full"
+                className="text-white text-xs font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full"
+                style={{ backgroundColor: "#6B705C" }}
               >
                 {badge}
               </span>
@@ -49,19 +51,20 @@ export function HotelCard({ hotel }: HotelCardProps) {
       {/* Hotel Name */}
       <h3 
         id={`hotel-${hotel.id}-name`}
-        className="font-serif text-lg sm:text-xl text-stone-800 mb-2"
+        className="font-serif text-lg sm:text-xl mb-2"
+        style={{ color: "#1A1A1A", fontWeight: 400 }}
       >
         {hotel.name}
       </h3>
 
       {/* Description */}
-      <p className="text-stone-500 text-xs sm:text-sm mb-2 sm:mb-3 leading-relaxed">
+      <p className="text-xs sm:text-sm mb-2 sm:mb-3 leading-relaxed" style={{ color: "rgba(26, 26, 26, 0.6)" }}>
         {hotel.description}
       </p>
 
       {/* Vibe (optional) */}
       {hotel.vibe && (
-        <p className="text-stone-400 text-xs italic mb-3 sm:mb-4">
+        <p className="text-xs italic mb-3 sm:mb-4" style={{ color: "rgba(26, 26, 26, 0.4)" }}>
           Vibe: {hotel.vibe}
         </p>
       )}
@@ -70,17 +73,20 @@ export function HotelCard({ hotel }: HotelCardProps) {
       <div className="mb-4 sm:mb-5">
         {hotel.rating ? (
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1 bg-stone-100 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded">
+            <div 
+              className="flex items-center gap-1 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded"
+              style={{ backgroundColor: "rgba(107, 112, 92, 0.1)" }}
+            >
               <StarIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-yellow-500" aria-hidden="true" />
-              <span className="font-medium text-stone-800 text-sm">{hotel.rating.score.toFixed(1)}</span>
+              <span className="font-medium text-sm" style={{ color: "#1A1A1A" }}>{hotel.rating.score.toFixed(1)}</span>
             </div>
-            <span className="text-stone-500 text-xs sm:text-sm">
+            <span className="text-xs sm:text-sm" style={{ color: "rgba(26, 26, 26, 0.5)" }}>
               ({formatReviewCount(hotel.rating.reviewCount)} reviews)
             </span>
           </div>
         ) : (
-          <p className="text-stone-400 text-xs sm:text-sm">
-            Google rating: <a href={hotel.googleMapsUrl} target="_blank" rel="noopener noreferrer" className="text-sage-600 underline underline-offset-2">see link</a>
+          <p className="text-xs sm:text-sm" style={{ color: "rgba(26, 26, 26, 0.4)" }}>
+            Google rating: <a href={hotel.googleMapsUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2" style={{ color: "#6B705C" }}>see link</a>
           </p>
         )}
       </div>
@@ -91,7 +97,12 @@ export function HotelCard({ hotel }: HotelCardProps) {
           href={hotel.googleMapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 border border-stone-300 text-stone-700 text-xs sm:text-sm font-medium rounded-full hover:bg-stone-50 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sage-600 min-h-[44px]"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 border-2 text-xs sm:text-sm font-medium rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 min-h-[44px] uppercase"
+          style={{ 
+            borderColor: "#1A1A1A", 
+            color: "#1A1A1A",
+            letterSpacing: "0.1em"
+          }}
         >
           View on Google
           <ArrowTopRightOnSquareIcon className="h-4 w-4" aria-hidden="true" />
@@ -101,7 +112,11 @@ export function HotelCard({ hotel }: HotelCardProps) {
           href={hotel.bookingUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-sage-600 text-white text-xs sm:text-sm font-medium rounded-full hover:bg-sage-700 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sage-600 min-h-[44px]"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 text-white text-xs sm:text-sm font-medium rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 min-h-[44px] uppercase"
+          style={{ 
+            backgroundColor: "#6B705C",
+            letterSpacing: "0.1em"
+          }}
         >
           Book Hotel
           <ArrowTopRightOnSquareIcon className="h-4 w-4" aria-hidden="true" />

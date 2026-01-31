@@ -3,7 +3,6 @@ import Image from "next/image";
 import { weddingConfig } from "@/config/content";
 import { hotels, accommodationsContent } from "@/config/hotels";
 import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { HotelCard } from "@/components/HotelCard";
 
 export const metadata: Metadata = {
@@ -16,76 +15,105 @@ export default function AccommodationsPage() {
 
   return (
     <>
-      {/* Hero Section - Mobile: stacked, Desktop: split */}
-      <section className="relative min-h-[85vh] lg:min-h-[70vh]">
-        {/* Mobile: Full-bleed image background */}
-        <div className="lg:hidden absolute inset-0">
-          <Image
-            src="/images/dogs.jpg"
-            alt="Our furry friends waiting to welcome you"
-            fill
-            className="object-cover object-center"
-            priority
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-sage-900/95 via-sage-800/60 to-sage-700/30" />
-        </div>
-
-        {/* Desktop: Split layout */}
-        <div className="hidden lg:flex min-h-[70vh]">
-          <div className="w-1/2 bg-sage-600 flex flex-col justify-center p-20">
-            <p className="text-white/80 text-sm tracking-widest uppercase mb-4" style={{ letterSpacing: "2px" }}>
-              Plan Your Stay
-            </p>
-            <h1 className="font-serif text-display-lg text-white mb-6" style={{ letterSpacing: "2px" }}>
-              {title}
-            </h1>
-            <p className="text-white/90 text-lg max-w-md leading-relaxed">
-              {subtitle}
-            </p>
-          </div>
-          <div className="w-1/2 relative">
-            <Image
-              src="/images/dogs.jpg"
-              alt="Our furry friends waiting to welcome you"
-              fill
-              className="object-cover"
-              priority
-              sizes="50vw"
-            />
+      {/* Hero Section - Editorial framed style */}
+      <section className="relative">
+        {/* Mobile: Stacked with frame */}
+        <div className="lg:hidden p-3 sm:p-4 min-h-[90vh]" style={{ backgroundColor: "#A5A5A0" }}>
+          <div className="min-h-[calc(90vh-24px)] sm:min-h-[calc(90vh-32px)] flex flex-col" style={{ backgroundColor: "#6B705C" }}>
+            {/* Image */}
+            <div className="relative h-[50vh]">
+              <Image
+                src="/images/dogs.jpg"
+                alt="Our furry friends waiting to welcome you"
+                fill
+                className="object-cover object-center"
+                priority
+                sizes="100vw"
+              />
+            </div>
+            {/* Content */}
+            <div className="flex-1 flex flex-col justify-end p-6 sm:p-8">
+              <p 
+                className="text-white/50 text-xs uppercase mb-4"
+                style={{ letterSpacing: "0.2em" }}
+              >
+                Plan Your Stay
+              </p>
+              <h1 className="font-serif text-4xl sm:text-5xl text-white leading-tight mb-4" style={{ fontWeight: 400 }}>
+                {title}
+              </h1>
+              <p className="text-white/70 text-base leading-relaxed max-w-sm">
+                {subtitle}
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Mobile: Content overlay */}
-        <div className="lg:hidden relative min-h-[85vh] flex flex-col justify-end px-6 pb-16 pt-24">
-          <p className="text-white/80 text-xs tracking-widest uppercase mb-3" style={{ letterSpacing: "3px" }}>
-            Plan Your Stay
-          </p>
-          <h1 className="font-serif text-display-sm text-white mb-4" style={{ letterSpacing: "1px" }}>
-            {title}
-          </h1>
-          <p className="text-white/90 text-base leading-relaxed max-w-sm">
-            {subtitle}
-          </p>
+        {/* Desktop: Framed split layout */}
+        <div className="hidden lg:block p-5 xl:p-6 min-h-screen" style={{ backgroundColor: "#A5A5A0" }}>
+          <div className="flex h-[calc(100vh-40px)] xl:h-[calc(100vh-48px)]">
+            {/* Left Panel */}
+            <div 
+              className="w-[45%] flex flex-col justify-end p-10 xl:p-14"
+              style={{ backgroundColor: "#6B705C" }}
+            >
+              <p 
+                className="text-white/50 text-xs xl:text-sm uppercase mb-6"
+                style={{ letterSpacing: "0.2em" }}
+              >
+                Plan Your Stay
+              </p>
+              <h1 
+                className="font-serif text-5xl xl:text-6xl 2xl:text-7xl text-white leading-[1.05] mb-6"
+                style={{ fontWeight: 400 }}
+              >
+                {title}
+              </h1>
+              <p className="text-white/60 text-base xl:text-lg max-w-md leading-relaxed">
+                {subtitle}
+              </p>
+            </div>
+            {/* Right Panel - Image */}
+            <div className="w-[55%] relative">
+              <Image
+                src="/images/dogs.jpg"
+                alt="Our furry friends waiting to welcome you"
+                fill
+                className="object-cover"
+                priority
+                sizes="55vw"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Intro Section */}
-      <section className="py-10 md:py-12 bg-stone-50">
+      {/* Intro Section - Sage background */}
+      <section className="py-10 md:py-12" style={{ backgroundColor: "#6B705C" }}>
         <Container size="content">
-          <p className="text-stone-600 text-base md:text-lg leading-relaxed text-center max-w-3xl mx-auto px-2">
+          <p className="text-white/80 text-base md:text-lg leading-relaxed text-center max-w-3xl mx-auto px-2">
             {intro}
           </p>
         </Container>
       </section>
 
-      {/* Hotels List */}
-      <section className="py-12 md:py-16 lg:py-20">
+      {/* Hotels List - Gray background */}
+      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#A5A5A0" }}>
         <Container>
-          <SectionHeading
-            title="Recommended Hotels"
-            subtitle="Our hand-picked options near the venue"
-          />
+          <div className="text-center mb-8 md:mb-12">
+            <p 
+              className="text-xs md:text-sm uppercase mb-3"
+              style={{ letterSpacing: "0.2em", color: "#6B705C" }}
+            >
+              Our Picks
+            </p>
+            <h2 
+              className="font-serif text-3xl md:text-4xl"
+              style={{ fontWeight: 400, color: "#1A1A1A" }}
+            >
+              Recommended Hotels
+            </h2>
+          </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {hotels.map((hotel) => (
@@ -95,27 +123,30 @@ export default function AccommodationsPage() {
         </Container>
       </section>
 
-      {/* Other Options */}
-      <section className="py-12 md:py-16 bg-stone-100">
+      {/* Other Options - Sage background */}
+      <section className="py-12 md:py-16" style={{ backgroundColor: "#6B705C" }}>
         <Container size="content">
           <div className="text-center px-2">
-            <h2 className="font-serif text-xl md:text-2xl text-stone-800 mb-3 md:mb-4">
+            <h2 className="font-serif text-xl md:text-2xl text-white mb-3 md:mb-4" style={{ fontWeight: 400 }}>
               {otherOptions.title}
             </h2>
-            <p className="text-stone-600 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+            <p className="text-white/70 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
               {otherOptions.description}
             </p>
           </div>
         </Container>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-12 md:py-16 bg-sage-600 text-white text-center">
+      {/* CTA Section - Gray background */}
+      <section className="py-12 md:py-16 text-center" style={{ backgroundColor: "#A5A5A0" }}>
         <Container size="content">
-          <h2 className="font-serif text-xl md:text-2xl text-white mb-3 md:mb-4 px-2" style={{ letterSpacing: "1px" }}>
+          <h2 
+            className="font-serif text-xl md:text-2xl mb-3 md:mb-4 px-2"
+            style={{ fontWeight: 400, color: "#1A1A1A" }}
+          >
             Questions about where to stay?
           </h2>
-          <p className="text-white/80 text-sm md:text-base px-2">
+          <p style={{ color: "rgba(26, 26, 26, 0.6)" }} className="text-sm md:text-base px-2">
             Feel free to reach out if you need any recommendations.
           </p>
         </Container>

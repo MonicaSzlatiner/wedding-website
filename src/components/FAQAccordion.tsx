@@ -29,23 +29,29 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
         return (
           <div
             key={index}
-            className="bg-white rounded-xl shadow-sm border border-stone-100 overflow-hidden"
+            className="rounded-xl overflow-hidden"
+            style={{ backgroundColor: "#F8F9FA" }}
           >
             <h3>
               <button
                 id={buttonId}
                 onClick={() => toggleItem(index)}
-                className="w-full px-4 py-4 md:px-6 md:py-5 text-left flex items-center justify-between gap-3 md:gap-4 hover:bg-stone-50 transition-colors focus:outline-none focus:ring-2 focus:ring-sage-600 focus:ring-inset min-h-[56px]"
+                className="w-full px-4 py-4 md:px-6 md:py-5 text-left flex items-center justify-between gap-3 md:gap-4 transition-colors focus:outline-none focus:ring-2 focus:ring-inset min-h-[56px]"
+                style={{ 
+                  // @ts-expect-error CSS custom property
+                  "--tw-ring-color": "#6B705C" 
+                }}
                 aria-expanded={isOpen}
                 aria-controls={panelId}
               >
-                <span className="font-serif text-base md:text-lg text-stone-800 leading-snug">
+                <span className="font-serif text-base md:text-lg leading-snug" style={{ color: "#1A1A1A", fontWeight: 400 }}>
                   {item.question}
                 </span>
                 <ChevronDownIcon
-                  className={`h-5 w-5 text-stone-400 flex-shrink-0 transition-transform duration-200 ${
+                  className={`h-5 w-5 flex-shrink-0 transition-transform duration-200 ${
                     isOpen ? "rotate-180" : ""
                   }`}
+                  style={{ color: "rgba(26, 26, 26, 0.4)" }}
                   aria-hidden="true"
                 />
               </button>
@@ -60,7 +66,10 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
                 isOpen ? "max-h-96" : "max-h-0"
               }`}
             >
-              <div className="px-4 pb-4 md:px-6 md:pb-5 text-stone-600 text-sm md:text-base leading-relaxed">
+              <div 
+                className="px-4 pb-4 md:px-6 md:pb-5 text-sm md:text-base leading-relaxed"
+                style={{ color: "rgba(26, 26, 26, 0.6)" }}
+              >
                 {item.answer}
               </div>
             </div>

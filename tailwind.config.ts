@@ -9,81 +9,78 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Primary sage/olive tones (refined elegant palette)
+        // ============================================
+        // MODERN EDITORIAL PALETTE
+        // Based on reference: Cool gray frame + Sage green panel
+        // ============================================
+        
+        // Primary Background - Darker Sage/Olive (matches reference)
         sage: {
+          DEFAULT: "#6B705C",
           50: "#f6f7f4",
           100: "#e8ebe3",
-          200: "#d4d9cb",
-          300: "#b5bda8",
-          400: "#939d82",
-          500: "#828D77", // Sage green
-          600: "#828D77", // Primary background panels
-          700: "#6b7660",
-          800: "#565f4d",
-          900: "#414839",
+          500: "#6B705C",
+          600: "#5a5e4d",
         },
-        // Ivory for text
-        ivory: {
-          DEFAULT: "#E4E4DE",
-          50: "#F5F5F3",
-          100: "#E4E4DE",
+        
+        // Outer Frame - Cool Gray/Stone (matches reference)
+        frame: {
+          DEFAULT: "#A5A5A0",
+          light: "#B0B0AB",
+          dark: "#959590",
         },
-        // Emerald accents
-        emerald: {
-          50: "#ecfdf5",
-          100: "#d1fae5",
-          200: "#a7f3d0",
-          300: "#6ee7b7",
-          400: "#34d399",
-          500: "#10b981",
-          600: "#059669", // CTAs, links
-          700: "#047857",
-          800: "#065f46",
-          900: "#064e3b",
+        
+        // Typography colors
+        offWhite: "#F8F9FA",
+        white: "#FFFFFF",
+        black: "#000000",
+        charcoal: "#1A1A1A",
+        
+        // Supporting grays
+        gray: {
+          100: "#F5F5F5",
+          300: "#E0E0E0",
+          400: "#A0A0A0",
+          600: "#666666",
+          800: "#333333",
         },
-        // Warm stone neutrals
+        
+        // Legacy for other pages
+        cream: {
+          50: "#FAFAFA",
+          100: "#F8F7F4",
+        },
         stone: {
           50: "#fafaf9",
-          100: "#f5f5f4",
-          200: "#e7e5e4",
-          300: "#d6d3d1",
-          400: "#a8a29e",
           500: "#78716c",
-          600: "#57534e",
-          700: "#44403c",
           800: "#292524",
-          900: "#1c1917",
         },
-        // Accent colors
-        blush: {
-          50: "#fef2f2",
-          100: "#fee2e2",
-        },
-        gold: {
-          100: "#fef3c7",
-          200: "#fde68a",
-          300: "#fcd34d",
+        emerald: {
+          500: "#10B981",
+          600: "#059669",
         },
       },
       fontFamily: {
-        serif: ["Prata", "Georgia", "serif"],
-        sans: ["Inter", "system-ui", "sans-serif"],
+        // Cormorant Garamond for headings/names - elegant, editorial
+        serif: ["var(--font-cormorant)", "Georgia", "serif"],
+        // Montserrat for dates, buttons, utility text
+        sans: ["var(--font-montserrat)", "system-ui", "sans-serif"],
       },
       fontSize: {
-        // Custom heading sizes for editorial feel
-        "display-xl": ["5rem", { lineHeight: "1.1", letterSpacing: "-0.02em" }],
-        "display-lg": ["4rem", { lineHeight: "1.1", letterSpacing: "-0.02em" }],
-        "display-md": ["3rem", { lineHeight: "1.2", letterSpacing: "-0.01em" }],
-        "display-sm": ["2.25rem", { lineHeight: "1.25" }],
+        // Typography scale - mobile-first, responsive
+        "display-xl": ["5rem", { lineHeight: "1.1", letterSpacing: "-0.02em" }],   // 80px
+        "display-lg": ["4rem", { lineHeight: "1.1", letterSpacing: "-0.02em" }],   // 64px
+        "display-md": ["3rem", { lineHeight: "1.2", letterSpacing: "-0.01em" }],   // 48px
+        "display-sm": ["2.25rem", { lineHeight: "1.25", letterSpacing: "-0.01em" }], // 36px
       },
       spacing: {
-        // Section spacing
         section: "6rem",
         "section-sm": "4rem",
       },
       maxWidth: {
         content: "42rem",
         wide: "72rem",
+        prose: "65ch", // Optimal reading line length
       },
     },
   },

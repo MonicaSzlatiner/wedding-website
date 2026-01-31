@@ -2,64 +2,138 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import Google Fonts - Prata for headings, Inter for body */
-@import url('https://fonts.googleapis.com/css2?family=Prata&family=Inter:wght@400;700&display=swap');
+/* 
+ * Typography System: Cormorant Garamond + Montserrat
+ * Color Palette: Sage Green + Khaki + Off-White
+ * Philosophy: Modern Editorial, Magazine-like restraint
+ * 
+ * Fonts are loaded via next/font in layout.tsx for optimal performance
+ */
 
 @layer base {
   html {
     @apply antialiased;
     scroll-behavior: smooth;
+    font-feature-settings: 'liga' 1, 'kern' 1;
   }
 
   body {
-    @apply bg-stone-50 text-stone-600 font-sans;
-    line-height: 1.6;
+    @apply font-sans;
+    background-color: #A5A5A0; /* frame gray */
+    color: #1A1A1A; /* charcoal */
+    line-height: 1.625;
+    font-size: 14px;
   }
 
-  /* Typography defaults - Prata for headings */
+  @media (min-width: 768px) {
+    body {
+      font-size: 16px;
+    }
+  }
+
+  /* ============================================
+   * Typography Hierarchy
+   * Cormorant Garamond for headings (weight 500)
+   * Montserrat for utility text (uppercase, spaced)
+   * ============================================ */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif text-stone-800;
-    letter-spacing: 0.02em;
+    @apply font-serif;
+    color: #1A1A1A; /* charcoal */
+    line-height: 1.1;
+    font-weight: 500;
   }
 
   h1 {
-    @apply text-display-md md:text-display-lg;
-    letter-spacing: 2px;
+    @apply text-4xl md:text-6xl;
   }
 
   h2 {
-    @apply text-display-sm md:text-display-md;
-    letter-spacing: 1px;
+    @apply text-3xl md:text-5xl;
   }
 
   h3 {
-    @apply text-2xl md:text-3xl;
+    @apply text-2xl md:text-4xl;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl;
   }
 
   p {
-    @apply leading-relaxed;
+    @apply leading-relaxed max-w-prose;
   }
 
   a {
-    @apply transition-all duration-300;
+    @apply transition-all duration-200 ease-out;
+  }
+
+  small, .caption {
+    @apply text-sm;
+    color: rgba(26, 26, 26, 0.6); /* charcoal/60 */
   }
 }
 
 @layer components {
-  /* Reusable button styles - Ghost button aesthetic */
+  /* ============================================
+   * Button Styles - Modern Editorial Palette
+   * Sage: #6B705C, Off-White: #F8F9FA, Charcoal: #1A1A1A
+   * ============================================ */
+  
+  /* Primary CTA - Sage green (darker, matching reference) */
   .btn-primary {
-    @apply inline-flex items-center justify-center px-8 py-3 bg-sage-600 text-white font-medium rounded-full hover:bg-sage-700 transition-all duration-300;
+    @apply inline-flex items-center justify-center px-8 py-3 
+           font-medium rounded-full uppercase
+           hover:shadow-lg active:scale-[0.98] transition-all duration-200 ease-out;
+    background-color: #6B705C;
+    color: #F8F9FA;
+    letter-spacing: 0.15em;
+  }
+  .btn-primary:hover {
+    background-color: #5a5e4d;
   }
 
+  /* Secondary - Outlined charcoal */
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-8 py-3 border border-stone-400 text-stone-700 font-medium rounded-full hover:bg-stone-100 transition-all duration-300;
+    @apply inline-flex items-center justify-center px-8 py-3 
+           border-2 font-medium rounded-full uppercase
+           active:scale-[0.98] transition-all duration-200 ease-out;
+    border-color: #1A1A1A;
+    color: #1A1A1A;
+    letter-spacing: 0.15em;
+  }
+  .btn-secondary:hover {
+    background-color: #1A1A1A;
+    color: #F8F9FA;
   }
 
+  /* Ghost/Outline white - for sage backgrounds */
   .btn-outline-white {
-    @apply inline-flex items-center justify-center px-8 py-3 border border-white text-white font-medium rounded-full bg-transparent hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-all duration-300;
+    @apply inline-flex items-center justify-center px-8 py-3 
+           border-2 font-medium rounded-full uppercase
+           bg-transparent active:scale-[0.98] transition-all duration-200 ease-out;
+    border-color: rgba(248, 249, 250, 0.6);
+    color: #F8F9FA;
+    letter-spacing: 0.15em;
+  }
+  .btn-outline-white:hover {
+    background-color: rgba(248, 249, 250, 0.1);
+    border-color: #F8F9FA;
   }
 
-  /* Container utility */
+  /* Text/Ghost button */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-4 py-2
+           underline underline-offset-4 uppercase
+           transition-all duration-200 ease-out;
+    color: #1A1A1A;
+    text-decoration-color: rgba(26, 26, 26, 0.4);
+    letter-spacing: 0.1em;
+  }
+  .btn-ghost:hover {
+    text-decoration-color: #6B705C;
+  }
+
+  /* Container utilities */
   .container-content {
     @apply max-w-content mx-auto px-6;
   }
@@ -73,9 +147,33 @@
     @apply py-section-sm md:py-section;
   }
 
-  /* Link styles */
+  /* Link styles - charcoal with sage on hover */
   .link-underline {
-    @apply underline underline-offset-4 decoration-1 hover:decoration-2;
+    @apply underline underline-offset-4 decoration-1 transition-all duration-200;
+    color: #1A1A1A;
+    text-decoration-color: rgba(26, 26, 26, 0.4);
+  }
+  .link-underline:hover {
+    text-decoration-color: #6B705C;
+  }
+
+  /* Card hover effect */
+  .card-hover {
+    @apply border rounded-xl hover:shadow-lg transition-all duration-200 ease-out;
+    background-color: #F8F9FA;
+    border-color: rgba(26, 26, 26, 0.2);
+  }
+  .card-hover:hover {
+    border-color: rgba(107, 112, 92, 0.4);
+  }
+
+  /* Form input focus states - sage accent */
+  .input-focus {
+    @apply focus:ring-2 outline-none transition-all duration-200;
+  }
+  .input-focus:focus {
+    --tw-ring-color: #6B705C;
+    border-color: #6B705C;
   }
 }
 
@@ -110,24 +208,35 @@
   }
 }
 
-/* Focus styles for accessibility */
+/* ============================================
+ * Focus & Accessibility Styles
+ * ============================================ */
 @layer base {
-  /* Visible focus ring for keyboard navigation */
+  /* Visible focus ring - sage accent */
   a:focus-visible,
   button:focus-visible,
-  [role="button"]:focus-visible {
-    @apply outline-none ring-2 ring-sage-600 ring-offset-2;
+  [role="button"]:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply outline-none ring-2 ring-offset-2;
+    --tw-ring-color: #6B705C; /* sage */
+    --tw-ring-offset-color: #A5A5A0; /* frame gray */
   }
 
-  /* Remove default focus outline since we're using ring */
   a:focus,
   button:focus {
     @apply outline-none;
   }
 
-  /* Ensure sufficient color contrast for links */
   a {
     @apply underline-offset-2;
+  }
+
+  /* Selection color - subtle sage tint */
+  ::selection {
+    background-color: rgba(107, 112, 92, 0.2); /* sage/20 */
+    color: #1A1A1A; /* charcoal */
   }
 
   /* Reduced motion preference */

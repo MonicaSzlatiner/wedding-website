@@ -3,7 +3,7 @@ import Link from "next/link";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  variant?: "primary" | "secondary" | "outline-white";
+  variant?: "primary" | "secondary" | "emerald" | "outline-white";
   size?: "sm" | "md" | "lg";
   href?: string;
   external?: boolean;
@@ -19,12 +19,17 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center justify-center font-medium transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sage-600 active:scale-[0.98]";
+    "inline-flex items-center justify-center font-sans font-medium transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sage active:scale-[0.98] uppercase";
 
   const variantStyles = {
-    primary: "bg-sage-600 text-white hover:bg-sage-700 hover:shadow-lg",
-    secondary: "border border-stone-400 text-stone-700 hover:bg-stone-100 hover:border-stone-500",
-    "outline-white": "border border-white text-white bg-transparent hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]",
+    // Primary: Sage green - main CTA
+    primary: "bg-sage text-offWhite hover:bg-sage-600 hover:shadow-lg",
+    // Secondary: Outlined charcoal
+    secondary: "border-2 border-charcoal text-charcoal hover:bg-charcoal hover:text-offWhite",
+    // Emerald: Legacy support
+    emerald: "bg-sage text-offWhite hover:bg-sage-600 hover:shadow-lg",
+    // Outline white: For dark/sage backgrounds
+    "outline-white": "border-2 border-offWhite/60 text-offWhite bg-transparent hover:bg-offWhite/10 hover:border-offWhite",
   };
 
   const sizeStyles = {
