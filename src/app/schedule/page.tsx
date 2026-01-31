@@ -90,7 +90,7 @@ export default function SchedulePage() {
                   {/* Timeline dot */}
                   <div 
                     className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full border-4"
-                    style={{ backgroundColor: "#6B705C", borderColor: "#A5A5A0" }}
+                    style={{ backgroundColor: "#6B705C", borderColor: "#E8E6E1" }}
                   />
 
                   {/* Content */}

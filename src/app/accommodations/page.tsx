@@ -98,7 +98,7 @@ export default function AccommodationsPage() {
       </section>
 
       {/* Hotels List - Gray background */}
-      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#A5A5A0" }}>
+      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#E8E6E1" }}>
         <Container>
           <div className="text-center mb-8 md:mb-12">
             <p 

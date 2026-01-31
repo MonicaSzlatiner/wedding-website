@@ -52,16 +52,13 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
     },
   };
 
-  // Format date for editorial display (e.g., "08.01.2026")
-  const formattedDate = "08.01.2026";
-
   return (
     <>
       {/* ============================================
-          MOBILE: Stacked layout with gray frame
+          MOBILE: Stacked layout with cream frame
           ============================================ */}
       <section className="lg:hidden">
-        {/* Outer gray frame - matching reference */}
+        {/* Outer cream frame */}
         <div className="p-3 sm:p-4 min-h-screen" style={{ backgroundColor: "#E8E6E1" }}>
           {/* Inner content */}
           <div className="min-h-[calc(100vh-24px)] sm:min-h-[calc(100vh-32px)] flex flex-col" style={{ backgroundColor: "#6B705C" }}>
@@ -113,21 +110,29 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
                 animate="visible"
                 variants={textVariants}
               >
-                {/* Date - subtle, small */}
+                {/* "The Wedding of" - larger text */}
                 <p 
-                  className="text-white/50 text-xs font-sans mb-6"
-                  style={{ letterSpacing: "0.1em" }}
+                  className="text-white/70 text-lg sm:text-xl font-serif mb-4"
+                  style={{ fontWeight: 400 }}
                 >
-                  {formattedDate}
+                  The Wedding of
                 </p>
                 
                 {/* Names - large serif, elegant */}
-                <h1 className="font-serif text-5xl sm:text-6xl text-white leading-[1.05] tracking-tight" style={{ fontWeight: 400 }}>
+                <h1 className="font-serif text-5xl sm:text-6xl text-white leading-[1.05] tracking-tight mb-6" style={{ fontWeight: 400 }}>
                   <span>{couple.person1}</span>
                   <span className="text-white/70"> &</span>
                   <br />
                   <span>{couple.person2}</span>
                 </h1>
+                
+                {/* Date - spelled out */}
+                <p 
+                  className="text-white/50 text-sm sm:text-base font-sans"
+                  style={{ letterSpacing: "0.1em" }}
+                >
+                  {date.full}
+                </p>
               </motion.div>
             </div>
           </div>
@@ -135,10 +140,10 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
       </section>
 
       {/* ============================================
-          DESKTOP: Split layout with gray frame (matching reference)
+          DESKTOP: Split layout with cream frame
           ============================================ */}
       <section className="hidden lg:block relative">
-        {/* Outer gray frame - thinner like reference (~20-30px) */}
+        {/* Outer cream frame */}
         <div className="p-5 xl:p-6 min-h-screen" style={{ backgroundColor: "#E8E6E1" }}>
           {/* Inner split layout */}
           <div className="flex h-[calc(100vh-40px)] xl:h-[calc(100vh-48px)] relative">
@@ -151,20 +156,20 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
               animate="visible"
               variants={textVariants}
             >
-              {/* Date - Subtle, small like reference */}
+              {/* "The Wedding of" - larger text */}
               <motion.p 
-                className="text-white/50 text-xs xl:text-sm font-sans mb-8"
-                style={{ letterSpacing: "0.1em" }}
+                className="text-white/70 text-xl xl:text-2xl font-serif mb-6"
+                style={{ fontWeight: 400 }}
                 initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.2 }}
               >
-                {formattedDate}
+                The Wedding of
               </motion.p>
               
-              {/* Names - Large elegant serif like reference */}
+              {/* Names - Large elegant serif */}
               <motion.h1 
-                className="font-serif text-6xl xl:text-7xl 2xl:text-8xl text-white leading-[1.02] tracking-tight"
+                className="font-serif text-6xl xl:text-7xl 2xl:text-8xl text-white leading-[1.02] tracking-tight mb-8"
                 style={{ fontWeight: 400 }}
                 initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 15 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -175,6 +180,17 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
                 <br />
                 <span>{couple.person2}</span>
               </motion.h1>
+              
+              {/* Date - spelled out */}
+              <motion.p 
+                className="text-white/50 text-base xl:text-lg font-sans"
+                style={{ letterSpacing: "0.1em" }}
+                initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.5 }}
+              >
+                {date.full}
+              </motion.p>
             </motion.div>
 
             {/* Right Panel - Full-height image (55% width) */}
