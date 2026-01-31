@@ -4,12 +4,12 @@ import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 interface FAQItem {
-  question: string;
-  answer: string;
+  readonly question: string;
+  readonly answer: string;
 }
 
 interface FAQAccordionProps {
-  items: FAQItem[];
+  items: readonly FAQItem[];
 }
 
 export function FAQAccordion({ items }: FAQAccordionProps) {
