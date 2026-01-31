@@ -32,16 +32,13 @@ export default function GiftsPage() {
 
         {/* Right Panel - Image */}
         <div className="hidden lg:block lg:w-1/2 relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-stone-300 via-stone-400 to-stone-500" />
-          {/* Uncomment when gifts hero image is available:
           <Image
             src="/images/hero-gifts.jpg"
-            alt="Honeymoon destination"
+            alt="Laurens and Monica"
             fill
             className="object-cover"
             priority
           />
-          */}
         </div>
       </section>
 
