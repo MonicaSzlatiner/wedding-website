@@ -20,7 +20,7 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
   };
 
   return (
-    <div className="space-y-4" role="region" aria-label="Frequently Asked Questions">
+    <div className="space-y-3 md:space-y-4" role="region" aria-label="Frequently Asked Questions">
       {items.map((item, index) => {
         const isOpen = openIndex === index;
         const panelId = `faq-panel-${index}`;
@@ -35,11 +35,11 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
               <button
                 id={buttonId}
                 onClick={() => toggleItem(index)}
-                className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-stone-50 transition-colors focus:outline-none focus:ring-2 focus:ring-sage-600 focus:ring-inset"
+                className="w-full px-4 py-4 md:px-6 md:py-5 text-left flex items-center justify-between gap-3 md:gap-4 hover:bg-stone-50 transition-colors focus:outline-none focus:ring-2 focus:ring-sage-600 focus:ring-inset min-h-[56px]"
                 aria-expanded={isOpen}
                 aria-controls={panelId}
               >
-                <span className="font-serif text-lg text-stone-800">
+                <span className="font-serif text-base md:text-lg text-stone-800 leading-snug">
                   {item.question}
                 </span>
                 <ChevronDownIcon
@@ -60,7 +60,7 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
                 isOpen ? "max-h-96" : "max-h-0"
               }`}
             >
-              <div className="px-6 pb-5 text-stone-600 leading-relaxed">
+              <div className="px-4 pb-4 md:px-6 md:pb-5 text-stone-600 text-sm md:text-base leading-relaxed">
                 {item.answer}
               </div>
             </div>

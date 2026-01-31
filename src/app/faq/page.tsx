@@ -16,16 +16,16 @@ export default function FAQPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-sage-600 text-white">
+      <section className="pt-24 pb-12 md:pt-32 md:pb-16 bg-sage-600 text-white">
         <Container size="content">
-          <div className="text-center">
-            <p className="text-white/70 text-sm tracking-widest uppercase mb-4">
+          <div className="text-center px-2">
+            <p className="text-white/70 text-xs md:text-sm tracking-widest uppercase mb-3 md:mb-4">
               Got Questions?
             </p>
-            <h1 className="font-serif text-display-md md:text-display-lg text-white mb-6">
+            <h1 className="font-serif text-display-sm md:text-display-lg text-white mb-4 md:mb-6">
               {faq.title}
             </h1>
-            <p className="text-white/80 text-lg max-w-xl mx-auto">
+            <p className="text-white/80 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
               {faq.subtitle}
             </p>
           </div>
@@ -33,20 +33,20 @@ export default function FAQPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="section">
+      <section className="py-12 md:py-16 lg:py-20">
         <Container size="content">
           <FAQAccordion items={faq.items} />
 
           {/* Additional Help */}
-          <div className="mt-16 text-center">
-            <div className="bg-sage-50 rounded-xl p-8">
-              <h3 className="font-serif text-xl text-stone-800 mb-3">
+          <div className="mt-10 md:mt-16 text-center">
+            <div className="bg-sage-50 rounded-xl p-6 md:p-8">
+              <h3 className="font-serif text-lg md:text-xl text-stone-800 mb-2 md:mb-3">
                 Still have questions?
               </h3>
-              <p className="text-stone-500 mb-6">
+              <p className="text-stone-500 text-sm md:text-base mb-4 md:mb-6">
                 Feel free to reach out to us directly. We are happy to help!
               </p>
-              <Button href="/rsvp" variant="primary">
+              <Button href="/rsvp" variant="primary" className="w-full sm:w-auto">
                 Contact Us
               </Button>
             </div>
@@ -55,19 +55,19 @@ export default function FAQPage() {
       </section>
 
       {/* Quick Links */}
-      <section className="py-16 bg-stone-100 text-center">
+      <section className="py-12 md:py-16 bg-stone-100 text-center">
         <Container size="content">
-          <h2 className="font-serif text-2xl text-stone-800 mb-8">
+          <h2 className="font-serif text-xl md:text-2xl text-stone-800 mb-6 md:mb-8">
             Helpful Links
           </h2>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button href="/schedule" variant="secondary">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4 sm:px-0">
+            <Button href="/schedule" variant="secondary" className="w-full sm:w-auto">
               Schedule
             </Button>
-            <Button href="/travel" variant="secondary">
+            <Button href="/travel" variant="secondary" className="w-full sm:w-auto">
               Travel
             </Button>
-            <Button href="/rsvp" variant="secondary">
+            <Button href="/rsvp" variant="secondary" className="w-full sm:w-auto">
               RSVP
             </Button>
           </div>

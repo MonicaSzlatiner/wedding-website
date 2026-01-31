@@ -22,16 +22,16 @@ export default function SchedulePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-sage-600 text-white">
+      <section className="pt-24 pb-12 md:pt-32 md:pb-16 bg-sage-600 text-white">
         <Container size="content">
-          <div className="text-center">
-            <p className="text-white/70 text-sm tracking-widest uppercase mb-4">
+          <div className="text-center px-2">
+            <p className="text-white/70 text-xs md:text-sm tracking-widest uppercase mb-3 md:mb-4">
               {date.full}
             </p>
-            <h1 className="font-serif text-display-md md:text-display-lg text-white mb-6">
+            <h1 className="font-serif text-display-sm md:text-display-lg text-white mb-4 md:mb-6">
               {schedule.title}
             </h1>
-            <p className="text-white/80 text-lg max-w-xl mx-auto">
+            <p className="text-white/80 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
               {schedule.subtitle}
             </p>
           </div>
@@ -39,11 +39,30 @@ export default function SchedulePage() {
       </section>
 
       {/* Timeline Section */}
-      <section className="section">
+      <section className="py-12 md:py-16 lg:py-20">
         <Container size="content">
-          <div className="relative">
+          {/* Mobile: Simple stacked cards */}
+          <div className="md:hidden space-y-4">
+            {schedule.events.map((event, index) => (
+              <div
+                key={index}
+                className="bg-white p-5 rounded-xl shadow-sm border border-stone-100"
+              >
+                <div className="text-sage-600 font-serif text-xl mb-1">
+                  {event.time}
+                </div>
+                <h3 className="font-serif text-lg text-stone-800 mb-2">
+                  {event.title}
+                </h3>
+                <p className="text-stone-500 text-sm leading-relaxed">{event.description}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop: Timeline with alternating layout */}
+          <div className="hidden md:block relative">
             {/* Timeline line */}
-            <div className="absolute left-0 md:left-1/2 transform md:-translate-x-px top-0 bottom-0 w-0.5 bg-sage-200" />
+            <div className="absolute left-1/2 transform -translate-x-px top-0 bottom-0 w-0.5 bg-sage-200" />
 
             {/* Timeline events */}
             <div className="space-y-12">
@@ -51,16 +70,16 @@ export default function SchedulePage() {
                 <div
                   key={index}
                   className={`relative flex items-start gap-8 ${
-                    index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                    index % 2 === 0 ? "flex-row" : "flex-row-reverse"
                   }`}
                 >
                   {/* Timeline dot */}
-                  <div className="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-sage-600 border-4 border-white shadow" />
+                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-sage-600 border-4 border-white shadow" />
 
                   {/* Content */}
                   <div
-                    className={`ml-8 md:ml-0 md:w-1/2 ${
-                      index % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16"
+                    className={`w-1/2 ${
+                      index % 2 === 0 ? "pr-16 text-right" : "pl-16"
                     }`}
                   >
                     <div className="bg-white p-6 rounded-lg shadow-sm border border-stone-100">
@@ -79,18 +98,18 @@ export default function SchedulePage() {
           </div>
 
           {/* Add to Calendar */}
-          <div className="text-center mt-16">
+          <div className="text-center mt-10 md:mt-16">
             <AddToCalendar variant="primary" />
           </div>
         </Container>
       </section>
 
       {/* Venue Section */}
-      <section className="section bg-stone-100">
+      <section className="py-12 md:py-16 lg:py-20 bg-stone-100">
         <Container>
           <SectionHeading title="The Venue" subtitle={venue.description} />
 
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="grid gap-8 lg:gap-12 lg:grid-cols-2 items-start">
             {/* Venue Info */}
             <div>
               <h3 className="font-serif text-2xl text-stone-800 mb-6">
@@ -150,25 +169,26 @@ export default function SchedulePage() {
       </section>
 
       {/* Dress Code Section */}
-      <section className="section">
+      <section className="py-12 md:py-16 lg:py-20">
         <Container size="content">
-          <div className="text-center">
+          <div className="text-center px-2">
             <SectionHeading
               title={dressCode.title}
               subtitle={dressCode.description}
             />
 
-            <div className="inline-block bg-sage-100 px-8 py-4 rounded-full mb-8">
-              <span className="font-serif text-2xl text-sage-700">
+            <div className="inline-block bg-sage-100 px-6 py-3 md:px-8 md:py-4 rounded-full mb-6 md:mb-8">
+              <span className="font-serif text-xl md:text-2xl text-sage-700">
                 {dressCode.code}
               </span>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
               <Button
                 href={dressCode.inspiration.men.url}
                 variant="secondary"
                 external
+                className="w-full sm:w-auto"
               >
                 {dressCode.inspiration.men.label}
               </Button>
@@ -176,6 +196,7 @@ export default function SchedulePage() {
                 href={dressCode.inspiration.women.url}
                 variant="secondary"
                 external
+                className="w-full sm:w-auto"
               >
                 {dressCode.inspiration.women.label}
               </Button>
