@@ -113,6 +113,7 @@ export const weddingConfig = {
           {
             name: "Rotterdam The Hague Airport (RTM)",
             description: "Regional airport with European connections, 15 minutes from the city center.",
+            recommended: false,
           },
         ],
       },
