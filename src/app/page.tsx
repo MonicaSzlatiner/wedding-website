@@ -12,21 +12,51 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Hero Section - Mobile: Full image with overlay, Desktop: Split layout */}
-      <section className="relative min-h-screen">
-        {/* Mobile: Full-screen image background with parallax effect */}
-        <div className="lg:hidden absolute inset-0">
-          <div className="absolute inset-0 bg-fixed">
+      {/* Hero Section - Mobile: Stacked (image top, content below), Desktop: Split */}
+      <section className="relative">
+        {/* Mobile: Stacked layout - image on top, content below */}
+        <div className="lg:hidden">
+          {/* Image section - takes ~60% of viewport */}
+          <div className="relative h-[65vh] w-full">
             <Image
               src="/images/hero-home.jpg"
               alt={`${couple.person1} and ${couple.person2}`}
               fill
               className="object-cover object-top"
               priority
+              sizes="100vw"
             />
           </div>
-          {/* Gradient overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-sage-900/90 via-sage-800/50 to-transparent" />
+          
+          {/* Content section - sage background */}
+          <div className="bg-sage-600 px-6 py-10 text-center">
+            <p className="text-white/80 text-xs tracking-widest uppercase mb-3" style={{ letterSpacing: "3px" }}>
+              The Wedding of
+            </p>
+            <div className="mb-6">
+              <div className="font-serif text-display-sm text-white leading-tight" style={{ letterSpacing: "2px" }}>
+                <div>{couple.person1}</div>
+                <div>&</div>
+                <div>{couple.person2}</div>
+              </div>
+            </div>
+            <div className="space-y-2 mb-6 text-white/90 text-sm">
+              <div className="flex items-center justify-center gap-2">
+                <MapPinIcon className="h-4 w-4" />
+                <span>{venue.name}, {venue.city}</span>
+              </div>
+              <div className="flex items-center justify-center gap-2">
+                <ClockIcon className="h-4 w-4" />
+                <span>{date.full}</span>
+              </div>
+            </div>
+            <div className="flex flex-col gap-3">
+              <Button href="/rsvp" variant="outline-white" size="lg" className="w-full">
+                RSVP Now
+              </Button>
+              <AddToCalendar variant="outline-white" size="lg" />
+            </div>
+          </div>
         </div>
 
         {/* Desktop: Split layout */}
@@ -69,6 +99,7 @@ export default function HomePage() {
               fill
               className="object-cover"
               priority
+              sizes="50vw"
             />
           </div>
 
@@ -82,45 +113,6 @@ export default function HomePage() {
           >
             RSVP
           </Link>
-        </div>
-
-        {/* Mobile: Content overlay at bottom */}
-        <div className="lg:hidden relative min-h-screen flex flex-col justify-end p-6 pb-12 pt-24">
-          <div className="text-center">
-            <p className="text-white/80 text-xs tracking-widest uppercase mb-3" style={{ letterSpacing: "3px" }}>
-              The Wedding of
-            </p>
-            <div className="mb-8">
-              <div className="font-serif text-display-md text-white leading-tight" style={{ letterSpacing: "2px" }}>
-                <div>{couple.person1}</div>
-                <div>&</div>
-                <div>{couple.person2}</div>
-              </div>
-            </div>
-            <div className="space-y-2 mb-8 text-white/90 text-sm">
-              <div className="flex items-center justify-center gap-2">
-                <MapPinIcon className="h-4 w-4" />
-                <span>{venue.name}, {venue.city}</span>
-              </div>
-              <div className="flex items-center justify-center gap-2">
-                <ClockIcon className="h-4 w-4" />
-                <span>{date.full}</span>
-              </div>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button href="/rsvp" variant="outline-white" size="lg" className="w-full sm:w-auto">
-                RSVP Now
-              </Button>
-              <AddToCalendar variant="outline-white" size="lg" />
-            </div>
-          </div>
-
-          {/* Scroll indicator */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 animate-bounce">
-            <div className="w-6 h-10 rounded-full border-2 border-white/40 flex items-start justify-center p-2">
-              <div className="w-1 h-2 bg-white/60 rounded-full" />
-            </div>
-          </div>
         </div>
       </section>
 
