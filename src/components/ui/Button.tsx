@@ -19,12 +19,12 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center justify-center font-medium transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sage-600";
+    "inline-flex items-center justify-center font-medium transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sage-600 active:scale-[0.98]";
 
   const variantStyles = {
-    primary: "bg-sage-600 text-white hover:bg-sage-700",
-    secondary: "border border-stone-400 text-stone-700 hover:bg-stone-100",
-    "outline-white": "border border-white text-white bg-transparent hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]",
+    primary: "bg-sage-600 text-white hover:bg-sage-700 hover:shadow-lg",
+    secondary: "border border-stone-400 text-stone-700 hover:bg-stone-100 hover:border-stone-500",
+    "outline-white": "border border-white text-white bg-transparent hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]",
   };
 
   const sizeStyles = {

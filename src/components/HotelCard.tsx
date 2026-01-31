@@ -19,7 +19,9 @@ function formatReviewCount(count: number): string {
 export function HotelCard({ hotel }: HotelCardProps) {
   return (
     <article 
-      className="bg-white rounded-xl shadow-sm border border-stone-100 p-4 sm:p-5 md:p-6 hover:shadow-md transition-shadow duration-300"
+      className="bg-white rounded-xl shadow-sm border border-stone-100 p-4 sm:p-5 md:p-6 
+                 hover:shadow-lg hover:scale-[1.02] hover:border-stone-200
+                 transition-all duration-200 ease-out will-change-transform"
       aria-labelledby={`hotel-${hotel.id}-name`}
     >
       {/* Header: Area and Badges */}

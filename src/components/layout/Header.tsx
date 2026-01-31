@@ -3,14 +3,65 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { weddingConfig } from "@/config/content";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+
+/**
+ * NavLink with animated underline
+ */
+function NavLink({ 
+  href, 
+  isActive, 
+  showSolidHeader, 
+  children 
+}: { 
+  href: string; 
+  isActive: boolean; 
+  showSolidHeader: boolean; 
+  children: React.ReactNode;
+}) {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <Link
+      href={href}
+      role="menuitem"
+      aria-current={isActive ? "page" : undefined}
+      style={{ fontSize: "0.9rem", letterSpacing: "1.5px" }}
+      className={`relative font-sans font-normal uppercase transition-colors duration-200 group ${
+        isActive
+          ? showSolidHeader
+            ? "text-sage-600"
+            : "text-white"
+          : showSolidHeader
+          ? "text-stone-500 hover:text-stone-800"
+          : "text-ivory hover:text-white"
+      }`}
+    >
+      {children}
+      {/* Animated underline */}
+      <span
+        className={`absolute -bottom-1 left-0 h-[1px] transition-all duration-200 ease-out ${
+          showSolidHeader ? "bg-sage-600" : "bg-white"
+        } ${
+          isActive 
+            ? "w-full" 
+            : shouldReduceMotion 
+              ? "w-0 group-hover:w-full" 
+              : "w-0 group-hover:w-full"
+        }`}
+      />
+    </Link>
+  );
+}
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const { navigation } = weddingConfig;
+  const shouldReduceMotion = useReducedMotion();
 
   // Check if we're on the home page (which has a dark hero)
   const isHomePage = pathname === "/";
@@ -27,45 +78,48 @@ export function Header() {
   // Show solid header when scrolled or menu is open
   const showSolidHeader = isScrolled || mobileMenuOpen || !isHomePage;
 
+  // Mobile menu animation variants
+  const menuVariants = {
+    closed: {
+      opacity: 0,
+      y: shouldReduceMotion ? 0 : -10,
+      transition: { duration: 0.15 },
+    },
+    open: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         showSolidHeader
           ? "bg-stone-50/95 backdrop-blur-sm border-b border-stone-200"
           : "bg-transparent"
       }`}
     >
-      {/* Nav padding matches the sage panel content: p-12 md:p-16 lg:p-20 */}
-      <nav className="px-12 md:px-16 lg:px-20" aria-label="Main navigation">
+      <nav className="px-6 md:px-16 lg:px-20" aria-label="Main navigation">
         <div className="flex items-center justify-start h-16 md:h-20">
-          {/* Desktop Navigation - Left Aligned with sage panel content */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8" role="menubar">
             {navigation.items.map((item) => (
-              <Link
+              <NavLink
                 key={item.href}
                 href={item.href}
-                role="menuitem"
-                aria-current={pathname === item.href ? "page" : undefined}
-                style={{ fontSize: "0.9rem", letterSpacing: "1.5px" }}
-                className={`font-sans font-normal uppercase transition-all duration-300 ${
-                  pathname === item.href
-                    ? showSolidHeader
-                      ? "text-sage-600"
-                      : "text-white"
-                    : showSolidHeader
-                    ? "text-stone-500 hover:text-stone-800"
-                    : "text-ivory hover:text-white"
-                }`}
+                isActive={pathname === item.href}
+                showSolidHeader={showSolidHeader}
               >
                 {item.label}
-              </Link>
+              </NavLink>
             ))}
           </div>
 
           {/* Mobile Menu Button */}
           <button
             type="button"
-            className={`md:hidden p-2 -ml-2 transition-colors ${
+            className={`md:hidden p-2 -ml-2 transition-colors duration-200 ${
               showSolidHeader ? "text-stone-800" : "text-white"
             }`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -81,34 +135,46 @@ export function Header() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div 
-            id="mobile-menu"
-            className="md:hidden absolute top-full left-0 right-0 bg-stone-50 border-b border-stone-200 shadow-lg"
-            role="menu"
-          >
-            <div className="py-4 px-6 space-y-1">
-              {navigation.items.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  role="menuitem"
-                  aria-current={pathname === item.href ? "page" : undefined}
-                  onClick={() => setMobileMenuOpen(false)}
-                  style={{ fontSize: "0.9rem", letterSpacing: "1.5px" }}
-                  className={`block py-3 font-sans font-normal uppercase transition-all duration-300 ${
-                    pathname === item.href
-                      ? "text-sage-600"
-                      : "text-stone-600 hover:text-stone-800"
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
+        {/* Mobile Menu with Animation */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              id="mobile-menu"
+              initial="closed"
+              animate="open"
+              exit="closed"
+              variants={menuVariants}
+              className="md:hidden absolute top-full left-0 right-0 bg-stone-50 border-b border-stone-200 shadow-lg"
+              role="menu"
+            >
+              <div className="py-4 px-6 space-y-1">
+                {navigation.items.map((item, index) => (
+                  <motion.div
+                    key={item.href}
+                    initial={{ opacity: 0, x: shouldReduceMotion ? 0 : -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: shouldReduceMotion ? 0 : index * 0.05 }}
+                  >
+                    <Link
+                      href={item.href}
+                      role="menuitem"
+                      aria-current={pathname === item.href ? "page" : undefined}
+                      onClick={() => setMobileMenuOpen(false)}
+                      style={{ fontSize: "0.9rem", letterSpacing: "1.5px" }}
+                      className={`block py-3 font-sans font-normal uppercase transition-colors duration-200 ${
+                        pathname === item.href
+                          ? "text-sage-600"
+                          : "text-stone-600 hover:text-stone-800"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </header>
   );
