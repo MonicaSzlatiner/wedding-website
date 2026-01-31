@@ -18,7 +18,7 @@ export default function HomePage() {
         <div className="w-full lg:w-1/2 bg-sage-600 flex flex-col justify-center lg:justify-end p-12 md:p-16 lg:p-20 pt-28">
           {/* Date */}
           <p className="text-white text-sm tracking-widest uppercase mb-8" style={{ letterSpacing: "2px" }}>
-            {date.display}
+            {date.full}
           </p>
 
           {/* Wedding Label */}
