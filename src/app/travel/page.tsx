@@ -14,10 +14,11 @@ export const metadata: Metadata = {
 };
 
 // Custom train icon
-function TrainIcon({ className }: { className?: string }) {
+function TrainIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
     <svg
       className={className}
+      style={style}
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
