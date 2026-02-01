@@ -144,7 +144,7 @@ export function SaveTheDateClient({
       )}
 
       {/* Main Content */}
-      <div className="w-full max-w-md mx-auto">
+      <div className="w-full max-w-md mx-auto pt-12 sm:pt-0">
         <AnimatePresence mode="wait">
           {!isOpen ? (
             /* ============================================
