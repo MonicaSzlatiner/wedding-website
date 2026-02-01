@@ -23,7 +23,7 @@ export function SaveTheDateClient({
   isValidCode,
 }: SaveTheDateClientProps) {
   const [animationPhase, setAnimationPhase] = useState<"closed" | "opening" | "open">("closed");
-  const [musicEnabled, setMusicEnabled] = useState(true); // Default ON
+  const [musicEnabled, setMusicEnabled] = useState(false); // Default OFF
   const [musicPlaying, setMusicPlaying] = useState(false);
   const [copied, setCopied] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -99,19 +99,22 @@ export function SaveTheDateClient({
       {/* Hidden audio element */}
       <audio ref={audioRef} src="/audio/save-the-date.m4a" loop />
 
-      {/* Music Toggle */}
+      {/* Music Toggle - positioned below header area */}
       <button
         onClick={toggleMusic}
-        className={`fixed top-4 right-4 z-50 flex items-center gap-2 px-3 py-2 rounded-full text-xs font-sans uppercase transition-all duration-300 ${
+        className={`fixed top-20 right-4 z-50 flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-sans uppercase transition-all duration-300 shadow-lg ${
           musicEnabled 
-            ? "bg-sage text-white" 
-            : "bg-white/80 text-charcoal border border-charcoal/20"
+            ? "text-white" 
+            : "bg-white text-charcoal border border-charcoal/10"
         }`}
-        style={{ letterSpacing: "0.1em" }}
+        style={{ 
+          letterSpacing: "0.1em",
+          backgroundColor: musicEnabled ? "#6B705C" : undefined,
+        }}
         aria-label={musicEnabled ? "Turn off music" : "Turn on music"}
       >
         <MusicalNoteIcon className={`h-4 w-4 ${musicPlaying ? "animate-pulse" : ""}`} />
-        <span className="hidden sm:inline">{musicEnabled ? "Music On" : "Music Off"}</span>
+        <span>{musicEnabled ? "Music On" : "Music Off"}</span>
       </button>
 
       {/* Admin Panel */}
