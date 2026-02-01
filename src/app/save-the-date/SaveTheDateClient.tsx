@@ -271,7 +271,7 @@ export function SaveTheDateClient({
                 </p>
 
                 {/* Date */}
-                <div className="mb-8">
+                <div className="mb-6">
                   <p 
                     className="font-serif text-2xl sm:text-3xl mb-1"
                     style={{ color: "#1A1A1A", fontWeight: 400 }}
@@ -283,6 +283,22 @@ export function SaveTheDateClient({
                     style={{ color: "rgba(26, 26, 26, 0.5)" }}
                   >
                     {date.timeDisplay}
+                  </p>
+                </div>
+
+                {/* Venue */}
+                <div className="mb-8">
+                  <p 
+                    className="font-serif text-lg mb-1"
+                    style={{ color: "#1A1A1A", fontWeight: 400 }}
+                  >
+                    {venue.name}
+                  </p>
+                  <p 
+                    className="font-sans text-sm"
+                    style={{ color: "rgba(26, 26, 26, 0.5)" }}
+                  >
+                    {venue.city}
                   </p>
                 </div>
 
