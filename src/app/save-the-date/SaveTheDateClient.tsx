@@ -46,10 +46,10 @@ export function SaveTheDateClient({
       setMusicPlaying(true);
     }
 
-    // Transition to fully open after animation completes
+    // Transition to fully open after envelope animation completes
     setTimeout(() => {
       setAnimationPhase("open");
-    }, 2000);
+    }, 1800);
   }, [musicEnabled, animationPhase]);
 
   // Toggle music
@@ -263,58 +263,31 @@ export function SaveTheDateClient({
           {animationPhase === "opening" && (
             /* ============================================
                OPENING ANIMATION STATE
+               Seal splits, flap opens, then fades out
                ============================================ */
             <motion.div
               key="envelope-opening"
               className="text-center"
               initial={{ opacity: 1 }}
               animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
             >
               {/* Envelope Container */}
               <div className="relative mb-8" style={{ perspective: "1000px" }}>
                 {/* Envelope body */}
-                <div 
+                <motion.div 
                   className="relative rounded-lg shadow-2xl overflow-visible"
                   style={{ 
                     backgroundColor: "#F8F9FA",
                     paddingTop: `${FLAP_HEIGHT_PERCENT}%`,
                   }}
+                  animate={{ opacity: 0 }}
+                  transition={{ delay: 1.2, duration: 0.6 }}
                 >
-                  {/* Card sliding up from inside */}
-                  <motion.div
-                    className="absolute left-2 right-2 rounded-lg shadow-xl z-5 flex items-center justify-center"
-                    style={{ 
-                      backgroundColor: "#FFFFFF",
-                      height: "70%",
-                      bottom: "5%",
-                    }}
-                    initial={{ y: 0 }}
-                    animate={{ y: "-80%" }}
-                    transition={{ 
-                      delay: 0.8,
-                      duration: 0.8,
-                      ease: [0.34, 1.56, 0.64, 1], // Spring overshoot
-                    }}
-                  >
-                    <div className="text-center p-4">
-                      <p 
-                        className="font-sans text-xs uppercase mb-2"
-                        style={{ color: "#6B705C", letterSpacing: "0.15em" }}
-                      >
-                        You&apos;re Invited
-                      </p>
-                      <p 
-                        className="font-serif text-xl"
-                        style={{ color: "#1A1A1A", fontWeight: 400 }}
-                      >
-                        {couple.person1} & {couple.person2}
-                      </p>
-                    </div>
-                  </motion.div>
-
-                  {/* Envelope body content (faded) */}
+                  {/* Envelope body content */}
                   <div 
-                    className="aspect-[4/3] flex flex-col items-center justify-center p-8 opacity-30"
+                    className="aspect-[4/3] flex flex-col items-center justify-center p-8"
                     style={{ backgroundColor: "#F8F9FA" }}
                   >
                     <p className="font-serif text-xl text-center" style={{ color: "#1A1A1A" }}>
@@ -334,7 +307,7 @@ export function SaveTheDateClient({
                     }}
                     initial={{ rotateX: 0 }}
                     animate={{ rotateX: 180 }}
-                    transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    transition={{ delay: 0.3, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                   />
 
                   {/* Seal - Left half */}
@@ -345,8 +318,8 @@ export function SaveTheDateClient({
                       transform: "translateX(-50%) translateY(-50%)",
                     }}
                     initial={{ x: "-50%", y: "-50%", rotate: 0, opacity: 1 }}
-                    animate={{ x: "-70%", y: "-50%", rotate: -15, opacity: 0 }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    animate={{ x: "-75%", y: "-50%", rotate: -20, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
                   >
                     <div 
                       className="rounded-full flex items-center justify-center p-1 shadow-xl overflow-hidden"
@@ -376,8 +349,8 @@ export function SaveTheDateClient({
                       transform: "translateX(-50%) translateY(-50%)",
                     }}
                     initial={{ x: "-50%", y: "-50%", rotate: 0, opacity: 1 }}
-                    animate={{ x: "-30%", y: "-50%", rotate: 15, opacity: 0 }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    animate={{ x: "-25%", y: "-50%", rotate: 20, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
                   >
                     <div 
                       className="rounded-full flex items-center justify-center p-1 shadow-xl overflow-hidden"
@@ -398,21 +371,8 @@ export function SaveTheDateClient({
                       </div>
                     </div>
                   </motion.div>
-                </div>
+                </motion.div>
               </div>
-
-              {/* Disabled button during animation */}
-              <button
-                disabled
-                className="w-full py-4 rounded-full font-sans text-sm uppercase opacity-50 cursor-not-allowed"
-                style={{ 
-                  backgroundColor: "#6B705C", 
-                  color: "#F8F9FA",
-                  letterSpacing: "0.15em"
-                }}
-              >
-                Opening...
-              </button>
             </motion.div>
           )}
 
