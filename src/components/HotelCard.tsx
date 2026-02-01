@@ -63,7 +63,7 @@ export function HotelCard({ hotel }: HotelCardProps) {
       <div className="mb-4 sm:mb-5">
         {hotel.rating ? (
           <a 
-            href={hotel.googleMapsUrl}
+            href={hotel.googleReviewsUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 hover:opacity-80 transition-opacity"
@@ -81,7 +81,7 @@ export function HotelCard({ hotel }: HotelCardProps) {
           </a>
         ) : (
           <a 
-            href={hotel.googleMapsUrl} 
+            href={hotel.googleReviewsUrl} 
             target="_blank" 
             rel="noopener noreferrer" 
             className="text-xs sm:text-sm underline underline-offset-2 hover:opacity-80 transition-opacity" 
@@ -95,7 +95,7 @@ export function HotelCard({ hotel }: HotelCardProps) {
       {/* Action Buttons */}
       <div className="flex flex-col gap-2 sm:gap-3">
         <a
-          href={hotel.googleMapsUrl}
+          href={hotel.directionsUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-2 px-4 py-2.5 border-2 text-xs sm:text-sm font-medium rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 min-h-[44px] uppercase"
@@ -105,7 +105,7 @@ export function HotelCard({ hotel }: HotelCardProps) {
             letterSpacing: "0.1em"
           }}
         >
-          View on Google
+          Get Directions
           <ArrowTopRightOnSquareIcon className="h-4 w-4" aria-hidden="true" />
           <span className="sr-only">(opens in new tab)</span>
         </a>
