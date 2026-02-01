@@ -2,7 +2,6 @@
 
 import { ReactNode } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
 interface AnimatedHeroProps {
@@ -16,10 +15,9 @@ interface AnimatedHeroProps {
  * AnimatedHero - Modern Editorial aesthetic
  * 
  * Design Philosophy:
- * - Thick khaki outer frame (40-60px)
+ * - Thick cream outer frame (40-60px)
  * - 50/50 split: Sage green left panel + Full-height image right
  * - Bottom-left aligned text (magazine feel)
- * - Ghost circle RSVP button overlapping the seam
  * - Typography: Cormorant Garamond for names, Montserrat for utility
  */
 export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProps) {
@@ -40,15 +38,6 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
       opacity: 1,
       y: 0,
       transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-    },
-  };
-
-  const floatingButtonVariants = {
-    hidden: { opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.9 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94], delay: shouldReduceMotion ? 0 : 0.6 },
     },
   };
 
@@ -77,30 +66,6 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
                 priority
                 sizes="100vw"
               />
-              
-              {/* Ghost circle RSVP button - overlapping at seam */}
-              <motion.div
-                initial="hidden"
-                animate="visible"
-                variants={floatingButtonVariants}
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-10"
-              >
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Link
-                    href="/rsvp"
-                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-white/40 backdrop-blur-sm
-                               flex items-center justify-center text-white text-xs sm:text-sm font-sans font-normal
-                               hover:border-white/70 transition-all duration-300"
-                    style={{ letterSpacing: "0.15em", backgroundColor: "rgba(107, 112, 92, 0.6)" }}
-                  >
-                    RSVP
-                  </Link>
-                </motion.div>
-              </motion.div>
             </motion.div>
             
             {/* Content section - bottom aligned */}
@@ -210,29 +175,6 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
               />
             </motion.div>
 
-            {/* Ghost Circle RSVP - positioned at the seam like reference */}
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={floatingButtonVariants}
-              className="absolute left-[45%] top-1/3 -translate-x-1/2 z-10"
-            >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Link
-                  href="/rsvp"
-                  className="w-24 h-24 xl:w-28 xl:h-28 rounded-full border border-white/40 backdrop-blur-sm
-                             flex items-center justify-center text-white text-sm font-sans font-normal
-                             hover:border-white/70 transition-all duration-300"
-                  style={{ letterSpacing: "0.15em", backgroundColor: "rgba(107, 112, 92, 0.5)" }}
-                >
-                  RSVP
-                </Link>
-              </motion.div>
-            </motion.div>
           </div>
         </div>
       </section>

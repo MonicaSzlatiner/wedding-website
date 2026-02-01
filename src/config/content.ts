@@ -181,7 +181,7 @@ export const weddingConfig = {
     items: [
       {
         question: "What is the dress code?",
-        answer: "The dress code is cocktail attire. We invite you to dress elegantly for our celebration.",
+        answer: "The dress code is cocktail attire. We invite you to dress elegantly for our celebration. For inspiration, see <a href=\"https://suitsupply.com/en-nl/journal/cocktail-attire-for-men.html\" target=\"_blank\" rel=\"noopener noreferrer\">men's style guide</a> or <a href=\"https://www.pinterest.com/chloeadeline8/cocktail-attire-wedding-guest-ideas/\" target=\"_blank\" rel=\"noopener noreferrer\">women's style inspiration</a>.",
       },
       {
         question: "Can I bring a plus one?",

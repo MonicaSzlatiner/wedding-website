@@ -233,6 +233,18 @@
     @apply underline-offset-2;
   }
 
+  /* FAQ answer links */
+  .faq-answer a {
+    color: #6B705C;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity 0.2s ease;
+  }
+
+  .faq-answer a:hover {
+    opacity: 0.7;
+  }
+
   /* Selection color - subtle sage tint */
   ::selection {
     background-color: rgba(107, 112, 92, 0.2); /* sage/20 */

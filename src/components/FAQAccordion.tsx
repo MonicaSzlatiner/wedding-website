@@ -67,11 +67,10 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
               }`}
             >
               <div 
-                className="px-4 pb-4 md:px-6 md:pb-5 text-sm md:text-base leading-relaxed"
+                className="px-4 pb-4 md:px-6 md:pb-5 text-sm md:text-base leading-relaxed faq-answer"
                 style={{ color: "rgba(26, 26, 26, 0.6)" }}
-              >
-                {item.answer}
-              </div>
+                dangerouslySetInnerHTML={{ __html: item.answer }}
+              />
             </div>
           </div>
         );
