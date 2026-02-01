@@ -56,27 +56,29 @@ export default function HomePage() {
           SCHEDULE SECTION
           ============================================ */}
       <section id="schedule" className="scroll-mt-20">
-        {/* Schedule Header - Sage background */}
-        <div className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#6B705C" }}>
-          <Container size="content">
-            <FadeIn className="text-center px-2">
-              <p 
-                className="text-white/50 text-xs md:text-sm uppercase mb-3 md:mb-4"
-                style={{ letterSpacing: "0.2em" }}
-              >
-                {date.full}
-              </p>
-              <h2 
-                className="font-serif text-4xl md:text-6xl text-white mb-4 md:mb-6"
-                style={{ fontWeight: 400 }}
-              >
-                {schedule.title}
-              </h2>
-              <p className="text-white/70 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
-                {schedule.subtitle}
-              </p>
-            </FadeIn>
-          </Container>
+        {/* Schedule Header - Framed with cream border */}
+        <div className="p-3 sm:p-4 lg:p-5 xl:p-6" style={{ backgroundColor: "#E8E6E1" }}>
+          <div className="py-16 md:py-20 lg:py-24" style={{ backgroundColor: "#6B705C" }}>
+            <Container size="content">
+              <FadeIn className="text-center px-2">
+                <p 
+                  className="text-white/50 text-xs md:text-sm uppercase mb-3 md:mb-4"
+                  style={{ letterSpacing: "0.2em" }}
+                >
+                  {date.full}
+                </p>
+                <h2 
+                  className="font-serif text-4xl md:text-6xl text-white mb-4 md:mb-6"
+                  style={{ fontWeight: 400 }}
+                >
+                  {schedule.title}
+                </h2>
+                <p className="text-white/70 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
+                  {schedule.subtitle}
+                </p>
+              </FadeIn>
+            </Container>
+          </div>
         </div>
 
         {/* Timeline - Cream background */}
@@ -312,11 +314,11 @@ export default function HomePage() {
           </div>
 
           {/* Desktop: Framed split layout */}
-          <div className="hidden lg:block p-5 xl:p-6 min-h-[80vh]" style={{ backgroundColor: "#E8E6E1" }}>
-            <div className="flex h-[calc(80vh-40px)] xl:h-[calc(80vh-48px)]">
+          <div className="hidden lg:block p-5 xl:p-6" style={{ backgroundColor: "#E8E6E1" }}>
+            <div className="flex min-h-[70vh]">
               {/* Left Panel */}
               <div 
-                className="w-[45%] flex flex-col justify-end p-10 xl:p-14"
+                className="w-1/2 flex flex-col justify-end p-10 xl:p-14"
                 style={{ backgroundColor: "#6B705C" }}
               >
                 <p 
@@ -336,13 +338,13 @@ export default function HomePage() {
                 </p>
               </div>
               {/* Right Panel - Image */}
-              <div className="w-[55%] relative">
+              <div className="w-1/2 relative min-h-[70vh]">
                 <Image
                   src="/images/hero-travel.jpg"
                   alt="Laurens and Monica in New York City"
                   fill
                   className="object-cover"
-                  sizes="55vw"
+                  sizes="50vw"
                 />
               </div>
             </div>
@@ -473,11 +475,11 @@ export default function HomePage() {
           </div>
 
           {/* Desktop: Framed split layout */}
-          <div className="hidden lg:block p-5 xl:p-6 min-h-[80vh]" style={{ backgroundColor: "#E8E6E1" }}>
-            <div className="flex h-[calc(80vh-40px)] xl:h-[calc(80vh-48px)]">
+          <div className="hidden lg:block p-5 xl:p-6" style={{ backgroundColor: "#E8E6E1" }}>
+            <div className="flex min-h-[70vh]">
               {/* Left Panel */}
               <div 
-                className="w-[45%] flex flex-col justify-end p-10 xl:p-14"
+                className="w-1/2 flex flex-col justify-end p-10 xl:p-14"
                 style={{ backgroundColor: "#6B705C" }}
               >
                 <p 
@@ -497,13 +499,13 @@ export default function HomePage() {
                 </p>
               </div>
               {/* Right Panel - Image */}
-              <div className="w-[55%] relative">
+              <div className="w-1/2 relative min-h-[70vh]">
                 <Image
                   src="/images/dogs.jpg"
                   alt="Our furry friends waiting to welcome you"
                   fill
                   className="object-cover"
-                  sizes="55vw"
+                  sizes="50vw"
                 />
               </div>
             </div>
@@ -513,7 +515,7 @@ export default function HomePage() {
         {/* Hotels List - Cream background */}
         <div className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#E8E6E1" }}>
           <Container>
-            <FadeIn className="text-center mb-8 md:mb-12">
+            <FadeIn className="mb-8 md:mb-12">
               <p 
                 className="text-xs md:text-sm uppercase mb-3"
                 style={{ letterSpacing: "0.2em", color: "#6B705C" }}
@@ -591,11 +593,11 @@ export default function HomePage() {
           </div>
 
           {/* Desktop: Framed split layout */}
-          <div className="hidden lg:block p-5 xl:p-6 min-h-[80vh]" style={{ backgroundColor: "#E8E6E1" }}>
-            <div className="flex h-[calc(80vh-40px)] xl:h-[calc(80vh-48px)]">
+          <div className="hidden lg:block p-5 xl:p-6" style={{ backgroundColor: "#E8E6E1" }}>
+            <div className="flex min-h-[70vh]">
               {/* Left Panel */}
               <div 
-                className="w-[45%] flex flex-col justify-end p-10 xl:p-14"
+                className="w-1/2 flex flex-col justify-end p-10 xl:p-14"
                 style={{ backgroundColor: "#6B705C" }}
               >
                 <p 
@@ -615,13 +617,13 @@ export default function HomePage() {
                 </p>
               </div>
               {/* Right Panel - Image */}
-              <div className="w-[55%] relative">
+              <div className="w-1/2 relative min-h-[70vh]">
                 <Image
                   src="/images/hero-gifts.jpg"
                   alt="Laurens and Monica"
                   fill
                   className="object-cover"
-                  sizes="55vw"
+                  sizes="50vw"
                 />
               </div>
             </div>
