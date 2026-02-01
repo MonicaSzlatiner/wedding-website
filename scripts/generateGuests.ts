@@ -10,6 +10,10 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 interface GuestInput {
   name: string;
@@ -83,12 +87,30 @@ function generateGuests(guests: GuestInput[]): GuestsMap {
 // GUEST LIST - Edit this array with your guests
 // ============================================
 const guestList: GuestInput[] = [
-  { name: "John Smith", plusOne: true },
-  { name: "Sarah Johnson", plusOne: false },
-  { name: "Michael Brown", plusOne: true },
-  { name: "Emily Davis", plusOne: true },
-  { name: "David Wilson", plusOne: false },
-  { name: "Jennifer Garcia", plusOne: true },
+  { name: "Gladys Barahona Cortez", plusOne: false },
+  { name: "Luis Miguel Barahona",plusOne: true },
+  { name: "Cesar Llontop", plusOne: true },
+  { name: "Tineke & Adri Geleedst", plusOne: false },
+  { name: "Eline Geleedst", plusOne: false },
+  { name: "Chaima Geleedst", plusOne: false },
+  { name: "Noura Geleedst", plusOne: false },
+  { name: "Sarah Geleedst", plusOne: false },
+  { name: "Laureen Simone", plusOne: true },
+  { name: "Corianne Rice", plusOne: true },
+  { name: "Rosa Nowosielski", plusOne: true },
+  { name: "Gwendal Jouannic", plusOne: true },
+  { name: "Thomas Dubois", plusOne: true },
+  { name: "Joffrey Leveugle", plusOne: true },
+  { name: "Thomas Parle", plusOne: true },
+  { name: "Marion Haberkorn", plusOne: false },
+  { name: "Eddie Lee", plusOne: false },
+  { name: "Radu Dragota", plusOne: true },
+  { name: "Kris Stouten", plusOne: true },
+  { name: "Matthew Samson", plusOne: true },
+  { name: "Adnan Kujundzic", plusOne: true },
+  { name: "Rob Kamphuis", plusOne: true },
+  { name: "Humphre Fredrikz", plusOne: true },
+
 ];
 
 // ============================================
