@@ -19,7 +19,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center justify-center font-sans font-medium transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sage active:scale-[0.98] uppercase";
+    "inline-flex items-center justify-center font-sans font-medium transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sage active:scale-[0.98] uppercase whitespace-nowrap";
 
   const variantStyles = {
     // Primary: Sage green - main CTA
@@ -33,9 +33,9 @@ export function Button({
   };
 
   const sizeStyles = {
-    sm: "px-4 py-2 text-sm rounded-full",
-    md: "px-6 py-3 rounded-full",
-    lg: "px-8 py-4 text-lg rounded-full",
+    sm: "px-4 py-2 text-xs rounded-full tracking-wide",
+    md: "px-5 py-2.5 text-xs md:text-sm rounded-full tracking-wide",
+    lg: "px-6 py-3 text-sm md:text-base rounded-full tracking-wide",
   };
 
   const combinedClassName = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;

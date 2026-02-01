@@ -134,7 +134,6 @@ export default function GiftsPage() {
                       variant="primary"
                       size="lg"
                       external
-                      className="w-full sm:w-auto"
                     >
                       Contribute to Our Honeymoon
                     </Button>
@@ -176,7 +175,7 @@ export default function GiftsPage() {
           <h2 className="font-serif text-xl md:text-2xl text-white mb-6 md:mb-8" style={{ fontWeight: 400 }}>
             Ready to RSVP?
           </h2>
-          <Button href="/rsvp" variant="outline-white" size="lg" className="w-full sm:w-auto">
+          <Button href="/rsvp" variant="outline-white" size="lg" >
             Respond to Invitation
           </Button>
         </Container>

@@ -28,12 +28,12 @@ export default function HomePage() {
             <p className="font-sans text-base md:text-lg mb-6 md:mb-8 max-w-xl mx-auto leading-relaxed" style={{ color: "rgba(26, 26, 26, 0.7)" }}>
               {venue.description}
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-              <Button href="/schedule" variant="primary" className="w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4">
+              <Button href="/schedule" variant="primary">
                 View Schedule
               </Button>
-              <Button href={venue.website} variant="secondary" external className="w-full sm:w-auto">
-                Visit Venue Website
+              <Button href={venue.website} variant="secondary" external>
+                Venue Website
               </Button>
             </div>
           </FadeIn>
@@ -70,7 +70,7 @@ export default function HomePage() {
           </div>
 
           <FadeIn delay={0.3} className="text-center mt-8 md:mt-12">
-            <Button href="/schedule" variant="outline-white" className="w-full sm:w-auto">
+            <Button href="/schedule" variant="outline-white">
               Full Schedule & Details
             </Button>
           </FadeIn>
@@ -91,7 +91,7 @@ export default function HomePage() {
               Please let us know if you can join us by {weddingConfig.rsvp.deadline}
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4 sm:px-0">
-              <Button href="/rsvp" variant="primary" size="lg" className="w-full sm:w-auto">
+              <Button href="/rsvp" variant="primary" size="lg">
                 RSVP Now
               </Button>
             </div>

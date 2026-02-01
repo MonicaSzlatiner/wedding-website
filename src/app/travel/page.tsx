@@ -183,7 +183,7 @@ export default function TravelPage() {
 
           {/* Directions Button */}
           <div className="text-center mt-8 md:mt-12">
-            <Button href={venue.googleMapsLink} variant="primary" external className="w-full sm:w-auto">
+            <Button href={venue.googleMapsLink} variant="primary" external >
               Get Directions to Venue
             </Button>
           </div>
@@ -201,7 +201,7 @@ export default function TravelPage() {
               We have put together a list of recommended hotels near the venue, 
               complete with ratings and booking links.
             </p>
-            <Button href="/accommodations" variant="outline-white" className="w-full sm:w-auto">
+            <Button href="/accommodations" variant="outline-white" >
               View Accommodations
             </Button>
           </div>
@@ -218,10 +218,10 @@ export default function TravelPage() {
             Have questions about getting there?
           </h2>
           <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4 sm:px-0">
-            <Button href="/faq" variant="secondary" className="w-full sm:w-auto">
+            <Button href="/faq" variant="secondary" >
               View FAQ
             </Button>
-            <Button href="/rsvp" variant="primary" className="w-full sm:w-auto">
+            <Button href="/rsvp" variant="primary" >
               RSVP
             </Button>
           </div>

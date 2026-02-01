@@ -67,13 +67,13 @@ export default function RSVPPage() {
             In the meantime
           </h2>
           <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4 sm:px-0">
-            <Button href="/schedule" variant="outline-white" className="w-full sm:w-auto">
+            <Button href="/schedule" variant="outline-white" >
               View Schedule
             </Button>
-            <Button href="/travel" variant="outline-white" className="w-full sm:w-auto">
+            <Button href="/travel" variant="outline-white" >
               Travel Info
             </Button>
-            <Button href="/faq" variant="outline-white" className="w-full sm:w-auto">
+            <Button href="/faq" variant="outline-white" >
               FAQ
             </Button>
           </div>

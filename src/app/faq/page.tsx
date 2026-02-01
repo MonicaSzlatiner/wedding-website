@@ -57,7 +57,7 @@ export default function FAQPage() {
               <p className="text-sm md:text-base mb-4 md:mb-6" style={{ color: "rgba(26, 26, 26, 0.6)" }}>
                 Feel free to reach out to us directly. We are happy to help!
               </p>
-              <Button href="/rsvp" variant="primary" className="w-full sm:w-auto">
+              <Button href="/rsvp" variant="primary" >
                 Contact Us
               </Button>
             </div>
@@ -72,13 +72,13 @@ export default function FAQPage() {
             Helpful Links
           </h2>
           <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4 sm:px-0">
-            <Button href="/schedule" variant="outline-white" className="w-full sm:w-auto">
+            <Button href="/schedule" variant="outline-white" >
               Schedule
             </Button>
-            <Button href="/travel" variant="outline-white" className="w-full sm:w-auto">
+            <Button href="/travel" variant="outline-white" >
               Travel
             </Button>
-            <Button href="/rsvp" variant="outline-white" className="w-full sm:w-auto">
+            <Button href="/rsvp" variant="outline-white" >
               RSVP
             </Button>
           </div>

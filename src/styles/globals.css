@@ -79,14 +79,14 @@
    * Sage: #6B705C, Off-White: #F8F9FA, Charcoal: #1A1A1A
    * ============================================ */
   
-  /* Primary CTA - Sage green (darker, matching reference) */
+  /* Primary CTA - Sage green */
   .btn-primary {
-    @apply inline-flex items-center justify-center px-8 py-3 
-           font-medium rounded-full uppercase
+    @apply inline-flex items-center justify-center px-5 py-2.5 
+           font-medium rounded-full uppercase text-xs
            hover:shadow-lg active:scale-[0.98] transition-all duration-200 ease-out;
     background-color: #6B705C;
     color: #F8F9FA;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.08em;
   }
   .btn-primary:hover {
     background-color: #5a5e4d;
@@ -94,12 +94,12 @@
 
   /* Secondary - Outlined charcoal */
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-8 py-3 
-           border-2 font-medium rounded-full uppercase
+    @apply inline-flex items-center justify-center px-5 py-2.5 
+           border-2 font-medium rounded-full uppercase text-xs
            active:scale-[0.98] transition-all duration-200 ease-out;
     border-color: #1A1A1A;
     color: #1A1A1A;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.08em;
   }
   .btn-secondary:hover {
     background-color: #1A1A1A;
@@ -108,12 +108,12 @@
 
   /* Ghost/Outline white - for sage backgrounds */
   .btn-outline-white {
-    @apply inline-flex items-center justify-center px-8 py-3 
-           border-2 font-medium rounded-full uppercase
+    @apply inline-flex items-center justify-center px-5 py-2.5 
+           border-2 font-medium rounded-full uppercase text-xs
            bg-transparent active:scale-[0.98] transition-all duration-200 ease-out;
     border-color: rgba(248, 249, 250, 0.6);
     color: #F8F9FA;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.08em;
   }
   .btn-outline-white:hover {
     background-color: rgba(248, 249, 250, 0.1);
@@ -123,11 +123,11 @@
   /* Text/Ghost button */
   .btn-ghost {
     @apply inline-flex items-center justify-center px-4 py-2
-           underline underline-offset-4 uppercase
+           underline underline-offset-4 uppercase text-xs
            transition-all duration-200 ease-out;
     color: #1A1A1A;
     text-decoration-color: rgba(26, 26, 26, 0.4);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
   }
   .btn-ghost:hover {
     text-decoration-color: #6B705C;

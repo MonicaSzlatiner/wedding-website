@@ -227,22 +227,20 @@ export default function SchedulePage() {
               </span>
             </div>
 
-            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4">
               <Button
                 href={dressCode.inspiration.men.url}
                 variant="secondary"
                 external
-                className="w-full sm:w-auto"
               >
-                {dressCode.inspiration.men.label}
+                Men&apos;s Inspiration
               </Button>
               <Button
                 href={dressCode.inspiration.women.url}
                 variant="secondary"
                 external
-                className="w-full sm:w-auto"
               >
-                {dressCode.inspiration.women.label}
+                Women&apos;s Inspiration
               </Button>
             </div>
           </div>
