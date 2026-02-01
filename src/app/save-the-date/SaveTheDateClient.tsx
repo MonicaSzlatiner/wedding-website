@@ -89,7 +89,7 @@ export function SaveTheDateClient({
       style={{ backgroundColor: "#E8E6E1" }}
     >
       {/* Hidden audio element */}
-      <audio ref={audioRef} src="/audio/save-the-date.mp3" loop />
+      <audio ref={audioRef} src="/audio/save-the-date.m4a" loop />
 
       {/* Music Toggle - Top right corner */}
       <button
