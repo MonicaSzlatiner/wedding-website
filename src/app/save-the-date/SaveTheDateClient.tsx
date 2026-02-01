@@ -247,18 +247,10 @@ export function SaveTheDateClient({
               >
                 {/* Header */}
                 <p 
-                  className="font-sans text-xs uppercase mb-2"
+                  className="font-sans text-xs uppercase mb-6"
                   style={{ color: "#6B705C", letterSpacing: "0.2em" }}
                 >
                   Save the Date
-                </p>
-
-                {/* Guest greeting */}
-                <p 
-                  className="font-serif text-lg mb-6"
-                  style={{ color: "rgba(26, 26, 26, 0.6)", fontWeight: 400 }}
-                >
-                  {displayName}{hasPlusOne ? " + Guest" : ""}
                 </p>
 
                 {/* Couple names */}
@@ -291,22 +283,6 @@ export function SaveTheDateClient({
                     style={{ color: "rgba(26, 26, 26, 0.5)" }}
                   >
                     {date.timeDisplay}
-                  </p>
-                </div>
-
-                {/* Venue */}
-                <div className="mb-10">
-                  <p 
-                    className="font-serif text-lg mb-1"
-                    style={{ color: "#1A1A1A", fontWeight: 400 }}
-                  >
-                    {venue.name}
-                  </p>
-                  <p 
-                    className="font-sans text-sm"
-                    style={{ color: "rgba(26, 26, 26, 0.5)" }}
-                  >
-                    {venue.city}
                   </p>
                 </div>
 
