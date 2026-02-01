@@ -44,10 +44,10 @@ export function SaveTheDateClient({
       setMusicPlaying(true);
     }
 
-    // Transition to fully open after envelope animation
+    // Transition to fully open after envelope animation (longer duration)
     setTimeout(() => {
       setAnimationPhase("open");
-    }, 1200);
+    }, 2500);
   }, [musicEnabled]);
 
   // Toggle music
@@ -149,7 +149,7 @@ export function SaveTheDateClient({
       )}
 
       {/* Main Content */}
-      <div className="w-full max-w-md mx-auto perspective-1000">
+      <div className="w-full max-w-md mx-auto">
         <AnimatePresence mode="wait">
           {animationPhase === "closed" && (
             /* ============================================
@@ -176,7 +176,7 @@ export function SaveTheDateClient({
                     <motion.div 
                       className="w-20 h-20 rounded-full flex items-center justify-center mb-6 shadow-xl z-10"
                       style={{ backgroundColor: "#6B705C" }}
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{ scale: 1.05, rotate: 5 }}
                     >
                       <span className="text-white font-serif text-2xl" style={{ fontWeight: 500 }}>
                         L&M
@@ -241,66 +241,126 @@ export function SaveTheDateClient({
               animate={{ opacity: 1 }}
             >
               {/* Envelope Container */}
-              <div className="relative" style={{ perspective: "1000px" }}>
+              <div className="relative" style={{ perspective: "1200px" }}>
                 {/* Envelope Back */}
                 <div 
                   className="relative aspect-[4/3] rounded-lg shadow-2xl overflow-visible"
                   style={{ backgroundColor: "#F8F9FA" }}
                 >
-                  {/* Card sliding out */}
+                  {/* Card sliding out with rotation */}
                   <motion.div
-                    className="absolute inset-x-4 top-4 bottom-4 rounded-lg shadow-lg z-20"
-                    style={{ backgroundColor: "#FFFFFF" }}
-                    initial={{ y: 0 }}
-                    animate={{ y: -180 }}
+                    className="absolute inset-x-2 top-2 bottom-2 rounded-lg shadow-2xl z-20 flex items-center justify-center"
+                    style={{ 
+                      backgroundColor: "#FFFFFF",
+                      transformOrigin: "center bottom"
+                    }}
+                    initial={{ y: 0, rotate: 0, scale: 1 }}
+                    animate={{ 
+                      y: [-10, -40, -120, -220],
+                      rotate: [0, -2, 2, 0],
+                      scale: [1, 1.02, 1.05, 1.08]
+                    }}
                     transition={{ 
-                      duration: 0.8, 
-                      delay: 0.4,
-                      ease: [0.25, 0.46, 0.45, 0.94] 
+                      duration: 1.8, 
+                      delay: 0.6,
+                      ease: [0.25, 0.46, 0.45, 0.94],
+                      times: [0, 0.3, 0.7, 1]
                     }}
                   >
-                    <div className="flex items-center justify-center h-full">
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 1.2, duration: 0.5 }}
+                      className="text-center p-6"
+                    >
                       <p 
-                        className="font-serif text-xl text-center px-4"
-                        style={{ color: "#6B705C", fontWeight: 400 }}
+                        className="font-sans text-xs uppercase mb-2"
+                        style={{ color: "#6B705C", letterSpacing: "0.2em" }}
                       >
                         You&apos;re Invited
                       </p>
-                    </div>
+                      <p 
+                        className="font-serif text-2xl"
+                        style={{ color: "#1A1A1A", fontWeight: 400 }}
+                      >
+                        {couple.person1} & {couple.person2}
+                      </p>
+                    </motion.div>
                   </motion.div>
 
                   {/* Envelope body (behind card) */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-8 pt-16 opacity-30">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-8 pt-16 opacity-20">
                     <div 
                       className="w-20 h-20 rounded-full"
                       style={{ backgroundColor: "#6B705C" }}
                     />
                   </div>
 
-                  {/* Envelope Flap - Opening */}
+                  {/* Envelope Flap - Opening with 3D effect */}
                   <motion.div 
                     className="absolute top-0 left-0 right-0 h-[45%] origin-top z-30"
                     style={{
                       background: "linear-gradient(to bottom, #D4D2CD 0%, #E8E6E1 100%)",
                       clipPath: "polygon(0 0, 100% 0, 50% 100%)",
                       transformStyle: "preserve-3d",
+                      backfaceVisibility: "hidden",
                     }}
                     initial={{ rotateX: 0 }}
                     animate={{ rotateX: 180 }}
-                    transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    transition={{ 
+                      duration: 0.8, 
+                      ease: [0.25, 0.46, 0.45, 0.94] 
+                    }}
                   />
 
-                  {/* Wax seal - breaking apart */}
+                  {/* Wax seal - elegant dissolve with sparkle effect */}
                   <motion.div 
-                    className="absolute top-[20%] left-1/2 -translate-x-1/2 w-20 h-20 rounded-full flex items-center justify-center shadow-xl z-40"
-                    style={{ backgroundColor: "#6B705C" }}
+                    className="absolute top-[18%] left-1/2 -translate-x-1/2 z-40"
                     initial={{ scale: 1, opacity: 1 }}
-                    animate={{ scale: [1, 1.2, 0], opacity: [1, 1, 0] }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    animate={{ 
+                      scale: [1, 1.1, 1.2, 1.3, 0],
+                      opacity: [1, 1, 0.8, 0.4, 0],
+                      rotate: [0, 10, -10, 20, 0]
+                    }}
+                    transition={{ 
+                      duration: 0.8, 
+                      ease: "easeOut",
+                      times: [0, 0.2, 0.4, 0.7, 1]
+                    }}
                   >
-                    <span className="text-white font-serif text-2xl" style={{ fontWeight: 500 }}>
-                      L&M
-                    </span>
+                    <div 
+                      className="w-20 h-20 rounded-full flex items-center justify-center shadow-xl"
+                      style={{ backgroundColor: "#6B705C" }}
+                    >
+                      <span className="text-white font-serif text-2xl" style={{ fontWeight: 500 }}>
+                        L&M
+                      </span>
+                    </div>
+                    
+                    {/* Sparkle particles */}
+                    {[...Array(8)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="absolute w-2 h-2 rounded-full"
+                        style={{ 
+                          backgroundColor: "#6B705C",
+                          top: "50%",
+                          left: "50%",
+                        }}
+                        initial={{ x: 0, y: 0, opacity: 0, scale: 0 }}
+                        animate={{ 
+                          x: Math.cos(i * 45 * Math.PI / 180) * 60,
+                          y: Math.sin(i * 45 * Math.PI / 180) * 60,
+                          opacity: [0, 1, 0],
+                          scale: [0, 1, 0]
+                        }}
+                        transition={{ 
+                          duration: 0.6, 
+                          delay: 0.3,
+                          ease: "easeOut"
+                        }}
+                      />
+                    ))}
                   </motion.div>
                 </div>
               </div>
