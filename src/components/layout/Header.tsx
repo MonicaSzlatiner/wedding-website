@@ -121,7 +121,7 @@ export function Header() {
               style={{ backgroundColor: "#6B705C" }}
               role="menu"
             >
-              <div className="h-full flex flex-col justify-center items-center space-y-6 md:space-y-8 px-6">
+              <div className="h-full flex flex-col justify-center items-start space-y-6 md:space-y-8 px-6 md:px-16 lg:px-20">
                 {navigation.items.map((item, index) => {
                   const sectionId = item.href.replace("#", "");
                   const isActive = activeSection === sectionId;
