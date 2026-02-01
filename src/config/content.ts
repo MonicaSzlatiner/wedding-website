@@ -218,16 +218,16 @@ export const weddingConfig = {
     ],
   },
 
-  // Navigation
+  // Navigation (Single Page Experience - anchor links)
   navigation: {
     items: [
-      { label: "Home", href: "/" },
-      { label: "Schedule", href: "/schedule" },
-      { label: "Travel", href: "/travel" },
-      { label: "Stay", href: "/accommodations" },
-      { label: "RSVP", href: "/rsvp" },
-      { label: "Gifts", href: "/gifts" },
-      { label: "FAQ", href: "/faq" },
+      { label: "Home", href: "#home" },
+      { label: "Schedule", href: "#schedule" },
+      { label: "Travel", href: "#travel" },
+      { label: "Stay", href: "#stay" },
+      { label: "Gifts", href: "#gifts" },
+      { label: "RSVP", href: "#rsvp" },
+      { label: "FAQ", href: "#faq" },
     ],
   },
 
