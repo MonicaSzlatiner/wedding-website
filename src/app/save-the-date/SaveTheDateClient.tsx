@@ -28,7 +28,7 @@ export function SaveTheDateClient({
   const [copied, setCopied] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const displayName = guestName || "Dear friend";
+  const displayName = guestName || "Friend";
   const { calendarEvent, couple, date, venue } = weddingConfig;
 
   // Handle opening the envelope
