@@ -22,8 +22,8 @@ export function SaveTheDateClient({
   isAdmin,
   isValidCode,
 }: SaveTheDateClientProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [musicEnabled, setMusicEnabled] = useState(false);
+  const [animationPhase, setAnimationPhase] = useState<"closed" | "opening" | "open">("closed");
+  const [musicEnabled, setMusicEnabled] = useState(true); // Default ON
   const [musicPlaying, setMusicPlaying] = useState(false);
   const [copied, setCopied] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -36,14 +36,21 @@ export function SaveTheDateClient({
 
   // Handle opening the envelope
   const handleOpen = useCallback(() => {
-    setIsOpen(true);
+    if (animationPhase !== "closed") return; // Prevent re-triggering
+    
+    setAnimationPhase("opening");
     
     // Start music if enabled
     if (musicEnabled && audioRef.current) {
       audioRef.current.play().catch(() => {});
       setMusicPlaying(true);
     }
-  }, [musicEnabled]);
+
+    // Transition to fully open after animation completes
+    setTimeout(() => {
+      setAnimationPhase("open");
+    }, 2000);
+  }, [musicEnabled, animationPhase]);
 
   // Toggle music
   const toggleMusic = useCallback(() => {
@@ -56,12 +63,12 @@ export function SaveTheDateClient({
       setMusicPlaying(false);
     } else {
       setMusicEnabled(true);
-      if (isOpen && audioRef.current) {
+      if (animationPhase === "open" && audioRef.current) {
         audioRef.current.play().catch(() => {});
         setMusicPlaying(true);
       }
     }
-  }, [musicEnabled, isOpen]);
+  }, [musicEnabled, animationPhase]);
 
   // Copy invite link
   const handleCopyLink = useCallback(() => {
@@ -80,6 +87,9 @@ export function SaveTheDateClient({
   const handleDownloadICS = () => {
     downloadICSFile(calendarEvent, "save-the-date-laurens-monica.ics");
   };
+
+  // Envelope dimensions
+  const FLAP_HEIGHT_PERCENT = 35; // Flap takes 35% of envelope height
 
   return (
     <div 
@@ -146,7 +156,7 @@ export function SaveTheDateClient({
       {/* Main Content */}
       <div className="w-full max-w-md mx-auto pt-12 sm:pt-0">
         <AnimatePresence mode="wait">
-          {!isOpen ? (
+          {animationPhase === "closed" && (
             /* ============================================
                CLOSED ENVELOPE STATE
                ============================================ */
@@ -154,59 +164,25 @@ export function SaveTheDateClient({
               key="envelope-closed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
               className="text-center"
             >
-              {/* Envelope */}
-              <div className="relative mb-8">
-                {/* Envelope body */}
+              {/* Envelope Container */}
+              <div className="relative mb-8" style={{ perspective: "1000px" }}>
+                {/* Envelope body (rectangular bottom part) */}
                 <div 
-                  className="relative aspect-[4/3] rounded-lg shadow-2xl overflow-visible"
-                  style={{ backgroundColor: "#F8F9FA" }}
+                  className="relative rounded-lg shadow-2xl overflow-visible"
+                  style={{ 
+                    backgroundColor: "#F8F9FA",
+                    paddingTop: `${FLAP_HEIGHT_PERCENT}%`, // Space for flap
+                  }}
                 >
-                  {/* Envelope flap (triangular top) */}
+                  {/* Actual envelope body content area */}
                   <div 
-                    className="absolute top-0 left-0 right-0 h-[40%] z-10"
-                    style={{
-                      background: "linear-gradient(to bottom right, #E0DEDA 50%, transparent 50%)",
-                    }}
-                  />
-                  <div 
-                    className="absolute top-0 left-0 right-0 h-[40%] z-10"
-                    style={{
-                      background: "linear-gradient(to bottom left, #E0DEDA 50%, transparent 50%)",
-                    }}
-                  />
-
-                  {/* Wax seal - positioned exactly at the flap point (27% puts center at the triangle tip) */}
-                  <div 
-                    className="absolute left-1/2 -translate-x-1/2 z-30"
-                    style={{ top: "27%" }}
+                    className="aspect-[4/3] flex flex-col items-center justify-center p-8"
+                    style={{ backgroundColor: "#F8F9FA" }}
                   >
-                    {/* Gold trim ring */}
-                    <div 
-                      className="rounded-full flex items-center justify-center p-1 shadow-xl"
-                      style={{ 
-                        background: "linear-gradient(135deg, #D4AF37 0%, #F4E4A6 25%, #D4AF37 50%, #C5A028 75%, #D4AF37 100%)",
-                        width: "72px",
-                        height: "72px",
-                      }}
-                    >
-                      {/* Inner seal */}
-                      <div 
-                        className="w-full h-full rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: "#6B705C" }}
-                      >
-                        <span className="text-white font-serif text-xl" style={{ fontWeight: 500 }}>
-                          L&M
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Envelope content */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-end p-8 pb-10">
                     {/* Guest name */}
                     <p 
                       className="font-serif text-xl sm:text-2xl md:text-3xl text-center mb-1"
@@ -224,6 +200,45 @@ export function SaveTheDateClient({
                         + Guest
                       </p>
                     )}
+                  </div>
+
+                  {/* Triangular flap - positioned at top */}
+                  <div 
+                    className="absolute top-0 left-0 right-0 z-10"
+                    style={{ 
+                      height: `${FLAP_HEIGHT_PERCENT}%`,
+                      clipPath: "polygon(0 0, 100% 0, 50% 100%)",
+                      background: "linear-gradient(180deg, #D8D6D1 0%, #E5E3DE 100%)",
+                    }}
+                  />
+
+                  {/* Wax seal - positioned exactly at flap tip */}
+                  <div 
+                    className="absolute left-1/2 -translate-x-1/2 z-30"
+                    style={{ 
+                      top: `${FLAP_HEIGHT_PERCENT}%`,
+                      transform: "translateX(-50%) translateY(-50%)",
+                    }}
+                  >
+                    {/* Gold trim ring */}
+                    <div 
+                      className="rounded-full flex items-center justify-center p-1 shadow-xl"
+                      style={{ 
+                        background: "linear-gradient(135deg, #D4AF37 0%, #F4E4A6 25%, #D4AF37 50%, #C5A028 75%, #D4AF37 100%)",
+                        width: "68px",
+                        height: "68px",
+                      }}
+                    >
+                      {/* Inner seal */}
+                      <div 
+                        className="w-full h-full rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: "#6B705C" }}
+                      >
+                        <span className="text-white font-serif text-lg" style={{ fontWeight: 500 }}>
+                          L&M
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -243,15 +258,173 @@ export function SaveTheDateClient({
                 Tap to Open
               </motion.button>
             </motion.div>
-          ) : (
+          )}
+
+          {animationPhase === "opening" && (
             /* ============================================
-               OPENED INVITATION STATE
+               OPENING ANIMATION STATE
+               ============================================ */
+            <motion.div
+              key="envelope-opening"
+              className="text-center"
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
+            >
+              {/* Envelope Container */}
+              <div className="relative mb-8" style={{ perspective: "1000px" }}>
+                {/* Envelope body */}
+                <div 
+                  className="relative rounded-lg shadow-2xl overflow-visible"
+                  style={{ 
+                    backgroundColor: "#F8F9FA",
+                    paddingTop: `${FLAP_HEIGHT_PERCENT}%`,
+                  }}
+                >
+                  {/* Card sliding up from inside */}
+                  <motion.div
+                    className="absolute left-2 right-2 rounded-lg shadow-xl z-5 flex items-center justify-center"
+                    style={{ 
+                      backgroundColor: "#FFFFFF",
+                      height: "70%",
+                      bottom: "5%",
+                    }}
+                    initial={{ y: 0 }}
+                    animate={{ y: "-80%" }}
+                    transition={{ 
+                      delay: 0.8,
+                      duration: 0.8,
+                      ease: [0.34, 1.56, 0.64, 1], // Spring overshoot
+                    }}
+                  >
+                    <div className="text-center p-4">
+                      <p 
+                        className="font-sans text-xs uppercase mb-2"
+                        style={{ color: "#6B705C", letterSpacing: "0.15em" }}
+                      >
+                        You&apos;re Invited
+                      </p>
+                      <p 
+                        className="font-serif text-xl"
+                        style={{ color: "#1A1A1A", fontWeight: 400 }}
+                      >
+                        {couple.person1} & {couple.person2}
+                      </p>
+                    </div>
+                  </motion.div>
+
+                  {/* Envelope body content (faded) */}
+                  <div 
+                    className="aspect-[4/3] flex flex-col items-center justify-center p-8 opacity-30"
+                    style={{ backgroundColor: "#F8F9FA" }}
+                  >
+                    <p className="font-serif text-xl text-center" style={{ color: "#1A1A1A" }}>
+                      {fullName}
+                    </p>
+                  </div>
+
+                  {/* Triangular flap - opening animation */}
+                  <motion.div 
+                    className="absolute top-0 left-0 right-0 z-10"
+                    style={{ 
+                      height: `${FLAP_HEIGHT_PERCENT}%`,
+                      clipPath: "polygon(0 0, 100% 0, 50% 100%)",
+                      background: "linear-gradient(180deg, #D8D6D1 0%, #E5E3DE 100%)",
+                      transformOrigin: "top center",
+                      transformStyle: "preserve-3d",
+                    }}
+                    initial={{ rotateX: 0 }}
+                    animate={{ rotateX: 180 }}
+                    transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  />
+
+                  {/* Seal - Left half */}
+                  <motion.div 
+                    className="absolute left-1/2 z-30"
+                    style={{ 
+                      top: `${FLAP_HEIGHT_PERCENT}%`,
+                      transform: "translateX(-50%) translateY(-50%)",
+                    }}
+                    initial={{ x: "-50%", y: "-50%", rotate: 0, opacity: 1 }}
+                    animate={{ x: "-70%", y: "-50%", rotate: -15, opacity: 0 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                  >
+                    <div 
+                      className="rounded-full flex items-center justify-center p-1 shadow-xl overflow-hidden"
+                      style={{ 
+                        background: "linear-gradient(135deg, #D4AF37 0%, #F4E4A6 25%, #D4AF37 50%, #C5A028 75%, #D4AF37 100%)",
+                        width: "68px",
+                        height: "68px",
+                        clipPath: "polygon(0 0, 50% 0, 50% 100%, 0 100%)",
+                      }}
+                    >
+                      <div 
+                        className="w-full h-full rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: "#6B705C" }}
+                      >
+                        <span className="text-white font-serif text-lg" style={{ fontWeight: 500 }}>
+                          L&M
+                        </span>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Seal - Right half */}
+                  <motion.div 
+                    className="absolute left-1/2 z-30"
+                    style={{ 
+                      top: `${FLAP_HEIGHT_PERCENT}%`,
+                      transform: "translateX(-50%) translateY(-50%)",
+                    }}
+                    initial={{ x: "-50%", y: "-50%", rotate: 0, opacity: 1 }}
+                    animate={{ x: "-30%", y: "-50%", rotate: 15, opacity: 0 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                  >
+                    <div 
+                      className="rounded-full flex items-center justify-center p-1 shadow-xl overflow-hidden"
+                      style={{ 
+                        background: "linear-gradient(135deg, #D4AF37 0%, #F4E4A6 25%, #D4AF37 50%, #C5A028 75%, #D4AF37 100%)",
+                        width: "68px",
+                        height: "68px",
+                        clipPath: "polygon(50% 0, 100% 0, 100% 100%, 50% 100%)",
+                      }}
+                    >
+                      <div 
+                        className="w-full h-full rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: "#6B705C" }}
+                      >
+                        <span className="text-white font-serif text-lg" style={{ fontWeight: 500 }}>
+                          L&M
+                        </span>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Disabled button during animation */}
+              <button
+                disabled
+                className="w-full py-4 rounded-full font-sans text-sm uppercase opacity-50 cursor-not-allowed"
+                style={{ 
+                  backgroundColor: "#6B705C", 
+                  color: "#F8F9FA",
+                  letterSpacing: "0.15em"
+                }}
+              >
+                Opening...
+              </button>
+            </motion.div>
+          )}
+
+          {animationPhase === "open" && (
+            /* ============================================
+               FULLY OPEN / INVITATION STATE
                ============================================ */
             <motion.div
               key="invitation-open"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="text-center"
             >
               {/* Card content */}
