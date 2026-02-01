@@ -22,7 +22,7 @@ export function SaveTheDateClient({
   isAdmin,
   isValidCode,
 }: SaveTheDateClientProps) {
-  const [animationPhase, setAnimationPhase] = useState<"closed" | "opening" | "open">("closed");
+  const [isOpen, setIsOpen] = useState(false);
   const [musicEnabled, setMusicEnabled] = useState(false);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -36,18 +36,13 @@ export function SaveTheDateClient({
 
   // Handle opening the envelope
   const handleOpen = useCallback(() => {
-    setAnimationPhase("opening");
+    setIsOpen(true);
     
     // Start music if enabled
     if (musicEnabled && audioRef.current) {
       audioRef.current.play().catch(() => {});
       setMusicPlaying(true);
     }
-
-    // Transition to fully open after envelope animation (longer duration)
-    setTimeout(() => {
-      setAnimationPhase("open");
-    }, 2500);
   }, [musicEnabled]);
 
   // Toggle music
@@ -61,12 +56,12 @@ export function SaveTheDateClient({
       setMusicPlaying(false);
     } else {
       setMusicEnabled(true);
-      if (animationPhase === "open" && audioRef.current) {
+      if (isOpen && audioRef.current) {
         audioRef.current.play().catch(() => {});
         setMusicPlaying(true);
       }
     }
-  }, [musicEnabled, animationPhase]);
+  }, [musicEnabled, isOpen]);
 
   // Copy invite link
   const handleCopyLink = useCallback(() => {
@@ -88,7 +83,7 @@ export function SaveTheDateClient({
 
   return (
     <div 
-      className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 overflow-hidden"
+      className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6"
       style={{ backgroundColor: "#E8E6E1" }}
     >
       {/* Hidden audio element */}
@@ -151,72 +146,56 @@ export function SaveTheDateClient({
       {/* Main Content */}
       <div className="w-full max-w-md mx-auto">
         <AnimatePresence mode="wait">
-          {animationPhase === "closed" && (
+          {!isOpen ? (
             /* ============================================
                CLOSED ENVELOPE STATE
                ============================================ */
             <motion.div
               key="envelope-closed"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className="text-center"
             >
-              {/* Envelope Container */}
-              <div className="relative" style={{ perspective: "1000px" }}>
-                {/* Envelope Back */}
+              {/* Envelope Card */}
+              <div 
+                className="rounded-xl p-8 sm:p-10 shadow-xl mb-8"
+                style={{ backgroundColor: "#F8F9FA" }}
+              >
+                {/* Wax seal */}
                 <div 
-                  className="relative aspect-[4/3] rounded-lg shadow-2xl overflow-hidden"
-                  style={{ backgroundColor: "#F8F9FA" }}
+                  className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
+                  style={{ backgroundColor: "#6B705C" }}
                 >
-                  {/* Envelope body content */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-8 pt-16">
-                    {/* Wax seal */}
-                    <motion.div 
-                      className="w-20 h-20 rounded-full flex items-center justify-center mb-6 shadow-xl z-10"
-                      style={{ backgroundColor: "#6B705C" }}
-                      whileHover={{ scale: 1.05, rotate: 5 }}
-                    >
-                      <span className="text-white font-serif text-2xl" style={{ fontWeight: 500 }}>
-                        L&M
-                      </span>
-                    </motion.div>
-
-                    {/* Guest name */}
-                    <p 
-                      className="font-serif text-2xl sm:text-3xl text-center mb-1"
-                      style={{ color: "#1A1A1A", fontWeight: 400 }}
-                    >
-                      {fullName}
-                    </p>
-
-                    {/* Plus one indicator */}
-                    {hasPlusOne && (
-                      <p 
-                        className="font-sans text-sm uppercase"
-                        style={{ color: "rgba(26, 26, 26, 0.5)", letterSpacing: "0.15em" }}
-                      >
-                        + Guest
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Envelope Flap */}
-                  <div 
-                    className="absolute top-0 left-0 right-0 h-[45%] origin-top"
-                    style={{
-                      background: "linear-gradient(to bottom, #D4D2CD 0%, #E8E6E1 100%)",
-                      clipPath: "polygon(0 0, 100% 0, 50% 100%)",
-                    }}
-                  />
+                  <span className="text-white font-serif text-2xl" style={{ fontWeight: 500 }}>
+                    L&M
+                  </span>
                 </div>
+
+                {/* Guest name */}
+                <p 
+                  className="font-serif text-2xl sm:text-3xl mb-1"
+                  style={{ color: "#1A1A1A", fontWeight: 400 }}
+                >
+                  {fullName}
+                </p>
+
+                {/* Plus one indicator */}
+                {hasPlusOne && (
+                  <p 
+                    className="font-sans text-sm uppercase"
+                    style={{ color: "rgba(26, 26, 26, 0.5)", letterSpacing: "0.15em" }}
+                  >
+                    + Guest
+                  </p>
+                )}
               </div>
 
               {/* Tap to open button */}
               <motion.button
                 onClick={handleOpen}
-                className="mt-8 w-full py-4 rounded-full font-sans text-sm uppercase transition-all duration-300"
+                className="w-full py-4 rounded-full font-sans text-sm uppercase"
                 style={{ 
                   backgroundColor: "#6B705C", 
                   color: "#F8F9FA",
@@ -228,213 +207,57 @@ export function SaveTheDateClient({
                 Tap to Open
               </motion.button>
             </motion.div>
-          )}
-
-          {animationPhase === "opening" && (
+          ) : (
             /* ============================================
-               OPENING ANIMATION STATE
+               OPENED INVITATION STATE
                ============================================ */
             <motion.div
-              key="envelope-opening"
-              className="relative"
-              initial={{ opacity: 1 }}
-              animate={{ opacity: 1 }}
-            >
-              {/* Envelope Container */}
-              <div className="relative" style={{ perspective: "1200px" }}>
-                {/* Envelope Back */}
-                <div 
-                  className="relative aspect-[4/3] rounded-lg shadow-2xl overflow-visible"
-                  style={{ backgroundColor: "#F8F9FA" }}
-                >
-                  {/* Card sliding out with rotation */}
-                  <motion.div
-                    className="absolute inset-x-2 top-2 bottom-2 rounded-lg shadow-2xl z-20 flex items-center justify-center"
-                    style={{ 
-                      backgroundColor: "#FFFFFF",
-                      transformOrigin: "center bottom"
-                    }}
-                    initial={{ y: 0, rotate: 0, scale: 1 }}
-                    animate={{ 
-                      y: [-10, -40, -120, -220],
-                      rotate: [0, -2, 2, 0],
-                      scale: [1, 1.02, 1.05, 1.08]
-                    }}
-                    transition={{ 
-                      duration: 1.8, 
-                      delay: 0.6,
-                      ease: [0.25, 0.46, 0.45, 0.94],
-                      times: [0, 0.3, 0.7, 1]
-                    }}
-                  >
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 1.2, duration: 0.5 }}
-                      className="text-center p-6"
-                    >
-                      <p 
-                        className="font-sans text-xs uppercase mb-2"
-                        style={{ color: "#6B705C", letterSpacing: "0.2em" }}
-                      >
-                        You&apos;re Invited
-                      </p>
-                      <p 
-                        className="font-serif text-2xl"
-                        style={{ color: "#1A1A1A", fontWeight: 400 }}
-                      >
-                        {couple.person1} & {couple.person2}
-                      </p>
-                    </motion.div>
-                  </motion.div>
-
-                  {/* Envelope body (behind card) */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-8 pt-16 opacity-20">
-                    <div 
-                      className="w-20 h-20 rounded-full"
-                      style={{ backgroundColor: "#6B705C" }}
-                    />
-                  </div>
-
-                  {/* Envelope Flap - Opening with 3D effect */}
-                  <motion.div 
-                    className="absolute top-0 left-0 right-0 h-[45%] origin-top z-30"
-                    style={{
-                      background: "linear-gradient(to bottom, #D4D2CD 0%, #E8E6E1 100%)",
-                      clipPath: "polygon(0 0, 100% 0, 50% 100%)",
-                      transformStyle: "preserve-3d",
-                      backfaceVisibility: "hidden",
-                    }}
-                    initial={{ rotateX: 0 }}
-                    animate={{ rotateX: 180 }}
-                    transition={{ 
-                      duration: 0.8, 
-                      ease: [0.25, 0.46, 0.45, 0.94] 
-                    }}
-                  />
-
-                  {/* Wax seal - elegant dissolve with sparkle effect */}
-                  <motion.div 
-                    className="absolute top-[18%] left-1/2 -translate-x-1/2 z-40"
-                    initial={{ scale: 1, opacity: 1 }}
-                    animate={{ 
-                      scale: [1, 1.1, 1.2, 1.3, 0],
-                      opacity: [1, 1, 0.8, 0.4, 0],
-                      rotate: [0, 10, -10, 20, 0]
-                    }}
-                    transition={{ 
-                      duration: 0.8, 
-                      ease: "easeOut",
-                      times: [0, 0.2, 0.4, 0.7, 1]
-                    }}
-                  >
-                    <div 
-                      className="w-20 h-20 rounded-full flex items-center justify-center shadow-xl"
-                      style={{ backgroundColor: "#6B705C" }}
-                    >
-                      <span className="text-white font-serif text-2xl" style={{ fontWeight: 500 }}>
-                        L&M
-                      </span>
-                    </div>
-                    
-                    {/* Sparkle particles */}
-                    {[...Array(8)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        className="absolute w-2 h-2 rounded-full"
-                        style={{ 
-                          backgroundColor: "#6B705C",
-                          top: "50%",
-                          left: "50%",
-                        }}
-                        initial={{ x: 0, y: 0, opacity: 0, scale: 0 }}
-                        animate={{ 
-                          x: Math.cos(i * 45 * Math.PI / 180) * 60,
-                          y: Math.sin(i * 45 * Math.PI / 180) * 60,
-                          opacity: [0, 1, 0],
-                          scale: [0, 1, 0]
-                        }}
-                        transition={{ 
-                          duration: 0.6, 
-                          delay: 0.3,
-                          ease: "easeOut"
-                        }}
-                      />
-                    ))}
-                  </motion.div>
-                </div>
-              </div>
-            </motion.div>
-          )}
-
-          {animationPhase === "open" && (
-            /* ============================================
-               FULLY OPEN / INVITATION STATE
-               ============================================ */
-            <motion.div
-              key="envelope-open"
-              initial={{ opacity: 0, y: 50, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative"
+              key="invitation-open"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-center"
             >
               {/* Card content */}
-              <motion.div
-                className="rounded-xl p-8 sm:p-10 shadow-xl text-center"
+              <div
+                className="rounded-xl p-8 sm:p-10 shadow-xl"
                 style={{ backgroundColor: "#F8F9FA" }}
               >
                 {/* Header */}
-                <motion.p 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
+                <p 
                   className="font-sans text-xs uppercase mb-4"
                   style={{ color: "#6B705C", letterSpacing: "0.2em" }}
                 >
                   Save the Date
-                </motion.p>
+                </p>
 
-                {/* Guest greeting - First name only */}
-                <motion.p 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
+                {/* Guest greeting */}
+                <p 
                   className="font-serif text-xl sm:text-2xl mb-6"
                   style={{ color: "#1A1A1A", fontWeight: 400 }}
                 >
                   Dear {firstName}{hasPlusOne ? " & Guest" : ""}
-                </motion.p>
+                </p>
 
                 {/* Couple names */}
-                <motion.h1 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
+                <h1 
                   className="font-serif text-4xl sm:text-5xl mb-2"
                   style={{ color: "#1A1A1A", fontWeight: 400, lineHeight: 1.1 }}
                 >
                   {couple.person1}
                   <span style={{ color: "rgba(26, 26, 26, 0.4)" }}> & </span>
                   {couple.person2}
-                </motion.h1>
+                </h1>
 
-                <motion.p 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
+                <p 
                   className="font-sans text-xs uppercase mb-8"
                   style={{ color: "rgba(26, 26, 26, 0.5)", letterSpacing: "0.15em" }}
                 >
                   Are getting married
-                </motion.p>
+                </p>
 
                 {/* Date */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="mb-6"
-                >
+                <div className="mb-6">
                   <p 
                     className="font-serif text-2xl sm:text-3xl mb-1"
                     style={{ color: "#1A1A1A", fontWeight: 400 }}
@@ -447,15 +270,10 @@ export function SaveTheDateClient({
                   >
                     {date.timeDisplay}
                   </p>
-                </motion.div>
+                </div>
 
                 {/* Venue */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="mb-8"
-                >
+                <div className="mb-8">
                   <p 
                     className="font-serif text-lg mb-1"
                     style={{ color: "#1A1A1A", fontWeight: 400 }}
@@ -468,35 +286,24 @@ export function SaveTheDateClient({
                   >
                     {venue.city}
                   </p>
-                </motion.div>
+                </div>
 
                 {/* Divider */}
-                <motion.div 
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: 0.7, duration: 0.4 }}
+                <div 
                   className="w-16 h-px mx-auto mb-8"
                   style={{ backgroundColor: "rgba(26, 26, 26, 0.2)" }}
                 />
 
                 {/* Message */}
-                <motion.p 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8 }}
+                <p 
                   className="font-serif text-base sm:text-lg italic leading-relaxed mb-8 max-w-sm mx-auto"
                   style={{ color: "rgba(26, 26, 26, 0.6)" }}
                 >
                   We would be honored to have you celebrate this special day with us. Formal invitation to follow.
-                </motion.p>
+                </p>
 
                 {/* Action buttons */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.9 }}
-                  className="space-y-3"
-                >
+                <div className="space-y-3">
                   <div className="flex flex-col sm:flex-row gap-3 justify-center">
                     <button
                       onClick={handleGoogleCalendar}
@@ -531,36 +338,7 @@ export function SaveTheDateClient({
                   >
                     View Wedding Website
                   </Link>
-                </motion.div>
-              </motion.div>
-
-              {/* Floating hearts */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                {[...Array(5)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute text-2xl"
-                    style={{ color: "rgba(107, 112, 92, 0.3)" }}
-                    initial={{ 
-                      x: `${20 + i * 15}%`,
-                      y: "100%",
-                      opacity: 0 
-                    }}
-                    animate={{ 
-                      y: "-20%",
-                      opacity: [0, 0.6, 0],
-                    }}
-                    transition={{
-                      duration: 4,
-                      delay: 1 + i * 0.5,
-                      repeat: Infinity,
-                      repeatDelay: 2,
-                      ease: "easeOut"
-                    }}
-                  >
-                    ♥
-                  </motion.div>
-                ))}
+                </div>
               </div>
             </motion.div>
           )}
