@@ -158,38 +158,58 @@ export function SaveTheDateClient({
               transition={{ duration: 0.4 }}
               className="text-center"
             >
-              {/* Envelope Card */}
-              <div 
-                className="rounded-xl p-8 sm:p-10 shadow-xl mb-8"
-                style={{ backgroundColor: "#F8F9FA" }}
-              >
-                {/* Wax seal */}
+              {/* Envelope */}
+              <div className="relative mb-8">
+                {/* Envelope body */}
                 <div 
-                  className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
-                  style={{ backgroundColor: "#6B705C" }}
+                  className="relative aspect-[4/3] rounded-lg shadow-2xl overflow-hidden"
+                  style={{ backgroundColor: "#F8F9FA" }}
                 >
-                  <span className="text-white font-serif text-2xl" style={{ fontWeight: 500 }}>
-                    L&M
-                  </span>
+                  {/* Envelope flap (triangular top) */}
+                  <div 
+                    className="absolute top-0 left-0 right-0 h-[40%] z-10"
+                    style={{
+                      background: "linear-gradient(to bottom right, #E0DEDA 50%, transparent 50%)",
+                    }}
+                  />
+                  <div 
+                    className="absolute top-0 left-0 right-0 h-[40%] z-10"
+                    style={{
+                      background: "linear-gradient(to bottom left, #E0DEDA 50%, transparent 50%)",
+                    }}
+                  />
+
+                  {/* Envelope content */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-8 pt-12">
+                    {/* Wax seal */}
+                    <div 
+                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mb-4 sm:mb-6 shadow-lg z-20"
+                      style={{ backgroundColor: "#6B705C" }}
+                    >
+                      <span className="text-white font-serif text-xl sm:text-2xl" style={{ fontWeight: 500 }}>
+                        L&M
+                      </span>
+                    </div>
+
+                    {/* Guest name */}
+                    <p 
+                      className="font-serif text-xl sm:text-2xl md:text-3xl text-center mb-1"
+                      style={{ color: "#1A1A1A", fontWeight: 400 }}
+                    >
+                      {fullName}
+                    </p>
+
+                    {/* Plus one indicator */}
+                    {hasPlusOne && (
+                      <p 
+                        className="font-sans text-xs sm:text-sm uppercase"
+                        style={{ color: "rgba(26, 26, 26, 0.5)", letterSpacing: "0.15em" }}
+                      >
+                        + Guest
+                      </p>
+                    )}
+                  </div>
                 </div>
-
-                {/* Guest name */}
-                <p 
-                  className="font-serif text-2xl sm:text-3xl mb-1"
-                  style={{ color: "#1A1A1A", fontWeight: 400 }}
-                >
-                  {fullName}
-                </p>
-
-                {/* Plus one indicator */}
-                {hasPlusOne && (
-                  <p 
-                    className="font-sans text-sm uppercase"
-                    style={{ color: "rgba(26, 26, 26, 0.5)", letterSpacing: "0.15em" }}
-                  >
-                    + Guest
-                  </p>
-                )}
               </div>
 
               {/* Tap to open button */}
