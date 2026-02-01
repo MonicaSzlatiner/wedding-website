@@ -162,7 +162,7 @@ export function SaveTheDateClient({
               <div className="relative mb-8">
                 {/* Envelope body */}
                 <div 
-                  className="relative aspect-[4/3] rounded-lg shadow-2xl overflow-hidden"
+                  className="relative aspect-[4/3] rounded-lg shadow-2xl overflow-visible"
                   style={{ backgroundColor: "#F8F9FA" }}
                 >
                   {/* Envelope flap (triangular top) */}
@@ -179,18 +179,34 @@ export function SaveTheDateClient({
                     }}
                   />
 
-                  {/* Envelope content */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-8 pt-12">
-                    {/* Wax seal */}
+                  {/* Wax seal - positioned at the flap point */}
+                  <div 
+                    className="absolute left-1/2 -translate-x-1/2 z-30"
+                    style={{ top: "32%" }}
+                  >
+                    {/* Gold trim ring */}
                     <div 
-                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mb-4 sm:mb-6 shadow-lg z-20"
-                      style={{ backgroundColor: "#6B705C" }}
+                      className="w-18 h-18 sm:w-22 sm:h-22 rounded-full flex items-center justify-center p-1"
+                      style={{ 
+                        background: "linear-gradient(135deg, #D4AF37 0%, #F4E4A6 25%, #D4AF37 50%, #C5A028 75%, #D4AF37 100%)",
+                        width: "72px",
+                        height: "72px",
+                      }}
                     >
-                      <span className="text-white font-serif text-xl sm:text-2xl" style={{ fontWeight: 500 }}>
-                        L&M
-                      </span>
+                      {/* Inner seal */}
+                      <div 
+                        className="w-full h-full rounded-full flex items-center justify-center shadow-lg"
+                        style={{ backgroundColor: "#6B705C" }}
+                      >
+                        <span className="text-white font-serif text-xl" style={{ fontWeight: 500 }}>
+                          L&M
+                        </span>
+                      </div>
                     </div>
+                  </div>
 
+                  {/* Envelope content */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-end p-8 pb-10">
                     {/* Guest name */}
                     <p 
                       className="font-serif text-xl sm:text-2xl md:text-3xl text-center mb-1"
