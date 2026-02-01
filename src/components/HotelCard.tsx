@@ -6,16 +6,6 @@ interface HotelCardProps {
   hotel: HotelData;
 }
 
-/**
- * Format review count with K suffix for large numbers
- */
-function formatReviewCount(count: number): string {
-  if (count >= 1000) {
-    return `${(count / 1000).toFixed(1)}K`;
-  }
-  return count.toLocaleString();
-}
-
 export function HotelCard({ hotel }: HotelCardProps) {
   return (
     <article 
@@ -69,10 +59,15 @@ export function HotelCard({ hotel }: HotelCardProps) {
         </p>
       )}
 
-      {/* Rating */}
+      {/* Rating - Clickable, links to Google reviews */}
       <div className="mb-4 sm:mb-5">
         {hotel.rating ? (
-          <div className="flex items-center gap-2">
+          <a 
+            href={hotel.googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 hover:opacity-80 transition-opacity"
+          >
             <div 
               className="flex items-center gap-1 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded"
               style={{ backgroundColor: "rgba(107, 112, 92, 0.1)" }}
@@ -80,14 +75,20 @@ export function HotelCard({ hotel }: HotelCardProps) {
               <StarIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-yellow-500" aria-hidden="true" />
               <span className="font-medium text-sm" style={{ color: "#1A1A1A" }}>{hotel.rating.score.toFixed(1)}</span>
             </div>
-            <span className="text-xs sm:text-sm" style={{ color: "rgba(26, 26, 26, 0.5)" }}>
-              ({formatReviewCount(hotel.rating.reviewCount)} reviews)
+            <span className="text-xs sm:text-sm underline underline-offset-2" style={{ color: "rgba(26, 26, 26, 0.5)" }}>
+              Google Reviews
             </span>
-          </div>
+          </a>
         ) : (
-          <p className="text-xs sm:text-sm" style={{ color: "rgba(26, 26, 26, 0.4)" }}>
-            Google rating: <a href={hotel.googleMapsUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2" style={{ color: "#6B705C" }}>see link</a>
-          </p>
+          <a 
+            href={hotel.googleMapsUrl} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-xs sm:text-sm underline underline-offset-2 hover:opacity-80 transition-opacity" 
+            style={{ color: "#6B705C" }}
+          >
+            View Google Reviews
+          </a>
         )}
       </div>
 
