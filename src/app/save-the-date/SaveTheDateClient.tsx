@@ -181,8 +181,8 @@ export function SaveTheDateClient({
 
                   {/* Wax seal - positioned exactly at the flap point */}
                   <div 
-                    className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-30"
-                    style={{ top: "40%" }}
+                    className="absolute left-1/2 -translate-x-1/2 z-30"
+                    style={{ top: "calc(40% - 38px)" }}
                   >
                     {/* Gold trim ring */}
                     <div 
