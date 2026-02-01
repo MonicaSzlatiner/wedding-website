@@ -179,23 +179,23 @@ export function SaveTheDateClient({
                     }}
                   />
 
-                  {/* Wax seal - positioned at the flap point */}
+                  {/* Wax seal - positioned exactly at the flap point */}
                   <div 
-                    className="absolute left-1/2 -translate-x-1/2 z-30"
-                    style={{ top: "32%" }}
+                    className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-30"
+                    style={{ top: "40%" }}
                   >
                     {/* Gold trim ring */}
                     <div 
-                      className="w-18 h-18 sm:w-22 sm:h-22 rounded-full flex items-center justify-center p-1"
+                      className="rounded-full flex items-center justify-center p-1 shadow-xl"
                       style={{ 
                         background: "linear-gradient(135deg, #D4AF37 0%, #F4E4A6 25%, #D4AF37 50%, #C5A028 75%, #D4AF37 100%)",
-                        width: "72px",
-                        height: "72px",
+                        width: "76px",
+                        height: "76px",
                       }}
                     >
                       {/* Inner seal */}
                       <div 
-                        className="w-full h-full rounded-full flex items-center justify-center shadow-lg"
+                        className="w-full h-full rounded-full flex items-center justify-center"
                         style={{ backgroundColor: "#6B705C" }}
                       >
                         <span className="text-white font-serif text-xl" style={{ fontWeight: 500 }}>
