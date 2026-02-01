@@ -42,8 +42,8 @@ export default function HomePage() {
 
       {/* Schedule Preview Section - Sage green background */}
       <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#6B705C" }}>
-        <Container>
-          <FadeIn className="text-center mb-8 md:mb-12 px-2">
+        <Container size="content">
+          <FadeIn className="text-center px-2 mb-8 md:mb-12">
             <p 
               className="text-xs md:text-sm font-sans font-medium uppercase mb-3 md:mb-4"
               style={{ letterSpacing: "0.2em", color: "rgba(255, 255, 255, 0.5)" }}
@@ -54,8 +54,10 @@ export default function HomePage() {
               {schedule.title}
             </h2>
           </FadeIn>
+        </Container>
 
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto">
+        <Container>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto">
             {schedule.events.map((event, index) => (
               <FadeIn key={index} delay={index * 0.1} className="text-center p-3 md:p-0">
                 <div className="font-serif text-lg md:text-2xl mb-1 md:mb-2" style={{ color: "rgba(255, 255, 255, 0.6)" }}>
