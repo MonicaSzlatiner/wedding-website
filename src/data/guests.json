@@ -1,0 +1,10 @@
+{
+  "ABC123": {
+    "name": "John Smith",
+    "plusOne": true
+  },
+  "XYZ789": {
+    "name": "Sarah Johnson",
+    "plusOne": false
+  }
+}
