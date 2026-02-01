@@ -247,10 +247,18 @@ export function SaveTheDateClient({
               >
                 {/* Header */}
                 <p 
-                  className="font-sans text-xs uppercase mb-6"
+                  className="font-sans text-xs uppercase mb-4"
                   style={{ color: "#6B705C", letterSpacing: "0.2em" }}
                 >
                   Save the Date
+                </p>
+
+                {/* Guest greeting */}
+                <p 
+                  className="font-serif text-xl sm:text-2xl mb-6"
+                  style={{ color: "#1A1A1A", fontWeight: 400 }}
+                >
+                  Dear {displayName}{hasPlusOne ? " & Guest" : ""}
                 </p>
 
                 {/* Couple names */}
@@ -310,10 +318,10 @@ export function SaveTheDateClient({
 
                 {/* Message */}
                 <p 
-                  className="font-sans text-sm leading-relaxed mb-8 max-w-sm mx-auto"
+                  className="font-serif text-base sm:text-lg italic leading-relaxed mb-8 max-w-sm mx-auto"
                   style={{ color: "rgba(26, 26, 26, 0.6)" }}
                 >
-                  Formal invitation to follow. We hope you can join us for this special celebration.
+                  We would be honored to have you celebrate this special day with us. Formal invitation to follow.
                 </p>
 
                 {/* Action buttons */}

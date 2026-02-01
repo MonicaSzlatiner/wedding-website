@@ -109,7 +109,7 @@ const guestList: GuestInput[] = [
   { name: "Matthew Samson", plusOne: true },
   { name: "Adnan Kujundzic", plusOne: true },
   { name: "Rob Kamphuis", plusOne: true },
-  { name: "Humphre Fredrikz", plusOne: true },
+  { name: "Humphrey Fredrikz", plusOne: true },
 
 ];
 
