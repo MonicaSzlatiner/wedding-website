@@ -81,20 +81,10 @@ export function Header() {
     >
       <nav className="px-6 md:px-16 lg:px-20" aria-label="Main navigation">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo/Brand - couple names */}
-          <a
-            href="#home"
-            onClick={(e) => scrollToSection(e, "#home")}
-            className="font-serif text-lg md:text-xl text-white hover:opacity-80 transition-opacity"
-            style={{ fontWeight: 400 }}
-          >
-            L & M
-          </a>
-
           {/* Hamburger Menu Button - visible on all screen sizes */}
           <button
             type="button"
-            className="p-2 -mr-2 transition-colors duration-200 text-white hover:opacity-80"
+            className="p-2 -ml-2 transition-colors duration-200 text-white hover:opacity-80"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
@@ -106,6 +96,16 @@ export function Header() {
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             )}
           </button>
+
+          {/* Logo/Brand - couple names */}
+          <a
+            href="#home"
+            onClick={(e) => scrollToSection(e, "#home")}
+            className="font-serif text-lg md:text-xl text-white hover:opacity-80 transition-opacity"
+            style={{ fontWeight: 400 }}
+          >
+            L & M
+          </a>
         </div>
 
         {/* Full-screen Menu Overlay */}
