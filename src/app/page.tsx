@@ -158,16 +158,18 @@ export default function HomePage() {
         {/* Venue Section - Sage background */}
         <div className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#6B705C" }}>
           <Container>
-            <FadeIn className="text-center mb-8 md:mb-12">
-              <p 
-                className="text-white/50 text-xs md:text-sm uppercase mb-3"
-                style={{ letterSpacing: "0.2em" }}
-              >
-                Location
-              </p>
-              <h3 className="font-serif text-3xl md:text-4xl text-white" style={{ fontWeight: 400 }}>
-                The Venue
-              </h3>
+            <FadeIn className="mb-8 md:mb-12">
+              <div className="text-center">
+                <p 
+                  className="text-white/50 text-xs md:text-sm uppercase mb-3"
+                  style={{ letterSpacing: "0.2em" }}
+                >
+                  Location
+                </p>
+                <h3 className="font-serif text-3xl md:text-4xl text-white" style={{ fontWeight: 400 }}>
+                  {venue.name}
+                </h3>
+              </div>
             </FadeIn>
 
             <div className="grid gap-8 lg:gap-12 lg:grid-cols-2 items-start">
