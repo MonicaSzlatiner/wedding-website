@@ -6,7 +6,7 @@ import Link from "next/link";
 import { weddingConfig } from "@/config/content";
 import { generateGoogleCalendarUrl, downloadICSFile } from "@/lib/calendar";
 import { recordSaveTheDateView } from "@/lib/supabase";
-import { CalendarDaysIcon, ClipboardDocumentIcon, CheckIcon } from "@heroicons/react/24/outline";
+import { ClipboardDocumentIcon, CheckIcon } from "@heroicons/react/24/outline";
 
 interface SaveTheDateClientProps {
   guestName: string | null;
@@ -15,6 +15,32 @@ interface SaveTheDateClientProps {
   isAdmin: boolean;
   isValidCode: boolean;
   guestId: string | null;
+}
+
+// Decorative flourish SVG component
+function OrnamentalDivider({ className = "" }: { className?: string }) {
+  return (
+    <svg 
+      viewBox="0 0 200 20" 
+      className={className}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path 
+        d="M0 10 H85 M115 10 H200" 
+        stroke="currentColor" 
+        strokeWidth="0.5"
+        opacity="0.3"
+      />
+      <path 
+        d="M90 10 C90 5, 95 2, 100 2 C105 2, 110 5, 110 10 C110 15, 105 18, 100 18 C95 18, 90 15, 90 10" 
+        stroke="currentColor" 
+        strokeWidth="0.5"
+        opacity="0.4"
+      />
+      <circle cx="100" cy="10" r="2" fill="currentColor" opacity="0.3" />
+    </svg>
+  );
 }
 
 export function SaveTheDateClient({
@@ -37,7 +63,6 @@ export function SaveTheDateClient({
   // Record view when page loads (only once per session)
   useEffect(() => {
     if (guestId && isValidCode) {
-      // Check if we already recorded this view in this session
       const viewKey = `std_viewed_${guestId}`;
       if (!sessionStorage.getItem(viewKey)) {
         recordSaveTheDateView(guestId).then((success) => {
@@ -51,11 +76,8 @@ export function SaveTheDateClient({
 
   // Handle opening the envelope
   const handleOpen = useCallback(() => {
-    if (animationPhase !== "closed") return; // Prevent re-triggering
-    
+    if (animationPhase !== "closed") return;
     setAnimationPhase("opening");
-
-    // Transition to fully open after envelope animation completes
     setTimeout(() => {
       setAnimationPhase("open");
     }, 1800);
@@ -80,23 +102,29 @@ export function SaveTheDateClient({
   };
 
   // Envelope dimensions
-  const FLAP_HEIGHT_PERCENT = 35; // Flap takes 35% of envelope height
+  const FLAP_HEIGHT_PERCENT = 35;
+
+  // Luxurious paper texture pattern (subtle)
+  const paperTextureStyle = {
+    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+    backgroundBlendMode: "soft-light" as const,
+  };
 
   return (
     <div 
-      className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6"
+      className="min-h-screen flex flex-col items-center justify-center p-6 sm:p-8"
       style={{ backgroundColor: "#E8E6E1" }}
     >
       {/* Admin Panel */}
       {isAdmin && (
         <div 
-          className="fixed bottom-4 left-4 z-50 p-4 rounded-xl text-xs font-sans max-w-xs"
-          style={{ backgroundColor: "rgba(26, 26, 26, 0.9)", color: "#F8F9FA" }}
+          className="fixed bottom-4 left-4 z-50 p-4 rounded-xl text-xs font-sans max-w-xs backdrop-blur-sm"
+          style={{ backgroundColor: "rgba(26, 26, 26, 0.85)", color: "#F8F9FA" }}
         >
           <p className="font-medium mb-2 uppercase" style={{ letterSpacing: "0.1em" }}>
             Admin Panel
           </p>
-          <div className="space-y-1 mb-3">
+          <div className="space-y-1 mb-3 opacity-80">
             <p>Code: <span className="font-mono">{code || "(none)"}</span></p>
             <p>Guest: {isValidCode ? guestName : "Not found"}</p>
             <p>Plus One: {isValidCode ? (hasPlusOne ? "Yes" : "No") : "N/A"}</p>
@@ -127,7 +155,7 @@ export function SaveTheDateClient({
       )}
 
       {/* Main Content */}
-      <div className="w-full max-w-md mx-auto pt-12 sm:pt-0">
+      <div className="w-full max-w-lg mx-auto">
         <AnimatePresence mode="wait">
           {animationPhase === "closed" && (
             /* ============================================
@@ -138,28 +166,53 @@ export function SaveTheDateClient({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="text-center"
             >
               {/* Envelope Container */}
-              <div className="relative mb-8" style={{ perspective: "1000px" }}>
-                {/* Envelope body (rectangular bottom part) */}
+              <div className="relative mb-10" style={{ perspective: "1200px" }}>
+                {/* Envelope body with luxurious shadow */}
                 <div 
-                  className="relative rounded-lg shadow-2xl overflow-visible"
+                  className="relative rounded-sm overflow-visible"
                   style={{ 
-                    backgroundColor: "#F8F9FA",
-                    paddingTop: `${FLAP_HEIGHT_PERCENT}%`, // Space for flap
+                    backgroundColor: "#FDFCFA",
+                    paddingTop: `${FLAP_HEIGHT_PERCENT}%`,
+                    boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.15), 0 10px 30px -10px rgba(0, 0, 0, 0.1)",
                   }}
                 >
-                  {/* Actual envelope body content area */}
+                  {/* Envelope liner (visible at edges) */}
                   <div 
-                    className="aspect-[4/3] flex flex-col items-center justify-center p-8"
-                    style={{ backgroundColor: "#F8F9FA" }}
+                    className="absolute inset-0 rounded-sm"
+                    style={{ 
+                      background: "linear-gradient(135deg, #6B705C 0%, #5A5F4E 100%)",
+                      padding: "3px",
+                    }}
                   >
-                    {/* Guest name */}
+                    <div 
+                      className="w-full h-full rounded-sm"
+                      style={{ backgroundColor: "#FDFCFA" }}
+                    />
+                  </div>
+
+                  {/* Envelope body content area */}
+                  <div 
+                    className="relative aspect-[4/3] flex flex-col items-center justify-center p-10"
+                    style={{ backgroundColor: "#FDFCFA" }}
+                  >
+                    {/* Subtle decorative border */}
+                    <div 
+                      className="absolute inset-4 border rounded-sm pointer-events-none"
+                      style={{ borderColor: "rgba(212, 175, 55, 0.15)" }}
+                    />
+
+                    {/* Guest name with gold accent */}
                     <p 
-                      className="font-serif text-xl sm:text-2xl md:text-3xl text-center mb-1"
-                      style={{ color: "#1A1A1A", fontWeight: 400 }}
+                      className="font-serif text-2xl sm:text-3xl md:text-4xl text-center mb-2"
+                      style={{ 
+                        color: "#1A1A1A", 
+                        fontWeight: 400,
+                        letterSpacing: "0.02em",
+                      }}
                     >
                       {fullName}
                     </p>
@@ -167,47 +220,58 @@ export function SaveTheDateClient({
                     {/* Plus one indicator */}
                     {hasPlusOne && (
                       <p 
-                        className="font-sans text-xs sm:text-sm uppercase"
-                        style={{ color: "rgba(26, 26, 26, 0.5)", letterSpacing: "0.15em" }}
+                        className="font-sans text-xs uppercase"
+                        style={{ 
+                          color: "#D4AF37", 
+                          letterSpacing: "0.2em",
+                          fontWeight: 500,
+                        }}
                       >
-                        + Guest
+                        & Guest
                       </p>
                     )}
                   </div>
 
-                  {/* Triangular flap - positioned at top */}
+                  {/* Triangular flap */}
                   <div 
                     className="absolute top-0 left-0 right-0 z-10"
                     style={{ 
                       height: `${FLAP_HEIGHT_PERCENT}%`,
                       clipPath: "polygon(0 0, 100% 0, 50% 100%)",
-                      background: "linear-gradient(180deg, #D8D6D1 0%, #E5E3DE 100%)",
+                      background: "linear-gradient(180deg, #E5E3DE 0%, #ECEAE5 100%)",
                     }}
                   />
 
-                  {/* Wax seal - positioned exactly at flap tip */}
+                  {/* Wax seal */}
                   <div 
-                    className="absolute left-1/2 -translate-x-1/2 z-30"
+                    className="absolute left-1/2 z-30"
                     style={{ 
                       top: `${FLAP_HEIGHT_PERCENT}%`,
                       transform: "translateX(-50%) translateY(-50%)",
                     }}
                   >
-                    {/* Gold trim ring */}
+                    {/* Outer gold ring with subtle glow */}
                     <div 
-                      className="rounded-full flex items-center justify-center p-1 shadow-xl"
+                      className="rounded-full flex items-center justify-center p-1.5"
                       style={{ 
                         background: "linear-gradient(135deg, #D4AF37 0%, #F4E4A6 25%, #D4AF37 50%, #C5A028 75%, #D4AF37 100%)",
-                        width: "68px",
-                        height: "68px",
+                        width: "76px",
+                        height: "76px",
+                        boxShadow: "0 8px 25px rgba(212, 175, 55, 0.3), 0 4px 10px rgba(0, 0, 0, 0.1)",
                       }}
                     >
                       {/* Inner seal */}
                       <div 
                         className="w-full h-full rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: "#6B705C" }}
+                        style={{ 
+                          backgroundColor: "#6B705C",
+                          boxShadow: "inset 0 2px 4px rgba(0, 0, 0, 0.2)",
+                        }}
                       >
-                        <span className="text-white font-serif text-lg" style={{ fontWeight: 500 }}>
+                        <span 
+                          className="text-white font-serif text-xl" 
+                          style={{ fontWeight: 500, letterSpacing: "0.05em" }}
+                        >
                           L&M
                         </span>
                       </div>
@@ -216,16 +280,17 @@ export function SaveTheDateClient({
                 </div>
               </div>
 
-              {/* Tap to open button */}
+              {/* Tap to open button - refined */}
               <motion.button
                 onClick={handleOpen}
-                className="w-full py-4 rounded-full font-sans text-sm uppercase"
+                className="px-10 py-4 rounded-full font-sans text-xs uppercase tracking-widest"
                 style={{ 
                   backgroundColor: "#6B705C", 
                   color: "#F8F9FA",
-                  letterSpacing: "0.15em"
+                  letterSpacing: "0.2em",
+                  boxShadow: "0 4px 15px rgba(107, 112, 92, 0.3)",
                 }}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.02, boxShadow: "0 6px 20px rgba(107, 112, 92, 0.4)" }}
                 whileTap={{ scale: 0.98 }}
               >
                 Tap to Open
@@ -236,7 +301,6 @@ export function SaveTheDateClient({
           {animationPhase === "opening" && (
             /* ============================================
                OPENING ANIMATION STATE
-               Seal splits, flap opens, then fades out
                ============================================ */
             <motion.div
               key="envelope-opening"
@@ -246,35 +310,44 @@ export function SaveTheDateClient({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
             >
-              {/* Envelope Container */}
-              <div className="relative mb-8" style={{ perspective: "1000px" }}>
-                {/* Envelope body */}
+              <div className="relative mb-10" style={{ perspective: "1200px" }}>
                 <motion.div 
-                  className="relative rounded-lg shadow-2xl overflow-visible"
+                  className="relative rounded-sm overflow-visible"
                   style={{ 
-                    backgroundColor: "#F8F9FA",
+                    backgroundColor: "#FDFCFA",
                     paddingTop: `${FLAP_HEIGHT_PERCENT}%`,
+                    boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.15)",
                   }}
                   animate={{ opacity: 0 }}
                   transition={{ delay: 1.2, duration: 0.6 }}
                 >
-                  {/* Envelope body content */}
+                  {/* Envelope liner reveal */}
+                  <motion.div 
+                    className="absolute inset-0 rounded-sm"
+                    style={{ 
+                      background: "linear-gradient(135deg, #6B705C 0%, #5A5F4E 100%)",
+                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4, duration: 0.4 }}
+                  />
+
                   <div 
-                    className="aspect-[4/3] flex flex-col items-center justify-center p-8"
-                    style={{ backgroundColor: "#F8F9FA" }}
+                    className="relative aspect-[4/3] flex flex-col items-center justify-center p-10"
+                    style={{ backgroundColor: "#FDFCFA" }}
                   >
-                    <p className="font-serif text-xl text-center" style={{ color: "#1A1A1A" }}>
+                    <p className="font-serif text-2xl text-center" style={{ color: "#1A1A1A" }}>
                       {fullName}
                     </p>
                   </div>
 
-                  {/* Triangular flap - opening animation */}
+                  {/* Flap opening */}
                   <motion.div 
                     className="absolute top-0 left-0 right-0 z-10"
                     style={{ 
                       height: `${FLAP_HEIGHT_PERCENT}%`,
                       clipPath: "polygon(0 0, 100% 0, 50% 100%)",
-                      background: "linear-gradient(180deg, #D8D6D1 0%, #E5E3DE 100%)",
+                      background: "linear-gradient(180deg, #E5E3DE 0%, #ECEAE5 100%)",
                       transformOrigin: "top center",
                       transformStyle: "preserve-3d",
                     }}
@@ -283,64 +356,47 @@ export function SaveTheDateClient({
                     transition={{ delay: 0.3, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                   />
 
-                  {/* Seal - Left half */}
+                  {/* Seal halves */}
                   <motion.div 
                     className="absolute left-1/2 z-30"
-                    style={{ 
-                      top: `${FLAP_HEIGHT_PERCENT}%`,
-                      transform: "translateX(-50%) translateY(-50%)",
-                    }}
+                    style={{ top: `${FLAP_HEIGHT_PERCENT}%`, transform: "translateX(-50%) translateY(-50%)" }}
                     initial={{ x: "-50%", y: "-50%", rotate: 0, opacity: 1 }}
-                    animate={{ x: "-75%", y: "-50%", rotate: -20, opacity: 0 }}
+                    animate={{ x: "-80%", y: "-50%", rotate: -25, opacity: 0 }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
                   >
                     <div 
-                      className="rounded-full flex items-center justify-center p-1 shadow-xl overflow-hidden"
+                      className="rounded-full p-1.5 overflow-hidden"
                       style={{ 
                         background: "linear-gradient(135deg, #D4AF37 0%, #F4E4A6 25%, #D4AF37 50%, #C5A028 75%, #D4AF37 100%)",
-                        width: "68px",
-                        height: "68px",
+                        width: "76px",
+                        height: "76px",
                         clipPath: "polygon(0 0, 50% 0, 50% 100%, 0 100%)",
                       }}
                     >
-                      <div 
-                        className="w-full h-full rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: "#6B705C" }}
-                      >
-                        <span className="text-white font-serif text-lg" style={{ fontWeight: 500 }}>
-                          L&M
-                        </span>
+                      <div className="w-full h-full rounded-full flex items-center justify-center" style={{ backgroundColor: "#6B705C" }}>
+                        <span className="text-white font-serif text-xl">L&M</span>
                       </div>
                     </div>
                   </motion.div>
 
-                  {/* Seal - Right half */}
                   <motion.div 
                     className="absolute left-1/2 z-30"
-                    style={{ 
-                      top: `${FLAP_HEIGHT_PERCENT}%`,
-                      transform: "translateX(-50%) translateY(-50%)",
-                    }}
+                    style={{ top: `${FLAP_HEIGHT_PERCENT}%`, transform: "translateX(-50%) translateY(-50%)" }}
                     initial={{ x: "-50%", y: "-50%", rotate: 0, opacity: 1 }}
-                    animate={{ x: "-25%", y: "-50%", rotate: 20, opacity: 0 }}
+                    animate={{ x: "-20%", y: "-50%", rotate: 25, opacity: 0 }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
                   >
                     <div 
-                      className="rounded-full flex items-center justify-center p-1 shadow-xl overflow-hidden"
+                      className="rounded-full p-1.5 overflow-hidden"
                       style={{ 
                         background: "linear-gradient(135deg, #D4AF37 0%, #F4E4A6 25%, #D4AF37 50%, #C5A028 75%, #D4AF37 100%)",
-                        width: "68px",
-                        height: "68px",
+                        width: "76px",
+                        height: "76px",
                         clipPath: "polygon(50% 0, 100% 0, 100% 100%, 50% 100%)",
                       }}
                     >
-                      <div 
-                        className="w-full h-full rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: "#6B705C" }}
-                      >
-                        <span className="text-white font-serif text-lg" style={{ fontWeight: 500 }}>
-                          L&M
-                        </span>
+                      <div className="w-full h-full rounded-full flex items-center justify-center" style={{ backgroundColor: "#6B705C" }}>
+                        <span className="text-white font-serif text-xl">L&M</span>
                       </div>
                     </div>
                   </motion.div>
@@ -351,122 +407,204 @@ export function SaveTheDateClient({
 
           {animationPhase === "open" && (
             /* ============================================
-               FULLY OPEN / INVITATION STATE
+               FULLY OPEN / INVITATION STATE - LUXURIOUS
                ============================================ */
             <motion.div
               key="invitation-open"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="text-center"
             >
-              {/* Card content */}
+              {/* Card with paper texture and luxurious shadow */}
               <div
-                className="rounded-xl p-8 sm:p-10 shadow-xl"
-                style={{ backgroundColor: "#F8F9FA" }}
+                className="relative rounded-sm p-10 sm:p-14 md:p-16"
+                style={{ 
+                  backgroundColor: "#FDFCFA",
+                  boxShadow: "0 30px 70px -20px rgba(0, 0, 0, 0.12), 0 15px 35px -15px rgba(0, 0, 0, 0.08)",
+                  ...paperTextureStyle,
+                }}
               >
-                {/* Header */}
-                <p 
-                  className="font-sans text-xs uppercase mb-4"
-                  style={{ color: "#6B705C", letterSpacing: "0.2em" }}
+                {/* Decorative gold border */}
+                <div 
+                  className="absolute inset-5 sm:inset-7 border pointer-events-none"
+                  style={{ borderColor: "rgba(212, 175, 55, 0.2)" }}
+                />
+
+                {/* Corner flourishes */}
+                <div className="absolute top-6 left-6 w-8 h-8 border-t border-l" style={{ borderColor: "rgba(212, 175, 55, 0.25)" }} />
+                <div className="absolute top-6 right-6 w-8 h-8 border-t border-r" style={{ borderColor: "rgba(212, 175, 55, 0.25)" }} />
+                <div className="absolute bottom-6 left-6 w-8 h-8 border-b border-l" style={{ borderColor: "rgba(212, 175, 55, 0.25)" }} />
+                <div className="absolute bottom-6 right-6 w-8 h-8 border-b border-r" style={{ borderColor: "rgba(212, 175, 55, 0.25)" }} />
+
+                {/* Header with gold accent */}
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="font-sans text-[10px] sm:text-xs uppercase mb-8"
+                  style={{ 
+                    color: "#D4AF37", 
+                    letterSpacing: "0.3em",
+                    fontWeight: 500,
+                  }}
                 >
                   Save the Date
-                </p>
+                </motion.p>
+
+                {/* Ornamental divider */}
+                <OrnamentalDivider className="w-40 h-4 mx-auto mb-8 text-charcoal" />
 
                 {/* Guest greeting */}
-                <p 
-                  className="font-serif text-xl sm:text-2xl mb-6"
-                  style={{ color: "#1A1A1A", fontWeight: 400 }}
+                <motion.p 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="font-serif text-lg sm:text-xl mb-10"
+                  style={{ color: "rgba(26, 26, 26, 0.7)", fontWeight: 400, fontStyle: "italic" }}
                 >
                   Dear {firstName}{hasPlusOne ? " & Guest" : ""}
-                </p>
+                </motion.p>
 
-                {/* Couple names */}
-                <h1 
-                  className="font-serif text-4xl sm:text-5xl mb-2"
-                  style={{ color: "#1A1A1A", fontWeight: 400, lineHeight: 1.1 }}
+                {/* Couple names - larger, more prominent */}
+                <motion.h1 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="font-serif text-5xl sm:text-6xl md:text-7xl mb-3"
+                  style={{ 
+                    color: "#1A1A1A", 
+                    fontWeight: 400, 
+                    lineHeight: 1.1,
+                    letterSpacing: "-0.02em",
+                  }}
                 >
                   {couple.person1}
-                  <span style={{ color: "rgba(26, 26, 26, 0.4)" }}> & </span>
-                  {couple.person2}
-                </h1>
-
-                <p 
-                  className="font-sans text-xs uppercase mb-8"
-                  style={{ color: "rgba(26, 26, 26, 0.5)", letterSpacing: "0.15em" }}
+                </motion.h1>
+                
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.45 }}
+                  className="font-serif text-2xl sm:text-3xl mb-3"
+                  style={{ color: "#D4AF37", fontWeight: 400 }}
                 >
-                  Are getting married
-                </p>
+                  &
+                </motion.p>
 
-                {/* Date */}
-                <div className="mb-6">
+                <motion.h1 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="font-serif text-5xl sm:text-6xl md:text-7xl mb-8"
+                  style={{ 
+                    color: "#1A1A1A", 
+                    fontWeight: 400, 
+                    lineHeight: 1.1,
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  {couple.person2}
+                </motion.h1>
+
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.55 }}
+                  className="font-sans text-[10px] sm:text-xs uppercase mb-10"
+                  style={{ color: "rgba(26, 26, 26, 0.5)", letterSpacing: "0.25em" }}
+                >
+                  Request the pleasure of your company
+                </motion.p>
+
+                {/* Date - refined */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="mb-8"
+                >
                   <p 
-                    className="font-serif text-2xl sm:text-3xl mb-1"
+                    className="font-serif text-2xl sm:text-3xl md:text-4xl mb-2"
                     style={{ color: "#1A1A1A", fontWeight: 400 }}
                   >
                     {date.full}
                   </p>
                   <p 
-                    className="font-sans text-sm"
-                    style={{ color: "rgba(26, 26, 26, 0.5)" }}
+                    className="font-sans text-xs sm:text-sm uppercase"
+                    style={{ color: "rgba(26, 26, 26, 0.4)", letterSpacing: "0.15em" }}
                   >
                     {date.timeDisplay}
                   </p>
-                </div>
+                </motion.div>
 
                 {/* Venue */}
-                <div className="mb-8">
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.65 }}
+                  className="mb-10"
+                >
                   <p 
-                    className="font-serif text-lg mb-1"
+                    className="font-serif text-xl sm:text-2xl mb-1"
                     style={{ color: "#1A1A1A", fontWeight: 400 }}
                   >
                     {venue.name}
                   </p>
                   <p 
-                    className="font-sans text-sm"
-                    style={{ color: "rgba(26, 26, 26, 0.5)" }}
+                    className="font-sans text-xs sm:text-sm"
+                    style={{ color: "rgba(26, 26, 26, 0.4)" }}
                   >
                     {venue.city}
                   </p>
-                </div>
+                </motion.div>
 
-                {/* Divider */}
-                <div 
-                  className="w-16 h-px mx-auto mb-8"
-                  style={{ backgroundColor: "rgba(26, 26, 26, 0.2)" }}
-                />
+                {/* Ornamental divider */}
+                <OrnamentalDivider className="w-32 h-4 mx-auto mb-10 text-charcoal" />
 
                 {/* Message */}
-                <p 
-                  className="font-serif text-base sm:text-lg italic leading-relaxed mb-8 max-w-sm mx-auto"
-                  style={{ color: "rgba(26, 26, 26, 0.6)" }}
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.7 }}
+                  className="font-serif text-sm sm:text-base italic leading-relaxed mb-12 max-w-md mx-auto"
+                  style={{ color: "rgba(26, 26, 26, 0.55)" }}
                 >
-                  We would be honored to have you celebrate this special day with us. Formal invitation to follow.
-                </p>
+                  We would be honored to have you celebrate this special day with us.
+                  <br />
+                  <span className="text-xs sm:text-sm not-italic" style={{ color: "rgba(26, 26, 26, 0.4)" }}>
+                    Formal invitation to follow.
+                  </span>
+                </motion.p>
 
-                {/* Action buttons */}
-                <div className="space-y-3">
+                {/* Action buttons - more understated */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.75 }}
+                  className="space-y-4"
+                >
                   <div className="flex flex-col sm:flex-row gap-3 justify-center">
                     <button
                       onClick={handleGoogleCalendar}
-                      className="flex items-center justify-center gap-2 px-5 py-3 rounded-full font-sans text-xs uppercase transition-all duration-300 hover:opacity-90"
+                      className="px-6 py-3 rounded-full font-sans text-[10px] sm:text-xs uppercase transition-all duration-300 hover:opacity-90"
                       style={{ 
                         backgroundColor: "#6B705C", 
                         color: "#F8F9FA",
-                        letterSpacing: "0.1em"
+                        letterSpacing: "0.15em",
+                        boxShadow: "0 2px 10px rgba(107, 112, 92, 0.2)",
                       }}
                     >
-                      <CalendarDaysIcon className="h-4 w-4" />
-                      Add to Calendar
+                      Add to Google Calendar
                     </button>
 
                     <button
                       onClick={handleDownloadICS}
-                      className="flex items-center justify-center gap-2 px-5 py-3 rounded-full font-sans text-xs uppercase transition-all duration-300 border hover:bg-black/5"
+                      className="px-6 py-3 rounded-full font-sans text-[10px] sm:text-xs uppercase transition-all duration-300 hover:bg-charcoal/5"
                       style={{ 
-                        borderColor: "#1A1A1A",
-                        color: "#1A1A1A",
-                        letterSpacing: "0.1em"
+                        border: "1px solid rgba(26, 26, 26, 0.2)",
+                        color: "rgba(26, 26, 26, 0.7)",
+                        letterSpacing: "0.15em",
                       }}
                     >
                       Download .ics
@@ -475,12 +613,15 @@ export function SaveTheDateClient({
 
                   <Link
                     href="/"
-                    className="inline-block font-sans text-xs uppercase underline underline-offset-4 transition-opacity hover:opacity-70 pt-2"
-                    style={{ color: "#6B705C", letterSpacing: "0.1em" }}
+                    className="inline-block font-sans text-[10px] sm:text-xs uppercase transition-opacity hover:opacity-70 pt-4"
+                    style={{ 
+                      color: "#D4AF37", 
+                      letterSpacing: "0.15em",
+                    }}
                   >
                     View Wedding Website
                   </Link>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           )}
