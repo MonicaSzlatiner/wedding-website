@@ -398,7 +398,7 @@ export function SaveTheDateClient({
 
                 <p 
                   className="font-sans text-xs uppercase mb-8"
-                  style={{ color: "rgba(44, 44, 44, 0.45)", letterSpacing: "0.15em" }}
+                  style={{ color: "rgba(44, 44, 44, 0.6)", letterSpacing: "0.15em" }}
                 >
                   Are getting married
                 </p>
@@ -413,7 +413,7 @@ export function SaveTheDateClient({
                   </p>
                   <p 
                     className="font-sans text-sm"
-                    style={{ color: "rgba(44, 44, 44, 0.5)" }}
+                    style={{ color: "rgba(44, 44, 44, 0.6)" }}
                   >
                     {date.timeDisplay}
                   </p>
@@ -429,7 +429,7 @@ export function SaveTheDateClient({
                   </p>
                   <p 
                     className="font-sans text-sm"
-                    style={{ color: "rgba(44, 44, 44, 0.5)" }}
+                    style={{ color: "rgba(44, 44, 44, 0.65)" }}
                   >
                     {venue.city}, The Netherlands
                   </p>
