@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { weddingConfig } from "@/config/content";
 import { generateGoogleCalendarUrl, downloadICSFile } from "@/lib/calendar";
 import { recordSaveTheDateView } from "@/lib/supabase";
-import { CalendarDaysIcon, MusicalNoteIcon, ClipboardDocumentIcon, CheckIcon } from "@heroicons/react/24/outline";
+import { CalendarDaysIcon, ClipboardDocumentIcon, CheckIcon } from "@heroicons/react/24/outline";
 
 interface SaveTheDateClientProps {
   guestName: string | null;
@@ -26,10 +26,7 @@ export function SaveTheDateClient({
   guestId,
 }: SaveTheDateClientProps) {
   const [animationPhase, setAnimationPhase] = useState<"closed" | "opening" | "open">("closed");
-  const [musicEnabled, setMusicEnabled] = useState(false); // Default OFF
-  const [musicPlaying, setMusicPlaying] = useState(false);
   const [copied, setCopied] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Extract first name only
   const fullName = guestName || "Friend";
@@ -57,36 +54,12 @@ export function SaveTheDateClient({
     if (animationPhase !== "closed") return; // Prevent re-triggering
     
     setAnimationPhase("opening");
-    
-    // Start music if enabled
-    if (musicEnabled && audioRef.current) {
-      audioRef.current.play().catch(() => {});
-      setMusicPlaying(true);
-    }
 
     // Transition to fully open after envelope animation completes
     setTimeout(() => {
       setAnimationPhase("open");
     }, 1800);
-  }, [musicEnabled, animationPhase]);
-
-  // Toggle music
-  const toggleMusic = useCallback(() => {
-    if (musicEnabled) {
-      setMusicEnabled(false);
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.currentTime = 0;
-      }
-      setMusicPlaying(false);
-    } else {
-      setMusicEnabled(true);
-      if (animationPhase === "open" && audioRef.current) {
-        audioRef.current.play().catch(() => {});
-        setMusicPlaying(true);
-      }
-    }
-  }, [musicEnabled, animationPhase]);
+  }, [animationPhase]);
 
   // Copy invite link
   const handleCopyLink = useCallback(() => {
@@ -114,27 +87,6 @@ export function SaveTheDateClient({
       className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6"
       style={{ backgroundColor: "#E8E6E1" }}
     >
-      {/* Hidden audio element */}
-      <audio ref={audioRef} src="/audio/save-the-date.m4a" loop />
-
-      {/* Music Toggle - positioned below header area */}
-      <button
-        onClick={toggleMusic}
-        className={`fixed top-20 right-4 z-50 flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-sans uppercase transition-all duration-300 shadow-lg ${
-          musicEnabled 
-            ? "text-white" 
-            : "bg-white text-charcoal border border-charcoal/10"
-        }`}
-        style={{ 
-          letterSpacing: "0.1em",
-          backgroundColor: musicEnabled ? "#6B705C" : undefined,
-        }}
-        aria-label={musicEnabled ? "Turn off music" : "Turn on music"}
-      >
-        <MusicalNoteIcon className={`h-4 w-4 ${musicPlaying ? "animate-pulse" : ""}`} />
-        <span>{musicEnabled ? "Music On" : "Music Off"}</span>
-      </button>
-
       {/* Admin Panel */}
       {isAdmin && (
         <div 
