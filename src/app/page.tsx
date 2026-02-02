@@ -155,23 +155,38 @@ export default function HomePage() {
           </Container>
         </div>
 
-        {/* Venue Section - Sage background */}
-        <div className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#6B705C" }}>
-          <Container>
-            <div className="text-center mb-8 md:mb-12">
-              <FadeIn>
+        {/* Venue Section */}
+        {/* Venue Image Header */}
+        <div className="p-3 sm:p-4 lg:p-5 xl:p-6" style={{ backgroundColor: "#E8E6E1" }}>
+          <FadeIn>
+            <div className="relative h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
+              <Image
+                src="/images/venue.jpg"
+                alt={venue.name}
+                fill
+                className="object-cover"
+                sizes="100vw"
+              />
+              {/* Overlay with venue name */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 lg:p-14">
                 <p 
-                  className="text-white/50 text-xs md:text-sm uppercase mb-3"
+                  className="text-white/70 text-xs md:text-sm uppercase mb-2 md:mb-3"
                   style={{ letterSpacing: "0.2em" }}
                 >
                   Location
                 </p>
-                <h3 className="font-serif text-3xl md:text-4xl text-white" style={{ fontWeight: 400 }}>
+                <h3 className="font-serif text-3xl md:text-5xl lg:text-6xl text-white" style={{ fontWeight: 400 }}>
                   {venue.name}
                 </h3>
-              </FadeIn>
+              </div>
             </div>
+          </FadeIn>
+        </div>
 
+        {/* Venue Details - Sage background */}
+        <div className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#6B705C" }}>
+          <Container>
             <div className="grid gap-8 lg:gap-12 lg:grid-cols-2 items-start">
               {/* Venue Info */}
               <FadeIn>
