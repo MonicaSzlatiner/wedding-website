@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { weddingConfig } from "@/config/content";
 import { generateGoogleCalendarUrl, downloadICSFile } from "@/lib/calendar";
+import { recordSaveTheDateView } from "@/lib/supabase";
 import { CalendarDaysIcon, MusicalNoteIcon, ClipboardDocumentIcon, CheckIcon } from "@heroicons/react/24/outline";
 
 interface SaveTheDateClientProps {
@@ -13,6 +14,7 @@ interface SaveTheDateClientProps {
   code: string;
   isAdmin: boolean;
   isValidCode: boolean;
+  guestId: string | null;
 }
 
 export function SaveTheDateClient({
@@ -21,6 +23,7 @@ export function SaveTheDateClient({
   code,
   isAdmin,
   isValidCode,
+  guestId,
 }: SaveTheDateClientProps) {
   const [animationPhase, setAnimationPhase] = useState<"closed" | "opening" | "open">("closed");
   const [musicEnabled, setMusicEnabled] = useState(false); // Default OFF
@@ -33,6 +36,21 @@ export function SaveTheDateClient({
   const firstName = fullName.split(" ")[0];
   
   const { calendarEvent, couple, date, venue } = weddingConfig;
+
+  // Record view when page loads (only once per session)
+  useEffect(() => {
+    if (guestId && isValidCode) {
+      // Check if we already recorded this view in this session
+      const viewKey = `std_viewed_${guestId}`;
+      if (!sessionStorage.getItem(viewKey)) {
+        recordSaveTheDateView(guestId).then((success) => {
+          if (success) {
+            sessionStorage.setItem(viewKey, "true");
+          }
+        });
+      }
+    }
+  }, [guestId, isValidCode]);
 
   // Handle opening the envelope
   const handleOpen = useCallback(() => {
