@@ -158,8 +158,8 @@ export default function HomePage() {
         {/* Venue Section - Sage background */}
         <div className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#6B705C" }}>
           <Container>
-            <FadeIn className="mb-8 md:mb-12">
-              <div className="text-center">
+            <div className="text-center mb-8 md:mb-12">
+              <FadeIn>
                 <p 
                   className="text-white/50 text-xs md:text-sm uppercase mb-3"
                   style={{ letterSpacing: "0.2em" }}
@@ -169,17 +169,13 @@ export default function HomePage() {
                 <h3 className="font-serif text-3xl md:text-4xl text-white" style={{ fontWeight: 400 }}>
                   {venue.name}
                 </h3>
-              </div>
-            </FadeIn>
+              </FadeIn>
+            </div>
 
             <div className="grid gap-8 lg:gap-12 lg:grid-cols-2 items-start">
               {/* Venue Info */}
               <FadeIn>
                 <div>
-                  <h4 className="font-serif text-2xl text-white mb-6" style={{ fontWeight: 400 }}>
-                    {venue.name}
-                  </h4>
-
                   <div className="space-y-4 mb-8">
                     <div className="flex items-start gap-3">
                       <MapPinIcon className="h-5 w-5 text-white/60 mt-0.5 flex-shrink-0" />
