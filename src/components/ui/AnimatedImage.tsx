@@ -27,9 +27,12 @@ export function AnimatedImage({
   const [isLoaded, setIsLoaded] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
+  // Ensure alt is always provided (ESLint requirement)
+  const altText = props.alt || "";
+
   // If reduced motion or no animation, render standard image
   if (shouldReduceMotion || !animate) {
-    return <Image className={className} {...props} />;
+    return <Image {...props} alt={altText} className={className} />;
   }
 
   return (
@@ -45,6 +48,7 @@ export function AnimatedImage({
     >
       <Image
         {...props}
+        alt={altText}
         className={className}
         onLoad={() => setIsLoaded(true)}
       />

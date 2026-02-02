@@ -4,8 +4,8 @@ import { createClient } from "@supabase/supabase-js";
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-// Create Supabase client
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
+// Create Supabase client (untyped for flexibility)
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // ============================================
 // Database Types
@@ -38,29 +38,6 @@ export interface RSVP {
   special_considerations: string | null;
   submitted_at: string;
   updated_at: string;
-}
-
-// Database schema type for Supabase client
-export interface Database {
-  public: {
-    Tables: {
-      guests: {
-        Row: Guest;
-        Insert: Omit<Guest, "id" | "created_at">;
-        Update: Partial<Omit<Guest, "id">>;
-      };
-      save_the_date_views: {
-        Row: SaveTheDateView;
-        Insert: Omit<SaveTheDateView, "id" | "viewed_at">;
-        Update: Partial<Omit<SaveTheDateView, "id">>;
-      };
-      rsvps: {
-        Row: RSVP;
-        Insert: Omit<RSVP, "id" | "submitted_at" | "updated_at">;
-        Update: Partial<Omit<RSVP, "id" | "submitted_at">>;
-      };
-    };
-  };
 }
 
 // ============================================
