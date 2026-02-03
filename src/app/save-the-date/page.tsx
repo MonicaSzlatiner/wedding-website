@@ -5,6 +5,10 @@ import { getGuestByCode } from "@/lib/supabase";
 export const metadata: Metadata = {
   title: "Save the Date | Laurens & Monica",
   description: "You're invited to celebrate our wedding on August 1, 2026.",
+  openGraph: {
+    title: "Save the Date - Laurens & Monica",
+    description: "You're invited to celebrate our wedding on August 1, 2026.",
+  },
 };
 
 interface PageProps {

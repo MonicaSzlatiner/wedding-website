@@ -86,8 +86,8 @@ export function SaveTheDateClient({
 
   return (
     <div 
-      className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6"
-      style={{ backgroundColor: "#E8E6E1" }}
+      className="min-h-screen flex flex-col items-center justify-center p-6 sm:p-8"
+      style={{ backgroundColor: "#FFFFFF" }}
     >
       {/* Admin Panel */}
       {isAdmin && (
@@ -364,10 +364,11 @@ export function SaveTheDateClient({
             >
               {/* Card content with paper texture */}
               <div
-                className="rounded-xl p-8 sm:p-10 shadow-xl"
+                className="rounded-2xl p-8 sm:p-10 shadow-2xl"
                 style={{ 
                   backgroundColor: "#F8F9FA",
                   ...paperTextureStyle,
+                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
                 }}
               >
                 {/* Header */}
@@ -424,7 +425,7 @@ export function SaveTheDateClient({
                 </div>
 
                 {/* Venue */}
-                <div className="mb-6">
+                <div className="mb-8">
                   <p 
                     className="font-serif text-lg mb-1"
                     style={{ color: "#2C2C2C", fontWeight: 400 }}
@@ -441,12 +442,6 @@ export function SaveTheDateClient({
                     {venue.city}, The Netherlands
                   </p>
                 </div>
-
-                {/* Divider */}
-                <div 
-                  className="w-16 h-px mx-auto mb-6"
-                  style={{ backgroundColor: "rgba(26, 26, 26, 0.15)" }}
-                />
 
                 {/* Message */}
                 <p 
@@ -490,8 +485,12 @@ export function SaveTheDateClient({
 
                   <Link
                     href="/"
-                    className="inline-block font-sans text-xs uppercase underline underline-offset-4 transition-opacity hover:opacity-70 pt-2"
-                    style={{ color: "#6B705C", letterSpacing: "0.1em" }}
+                    className="inline-flex items-center justify-center px-5 py-3 rounded-full font-sans text-xs uppercase transition-all duration-300 hover:bg-sage/10"
+                    style={{ 
+                      border: "1px solid #6B705C",
+                      color: "#6B705C", 
+                      letterSpacing: "0.1em",
+                    }}
                   >
                     View Wedding Website
                   </Link>
