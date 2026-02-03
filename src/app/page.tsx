@@ -326,10 +326,10 @@ export default function HomePage() {
 
           {/* Desktop: Framed split layout */}
           <div className="hidden lg:block p-5 xl:p-6" style={{ backgroundColor: "#E8E6E1" }}>
-            <div className="flex">
+            <div className="flex items-stretch min-h-[70vh]">
               {/* Left Panel */}
               <div 
-                className="w-1/2 flex flex-col justify-end p-10 xl:p-14 min-h-[70vh]"
+                className="w-1/2 flex flex-col justify-end p-10 xl:p-14"
                 style={{ backgroundColor: "#6B705C" }}
               >
                 <p 
@@ -349,7 +349,7 @@ export default function HomePage() {
                 </p>
               </div>
               {/* Right Panel - Image */}
-              <div className="w-1/2 relative min-h-[70vh]">
+              <div className="w-1/2 relative">
                 <Image
                   src="/images/hero-travel.jpg"
                   alt="Laurens and Monica in New York City"
