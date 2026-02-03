@@ -82,7 +82,7 @@ export const weddingConfig = {
   dressCode: {
     title: "Dress Code",
     code: "Cocktail Attire",
-    description: "We invite you to dress elegantly for our celebration. Think refined and festive.",
+    description: "",
     inspiration: {
       men: {
         label: "Inspiration for men",

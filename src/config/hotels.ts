@@ -113,7 +113,7 @@ export const hotels: HotelData[] = [
 
 export const accommodationsContent = {
   title: "Accommodations",
-  subtitle: "Rest well before the celebration",
+  subtitle: "For our out-of-town guests, we've curated a selection of places to stay",
   intro: "We have selected a range of hotels to suit different preferences and budgets. All options are well-connected to Parkheuvel and offer a comfortable stay in Rotterdam. Feel free to choose what works best for you.",
   hotelsHeading: "Our Picks",
   

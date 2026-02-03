@@ -265,13 +265,6 @@ export default function HomePage() {
               >
                 {dressCode.title}
               </h3>
-              <p 
-                className="text-base md:text-lg max-w-xl mx-auto leading-relaxed mb-6 md:mb-8"
-                style={{ color: "rgba(26, 26, 26, 0.7)" }}
-              >
-                {dressCode.description}
-              </p>
-
               <div 
                 className="inline-block px-6 py-3 md:px-8 md:py-4 rounded-full mb-6 md:mb-8"
                 style={{ backgroundColor: "#6B705C" }}
@@ -333,10 +326,10 @@ export default function HomePage() {
 
           {/* Desktop: Framed split layout */}
           <div className="hidden lg:block p-5 xl:p-6" style={{ backgroundColor: "#E8E6E1" }}>
-            <div className="flex min-h-[70vh]">
+            <div className="flex">
               {/* Left Panel */}
               <div 
-                className="w-1/2 flex flex-col justify-end p-10 xl:p-14"
+                className="w-1/2 flex flex-col justify-end p-10 xl:p-14 min-h-[70vh]"
                 style={{ backgroundColor: "#6B705C" }}
               >
                 <p 
