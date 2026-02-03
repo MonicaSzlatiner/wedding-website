@@ -398,7 +398,11 @@ export function SaveTheDateClient({
 
                 <p 
                   className="font-sans text-xs uppercase mb-8"
-                  style={{ color: "rgba(44, 44, 44, 0.6)", letterSpacing: "0.15em" }}
+                  style={{ 
+                    color: "rgba(44, 44, 44, 0.6)", 
+                    letterSpacing: "0.15em",
+                    textShadow: "0 1px 3px rgba(0, 0, 0, 0.15)",
+                  }}
                 >
                   Are getting married
                 </p>
@@ -429,7 +433,10 @@ export function SaveTheDateClient({
                   </p>
                   <p 
                     className="font-sans text-sm"
-                    style={{ color: "rgba(44, 44, 44, 0.65)" }}
+                    style={{ 
+                      color: "rgba(44, 44, 44, 0.65)",
+                      textShadow: "0 1px 3px rgba(0, 0, 0, 0.15)",
+                    }}
                   >
                     {venue.city}, The Netherlands
                   </p>
@@ -444,7 +451,10 @@ export function SaveTheDateClient({
                 {/* Message */}
                 <p 
                   className="font-serif text-base sm:text-lg italic leading-relaxed mb-8 max-w-sm mx-auto"
-                  style={{ color: "rgba(26, 26, 26, 0.55)" }}
+                  style={{ 
+                    color: "rgba(26, 26, 26, 0.55)",
+                    textShadow: "0 1px 3px rgba(0, 0, 0, 0.15)",
+                  }}
                 >
                   We would be honored to have you celebrate this special day with us. Formal invitation to follow.
                 </p>
