@@ -191,6 +191,11 @@ export default function HomePage() {
               {/* Venue Info */}
               <FadeIn>
                 <div>
+                  {/* Venue tagline */}
+                  <p className="text-white/80 italic font-serif text-lg mb-6">
+                    Michelin-starred dining with views of the Maas
+                  </p>
+
                   <div className="space-y-4 mb-8">
                     <div className="flex items-start gap-3">
                       <MapPinIcon className="h-5 w-5 text-white/60 mt-0.5 flex-shrink-0" />
