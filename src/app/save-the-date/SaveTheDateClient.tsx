@@ -485,12 +485,8 @@ export function SaveTheDateClient({
 
                   <Link
                     href="/"
-                    className="inline-flex items-center justify-center px-5 py-3 rounded-full font-sans text-xs uppercase transition-all duration-300 hover:bg-sage/10"
-                    style={{ 
-                      border: "1px solid #6B705C",
-                      color: "#6B705C", 
-                      letterSpacing: "0.1em",
-                    }}
+                    className="inline-block font-sans text-xs uppercase underline underline-offset-4 transition-opacity hover:opacity-70 pt-2"
+                    style={{ color: "#6B705C", letterSpacing: "0.1em" }}
                   >
                     View Wedding Website
                   </Link>
