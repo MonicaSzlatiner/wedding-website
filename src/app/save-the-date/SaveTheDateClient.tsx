@@ -80,7 +80,7 @@ export function SaveTheDateClient({
 
   return (
     <div 
-      className="min-h-screen flex flex-col items-center justify-center p-0 sm:p-8"
+      className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8"
       style={{ backgroundColor: "#FFFFFF" }}
     >
       {/* Admin Panel */}
@@ -361,7 +361,7 @@ export function SaveTheDateClient({
                 className="rounded-lg sm:rounded-2xl p-6 sm:p-10 shadow-lg sm:shadow-2xl"
                 style={{ 
                   backgroundColor: "#F8F9FA",
-                  border: "2px solid rgba(107, 112, 92, 0.3)",
+                  border: "2px solid #6B705C",
                 }}
               >
                 {/* Header */}
