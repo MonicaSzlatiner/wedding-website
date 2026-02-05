@@ -358,7 +358,7 @@ export function SaveTheDateClient({
             >
               {/* Card content */}
               <div
-                className="rounded-none sm:rounded-2xl p-6 sm:p-10 shadow-none sm:shadow-2xl border border-black/10"
+                className="rounded-none sm:rounded-2xl p-6 sm:p-10 shadow-none sm:shadow-2xl border-0 sm:border sm:border-black/10"
                 style={{ backgroundColor: "#F8F9FA" }}
               >
                 {/* Header */}
