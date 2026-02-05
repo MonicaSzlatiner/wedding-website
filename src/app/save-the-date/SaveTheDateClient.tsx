@@ -78,12 +78,6 @@ export function SaveTheDateClient({
   // Envelope dimensions
   const FLAP_HEIGHT_PERCENT = 35;
 
-  // Luxurious paper texture pattern (subtle)
-  const paperTextureStyle = {
-    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-    backgroundBlendMode: "soft-light" as const,
-  };
-
   return (
     <div 
       className="min-h-screen flex flex-col items-center justify-center p-0 sm:p-8"
@@ -365,10 +359,7 @@ export function SaveTheDateClient({
               {/* Card content with paper texture */}
               <div
                 className="rounded-none sm:rounded-2xl p-6 sm:p-10 shadow-none sm:shadow-2xl"
-                style={{ 
-                  backgroundColor: "#F8F9FA",
-                  ...paperTextureStyle,
-                }}
+                style={{ backgroundColor: "#F8F9FA" }}
               >
                 {/* Header */}
                 <p 
