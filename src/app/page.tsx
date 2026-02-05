@@ -329,7 +329,7 @@ export default function HomePage() {
             <div className="grid grid-cols-2 min-h-[70vh]">
               {/* Left Panel */}
               <div 
-                className="flex flex-col justify-end p-10 xl:p-14 h-full"
+                className="flex flex-col justify-end p-10 xl:p-14"
                 style={{ backgroundColor: "#6B705C" }}
               >
                 <p 
@@ -349,7 +349,7 @@ export default function HomePage() {
                 </p>
               </div>
               {/* Right Panel - Image */}
-              <div className="relative h-full">
+              <div className="relative">
                 <Image
                   src="/images/hero-travel.jpg"
                   alt="Laurens and Monica in New York City"

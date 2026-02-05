@@ -86,7 +86,7 @@ export function SaveTheDateClient({
 
   return (
     <div 
-      className="min-h-screen flex flex-col items-center justify-center p-6 sm:p-8"
+      className="min-h-screen flex flex-col items-center justify-center p-0 sm:p-8"
       style={{ backgroundColor: "#FFFFFF" }}
     >
       {/* Admin Panel */}
@@ -364,11 +364,10 @@ export function SaveTheDateClient({
             >
               {/* Card content with paper texture */}
               <div
-                className="rounded-2xl p-8 sm:p-10 shadow-2xl"
+                className="rounded-none sm:rounded-2xl p-6 sm:p-10 shadow-none sm:shadow-2xl"
                 style={{ 
                   backgroundColor: "#F8F9FA",
                   ...paperTextureStyle,
-                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
                 }}
               >
                 {/* Header */}
@@ -447,8 +446,8 @@ export function SaveTheDateClient({
                 <p 
                   className="font-serif text-base sm:text-lg italic leading-relaxed mb-8 max-w-sm mx-auto"
                   style={{ 
-                    color: "rgba(26, 26, 26, 0.55)",
-                    textShadow: "0 1px 3px rgba(0, 0, 0, 0.15)",
+                    color: "rgba(26, 26, 26, 0.75)",
+                    textShadow: "0 2px 4px rgba(0, 0, 0, 0.25)",
                   }}
                 >
                   We would be honored to have you celebrate this special day with us. Formal invitation to follow.
