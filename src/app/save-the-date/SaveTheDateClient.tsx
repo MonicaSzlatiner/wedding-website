@@ -356,9 +356,9 @@ export function SaveTheDateClient({
               transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="text-center"
             >
-              {/* Card content with paper texture */}
+              {/* Card content */}
               <div
-                className="rounded-none sm:rounded-2xl p-6 sm:p-10 shadow-none sm:shadow-2xl"
+                className="rounded-none sm:rounded-2xl p-6 sm:p-10 shadow-none sm:shadow-2xl border border-black/10"
                 style={{ backgroundColor: "#F8F9FA" }}
               >
                 {/* Header */}
