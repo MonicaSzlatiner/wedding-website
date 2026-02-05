@@ -9,7 +9,7 @@ interface HotelCardProps {
 export function HotelCard({ hotel }: HotelCardProps) {
   return (
     <article 
-      className="rounded-xl p-4 sm:p-5 md:p-6 
+      className="rounded-xl p-4 sm:p-5 md:p-6 h-full flex flex-col
                  hover:shadow-lg hover:scale-[1.02]
                  transition-all duration-200 ease-out will-change-transform"
       style={{ backgroundColor: "#F8F9FA" }}
@@ -60,7 +60,7 @@ export function HotelCard({ hotel }: HotelCardProps) {
       )}
 
       {/* Rating - Clickable, links to Google reviews */}
-      <div className="mb-4 sm:mb-5">
+      <div className="mb-4 sm:mb-5 mt-auto pt-2">
         {hotel.rating ? (
           <a 
             href={hotel.googleReviewsUrl}
