@@ -92,13 +92,13 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
     return (
       <>
         <section 
-          className="pt-24 pb-12 md:pt-32 md:pb-16" 
-          style={{ backgroundColor: "#6B705C" }}
+          className="pt-24 pb-16 md:pt-32 md:pb-20" 
+          style={{ backgroundColor: "#2D2926" }}
         >
           <Container size="content">
             <div className="text-center px-2">
               <h1 
-                className="font-serif text-4xl md:text-6xl text-white"
+                className="font-serif text-4xl md:text-6xl italic text-white"
                 style={{ fontWeight: 400 }}
               >
                 Thank You!
@@ -107,26 +107,26 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
           </Container>
         </section>
 
-        <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#E8E6E1" }}>
+        <section className="py-16 md:py-24" style={{ backgroundColor: "#F5F5F0" }}>
           <Container size="content">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-center max-w-xl mx-auto py-8 px-2"
+              className="text-center max-w-xl mx-auto px-2"
             >
               <div 
-                className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mx-auto mb-6 md:mb-8"
-                style={{ backgroundColor: "rgba(107, 112, 92, 0.15)" }}
+                className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8"
+                style={{ backgroundColor: "rgba(195, 123, 96, 0.1)" }}
               >
-                <CheckCircleIcon className="h-8 w-8 md:h-10 md:w-10" style={{ color: "#6B705C" }} />
+                <CheckCircleIcon className="h-10 w-10" style={{ color: "#C37B60" }} />
               </div>
               <h2 
-                className="font-serif text-2xl md:text-3xl mb-3 md:mb-4"
-                style={{ color: "#1A1A1A", fontWeight: 400 }}
+                className="font-serif text-2xl md:text-3xl italic mb-4"
+                style={{ color: "#2D2926", fontWeight: 400 }}
               >
                 {attending ? "We can't wait to see you!" : "We'll miss you!"}
               </h2>
-              <p className="text-base md:text-lg leading-relaxed mb-8" style={{ color: "rgba(26, 26, 26, 0.6)" }}>
+              <p className="text-base md:text-lg leading-relaxed mb-8" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
                 {attending 
                   ? "Your RSVP has been received. We're so excited to celebrate with you!"
                   : "Thank you for letting us know. We'll be thinking of you on our special day."}
@@ -145,24 +145,24 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
     <>
       {/* Header */}
       <section 
-        className="pt-24 pb-12 md:pt-32 md:pb-16" 
-        style={{ backgroundColor: "#6B705C" }}
+        className="pt-24 pb-16 md:pt-32 md:pb-20" 
+        style={{ backgroundColor: "#F5F5F0" }}
       >
         <Container size="content">
           <div className="text-center px-2">
             <p 
-              className="text-white/50 text-xs md:text-sm uppercase mb-3 md:mb-4"
-              style={{ letterSpacing: "0.2em" }}
+              className="text-[10px] uppercase font-bold mb-4"
+              style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.5)" }}
             >
               {isUpdate ? "Update Your Response" : "You're Invited"}
             </p>
             <h1 
-              className="font-serif text-4xl md:text-6xl text-white mb-4 md:mb-6"
-              style={{ fontWeight: 400 }}
+              className="font-serif text-4xl md:text-6xl italic mb-4 md:mb-6"
+              style={{ fontWeight: 400, color: "#2D2926" }}
             >
               RSVP
             </h1>
-            <p className="text-white/70 text-base md:text-lg">
+            <p className="text-base md:text-lg" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
               Dear {firstName}, please respond by {deadline}
             </p>
           </div>
@@ -170,20 +170,20 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
       </section>
 
       {/* Form */}
-      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#E8E6E1" }}>
+      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#F5F5F0" }}>
         <Container size="content">
           <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
             {/* Guest Name Display */}
             <div className="text-center mb-8 md:mb-12">
               <p 
-                className="text-xs md:text-sm uppercase mb-2"
-                style={{ letterSpacing: "0.15em", color: "#6B705C" }}
+                className="text-[10px] uppercase font-bold mb-2"
+                style={{ letterSpacing: "0.3em", color: "#C37B60" }}
               >
                 Responding for
               </p>
               <p 
-                className="font-serif text-2xl md:text-3xl"
-                style={{ color: "#1A1A1A", fontWeight: 400 }}
+                className="font-serif text-2xl md:text-3xl italic"
+                style={{ color: "#2D2926", fontWeight: 400 }}
               >
                 {guest.name}
               </p>
@@ -192,8 +192,8 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
             {/* Attendance */}
             <div className="mb-8">
               <label 
-                className="block text-sm font-medium uppercase mb-4 text-center"
-                style={{ letterSpacing: "0.1em", color: "#1A1A1A" }}
+                className="block text-[10px] uppercase font-bold mb-4 text-center"
+                style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.6)" }}
               >
                 Will you be attending?
               </label>
@@ -201,24 +201,30 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
                 <button
                   type="button"
                   onClick={() => setAttending(true)}
-                  className={`px-8 py-4 rounded-xl font-sans text-sm uppercase transition-all ${
+                  className={`px-6 py-4 rounded-lg font-sans text-[10px] uppercase font-bold transition-all ${
                     attending === true 
                       ? "text-white shadow-lg" 
-                      : "bg-white text-charcoal border border-charcoal/20 hover:border-charcoal/40"
+                      : "bg-white border hover:border-espresso/40"
                   }`}
-                  style={attending === true ? { backgroundColor: "#6B705C", letterSpacing: "0.1em" } : { letterSpacing: "0.1em" }}
+                  style={attending === true 
+                    ? { backgroundColor: "#2D2926", letterSpacing: "0.2em" } 
+                    : { letterSpacing: "0.2em", borderColor: "rgba(45, 41, 38, 0.2)", color: "#2D2926" }
+                  }
                 >
                   Joyfully Accept
                 </button>
                 <button
                   type="button"
                   onClick={() => setAttending(false)}
-                  className={`px-8 py-4 rounded-xl font-sans text-sm uppercase transition-all ${
+                  className={`px-6 py-4 rounded-lg font-sans text-[10px] uppercase font-bold transition-all ${
                     attending === false 
                       ? "text-white shadow-lg" 
-                      : "bg-white text-charcoal border border-charcoal/20 hover:border-charcoal/40"
+                      : "bg-white border hover:border-espresso/40"
                   }`}
-                  style={attending === false ? { backgroundColor: "#6B705C", letterSpacing: "0.1em" } : { letterSpacing: "0.1em" }}
+                  style={attending === false 
+                    ? { backgroundColor: "#2D2926", letterSpacing: "0.2em" } 
+                    : { letterSpacing: "0.2em", borderColor: "rgba(45, 41, 38, 0.2)", color: "#2D2926" }
+                  }
                 >
                   Regretfully Decline
                 </button>
@@ -234,15 +240,19 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
               >
                 {/* Plus One Section */}
                 {guest.plus_one_allowed && (
-                  <div className="mb-8 p-6 rounded-xl" style={{ backgroundColor: "#F8F9FA" }}>
+                  <div 
+                    className="mb-8 p-6 rounded-lg"
+                    style={{ backgroundColor: "rgba(45, 41, 38, 0.03)", border: "1px solid rgba(45, 41, 38, 0.1)" }}
+                  >
                     <label className="flex items-center gap-3 cursor-pointer mb-4">
                       <input
                         type="checkbox"
                         checked={plusOneAttending}
                         onChange={(e) => setPlusOneAttending(e.target.checked)}
-                        className="w-5 h-5 rounded border-2 border-charcoal/30 text-sage focus:ring-sage"
+                        className="w-5 h-5 rounded border-2 text-terracotta focus:ring-terracotta"
+                        style={{ borderColor: "rgba(45, 41, 38, 0.3)" }}
                       />
-                      <span className="text-sm" style={{ color: "#1A1A1A" }}>
+                      <span className="text-sm" style={{ color: "#2D2926" }}>
                         I will be bringing a guest
                       </span>
                     </label>
@@ -255,8 +265,8 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
                       >
                         <div>
                           <label 
-                            className="block text-xs uppercase mb-2"
-                            style={{ letterSpacing: "0.1em", color: "rgba(26, 26, 26, 0.6)" }}
+                            className="block text-[10px] uppercase font-bold mb-2"
+                            style={{ letterSpacing: "0.2em", color: "rgba(45, 41, 38, 0.6)" }}
                           >
                             Guest Name
                           </label>
@@ -265,15 +275,18 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
                             value={plusOneName}
                             onChange={(e) => setPlusOneName(e.target.value)}
                             placeholder="Enter guest name"
-                            className="w-full px-4 py-3 rounded-lg border border-charcoal/20 focus:border-sage focus:ring-1 focus:ring-sage outline-none"
-                            style={{ backgroundColor: "#FFFFFF" }}
+                            className="w-full px-4 py-3 rounded-lg border focus:ring-1 outline-none"
+                            style={{ 
+                              backgroundColor: "#FFFFFF",
+                              borderColor: "rgba(45, 41, 38, 0.2)",
+                            }}
                           />
                         </div>
 
                         <div>
                           <label 
-                            className="block text-xs uppercase mb-2"
-                            style={{ letterSpacing: "0.1em", color: "rgba(26, 26, 26, 0.6)" }}
+                            className="block text-[10px] uppercase font-bold mb-2"
+                            style={{ letterSpacing: "0.2em", color: "rgba(45, 41, 38, 0.6)" }}
                           >
                             Guest Meal Preference
                           </label>
@@ -289,9 +302,9 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
                                   value={option.value}
                                   checked={plusOneDietaryChoice === option.value}
                                   onChange={(e) => setPlusOneDietaryChoice(e.target.value)}
-                                  className="w-4 h-4 text-sage focus:ring-sage"
+                                  className="w-4 h-4 text-terracotta focus:ring-terracotta"
                                 />
-                                <span className="text-sm" style={{ color: "#1A1A1A" }}>
+                                <span className="text-sm" style={{ color: "#2D2926" }}>
                                   {option.label}
                                 </span>
                               </label>
@@ -306,8 +319,8 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
                 {/* Dietary Choice */}
                 <div className="mb-8">
                   <label 
-                    className="block text-sm font-medium uppercase mb-4 text-center"
-                    style={{ letterSpacing: "0.1em", color: "#1A1A1A" }}
+                    className="block text-[10px] uppercase font-bold mb-4 text-center"
+                    style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.6)" }}
                   >
                     Your Meal Preference
                   </label>
@@ -315,11 +328,15 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
                     {DIETARY_OPTIONS.map((option) => (
                       <label 
                         key={option.value} 
-                        className={`flex items-center gap-3 cursor-pointer p-4 rounded-xl transition-all ${
+                        className={`flex items-center gap-3 cursor-pointer p-4 rounded-lg transition-all ${
                           dietaryChoice === option.value 
-                            ? "bg-sage/10 border-2 border-sage" 
-                            : "bg-white border-2 border-transparent hover:border-charcoal/20"
+                            ? "border-2" 
+                            : "bg-white border-2 border-transparent hover:border-espresso/10"
                         }`}
+                        style={dietaryChoice === option.value 
+                          ? { backgroundColor: "rgba(195, 123, 96, 0.1)", borderColor: "#C37B60" }
+                          : {}
+                        }
                       >
                         <input
                           type="radio"
@@ -327,9 +344,9 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
                           value={option.value}
                           checked={dietaryChoice === option.value}
                           onChange={(e) => setDietaryChoice(e.target.value)}
-                          className="w-4 h-4 text-sage focus:ring-sage"
+                          className="w-4 h-4 text-terracotta focus:ring-terracotta"
                         />
-                        <span className="text-sm" style={{ color: "#1A1A1A" }}>
+                        <span className="text-sm" style={{ color: "#2D2926" }}>
                           {option.label}
                         </span>
                       </label>
@@ -340,8 +357,8 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
                 {/* Special Considerations */}
                 <div className="mb-8">
                   <label 
-                    className="block text-sm font-medium uppercase mb-3"
-                    style={{ letterSpacing: "0.1em", color: "#1A1A1A" }}
+                    className="block text-[10px] uppercase font-bold mb-3"
+                    style={{ letterSpacing: "0.2em", color: "rgba(45, 41, 38, 0.6)" }}
                   >
                     Allergies or Special Considerations
                   </label>
@@ -350,8 +367,11 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
                     onChange={(e) => setSpecialConsiderations(e.target.value)}
                     placeholder="Please let us know of any allergies or dietary restrictions..."
                     rows={3}
-                    className="w-full px-4 py-3 rounded-xl border border-charcoal/20 focus:border-sage focus:ring-1 focus:ring-sage outline-none resize-none"
-                    style={{ backgroundColor: "#F8F9FA" }}
+                    className="w-full px-4 py-3 rounded-lg border focus:ring-1 outline-none resize-none"
+                    style={{ 
+                      backgroundColor: "rgba(45, 41, 38, 0.03)",
+                      borderColor: "rgba(45, 41, 38, 0.1)",
+                    }}
                   />
                 </div>
               </motion.div>
@@ -360,7 +380,7 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
             {/* Error Message */}
             {error && (
               <div 
-                className="mb-6 p-4 rounded-xl text-center text-sm"
+                className="mb-6 p-4 rounded-lg text-center text-sm"
                 style={{ backgroundColor: "rgba(220, 38, 38, 0.1)", color: "#DC2626" }}
               >
                 {error}
@@ -372,15 +392,15 @@ export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
               <button
                 type="submit"
                 disabled={isSubmitting || attending === null}
-                className={`px-10 py-4 rounded-full font-sans text-sm uppercase transition-all ${
+                className={`px-10 py-4 rounded-full font-sans text-[10px] uppercase font-bold transition-all ${
                   isSubmitting || attending === null
                     ? "opacity-50 cursor-not-allowed"
-                    : "hover:shadow-lg active:scale-[0.98]"
+                    : "hover:opacity-90 active:scale-[0.98]"
                 }`}
                 style={{ 
-                  backgroundColor: "#6B705C", 
-                  color: "#F8F9FA",
-                  letterSpacing: "0.15em"
+                  backgroundColor: "#2D2926", 
+                  color: "#F5F5F0",
+                  letterSpacing: "0.3em"
                 }}
               >
                 {isSubmitting ? "Submitting..." : isUpdate ? "Update Response" : "Submit RSVP"}

@@ -81,18 +81,18 @@ export function SaveTheDateClient({
   return (
     <div 
       className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8"
-      style={{ backgroundColor: "#FFFFFF" }}
+      style={{ backgroundColor: "#F5F5F0" }}
     >
       {/* Admin Panel */}
       {isAdmin && (
         <div 
-          className="fixed bottom-4 left-4 z-50 p-4 rounded-xl text-xs font-sans max-w-xs"
-          style={{ backgroundColor: "rgba(26, 26, 26, 0.9)", color: "#F8F9FA" }}
+          className="fixed bottom-4 left-4 z-50 p-4 rounded-lg text-xs font-sans max-w-xs"
+          style={{ backgroundColor: "#2D2926", color: "#F5F5F0" }}
         >
-          <p className="font-medium mb-2 uppercase" style={{ letterSpacing: "0.1em" }}>
+          <p className="font-bold mb-2 uppercase" style={{ letterSpacing: "0.2em" }}>
             Admin Panel
           </p>
-          <div className="space-y-1 mb-3">
+          <div className="space-y-1 mb-3 opacity-70">
             <p>Code: <span className="font-mono">{code || "(none)"}</span></p>
             <p>Guest: {isValidCode ? guestName : "Not found"}</p>
             <p>Plus One: {isValidCode ? (hasPlusOne ? "Yes" : "No") : "N/A"}</p>
@@ -100,10 +100,10 @@ export function SaveTheDateClient({
           {code && (
             <button
               onClick={handleCopyLink}
-              className="flex items-center gap-2 px-3 py-2 rounded-full text-xs uppercase transition-all w-full justify-center"
+              className="flex items-center gap-2 px-3 py-2 rounded-full text-[10px] uppercase font-bold transition-all w-full justify-center"
               style={{ 
-                backgroundColor: copied ? "#6B705C" : "rgba(255, 255, 255, 0.1)",
-                letterSpacing: "0.05em"
+                backgroundColor: copied ? "#C37B60" : "rgba(255, 255, 255, 0.1)",
+                letterSpacing: "0.2em"
               }}
             >
               {copied ? (
@@ -143,19 +143,19 @@ export function SaveTheDateClient({
                 <div 
                   className="relative rounded-lg shadow-2xl overflow-visible"
                   style={{ 
-                    backgroundColor: "#F8F9FA",
+                    backgroundColor: "#FAFAF7",
                     paddingTop: `${FLAP_HEIGHT_PERCENT}%`,
                   }}
                 >
                   {/* Actual envelope body content area */}
                   <div 
                     className="aspect-[4/3] flex flex-col items-center justify-center p-8"
-                    style={{ backgroundColor: "#F8F9FA" }}
+                    style={{ backgroundColor: "#FAFAF7" }}
                   >
                     {/* Guest name */}
                     <p 
-                      className="font-serif text-xl sm:text-2xl md:text-3xl text-center mb-1"
-                      style={{ color: "#1A1A1A", fontWeight: 400 }}
+                      className="font-serif text-xl sm:text-2xl md:text-3xl italic text-center mb-1"
+                      style={{ color: "#2D2926", fontWeight: 400 }}
                     >
                       {fullName}
                     </p>
@@ -163,8 +163,8 @@ export function SaveTheDateClient({
                     {/* Plus one indicator */}
                     {hasPlusOne && (
                       <p 
-                        className="font-sans text-xs sm:text-sm uppercase"
-                        style={{ color: "rgba(26, 26, 26, 0.5)", letterSpacing: "0.15em" }}
+                        className="font-sans text-[10px] uppercase font-bold"
+                        style={{ color: "rgba(45, 41, 38, 0.5)", letterSpacing: "0.3em" }}
                       >
                         + Guest
                       </p>
@@ -177,7 +177,7 @@ export function SaveTheDateClient({
                     style={{ 
                       height: `${FLAP_HEIGHT_PERCENT}%`,
                       clipPath: "polygon(0 0, 100% 0, 50% 100%)",
-                      background: "linear-gradient(180deg, #D8D6D1 0%, #E5E3DE 100%)",
+                      background: "linear-gradient(180deg, #E8E5E0 0%, #F0EDE8 100%)",
                     }}
                   />
 
@@ -198,12 +198,12 @@ export function SaveTheDateClient({
                         height: "68px",
                       }}
                     >
-                      {/* Inner seal */}
+                      {/* Inner seal - Terracotta */}
                       <div 
                         className="w-full h-full rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: "#6B705C" }}
+                        style={{ backgroundColor: "#C37B60" }}
                       >
-                        <span className="text-white font-serif text-lg" style={{ fontWeight: 500 }}>
+                        <span className="text-white font-serif text-lg italic" style={{ fontWeight: 400 }}>
                           L&M
                         </span>
                       </div>
@@ -215,11 +215,11 @@ export function SaveTheDateClient({
               {/* Tap to open button */}
               <motion.button
                 onClick={handleOpen}
-                className="w-full py-4 rounded-full font-sans text-sm uppercase"
+                className="w-full py-4 rounded-full font-sans text-[10px] uppercase font-bold"
                 style={{ 
-                  backgroundColor: "#6B705C", 
-                  color: "#F8F9FA",
-                  letterSpacing: "0.15em"
+                  backgroundColor: "#2D2926", 
+                  color: "#F5F5F0",
+                  letterSpacing: "0.3em"
                 }}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -248,7 +248,7 @@ export function SaveTheDateClient({
                 <motion.div 
                   className="relative rounded-lg shadow-2xl overflow-visible"
                   style={{ 
-                    backgroundColor: "#F8F9FA",
+                    backgroundColor: "#FAFAF7",
                     paddingTop: `${FLAP_HEIGHT_PERCENT}%`,
                   }}
                   animate={{ opacity: 0 }}
@@ -257,9 +257,9 @@ export function SaveTheDateClient({
                   {/* Envelope body content */}
                   <div 
                     className="aspect-[4/3] flex flex-col items-center justify-center p-8"
-                    style={{ backgroundColor: "#F8F9FA" }}
+                    style={{ backgroundColor: "#FAFAF7" }}
                   >
-                    <p className="font-serif text-xl text-center" style={{ color: "#1A1A1A" }}>
+                    <p className="font-serif text-xl italic text-center" style={{ color: "#2D2926" }}>
                       {fullName}
                     </p>
                   </div>
@@ -270,7 +270,7 @@ export function SaveTheDateClient({
                     style={{ 
                       height: `${FLAP_HEIGHT_PERCENT}%`,
                       clipPath: "polygon(0 0, 100% 0, 50% 100%)",
-                      background: "linear-gradient(180deg, #D8D6D1 0%, #E5E3DE 100%)",
+                      background: "linear-gradient(180deg, #E8E5E0 0%, #F0EDE8 100%)",
                       transformOrigin: "top center",
                       transformStyle: "preserve-3d",
                     }}
@@ -301,9 +301,9 @@ export function SaveTheDateClient({
                     >
                       <div 
                         className="w-full h-full rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: "#6B705C" }}
+                        style={{ backgroundColor: "#C37B60" }}
                       >
-                        <span className="text-white font-serif text-lg" style={{ fontWeight: 500 }}>
+                        <span className="text-white font-serif text-lg italic" style={{ fontWeight: 400 }}>
                           L&M
                         </span>
                       </div>
@@ -332,9 +332,9 @@ export function SaveTheDateClient({
                     >
                       <div 
                         className="w-full h-full rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: "#6B705C" }}
+                        style={{ backgroundColor: "#C37B60" }}
                       >
-                        <span className="text-white font-serif text-lg" style={{ fontWeight: 500 }}>
+                        <span className="text-white font-serif text-lg italic" style={{ fontWeight: 400 }}>
                           L&M
                         </span>
                       </div>
@@ -360,42 +360,41 @@ export function SaveTheDateClient({
               <div
                 className="rounded-lg sm:rounded-2xl p-6 sm:p-10 shadow-lg sm:shadow-2xl"
                 style={{ 
-                  backgroundColor: "#F8F9FA",
-                  border: "2px solid #6B705C",
+                  backgroundColor: "#FAFAF7",
+                  border: "1px solid rgba(45, 41, 38, 0.1)",
                 }}
               >
                 {/* Header */}
                 <p 
-                  className="font-sans text-xs uppercase mb-4"
-                  style={{ color: "#6B705C", letterSpacing: "0.2em" }}
+                  className="font-sans text-[10px] uppercase font-bold mb-4"
+                  style={{ color: "#C37B60", letterSpacing: "0.3em" }}
                 >
                   Save the Date
                 </p>
 
                 {/* Guest greeting */}
                 <p 
-                  className="font-serif text-xl sm:text-2xl mb-6"
-                  style={{ color: "#2C2C2C", fontWeight: 400 }}
+                  className="font-serif text-xl sm:text-2xl italic mb-6"
+                  style={{ color: "#2D2926", fontWeight: 400 }}
                 >
                   Dear {firstName}{hasPlusOne ? " & Guest" : ""}
                 </p>
 
                 {/* Couple names - LARGER */}
                 <h1 
-                  className="font-serif text-5xl sm:text-6xl mb-2"
-                  style={{ color: "#2C2C2C", fontWeight: 400, lineHeight: 1.1 }}
+                  className="font-serif text-5xl sm:text-6xl italic mb-2"
+                  style={{ color: "#2D2926", fontWeight: 400, lineHeight: 1.1 }}
                 >
                   {couple.person1}
-                  <span style={{ color: "rgba(44, 44, 44, 0.35)" }}> & </span>
+                  <span style={{ color: "#C37B60" }}> & </span>
                   {couple.person2}
                 </h1>
 
                 <p 
-                  className="font-sans text-xs uppercase mb-8"
+                  className="font-sans text-[10px] uppercase font-bold mb-8"
                   style={{ 
-                    color: "rgba(44, 44, 44, 0.6)", 
-                    letterSpacing: "0.15em",
-                    textShadow: "0 1px 3px rgba(0, 0, 0, 0.15)",
+                    color: "rgba(45, 41, 38, 0.5)", 
+                    letterSpacing: "0.3em",
                   }}
                 >
                   Are getting married
@@ -404,14 +403,14 @@ export function SaveTheDateClient({
                 {/* Date */}
                 <div className="mb-6">
                   <p 
-                    className="font-serif text-2xl sm:text-3xl mb-1"
-                    style={{ color: "#2C2C2C", fontWeight: 400 }}
+                    className="font-serif text-2xl sm:text-3xl italic mb-1"
+                    style={{ color: "#2D2926", fontWeight: 400 }}
                   >
                     {date.full}
                   </p>
                   <p 
                     className="font-sans text-sm"
-                    style={{ color: "rgba(44, 44, 44, 0.6)" }}
+                    style={{ color: "rgba(45, 41, 38, 0.6)" }}
                   >
                     {date.timeDisplay}
                   </p>
@@ -420,17 +419,14 @@ export function SaveTheDateClient({
                 {/* Venue */}
                 <div className="mb-8">
                   <p 
-                    className="font-serif text-lg mb-1"
-                    style={{ color: "#2C2C2C", fontWeight: 400 }}
+                    className="font-serif text-lg italic mb-1"
+                    style={{ color: "#2D2926", fontWeight: 400 }}
                   >
                     {venue.name}
                   </p>
                   <p 
                     className="font-sans text-sm"
-                    style={{ 
-                      color: "rgba(44, 44, 44, 0.65)",
-                      textShadow: "0 1px 3px rgba(0, 0, 0, 0.15)",
-                    }}
+                    style={{ color: "rgba(45, 41, 38, 0.6)" }}
                   >
                     {venue.city}, The Netherlands
                   </p>
@@ -439,10 +435,7 @@ export function SaveTheDateClient({
                 {/* Message */}
                 <p 
                   className="font-serif text-base sm:text-lg italic leading-relaxed mb-8 max-w-sm mx-auto"
-                  style={{ 
-                    color: "rgba(26, 26, 26, 0.75)",
-                    textShadow: "0 2px 4px rgba(0, 0, 0, 0.25)",
-                  }}
+                  style={{ color: "rgba(45, 41, 38, 0.7)" }}
                 >
                   We would be honored to have you celebrate this special day with us. Formal invitation to follow.
                 </p>
@@ -452,11 +445,11 @@ export function SaveTheDateClient({
                   <div className="flex flex-col sm:flex-row gap-3 justify-center">
                     <button
                       onClick={handleGoogleCalendar}
-                      className="flex items-center justify-center gap-2 px-5 py-3 rounded-full font-sans text-xs uppercase transition-all duration-300 hover:opacity-90"
+                      className="flex items-center justify-center gap-2 px-6 py-3 rounded-full font-sans text-[10px] uppercase font-bold transition-all duration-200 hover:opacity-90"
                       style={{ 
-                        backgroundColor: "#6B705C", 
-                        color: "#F8F9FA",
-                        letterSpacing: "0.1em"
+                        backgroundColor: "#2D2926", 
+                        color: "#F5F5F0",
+                        letterSpacing: "0.3em"
                       }}
                     >
                       <CalendarDaysIcon className="h-4 w-4" />
@@ -465,11 +458,11 @@ export function SaveTheDateClient({
 
                     <button
                       onClick={handleDownloadICS}
-                      className="flex items-center justify-center gap-2 px-5 py-3 rounded-full font-sans text-xs uppercase transition-all duration-300 border hover:bg-black/5"
+                      className="flex items-center justify-center gap-2 px-6 py-3 rounded-full font-sans text-[10px] uppercase font-bold transition-all duration-200 border hover:bg-espresso/5"
                       style={{ 
-                        borderColor: "#1A1A1A",
-                        color: "#1A1A1A",
-                        letterSpacing: "0.1em"
+                        borderColor: "rgba(45, 41, 38, 0.2)",
+                        color: "#2D2926",
+                        letterSpacing: "0.3em"
                       }}
                     >
                       Download .ics
@@ -478,10 +471,10 @@ export function SaveTheDateClient({
 
                   <Link
                     href="/"
-                    className="inline-block font-sans text-xs uppercase underline underline-offset-4 transition-opacity hover:opacity-70 pt-2"
-                    style={{ color: "#6B705C", letterSpacing: "0.1em" }}
+                    className="inline-block font-sans text-[10px] uppercase font-bold transition-opacity hover:opacity-70 pt-4"
+                    style={{ color: "#C37B60", letterSpacing: "0.3em" }}
                   >
-                    View Wedding Website
+                    View Wedding Website →
                   </Link>
                 </div>
               </div>

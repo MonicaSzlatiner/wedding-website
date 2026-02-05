@@ -15,161 +15,125 @@ export default function GiftsPage() {
 
   return (
     <>
-      {/* Hero Section - Editorial framed style */}
-      <section className="relative">
-        {/* Mobile: Stacked with frame */}
-        <div className="lg:hidden p-3 sm:p-4 min-h-[90vh]" style={{ backgroundColor: "#E8E6E1" }}>
-          <div className="min-h-[calc(90vh-24px)] sm:min-h-[calc(90vh-32px)] flex flex-col" style={{ backgroundColor: "#6B705C" }}>
-            {/* Image */}
-            <div className="relative h-[50vh]">
-              <Image
-                src="/images/hero-gifts.jpg"
-                alt="Laurens and Monica"
-                fill
-                className="object-cover object-top"
-                priority
-                sizes="100vw"
-              />
-            </div>
-            {/* Content */}
-            <div className="flex-1 flex flex-col justify-end p-6 sm:p-8">
+      {/* Hero Section */}
+      <section className="relative py-20 md:py-28" style={{ backgroundColor: "#F5F5F0" }}>
+        <Container>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left - Text Content */}
+            <div>
               <p 
-                className="text-white/50 text-xs uppercase mb-4"
-                style={{ letterSpacing: "0.2em" }}
-              >
-                Celebrate With Us
-              </p>
-              <h1 className="font-serif text-4xl sm:text-5xl text-white leading-tight mb-4" style={{ fontWeight: 400 }}>
-                {gifts.title}
-              </h1>
-              <p className="text-white/70 text-base leading-relaxed max-w-sm">
-                {gifts.subtitle}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Desktop: Framed split layout */}
-        <div className="hidden lg:block p-5 xl:p-6 min-h-screen" style={{ backgroundColor: "#E8E6E1" }}>
-          <div className="flex h-[calc(100vh-40px)] xl:h-[calc(100vh-48px)]">
-            {/* Left Panel */}
-            <div 
-              className="w-[45%] flex flex-col justify-end p-10 xl:p-14"
-              style={{ backgroundColor: "#6B705C" }}
-            >
-              <p 
-                className="text-white/50 text-xs xl:text-sm uppercase mb-6"
-                style={{ letterSpacing: "0.2em" }}
+                className="text-[10px] uppercase font-bold mb-4"
+                style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.5)" }}
               >
                 Celebrate With Us
               </p>
               <h1 
-                className="font-serif text-5xl xl:text-6xl 2xl:text-7xl text-white leading-[1.05] mb-6"
-                style={{ fontWeight: 400 }}
+                className="font-serif text-4xl md:text-5xl lg:text-6xl italic mb-6"
+                style={{ fontWeight: 400, color: "#2D2926" }}
               >
                 {gifts.title}
               </h1>
-              <p className="text-white/60 text-base xl:text-lg max-w-md leading-relaxed">
+              <p 
+                className="font-serif text-lg md:text-xl italic leading-relaxed"
+                style={{ color: "rgba(45, 41, 38, 0.6)" }}
+              >
                 {gifts.subtitle}
               </p>
             </div>
-            {/* Right Panel - Image */}
-            <div className="w-[55%] relative">
+
+            {/* Right - Image */}
+            <div className="relative h-[50vh] lg:h-[60vh] overflow-hidden">
               <Image
                 src="/images/hero-gifts.jpg"
                 alt="Laurens and Monica"
                 fill
-                className="object-cover"
+                className="object-cover object-top grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
                 priority
-                sizes="55vw"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Content - Cream background */}
-      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#E8E6E1" }}>
-        <Container size="content">
-          <div className="text-center max-w-2xl mx-auto px-2">
-            {/* Heart Icon */}
-            <div 
-              className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-6 md:mb-8"
-              style={{ backgroundColor: "rgba(107, 112, 92, 0.15)" }}
-            >
-              <HeartIcon className="h-7 w-7 md:h-8 md:w-8" style={{ color: "#6B705C" }} />
-            </div>
-
-            {/* Message */}
-            <p className="text-base md:text-lg leading-relaxed mb-8 md:mb-12" style={{ color: "rgba(26, 26, 26, 0.7)" }}>
-              {gifts.message}
-            </p>
-
-            {/* Honeymoon Fund Card */}
-            <div className="rounded-2xl shadow-lg overflow-hidden" style={{ backgroundColor: "#F8F9FA" }}>
-              <div className="p-5 md:p-8 border-b" style={{ backgroundColor: "rgba(107, 112, 92, 0.1)", borderColor: "rgba(107, 112, 92, 0.2)" }}>
-                <div 
-                  className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4"
-                  style={{ backgroundColor: "#6B705C" }}
-                >
-                  <GiftIcon className="h-5 w-5 md:h-6 md:w-6 text-white" />
-                </div>
-                <h2 className="font-serif text-xl md:text-2xl mb-2" style={{ color: "#1A1A1A", fontWeight: 400 }}>
-                  {gifts.fund.name}
-                </h2>
-                <p style={{ color: "rgba(26, 26, 26, 0.6)" }} className="text-sm md:text-base">
-                  {gifts.fund.description}
-                </p>
-              </div>
-
-              <div className="p-5 md:p-8">
-                {gifts.fund.enabled ? (
-                  <>
-                    <p className="text-sm md:text-base mb-5 md:mb-6" style={{ color: "rgba(26, 26, 26, 0.7)" }}>
-                      Click below to contribute to our honeymoon adventure.
-                      Every gift, no matter the size, means the world to us.
-                    </p>
-                    <Button
-                      href={gifts.fund.stripeLink}
-                      variant="primary"
-                      size="lg"
-                      external
-                    >
-                      Contribute to Our Honeymoon
-                    </Button>
-                  </>
-                ) : (
-                  <div className="text-center py-2 md:py-4">
-                    <p className="text-sm md:text-base leading-relaxed" style={{ color: "rgba(26, 26, 26, 0.7)" }}>
-                      We&apos;re still arguing about the destination, but we know it&apos;ll involve good food and zero alarm clocks. Help us get there.
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Additional Note */}
-            <div className="mt-8 md:mt-12 p-5 md:p-6 rounded-xl" style={{ backgroundColor: "rgba(107, 112, 92, 0.1)" }}>
-              <p className="italic text-sm md:text-base leading-relaxed" style={{ color: "rgba(26, 26, 26, 0.7)" }}>
-                Your presence at our wedding is the greatest gift of all. We are
-                so grateful to have you in our lives and cannot wait to celebrate
-                with you.
-              </p>
-              <p className="font-serif text-base md:text-lg mt-3 md:mt-4" style={{ color: "#1A1A1A" }}>
-                With love, {couple.person1} & {couple.person2}
-              </p>
             </div>
           </div>
         </Container>
       </section>
 
-      {/* Quick Links - Sage background */}
-      <section className="py-12 md:py-16 text-center" style={{ backgroundColor: "#6B705C" }}>
+      {/* Main Content */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: "#F5F5F0" }}>
         <Container size="content">
-          <h2 className="font-serif text-xl md:text-2xl text-white mb-6 md:mb-8" style={{ fontWeight: 400 }}>
+          <div className="text-center max-w-2xl mx-auto px-2">
+            {/* Heart Icon */}
+            <div 
+              className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mx-auto mb-8"
+              style={{ backgroundColor: "rgba(195, 123, 96, 0.1)" }}
+            >
+              <HeartIcon className="h-8 w-8 md:h-10 md:w-10" style={{ color: "#C37B60" }} />
+            </div>
+
+            {/* Message */}
+            <p className="text-base md:text-lg leading-relaxed mb-10" style={{ color: "rgba(45, 41, 38, 0.7)" }}>
+              {gifts.message}
+            </p>
+
+            {/* Honeymoon Fund Card */}
+            <div 
+              className="rounded-lg p-8 md:p-10 mb-8"
+              style={{ backgroundColor: "rgba(45, 41, 38, 0.03)", border: "1px solid rgba(45, 41, 38, 0.1)" }}
+            >
+              <div 
+                className="w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center mx-auto mb-4"
+                style={{ backgroundColor: "#2D2926" }}
+              >
+                <GiftIcon className="h-6 w-6 md:h-7 md:w-7 text-white" />
+              </div>
+              <h2 
+                className="font-serif text-xl md:text-2xl italic mb-3" 
+                style={{ color: "#2D2926", fontWeight: 400 }}
+              >
+                {gifts.fund.name}
+              </h2>
+              <p style={{ color: "rgba(45, 41, 38, 0.6)" }} className="text-sm md:text-base mb-6">
+                {gifts.fund.description}
+              </p>
+
+              {gifts.fund.enabled ? (
+                <Button
+                  href={gifts.fund.stripeLink}
+                  variant="primary"
+                  size="lg"
+                  external
+                >
+                  Contribute to Our Honeymoon
+                </Button>
+              ) : (
+                <p className="text-sm italic" style={{ color: "rgba(45, 41, 38, 0.5)" }}>
+                  We&apos;re still arguing about the destination, but we know it&apos;ll involve good food and zero alarm clocks. Help us get there.
+                </p>
+              )}
+            </div>
+
+            {/* Additional Note */}
+            <p 
+              className="font-serif text-lg italic max-w-md mx-auto"
+              style={{ color: "rgba(45, 41, 38, 0.6)" }}
+            >
+              Your presence at our wedding is the greatest gift of all.
+            </p>
+            <p className="font-serif text-base mt-4" style={{ color: "#2D2926" }}>
+              With love, {couple.person1} & {couple.person2}
+            </p>
+          </div>
+        </Container>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 md:py-20 text-center" style={{ backgroundColor: "#2D2926" }}>
+        <Container size="content">
+          <h2 
+            className="font-serif text-2xl md:text-3xl italic text-white mb-8" 
+            style={{ fontWeight: 400 }}
+          >
             Ready to RSVP?
           </h2>
-          <Button href="/rsvp" variant="outline-white" size="lg" >
+          <Button href="/rsvp" variant="outline-white" size="lg">
             Respond to Invitation
           </Button>
         </Container>

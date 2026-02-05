@@ -1,8 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
-
 interface FAQItem {
   question: string;
   answer: string;
@@ -13,68 +10,54 @@ interface FAQAccordionProps {
 }
 
 export function FAQAccordion({ items }: FAQAccordionProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const toggleItem = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
   return (
-    <div className="space-y-3 md:space-y-4" role="region" aria-label="Frequently Asked Questions">
+    <div className="space-y-0" role="region" aria-label="Frequently Asked Questions">
       {items.map((item, index) => {
-        const isOpen = openIndex === index;
-        const panelId = `faq-panel-${index}`;
-        const buttonId = `faq-button-${index}`;
-        
         return (
-          <div
+          <details
             key={index}
-            className="rounded-xl overflow-hidden"
-            style={{ backgroundColor: "#F8F9FA" }}
+            className="group border-t"
+            style={{ borderColor: "rgba(45, 41, 38, 0.1)" }}
           >
-            <h3>
-              <button
-                id={buttonId}
-                onClick={() => toggleItem(index)}
-                className="w-full px-4 py-4 md:px-6 md:py-5 text-left flex items-center justify-between gap-3 md:gap-4 transition-colors focus:outline-none focus:ring-2 focus:ring-inset min-h-[56px]"
-                style={{ 
-                  // @ts-expect-error CSS custom property
-                  "--tw-ring-color": "#6B705C" 
-                }}
-                aria-expanded={isOpen}
-                aria-controls={panelId}
-              >
-                <span className="font-serif text-base md:text-lg leading-snug" style={{ color: "#1A1A1A", fontWeight: 400 }}>
-                  {item.question}
-                </span>
-                <ChevronDownIcon
-                  className={`h-5 w-5 flex-shrink-0 transition-transform duration-200 ${
-                    isOpen ? "rotate-180" : ""
-                  }`}
-                  style={{ color: "rgba(26, 26, 26, 0.4)" }}
-                  aria-hidden="true"
-                />
-              </button>
-            </h3>
-
-            <div
-              id={panelId}
-              role="region"
-              aria-labelledby={buttonId}
-              hidden={!isOpen}
-              className={`overflow-hidden transition-all duration-200 ease-in-out ${
-                isOpen ? "max-h-96" : "max-h-0"
-              }`}
+            <summary
+              className="flex items-center justify-between gap-4 py-6 cursor-pointer list-none 
+                         focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
             >
-              <div 
-                className="px-4 pb-4 md:px-6 md:pb-5 text-sm md:text-base leading-relaxed faq-answer"
-                style={{ color: "rgba(26, 26, 26, 0.6)" }}
-                dangerouslySetInnerHTML={{ __html: item.answer }}
-              />
-            </div>
-          </div>
+              <span 
+                className="font-serif text-lg md:text-xl italic leading-snug" 
+                style={{ color: "#2D2926", fontWeight: 400 }}
+              >
+                {item.question}
+              </span>
+              
+              {/* Rotating + icon */}
+              <span 
+                className="flex-shrink-0 w-6 h-6 flex items-center justify-center relative"
+                aria-hidden="true"
+              >
+                {/* Horizontal line (always visible) */}
+                <span 
+                  className="absolute w-4 h-0.5 transition-all duration-200"
+                  style={{ backgroundColor: "#C37B60" }}
+                />
+                {/* Vertical line (rotates to form + or -) */}
+                <span 
+                  className="absolute w-0.5 h-4 transition-all duration-200 group-open:rotate-90 group-open:opacity-0"
+                  style={{ backgroundColor: "#C37B60" }}
+                />
+              </span>
+            </summary>
+
+            <div 
+              className="pb-6 text-sm md:text-base leading-relaxed faq-answer pr-10"
+              style={{ color: "rgba(45, 41, 38, 0.6)" }}
+              dangerouslySetInnerHTML={{ __html: item.answer }}
+            />
+          </details>
         );
       })}
+      {/* Bottom border for last item */}
+      <div className="border-t" style={{ borderColor: "rgba(45, 41, 38, 0.1)" }} />
     </div>
   );
 }

@@ -15,101 +15,69 @@ export default function AccommodationsPage() {
 
   return (
     <>
-      {/* Hero Section - Editorial framed style */}
-      <section className="relative">
-        {/* Mobile: Stacked with frame */}
-        <div className="lg:hidden p-3 sm:p-4 min-h-[90vh]" style={{ backgroundColor: "#E8E6E1" }}>
-          <div className="min-h-[calc(90vh-24px)] sm:min-h-[calc(90vh-32px)] flex flex-col" style={{ backgroundColor: "#6B705C" }}>
-            {/* Image */}
-            <div className="relative h-[50vh]">
-              <Image
-                src="/images/dogs.jpg"
-                alt="Our welcome committee. They won't be at the wedding, but they wanted to say hi."
-                fill
-                className="object-cover object-center"
-                priority
-                sizes="100vw"
-              />
-            </div>
-            {/* Content */}
-            <div className="flex-1 flex flex-col justify-end p-6 sm:p-8">
+      {/* Hero Section */}
+      <section className="relative py-20 md:py-28" style={{ backgroundColor: "#F5F5F0" }}>
+        <Container>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left - Text Content */}
+            <div>
               <p 
-                className="text-white/50 text-xs uppercase mb-4"
-                style={{ letterSpacing: "0.2em" }}
-              >
-                Plan Your Stay
-              </p>
-              <h1 className="font-serif text-4xl sm:text-5xl text-white leading-tight mb-4" style={{ fontWeight: 400 }}>
-                {title}
-              </h1>
-              <p className="text-white/70 text-base leading-relaxed max-w-sm">
-                {subtitle}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Desktop: Framed split layout */}
-        <div className="hidden lg:block p-5 xl:p-6 min-h-screen" style={{ backgroundColor: "#E8E6E1" }}>
-          <div className="flex h-[calc(100vh-40px)] xl:h-[calc(100vh-48px)]">
-            {/* Left Panel */}
-            <div 
-              className="w-[45%] flex flex-col justify-end p-10 xl:p-14"
-              style={{ backgroundColor: "#6B705C" }}
-            >
-              <p 
-                className="text-white/50 text-xs xl:text-sm uppercase mb-6"
-                style={{ letterSpacing: "0.2em" }}
+                className="text-[10px] uppercase font-bold mb-4"
+                style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.5)" }}
               >
                 Plan Your Stay
               </p>
               <h1 
-                className="font-serif text-5xl xl:text-6xl 2xl:text-7xl text-white leading-[1.05] mb-6"
-                style={{ fontWeight: 400 }}
+                className="font-serif text-4xl md:text-5xl lg:text-6xl italic mb-6"
+                style={{ fontWeight: 400, color: "#2D2926" }}
               >
                 {title}
               </h1>
-              <p className="text-white/60 text-base xl:text-lg max-w-md leading-relaxed">
+              <p 
+                className="font-serif text-lg md:text-xl italic leading-relaxed"
+                style={{ color: "rgba(45, 41, 38, 0.6)" }}
+              >
                 {subtitle}
               </p>
             </div>
-            {/* Right Panel - Image */}
-            <div className="w-[55%] relative">
+
+            {/* Right - Image */}
+            <div className="relative h-[50vh] lg:h-[60vh] overflow-hidden">
               <Image
                 src="/images/dogs.jpg"
-                alt="Our welcome committee. They won't be at the wedding, but they wanted to say hi."
+                alt="Our welcome committee. They won&apos;t be at the wedding, but they wanted to say hi."
                 fill
-                className="object-cover"
+                className="object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
                 priority
-                sizes="55vw"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
-      {/* Intro Section - Sage background */}
-      <section className="py-10 md:py-12" style={{ backgroundColor: "#6B705C" }}>
+      {/* Intro Section */}
+      <section className="py-10 md:py-12" style={{ backgroundColor: "#2D2926" }}>
         <Container size="content">
-          <p className="text-white/80 text-base md:text-lg leading-relaxed text-center max-w-3xl mx-auto px-2">
+          <p className="text-white/70 text-base md:text-lg leading-relaxed text-center max-w-3xl mx-auto px-2">
             {intro}
           </p>
         </Container>
       </section>
 
-      {/* Hotels List - Gray background */}
-      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#E8E6E1" }}>
+      {/* Hotels List */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: "#F5F5F0" }}>
         <Container>
-          <div className="text-center mb-8 md:mb-12">
+          <div className="text-center mb-12 md:mb-16">
             <p 
-              className="text-xs md:text-sm uppercase mb-3"
-              style={{ letterSpacing: "0.2em", color: "#6B705C" }}
+              className="text-[10px] uppercase font-bold mb-4"
+              style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.5)" }}
             >
               Our Picks
             </p>
             <h2 
-              className="font-serif text-3xl md:text-4xl"
-              style={{ fontWeight: 400, color: "#1A1A1A" }}
+              className="font-serif text-3xl md:text-4xl italic"
+              style={{ fontWeight: 400, color: "#2D2926" }}
             >
               Recommended Hotels
             </h2>
@@ -123,30 +91,33 @@ export default function AccommodationsPage() {
         </Container>
       </section>
 
-      {/* Other Options - Sage background */}
-      <section className="py-12 md:py-16" style={{ backgroundColor: "#6B705C" }}>
+      {/* Other Options */}
+      <section className="py-12 md:py-16" style={{ backgroundColor: "#2D2926" }}>
         <Container size="content">
           <div className="text-center px-2">
-            <h2 className="font-serif text-xl md:text-2xl text-white mb-3 md:mb-4" style={{ fontWeight: 400 }}>
+            <h2 
+              className="font-serif text-xl md:text-2xl italic text-white mb-3 md:mb-4" 
+              style={{ fontWeight: 400 }}
+            >
               {otherOptions.title}
             </h2>
-            <p className="text-white/70 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+            <p className="text-white/60 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
               {otherOptions.description}
             </p>
           </div>
         </Container>
       </section>
 
-      {/* CTA Section - Cream background */}
-      <section className="py-12 md:py-16 text-center" style={{ backgroundColor: "#E8E6E1" }}>
+      {/* CTA Section */}
+      <section className="py-12 md:py-16 text-center" style={{ backgroundColor: "#F5F5F0" }}>
         <Container size="content">
           <h2 
-            className="font-serif text-xl md:text-2xl mb-3 md:mb-4 px-2"
-            style={{ fontWeight: 400, color: "#1A1A1A" }}
+            className="font-serif text-xl md:text-2xl italic mb-3 md:mb-4 px-2"
+            style={{ fontWeight: 400, color: "#2D2926" }}
           >
             Questions about where to stay?
           </h2>
-          <p style={{ color: "rgba(26, 26, 26, 0.6)" }} className="text-sm md:text-base px-2">
+          <p style={{ color: "rgba(45, 41, 38, 0.6)" }} className="text-sm md:text-base px-2">
             Feel free to reach out if you need any recommendations.
           </p>
         </Container>

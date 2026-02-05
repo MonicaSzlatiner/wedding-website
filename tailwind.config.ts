@@ -10,11 +10,29 @@ const config: Config = {
     extend: {
       colors: {
         // ============================================
-        // MODERN EDITORIAL PALETTE
-        // Based on reference: Cool gray frame + Sage green panel
+        // QUIET LUXURY PALETTE
+        // Terracotta + Espresso theme
         // ============================================
         
-        // Primary Background - Darker Sage/Olive (matches reference)
+        // Primary accent - Warm terracotta
+        terracotta: {
+          DEFAULT: "#C37B60",
+          light: "#d4947f",
+          dark: "#a86750",
+        },
+        
+        // Text and dark sections - Rich espresso
+        espresso: {
+          DEFAULT: "#2D2926",
+          light: "#3d3935",
+          dark: "#1d1916",
+        },
+        
+        // Background - Warm off-white
+        "background-light": "#F5F5F0",
+        "background-dark": "#182111",
+        
+        // Legacy sage (keep for Save the Date)
         sage: {
           DEFAULT: "#6B705C",
           50: "#f6f7f4",
@@ -23,11 +41,11 @@ const config: Config = {
           600: "#5a5e4d",
         },
         
-        // Outer Frame - Warm Cream/Stone (editorial, lighter)
+        // Outer Frame - Warm Cream/Stone
         frame: {
-          DEFAULT: "#E8E6E1",
-          light: "#F0EEE9",
-          dark: "#D9D6D0",
+          DEFAULT: "#F2F2EC",
+          light: "#F5F5F0",
+          dark: "#E8E8E1",
         },
         
         // Typography colors
@@ -44,27 +62,14 @@ const config: Config = {
           600: "#666666",
           800: "#333333",
         },
-        
-        // Legacy for other pages
-        cream: {
-          50: "#FAFAFA",
-          100: "#F8F7F4",
-        },
-        stone: {
-          50: "#fafaf9",
-          500: "#78716c",
-          800: "#292524",
-        },
-        emerald: {
-          500: "#10B981",
-          600: "#059669",
-        },
       },
       fontFamily: {
         // Cormorant Garamond for headings/names - elegant, editorial
         serif: ["var(--font-cormorant)", "Georgia", "serif"],
-        // Montserrat for dates, buttons, utility text
-        sans: ["var(--font-montserrat)", "system-ui", "sans-serif"],
+        // Manrope for body text, buttons, utility text
+        sans: ["var(--font-manrope)", "system-ui", "sans-serif"],
+        // Display font (same as sans but explicit)
+        display: ["var(--font-manrope)", "sans-serif"],
       },
       fontSize: {
         // Typography scale - mobile-first, responsive

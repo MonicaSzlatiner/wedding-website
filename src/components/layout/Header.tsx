@@ -67,9 +67,6 @@ export function Header() {
     setMenuOpen(false);
   }, [shouldReduceMotion]);
 
-  // Show solid header when scrolled (but not just because menu is open)
-  const showSolidHeader = isScrolled;
-
   // Menu animation variants
   const menuVariants = {
     closed: {
@@ -86,45 +83,77 @@ export function Header() {
     <>
       {/* Header Bar */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
-          showSolidHeader && !menuOpen ? "backdrop-blur-sm" : "bg-transparent"
+        className={`sticky top-0 z-50 transition-all duration-200 border-b ${
+          isScrolled ? "backdrop-blur-md border-espresso/5" : "border-transparent"
         }`}
-        style={showSolidHeader && !menuOpen ? { backgroundColor: "rgba(107, 112, 92, 0.95)" } : undefined}
+        style={{ 
+          backgroundColor: isScrolled ? "rgba(245, 245, 240, 0.9)" : "transparent"
+        }}
       >
-        <nav className="px-6 md:px-16 lg:px-20" aria-label="Main navigation">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Hamburger Menu Button */}
-            <button
-              type="button"
-              className={`p-2 -ml-2 transition-colors duration-200 hover:opacity-80 z-50 ${
-                menuOpen ? "text-white" : "text-white"
-              }`}
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={menuOpen}
-              aria-controls="nav-menu"
-            >
-              {menuOpen ? (
-                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-              ) : (
-                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-              )}
-            </button>
+        <nav className="max-content px-6 py-6 flex items-center justify-between" aria-label="Main navigation">
+          {/* Logo - L&M italic serif */}
+          <a
+            href="#home"
+            onClick={(e) => scrollToSection(e, "#home")}
+            className="font-serif text-3xl italic font-medium tracking-tight hover:opacity-80 transition-opacity"
+            style={{ color: "#2D2926" }}
+          >
+            L&M
+          </a>
 
-            {/* Logo/Brand - couple names */}
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-10">
+            {navigation.items.slice(1, -1).map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={(e) => scrollToSection(e, item.href)}
+                className="text-[10px] uppercase font-bold transition-colors hover:text-espresso"
+                style={{ 
+                  letterSpacing: "0.3em",
+                  color: activeSection === item.href.replace("#", "") 
+                    ? "#2D2926" 
+                    : "rgba(45, 41, 38, 0.6)"
+                }}
+              >
+                {item.label}
+              </a>
+            ))}
+            {/* RSVP Button - Terracotta accent */}
             <a
-              href="#home"
-              onClick={(e) => scrollToSection(e, "#home")}
-              className="font-serif text-lg md:text-xl text-white hover:opacity-80 transition-opacity"
-              style={{ fontWeight: 400 }}
+              href="#rsvp"
+              onClick={(e) => scrollToSection(e, "#rsvp")}
+              className="text-[10px] uppercase font-black px-6 py-2 rounded-full border transition-all hover:bg-terracotta hover:text-white"
+              style={{ 
+                letterSpacing: "0.4em",
+                color: "#C37B60",
+                borderColor: "rgba(195, 123, 96, 0.2)"
+              }}
             >
-              L & M
+              RSVP
             </a>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            type="button"
+            className="md:hidden p-2 -mr-2 transition-colors duration-200 hover:opacity-80"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="nav-menu"
+            style={{ color: "#2D2926" }}
+          >
+            {menuOpen ? (
+              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+            ) : (
+              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+            )}
+          </button>
         </nav>
       </header>
 
-      {/* Full-screen Menu Overlay */}
+      {/* Full-screen Menu Overlay - Mobile */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -133,13 +162,13 @@ export function Header() {
             animate="open"
             exit="closed"
             variants={menuVariants}
-            className="fixed inset-0 z-40 flex flex-col"
-            style={{ backgroundColor: "#6B705C" }}
+            className="fixed inset-0 z-40 flex flex-col md:hidden"
+            style={{ backgroundColor: "#2D2926" }}
             role="menu"
           >
             {/* Menu Content - starts below header */}
-            <div className="flex-1 flex flex-col justify-start pt-24 md:pt-28 px-6 md:px-16 lg:px-20">
-              <div className="space-y-4 md:space-y-6">
+            <div className="flex-1 flex flex-col justify-start pt-24 px-6">
+              <div className="space-y-4">
                 {navigation.items.map((item, index) => {
                   const sectionId = item.href.replace("#", "");
                   const isActive = activeSection === sectionId;
@@ -156,12 +185,12 @@ export function Header() {
                         role="menuitem"
                         aria-current={isActive ? "page" : undefined}
                         onClick={(e) => scrollToSection(e, item.href)}
-                        className={`block font-serif text-4xl md:text-5xl lg:text-6xl transition-all duration-200 ${
+                        className={`block font-serif text-4xl italic transition-all duration-200 ${
                           isActive
                             ? "text-white"
                             : "text-white/40 hover:text-white"
                         }`}
-                        style={{ fontWeight: 400, lineHeight: 1.2 }}
+                        style={{ fontWeight: 400, lineHeight: 1.3 }}
                       >
                         {item.label}
                       </a>
@@ -169,6 +198,13 @@ export function Header() {
                   );
                 })}
               </div>
+            </div>
+
+            {/* Footer in mobile menu */}
+            <div className="p-6 border-t border-white/10">
+              <p className="font-serif text-lg italic text-white/40">
+                Laurens & Monica — 2026
+              </p>
             </div>
           </motion.div>
         )}

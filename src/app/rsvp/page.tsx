@@ -23,20 +23,20 @@ export default async function RSVPPage({ searchParams }: PageProps) {
     return (
       <>
         <section 
-          className="pt-24 pb-12 md:pt-32 md:pb-16" 
-          style={{ backgroundColor: "#6B705C" }}
+          className="pt-24 pb-16 md:pt-32 md:pb-20" 
+          style={{ backgroundColor: "#F5F5F0" }}
         >
           <Container size="content">
             <div className="text-center px-2">
               <p 
-                className="text-white/50 text-xs md:text-sm uppercase mb-3 md:mb-4"
-                style={{ letterSpacing: "0.2em" }}
+                className="text-[10px] uppercase font-bold mb-4"
+                style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.5)" }}
               >
                 You are Invited
               </p>
               <h1 
-                className="font-serif text-4xl md:text-6xl text-white mb-4 md:mb-6"
-                style={{ fontWeight: 400 }}
+                className="font-serif text-4xl md:text-6xl italic mb-4 md:mb-6"
+                style={{ fontWeight: 400, color: "#2D2926" }}
               >
                 RSVP
               </h1>
@@ -44,22 +44,22 @@ export default async function RSVPPage({ searchParams }: PageProps) {
           </Container>
         </section>
 
-        <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#E8E6E1" }}>
+        <section className="py-16 md:py-24" style={{ backgroundColor: "#F5F5F0" }}>
           <Container size="content">
-            <div className="text-center max-w-xl mx-auto py-8 md:py-16 px-2">
+            <div className="text-center max-w-xl mx-auto px-2">
               <div 
-                className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mx-auto mb-6 md:mb-8"
-                style={{ backgroundColor: "rgba(107, 112, 92, 0.15)" }}
+                className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8"
+                style={{ backgroundColor: "rgba(195, 123, 96, 0.1)" }}
               >
-                <EnvelopeIcon className="h-8 w-8 md:h-10 md:w-10" style={{ color: "#6B705C" }} />
+                <EnvelopeIcon className="h-10 w-10" style={{ color: "#C37B60" }} />
               </div>
               <h2 
-                className="font-serif text-2xl md:text-3xl mb-3 md:mb-4"
-                style={{ color: "#1A1A1A", fontWeight: 400 }}
+                className="font-serif text-2xl md:text-3xl italic mb-4"
+                style={{ color: "#2D2926", fontWeight: 400 }}
               >
                 Please use your personal link
               </h2>
-              <p className="text-base md:text-lg leading-relaxed" style={{ color: "rgba(26, 26, 26, 0.6)" }}>
+              <p className="text-base md:text-lg leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
                 To RSVP, please use the personalized link from your invitation or Save the Date.
               </p>
             </div>
@@ -77,14 +77,14 @@ export default async function RSVPPage({ searchParams }: PageProps) {
     return (
       <>
         <section 
-          className="pt-24 pb-12 md:pt-32 md:pb-16" 
-          style={{ backgroundColor: "#6B705C" }}
+          className="pt-24 pb-16 md:pt-32 md:pb-20" 
+          style={{ backgroundColor: "#F5F5F0" }}
         >
           <Container size="content">
             <div className="text-center px-2">
               <h1 
-                className="font-serif text-4xl md:text-6xl text-white mb-4 md:mb-6"
-                style={{ fontWeight: 400 }}
+                className="font-serif text-4xl md:text-6xl italic mb-4 md:mb-6"
+                style={{ fontWeight: 400, color: "#2D2926" }}
               >
                 RSVP
               </h1>
@@ -92,16 +92,16 @@ export default async function RSVPPage({ searchParams }: PageProps) {
           </Container>
         </section>
 
-        <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#E8E6E1" }}>
+        <section className="py-16 md:py-24" style={{ backgroundColor: "#F5F5F0" }}>
           <Container size="content">
-            <div className="text-center max-w-xl mx-auto py-8 md:py-16 px-2">
+            <div className="text-center max-w-xl mx-auto px-2">
               <h2 
-                className="font-serif text-2xl md:text-3xl mb-3 md:mb-4"
-                style={{ color: "#1A1A1A", fontWeight: 400 }}
+                className="font-serif text-2xl md:text-3xl italic mb-4"
+                style={{ color: "#2D2926", fontWeight: 400 }}
               >
                 Invalid Invitation Code
               </h2>
-              <p className="text-base md:text-lg leading-relaxed" style={{ color: "rgba(26, 26, 26, 0.6)" }}>
+              <p className="text-base md:text-lg leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
                 We couldn&apos;t find your invitation. Please check the link or contact us directly.
               </p>
             </div>
