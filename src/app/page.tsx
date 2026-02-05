@@ -193,7 +193,7 @@ export default function HomePage() {
                 <div>
                   {/* Venue tagline */}
                   <p className="text-white/80 italic font-serif text-lg mb-6">
-                    Michelin-starred dining with views of the Maas
+                    A Michelin-starred restaurant tucked into Het Park, right on the river. We fell in love with the view and stayed for the food.
                   </p>
 
                   <div className="space-y-4 mb-8">
@@ -266,13 +266,22 @@ export default function HomePage() {
                 {dressCode.title}
               </h3>
               <div 
-                className="inline-block px-6 py-3 md:px-8 md:py-4 rounded-full mb-6 md:mb-8"
+                className="inline-block px-6 py-3 md:px-8 md:py-4 rounded-full mb-4"
                 style={{ backgroundColor: "#6B705C" }}
               >
                 <span className="font-serif text-xl md:text-2xl text-white">
                   {dressCode.code}
                 </span>
               </div>
+
+              {dressCode.description && (
+                <p 
+                  className="text-base md:text-lg mb-6 md:mb-8 max-w-md mx-auto leading-relaxed"
+                  style={{ color: "rgba(26, 26, 26, 0.7)" }}
+                >
+                  {dressCode.description}
+                </p>
+              )}
 
               <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4">
                 <Button href={dressCode.inspiration.men.url} variant="secondary" external>
@@ -461,7 +470,7 @@ export default function HomePage() {
               <div className="relative h-[40vh]">
                 <Image
                   src="/images/dogs.jpg"
-                  alt="Our furry friends waiting to welcome you"
+                  alt="Our welcome committee. They won't be at the wedding, but they wanted to say hi."
                   fill
                   className="object-cover object-center"
                   sizes="100vw"
@@ -513,7 +522,7 @@ export default function HomePage() {
               <div className="w-1/2 relative min-h-[70vh]">
                 <Image
                   src="/images/dogs.jpg"
-                  alt="Our furry friends waiting to welcome you"
+                  alt="Our welcome committee. They won't be at the wedding, but they wanted to say hi."
                   fill
                   className="object-cover"
                   sizes="50vw"
@@ -688,15 +697,9 @@ export default function HomePage() {
                     </>
                   ) : (
                     <div className="text-center py-2 md:py-4">
-                      <p className="text-sm md:text-base mb-3 md:mb-4" style={{ color: "rgba(26, 26, 26, 0.6)" }}>
-                        Our honeymoon fund will be available soon.
+                      <p className="text-sm md:text-base leading-relaxed" style={{ color: "rgba(26, 26, 26, 0.7)" }}>
+                        We're still arguing about the destination, but we know it'll involve good food and zero alarm clocks. Help us get there.
                       </p>
-                      <div 
-                        className="inline-block px-4 py-2 rounded-full text-sm"
-                        style={{ backgroundColor: "rgba(107, 112, 92, 0.15)", color: "#6B705C" }}
-                      >
-                        Coming Soon
-                      </div>
                     </div>
                   )}
                 </div>
@@ -831,7 +834,7 @@ export default function HomePage() {
         <Container size="content">
           <FadeIn>
             <h2 className="font-serif text-3xl md:text-5xl text-white mb-4 md:mb-6 px-2" style={{ fontWeight: 400 }}>
-              We cannot wait to celebrate with you
+              See you on the river
             </h2>
             <p 
               className="font-sans text-sm md:text-base mb-8 md:mb-10 max-w-xl mx-auto px-2 leading-relaxed uppercase text-white/60"

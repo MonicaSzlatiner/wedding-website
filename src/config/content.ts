@@ -51,7 +51,7 @@ export const weddingConfig = {
   // Event schedule
   schedule: {
     title: "Schedule",
-    subtitle: "Join us for an evening of celebration",
+    subtitle: "Dinner, drinks, dancing, and some speeches? Details are still being worked out but not the speeches.",
     events: [
       {
         time: "16:30",
@@ -82,7 +82,7 @@ export const weddingConfig = {
   dressCode: {
     title: "Dress Code",
     code: "Cocktail Attire",
-    description: "",
+    description: "Think: summer evening by the water. Elegant, not stiff. You'll want to dance later.",
     inspiration: {
       men: {
         label: "Inspiration for men",
@@ -98,7 +98,7 @@ export const weddingConfig = {
   // Travel information
   travel: {
     title: "Travel",
-    subtitle: "Getting to Rotterdam",
+    subtitle: "Some of you are crossing borders to be there. Here's how to get to us.",
     heroImage: "/images/hero-travel.jpg",
     sections: {
       flights: {
@@ -181,11 +181,11 @@ export const weddingConfig = {
     items: [
       {
         question: "What is the dress code?",
-        answer: "The dress code is cocktail attire. We invite you to dress elegantly for our celebration. For inspiration, see <a href=\"https://suitsupply.com/en-nl/journal/cocktail-attire-for-men.html\" target=\"_blank\" rel=\"noopener noreferrer\">men's style guide</a> or <a href=\"https://www.pinterest.com/chloeadeline8/cocktail-attire-wedding-guest-ideas/\" target=\"_blank\" rel=\"noopener noreferrer\">women's style inspiration</a>.",
+        answer: "Cocktail attire — think summer evening by the water. Elegant, not stiff. Need some inspiration? Check out our <a href=\"https://suitsupply.com/en-nl/journal/cocktail-attire-for-men.html\" target=\"_blank\" rel=\"noopener noreferrer\">men's style guide</a> or <a href=\"https://www.pinterest.com/chloeadeline8/cocktail-attire-wedding-guest-ideas/\" target=\"_blank\" rel=\"noopener noreferrer\">women's style ideas</a>.",
       },
       {
         question: "Can I bring a plus one?",
-        answer: "We have carefully considered our guest list. Please refer to your invitation for details about plus ones.",
+        answer: "Your invitation will let you know. If you're not sure, just ask us — we don't bite.",
       },
       {
         question: "Are children welcome?",

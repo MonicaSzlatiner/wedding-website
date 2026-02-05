@@ -140,15 +140,9 @@ export default function GiftsPage() {
                   </>
                 ) : (
                   <div className="text-center py-2 md:py-4">
-                    <p className="text-sm md:text-base mb-3 md:mb-4" style={{ color: "rgba(26, 26, 26, 0.6)" }}>
-                      Our honeymoon fund will be available soon.
+                    <p className="text-sm md:text-base leading-relaxed" style={{ color: "rgba(26, 26, 26, 0.7)" }}>
+                      We're still arguing about the destination, but we know it'll involve good food and zero alarm clocks. Help us get there.
                     </p>
-                    <div 
-                      className="inline-block px-4 py-2 rounded-full text-sm"
-                      style={{ backgroundColor: "rgba(107, 112, 92, 0.15)", color: "#6B705C" }}
-                    >
-                      Coming Soon
-                    </div>
                   </div>
                 )}
               </div>

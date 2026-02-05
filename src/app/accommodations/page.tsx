@@ -24,7 +24,7 @@ export default function AccommodationsPage() {
             <div className="relative h-[50vh]">
               <Image
                 src="/images/dogs.jpg"
-                alt="Our furry friends waiting to welcome you"
+                alt="Our welcome committee. They won't be at the wedding, but they wanted to say hi."
                 fill
                 className="object-cover object-center"
                 priority
@@ -77,7 +77,7 @@ export default function AccommodationsPage() {
             <div className="w-[55%] relative">
               <Image
                 src="/images/dogs.jpg"
-                alt="Our furry friends waiting to welcome you"
+                alt="Our welcome committee. They won't be at the wedding, but they wanted to say hi."
                 fill
                 className="object-cover"
                 priority
