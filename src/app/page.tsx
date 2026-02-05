@@ -698,7 +698,7 @@ export default function HomePage() {
                   ) : (
                     <div className="text-center py-2 md:py-4">
                       <p className="text-sm md:text-base leading-relaxed" style={{ color: "rgba(26, 26, 26, 0.7)" }}>
-                        We're still arguing about the destination, but we know it'll involve good food and zero alarm clocks. Help us get there.
+                        We&apos;re still arguing about the destination, but we know it&apos;ll involve good food and zero alarm clocks. Help us get there.
                       </p>
                     </div>
                   )}
