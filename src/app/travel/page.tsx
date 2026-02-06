@@ -54,7 +54,7 @@ export default function TravelPage() {
                 className="font-serif text-4xl md:text-5xl lg:text-6xl italic mb-6"
                 style={{ fontWeight: 400, color: "#2D2926" }}
               >
-                {travel.title}
+                {travel.heading}
               </h1>
               <p 
                 className="font-serif text-lg md:text-xl italic leading-relaxed"

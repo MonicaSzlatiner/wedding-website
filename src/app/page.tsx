@@ -670,7 +670,7 @@ export default function HomePage() {
               className="text-lg font-light leading-relaxed max-w-lg mx-auto"
               style={{ color: "rgba(45, 41, 38, 0.7)" }}
             >
-              We're still putting together our RSVP system. Check back soon for details!
+              We&apos;re still putting together our RSVP system. Check back soon for details!
             </p>
 
             {/* Footer-style divider and text */}

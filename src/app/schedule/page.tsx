@@ -37,7 +37,7 @@ export default function SchedulePage() {
               className="font-serif text-4xl md:text-6xl italic mb-4 md:mb-6"
               style={{ fontWeight: 400, color: "#2D2926" }}
             >
-              {schedule.title}
+              {schedule.heading}
             </h1>
             <p 
               className="text-base md:text-lg max-w-xl mx-auto leading-relaxed"
@@ -178,7 +178,7 @@ export default function SchedulePage() {
               className="font-serif text-3xl md:text-4xl italic mb-6"
               style={{ fontWeight: 400, color: "#2D2926" }}
             >
-              {dressCode.title}
+              {dressCode.heading}
             </h2>
             
             <div 

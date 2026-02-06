@@ -31,7 +31,7 @@ export default function FAQPage() {
               className="font-serif text-4xl md:text-6xl italic mb-4 md:mb-6"
               style={{ fontWeight: 400, color: "#2D2926" }}
             >
-              {faq.title}
+              {faq.heading}
             </h1>
             <p 
               className="text-base md:text-lg max-w-xl mx-auto leading-relaxed"
