@@ -90,7 +90,7 @@ export const weddingConfig = {
       },
       women: {
         label: "Inspiration for women",
-        url: "https://www.pinterest.com/chloeadeline8/cocktail-attire-wedding-guest-ideas/",
+        url: "https://www.theknot.com/content/cocktail-wedding-attire",
       },
     },
   },
@@ -181,7 +181,7 @@ export const weddingConfig = {
     items: [
       {
         question: "What is the dress code?",
-        answer: "Cocktail attire — think summer evening by the water. Elegant, not stiff. Need some inspiration? Check out our <a href=\"https://suitsupply.com/en-nl/journal/cocktail-attire-for-men.html\" target=\"_blank\" rel=\"noopener noreferrer\">men's style guide</a> or <a href=\"https://www.pinterest.com/chloeadeline8/cocktail-attire-wedding-guest-ideas/\" target=\"_blank\" rel=\"noopener noreferrer\">women's style ideas</a>.",
+        answer: "Cocktail attire — think summer evening by the water. Elegant, not stiff. Need some inspiration? Check out our <a href=\"https://suitsupply.com/en-nl/journal/cocktail-attire-for-men.html\" target=\"_blank\" rel=\"noopener noreferrer\">men's style guide</a> or <a href=\"https://www.theknot.com/content/cocktail-wedding-attire\" target=\"_blank\" rel=\"noopener noreferrer\">women's style ideas</a>.",
       },
       {
         question: "Can I bring a plus one?",

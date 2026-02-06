@@ -109,7 +109,7 @@ export default function HomePage() {
               className="font-serif text-5xl md:text-6xl italic"
               style={{ fontWeight: 400, color: "#2D2926" }}
             >
-              The Weekend
+              Schedule
             </h2>
           </FadeIn>
 
@@ -211,9 +211,14 @@ export default function HomePage() {
               >
                 {venue.name}, {venue.address}, {venue.city}, {venue.country} — A Michelin-starred restaurant tucked into Het Park, right on the river.
               </p>
-              <Button href={venue.googleMapsLink} variant="primary" external>
-                View Travel Guide
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button href={venue.website} variant="primary" external>
+                  Visit Restaurant
+                </Button>
+                <Button href={venue.googleMapsLink} variant="secondary" external>
+                  Get Directions
+                </Button>
+              </div>
             </FadeIn>
           </div>
         </div>
@@ -236,11 +241,17 @@ export default function HomePage() {
                     The Dress Code
                   </p>
                   <h2 
-                    className="font-serif text-6xl italic mb-8"
+                    className="font-serif text-6xl italic mb-4"
                     style={{ fontWeight: 400, color: "#F5F5F0" }}
                   >
                     Our Aesthetic
                   </h2>
+                  <p 
+                    className="font-serif text-3xl italic mb-6"
+                    style={{ color: "#C37B60" }}
+                  >
+                    {dressCode.code}
+                  </p>
                   <p 
                     className="text-lg font-light leading-relaxed max-w-md"
                     style={{ color: "rgba(245, 245, 240, 0.8)" }}
@@ -249,49 +260,63 @@ export default function HomePage() {
                   </p>
                 </header>
 
-                {/* Gender-specific guidance with line dividers */}
-                <div className="space-y-8">
+                {/* Gender-specific inspiration links */}
+                <div className="space-y-6">
                   {/* For the Gentlemen */}
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-center gap-4">
                     <div 
-                      className="w-10 mt-3 flex-shrink-0"
+                      className="w-10 flex-shrink-0"
                       style={{ height: "0.5px", backgroundColor: "#C37B60" }}
                     />
-                    <div>
+                    <div className="flex items-center gap-4">
                       <p 
-                        className="text-[11px] uppercase font-bold mb-3"
+                        className="text-[11px] uppercase font-bold"
                         style={{ letterSpacing: "0.2em", color: "#C37B60" }}
                       >
-                        For the Gentlemen
+                        For Him
                       </p>
-                      <p 
-                        className="font-serif text-2xl font-light italic leading-snug"
-                        style={{ color: "#F5F5F0" }}
+                      <a
+                        href="https://suitsupply.com/en-nl/journal/cocktail-attire-for-men.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[11px] uppercase font-bold pb-1 border-b transition-all hover:opacity-70"
+                        style={{ 
+                          letterSpacing: "0.2em", 
+                          color: "rgba(245, 245, 240, 0.7)",
+                          borderBottomColor: "rgba(245, 245, 240, 0.3)"
+                        }}
                       >
-                        Linen suits or structured blazers. Earthy tones encouraged. No ties required.
-                      </p>
+                        Inspiration →
+                      </a>
                     </div>
                   </div>
 
                   {/* For the Ladies */}
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-center gap-4">
                     <div 
-                      className="w-10 mt-3 flex-shrink-0"
+                      className="w-10 flex-shrink-0"
                       style={{ height: "0.5px", backgroundColor: "#C37B60" }}
                     />
-                    <div>
+                    <div className="flex items-center gap-4">
                       <p 
-                        className="text-[11px] uppercase font-bold mb-3"
+                        className="text-[11px] uppercase font-bold"
                         style={{ letterSpacing: "0.2em", color: "#C37B60" }}
                       >
-                        For the Ladies
+                        For Her
                       </p>
-                      <p 
-                        className="font-serif text-2xl font-light italic leading-snug"
-                        style={{ color: "#F5F5F0" }}
+                      <a
+                        href="https://www.theknot.com/content/cocktail-wedding-attire"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[11px] uppercase font-bold pb-1 border-b transition-all hover:opacity-70"
+                        style={{ 
+                          letterSpacing: "0.2em", 
+                          color: "rgba(245, 245, 240, 0.7)",
+                          borderBottomColor: "rgba(245, 245, 240, 0.3)"
+                        }}
                       >
-                        Elevated midi or maxi silhouettes. Neutral, cream, or terracotta palettes preferred.
-                      </p>
+                        Inspiration →
+                      </a>
                     </div>
                   </div>
                 </div>
