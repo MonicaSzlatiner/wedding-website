@@ -84,7 +84,7 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
                     className="font-serif text-lg md:text-xl font-light italic mt-1"
                     style={{ color: "#2D2926" }}
                   >
-                    {venue.city}, the {venue.country}
+                    {venue.city}, The {venue.country}
                   </p>
                 </div>
               </div>
@@ -169,7 +169,7 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
                       className="font-serif text-lg md:text-xl font-light italic"
                       style={{ color: "rgba(45, 41, 38, 0.9)" }}
                     >
-                      {venue.city}, the {venue.country}
+                      {venue.city}, The {venue.country}
                     </p>
                   </div>
                 </motion.div>

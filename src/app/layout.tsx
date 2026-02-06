@@ -25,6 +25,7 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: weddingConfig.meta.title,
   description: weddingConfig.meta.description,
+  themeColor: "#F5F5F0",
   openGraph: {
     title: weddingConfig.meta.title,
     description: weddingConfig.meta.description,
