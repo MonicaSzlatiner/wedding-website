@@ -98,19 +98,21 @@ export default function HomePage() {
       <section id="schedule" className="scroll-mt-20 py-24 md:py-32 border-t" style={{ backgroundColor: "#F5F5F0", borderColor: "rgba(45, 41, 38, 0.05)" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           {/* Section Header */}
-          <FadeIn className="text-center mb-20">
-            <p 
-              className="text-[10px] uppercase font-medium mb-3"
-              style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
-            >
-              The Celebration
-            </p>
-            <h2 
-              className="font-serif text-5xl md:text-6xl italic"
-              style={{ fontWeight: 400, color: "#2D2926" }}
-            >
-              Schedule
-            </h2>
+          <FadeIn className="mb-20">
+            <div className="text-center">
+              <p 
+                className="text-[10px] uppercase font-medium mb-3"
+                style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
+              >
+                The Celebration
+              </p>
+              <h2 
+                className="font-serif text-5xl md:text-6xl italic"
+                style={{ fontWeight: 400, color: "#2D2926" }}
+              >
+                Schedule
+              </h2>
+            </div>
           </FadeIn>
 
           {/* Event Grid - 3/4 columns on desktop */}
@@ -356,19 +358,21 @@ export default function HomePage() {
       <section id="stay" className="scroll-mt-20 py-32 border-t" style={{ backgroundColor: "#F5F5F0", borderColor: "rgba(45, 41, 38, 0.05)" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           {/* Section Header */}
-          <FadeIn className="text-center mb-20">
-            <p 
-              className="text-[10px] uppercase font-medium mb-3"
-              style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
-            >
-              Where to Stay
-            </p>
-            <h2 
-              className="font-serif text-5xl italic"
-              style={{ fontWeight: 400, color: "#2D2926" }}
-            >
-              Accommodations
-            </h2>
+          <FadeIn className="mb-20">
+            <div className="text-center">
+              <p 
+                className="text-[10px] uppercase font-medium mb-3"
+                style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
+              >
+                Where to Stay
+              </p>
+              <h2 
+                className="font-serif text-5xl italic"
+                style={{ fontWeight: 400, color: "#2D2926" }}
+              >
+                Accommodations
+              </h2>
+            </div>
           </FadeIn>
 
           {/* Large placeholder/image area */}
