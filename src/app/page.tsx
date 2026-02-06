@@ -328,7 +328,7 @@ export default function HomePage() {
             {/* Right - Staggered images */}
             <FadeIn delay={0.2}>
               <div className="grid grid-cols-2 gap-6 items-start">
-                <div className="aspect-[3/4] rounded-lg shadow-2xl overflow-hidden relative">
+                <div className="aspect-[3/4] rounded-xl shadow-2xl overflow-hidden relative">
                   <Image
                     src="/images/dresscode-1.jpg"
                     alt="Dress code inspiration"
@@ -337,7 +337,7 @@ export default function HomePage() {
                     sizes="224px"
                   />
                 </div>
-                <div className="aspect-[3/4] rounded-lg shadow-2xl overflow-hidden relative mt-12 md:mt-24">
+                <div className="aspect-[3/4] rounded-xl shadow-2xl overflow-hidden relative mt-12 md:mt-24">
                   <Image
                     src="/images/dresscode-2.jpg"
                     alt="Dress code inspiration"
