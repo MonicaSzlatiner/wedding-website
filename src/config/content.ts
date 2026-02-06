@@ -171,7 +171,7 @@ export const weddingConfig = {
     heading: "Your Presence is Enough",
     subtitle: "Your presence is the greatest gift",
     heroImage: "/images/hero-gifts.jpg",
-    message: "Your presence is enough of a present to us! But for those of you are stubborn, we will put together a honeymoon fund. Check back later for details.",
+    message: "Your presence is enough of a present to us! But for those of you who are stubborn, we will put together a honeymoon fund. Check back later for details.",
     fund: {
       name: "Honeymoon Fund",
       description: "Help us explore the world together",

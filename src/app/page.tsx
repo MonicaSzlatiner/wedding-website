@@ -211,7 +211,7 @@ export default function HomePage() {
                 className="text-lg font-light mb-10 max-w-md mx-auto md:mx-0 leading-relaxed"
                 style={{ color: "rgba(45, 41, 38, 0.8)" }}
               >
-                {venue.name}, {venue.address}, {venue.city}, {venue.country} — A Michelin-starred restaurant tucked into Het Park, right on the river.
+                {venue.name} — A Michelin-starred restaurant tucked into Het Park, right on the river.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button href={venue.website} variant="primary" external>
