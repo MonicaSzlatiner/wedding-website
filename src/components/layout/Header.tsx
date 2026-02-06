@@ -103,7 +103,7 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-10">
-            {navigation.items.slice(1, -1).map((item) => (
+            {navigation.items.slice(1).map((item) => (
               <a
                 key={item.href}
                 href={item.href}

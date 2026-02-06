@@ -83,7 +83,7 @@ const eventIcons: Record<string, React.FC<{ className?: string; style?: React.CS
 };
 
 export default function HomePage() {
-  const { couple, date, venue, schedule, travel, hotels, gifts, rsvp, faq, dressCode } = weddingConfig;
+  const { couple, date, venue, schedule, travel, hotels: hotelsConfig, gifts, rsvp, faq, dressCode } = weddingConfig;
 
   return (
     <>
@@ -255,6 +255,22 @@ export default function HomePage() {
             </div>
           </FadeIn>
 
+          {/* Large image with rounded corners */}
+          <FadeIn className="mb-24">
+            <div 
+              className="w-full h-[400px] rounded-xl overflow-hidden relative shadow-sm"
+              style={{ backgroundColor: "#E8E8E1" }}
+            >
+              <Image
+                src="/images/travel-hero.jpg"
+                alt="Laurens and Monica in New York"
+                fill
+                className="object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
+                sizes="100vw"
+              />
+            </div>
+          </FadeIn>
+
           {/* Travel Options Grid */}
           <div className="grid gap-12 md:gap-8 md:grid-cols-3">
             {/* By Air */}
@@ -343,6 +359,137 @@ export default function HomePage() {
               </div>
             </FadeIn>
           </div>
+        </div>
+      </section>
+
+      {/* ============================================
+          ACCOMMODATIONS SECTION
+          ============================================ */}
+      <section id="stay" className="scroll-mt-20 py-32 border-t" style={{ backgroundColor: "#F5F5F0", borderColor: "rgba(45, 41, 38, 0.05)" }}>
+        <div className="max-w-[1200px] mx-auto px-6">
+          {/* Section Header */}
+          <FadeIn className="w-full mb-20">
+            <div className="flex flex-col items-center text-center">
+              <p 
+                className="text-[10px] uppercase font-medium mb-3"
+                style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
+              >
+                {hotelsConfig.label}
+              </p>
+              <h2 
+                className="font-serif text-5xl italic"
+                style={{ fontWeight: 400, color: "#2D2926" }}
+              >
+                {hotelsConfig.heading}
+              </h2>
+            </div>
+          </FadeIn>
+
+          {/* Large placeholder/image area */}
+          <FadeIn className="mb-24">
+            <div 
+              className="w-full h-[400px] rounded-xl overflow-hidden relative shadow-sm"
+              style={{ backgroundColor: "#E8E8E1" }}
+            >
+              <Image
+                src="/images/dogs.jpg"
+                alt="Our welcome committee. They won't be at the wedding, but they wanted to say hi."
+                fill
+                className="object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
+                sizes="100vw"
+              />
+            </div>
+          </FadeIn>
+
+          {/* Hotels Grid - 2 column layout per HTML design */}
+          <div className="grid gap-16 md:grid-cols-2">
+            {hotels.slice(0, 2).map((hotel, index) => (
+              <FadeIn key={hotel.id} delay={index * 0.1}>
+                <HotelCard hotel={hotel} />
+              </FadeIn>
+            ))}
+          </div>
+
+          {/* Show remaining hotels if more than 2 */}
+          {hotels.length > 2 && (
+            <div className="grid gap-16 md:grid-cols-2 mt-16">
+              {hotels.slice(2).map((hotel, index) => (
+                <FadeIn key={hotel.id} delay={(index + 2) * 0.1}>
+                  <HotelCard hotel={hotel} />
+                </FadeIn>
+              ))}
+            </div>
+          )}
+
+          {/* Other Options */}
+          <FadeIn delay={0.3} className="mt-12 text-center">
+            <p className="text-sm" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
+              {accommodationsContent.otherOptions.description}
+            </p>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ============================================
+          GIFTS SECTION
+          ============================================ */}
+      <section id="gifts" className="scroll-mt-20 py-32 border-y" style={{ backgroundColor: "#F2F2EC", borderColor: "rgba(45, 41, 38, 0.05)" }}>
+        <div className="max-w-[1200px] mx-auto px-6">
+          {/* Section Header - centered */}
+          <FadeIn className="w-full mb-20">
+            <div className="flex flex-col items-center text-center">
+              <p 
+                className="text-[10px] uppercase font-medium mb-3"
+                style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
+              >
+                {gifts.label}
+              </p>
+              <h2 
+                className="font-serif text-5xl italic"
+                style={{ fontWeight: 400, color: "#2D2926" }}
+              >
+                {gifts.heading}
+              </h2>
+            </div>
+          </FadeIn>
+
+          {/* Large image with rounded corners */}
+          <FadeIn className="mb-16">
+            <div 
+              className="w-full h-[400px] rounded-xl overflow-hidden relative shadow-sm"
+              style={{ backgroundColor: "#E8E8E1" }}
+            >
+              <Image
+                src="/images/gifts-hero.jpg"
+                alt="Laurens and Monica"
+                fill
+                className="object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
+                sizes="100vw"
+              />
+            </div>
+          </FadeIn>
+
+          {/* Message + Button centered */}
+          <FadeIn className="text-center max-w-xl mx-auto">
+            <p 
+              className="text-lg font-light leading-relaxed mb-10"
+              style={{ color: "rgba(45, 41, 38, 0.7)" }}
+            >
+              {gifts.message}
+            </p>
+            
+            <a
+              href="#"
+              className="inline-block px-12 py-5 rounded-full text-[11px] uppercase font-bold transition-all hover:shadow-lg"
+              style={{ 
+                letterSpacing: "0.3em",
+                backgroundColor: "#2D2926", 
+                color: "white" 
+              }}
+            >
+              Honeymoon Fund TBD
+            </a>
+          </FadeIn>
         </div>
       </section>
 
@@ -473,138 +620,6 @@ export default function HomePage() {
       </section>
 
       {/* ============================================
-          ACCOMMODATIONS SECTION
-          ============================================ */}
-      <section id="stay" className="scroll-mt-20 py-32 border-t" style={{ backgroundColor: "#F5F5F0", borderColor: "rgba(45, 41, 38, 0.05)" }}>
-        <div className="max-w-[1200px] mx-auto px-6">
-          {/* Section Header */}
-          <FadeIn className="w-full mb-20">
-            <div className="flex flex-col items-center text-center">
-              <p 
-                className="text-[10px] uppercase font-medium mb-3"
-                style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
-              >
-                {hotels.label}
-              </p>
-              <h2 
-                className="font-serif text-5xl italic"
-                style={{ fontWeight: 400, color: "#2D2926" }}
-              >
-                {hotels.heading}
-              </h2>
-            </div>
-          </FadeIn>
-
-          {/* Large placeholder/image area */}
-          <FadeIn className="mb-24">
-            <div 
-              className="w-full h-[400px] rounded-xl overflow-hidden relative shadow-sm"
-              style={{ backgroundColor: "#E8E8E1" }}
-            >
-              <Image
-                src="/images/dogs.jpg"
-                alt="Our welcome committee. They won't be at the wedding, but they wanted to say hi."
-                fill
-                className="object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
-                sizes="100vw"
-              />
-            </div>
-          </FadeIn>
-
-          {/* Hotels Grid - 2 column layout per HTML design */}
-          <div className="grid gap-16 md:grid-cols-2">
-            {hotels.slice(0, 2).map((hotel, index) => (
-              <FadeIn key={hotel.id} delay={index * 0.1}>
-                <HotelCard hotel={hotel} />
-              </FadeIn>
-            ))}
-          </div>
-
-          {/* Show remaining hotels if more than 2 */}
-          {hotels.length > 2 && (
-            <div className="grid gap-16 md:grid-cols-2 mt-16">
-              {hotels.slice(2).map((hotel, index) => (
-                <FadeIn key={hotel.id} delay={(index + 2) * 0.1}>
-                  <HotelCard hotel={hotel} />
-                </FadeIn>
-              ))}
-            </div>
-          )}
-
-          {/* Other Options */}
-          <FadeIn delay={0.3} className="mt-12 text-center">
-            <p className="text-sm" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
-              {accommodationsContent.otherOptions.description}
-            </p>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* ============================================
-          GIFTS SECTION - 2 Column Layout
-          ============================================ */}
-      <section id="gifts" className="scroll-mt-20 py-24 border-y" style={{ backgroundColor: "#F2F2EC", borderColor: "rgba(45, 41, 38, 0.05)" }}>
-        <div className="max-w-[1200px] mx-auto px-6">
-          <FadeIn>
-            <div className="flex flex-col md:flex-row items-center gap-16">
-              {/* Left - Large icon card (1/3) */}
-              <div className="w-full md:w-1/3">
-                <div 
-                  className="aspect-square rounded-2xl shadow-xl flex items-center justify-center"
-                  style={{ backgroundColor: "white" }}
-                >
-                  <GiftIcon 
-                    className="w-24 h-24" 
-                    style={{ color: "rgba(195, 123, 96, 0.4)" }} 
-                  />
-                </div>
-              </div>
-
-              {/* Right - Text content (2/3) */}
-              <div className="md:w-2/3 text-center md:text-left">
-                <p 
-                  className="text-[10px] uppercase font-medium mb-3"
-                  style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
-                >
-                  {gifts.label}
-                </p>
-                <h2 
-                  className="font-serif text-5xl italic mb-6"
-                  style={{ fontWeight: 400, color: "#2D2926" }}
-                >
-                  {gifts.heading}
-                </h2>
-                <p 
-                  className="text-lg font-light leading-relaxed mb-10 max-w-xl"
-                  style={{ color: "rgba(45, 41, 38, 0.7)" }}
-                >
-                  {gifts.message}
-                </p>
-                
-                {gifts.fund.enabled ? (
-                  <Button href={gifts.fund.stripeLink} variant="primary" external>
-                    Visit Registry
-                  </Button>
-                ) : (
-                  <a
-                    href="#"
-                    className="inline-block px-12 py-5 rounded-full text-[11px] uppercase font-bold transition-all hover:shadow-lg"
-                    style={{ 
-                      letterSpacing: "0.3em",
-                      backgroundColor: "#2D2926", 
-                      color: "white" 
-                    }}
-                  >
-                    Visit Registry
-                  </a>
-                )}
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* ============================================
           FAQ SECTION - 2 Column Layout
           ============================================ */}
       <section id="faq" className="scroll-mt-20 py-32" style={{ backgroundColor: "#F5F5F0" }}>
@@ -650,19 +665,13 @@ export default function HomePage() {
               {rsvp.heading}
             </h2>
 
-            {/* Full-width RSVP Button */}
-            <div className="max-w-md mx-auto">
-              <button 
-                className="w-full py-6 rounded-lg text-[11px] uppercase font-black shadow-2xl transition-all hover:opacity-90"
-                style={{ 
-                  letterSpacing: "0.4em",
-                  backgroundColor: "#2D2926", 
-                  color: "white" 
-                }}
-              >
-                RSVP Online
-              </button>
-            </div>
+            {/* Coming soon message */}
+            <p 
+              className="text-lg font-light leading-relaxed max-w-lg mx-auto"
+              style={{ color: "rgba(45, 41, 38, 0.7)" }}
+            >
+              We're still putting together our RSVP system. Check back soon for details!
+            </p>
 
             {/* Footer-style divider and text */}
             <div className="mt-24 flex flex-col items-center gap-6" style={{ opacity: 0.4 }}>

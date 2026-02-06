@@ -35,7 +35,7 @@ export const weddingConfig = {
   // Venue information
   venue: {
     label: "The Venue",
-    heading: "The Destination",
+    heading: "The Location",
     name: "Parkheuvel",
     address: "Heuvellaan 21",
     city: "Rotterdam",
@@ -74,7 +74,7 @@ export const weddingConfig = {
       },
 
       {
-        time: "19:30",
+        time: "20:00",
         title: "Dancing",
         description: "Celebrate with us into the night",
       },
@@ -167,11 +167,11 @@ export const weddingConfig = {
 
   // Gifts / Honeymoon Fund
   gifts: {
-    label: "Registry",
+    label: "Gifts",
     heading: "Your Presence is Enough",
     subtitle: "Your presence is the greatest gift",
     heroImage: "/images/hero-gifts.jpg",
-    message: "Your presence is enough of a present to us! But for those of you who are stubborn, we've put together a honeymoon fund. See below for more details.",
+    message: "Your presence is enough of a present to us! But for those of you are stubborn, we will put together a honeymoon fund. Check back later for details.",
     fund: {
       name: "Honeymoon Fund",
       description: "Help us explore the world together",
@@ -234,7 +234,6 @@ export const weddingConfig = {
       { label: "Travel", href: "#travel" },
       { label: "Stay", href: "#stay" },
       { label: "Gifts", href: "#gifts" },
-      { label: "RSVP", href: "#rsvp" },
       { label: "FAQ", href: "#faq" },
     ],
   },
