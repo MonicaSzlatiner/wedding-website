@@ -98,12 +98,13 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
             animate="visible"
             variants={imageVariants}
           >
-            <div className="relative w-full h-full aspect-[4/5] rounded-xl shadow-2xl overflow-hidden">
+            <div className="relative w-full h-full aspect-[4/5] shadow-2xl" style={{ borderRadius: '24px', overflow: 'hidden' }}>
               <Image
                 src="/images/hero-home.jpg"
                 alt={`${couple.person1} and ${couple.person2}`}
                 fill
                 className="object-cover object-top grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
+                style={{ borderRadius: '24px' }}
                 priority
                 sizes="100vw"
               />
@@ -181,12 +182,13 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
                 animate="visible"
                 variants={imageVariants}
               >
-                <div className="w-full aspect-[4/5] rounded-xl shadow-2xl overflow-hidden">
+                <div className="w-full aspect-[4/5] shadow-2xl" style={{ borderRadius: '24px', overflow: 'hidden' }}>
                   <Image
                     src="/images/hero-home.jpg"
                     alt={`${couple.person1} and ${couple.person2}`}
                     fill
                     className="object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
+                    style={{ borderRadius: '24px' }}
                     priority
                     sizes="60vw"
                   />
