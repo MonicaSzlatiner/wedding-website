@@ -683,6 +683,12 @@ export default function HomePage() {
                 className="font-serif text-lg italic"
                 style={{ color: "#2D2926" }}
               >
+                Made with love for our favorite people
+              </p>
+              <p 
+                className="font-serif text-lg italic"
+                style={{ color: "#2D2926" }}
+              >
                 Laurens & Monica — 2026
               </p>
             </div>
