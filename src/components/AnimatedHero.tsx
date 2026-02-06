@@ -15,10 +15,10 @@ interface AnimatedHeroProps {
  * AnimatedHero - Quiet Luxury aesthetic
  * 
  * Design Philosophy:
- * - Asymmetric layout: Names left, image right
- * - Large italic serif typography with terracotta accent
- * - Grayscale hover effect on image
- * - Clean, minimal background
+ * - Asymmetric overlapping layout: Names left (cols 1-8), image right (cols 6-13)
+ * - Massive italic serif typography with terracotta accent
+ * - "& Monica" indented with ml-24
+ * - Grayscale hover effect on image with rounded corners and shadow
  */
 export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProps) {
   const shouldReduceMotion = useReducedMotion();
@@ -46,25 +46,25 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
       {/* ============================================
           MOBILE: Stacked layout
           ============================================ */}
-      <section id="home" className="lg:hidden">
-        <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#F5F5F0" }}>
-          {/* Names section - top aligned */}
-          <div className="px-6 pt-6 pb-8">
+      <section id="home" className="md:hidden">
+        <div className="min-h-screen flex flex-col pt-12 pb-20" style={{ backgroundColor: "#F5F5F0" }}>
+          {/* Names section - centered on mobile */}
+          <div className="px-6 pb-8 text-center">
             <motion.div
               initial="hidden"
               animate="visible"
               variants={textVariants}
             >
               {/* Names - Large italic serif */}
-              <h1 className="font-serif leading-[0.95] tracking-tight" style={{ fontWeight: 400 }}>
+              <h1 className="font-serif leading-[0.8] tracking-tight" style={{ fontWeight: 400 }}>
                 <span 
-                  className="block text-6xl sm:text-7xl italic"
+                  className="block text-[5rem] italic"
                   style={{ color: "#2D2926" }}
                 >
                   {couple.person1}
                 </span>
                 <span 
-                  className="block text-6xl sm:text-7xl italic mt-1"
+                  className="block text-[5rem] italic"
                   style={{ color: "#C37B60" }}
                 >
                   & {couple.person2}
@@ -72,118 +72,128 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
               </h1>
               
               {/* Date and Location */}
-              <div className="mt-6 flex flex-col gap-1">
-                <p 
-                  className="text-[10px] uppercase font-bold"
-                  style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.6)" }}
-                >
-                  {date.full}
-                </p>
-                <p 
-                  className="text-[10px] uppercase font-bold"
-                  style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.6)" }}
-                >
-                  {venue.city}
-                </p>
+              <div className="mt-8 flex flex-col md:flex-row items-center gap-4 md:gap-12">
+                <div className="text-center">
+                  <p 
+                    className="text-[11px] uppercase font-bold"
+                    style={{ letterSpacing: "0.4em", color: "rgba(45, 41, 38, 0.8)" }}
+                  >
+                    {date.full}
+                  </p>
+                  <p 
+                    className="font-serif text-lg md:text-xl font-light italic mt-1"
+                    style={{ color: "#2D2926" }}
+                  >
+                    {venue.city}
+                  </p>
+                </div>
               </div>
             </motion.div>
           </div>
           
           {/* Image section - fills remaining space */}
           <motion.div 
-            className="relative flex-1 min-h-[50vh]"
+            className="relative flex-1 min-h-[50vh] mx-6"
             initial="hidden"
             animate="visible"
             variants={imageVariants}
           >
-            <Image
-              src="/images/hero-home.jpg"
-              alt={`${couple.person1} and ${couple.person2}`}
-              fill
-              className="object-cover object-top grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
-              priority
-              sizes="100vw"
-            />
+            <div className="relative w-full h-full aspect-[4/5] rounded-lg shadow-2xl overflow-hidden">
+              <Image
+                src="/images/hero-home.jpg"
+                alt={`${couple.person1} and ${couple.person2}`}
+                fill
+                className="object-cover object-top grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
+                priority
+                sizes="100vw"
+              />
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* ============================================
-          DESKTOP: Asymmetric split layout
+          DESKTOP: Asymmetric overlapping layout
           ============================================ */}
-      <section id="home" className="hidden lg:block relative">
-        <div className="min-h-screen px-6 xl:px-12 2xl:px-20 py-10" style={{ backgroundColor: "#F5F5F0" }}>
-          {/* Grid layout - names left, image right */}
-          <div className="grid grid-cols-12 gap-8 min-h-[calc(100vh-80px)] items-center">
-            
-            {/* Left - Names (spans 5 columns) */}
-            <motion.div 
-              className="col-span-5 flex flex-col justify-center"
-              initial="hidden"
-              animate="visible"
-              variants={textVariants}
-            >
-              {/* Large italic serif names */}
-              <h1 className="font-serif leading-[0.9] tracking-tight" style={{ fontWeight: 400 }}>
-                <motion.span 
-                  className="block text-7xl xl:text-8xl 2xl:text-9xl italic"
-                  style={{ color: "#2D2926" }}
-                  initial={{ opacity: shouldReduceMotion ? 1 : 0, x: shouldReduceMotion ? 0 : -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.2 }}
-                >
-                  {couple.person1}
-                </motion.span>
-                <motion.span 
-                  className="block text-7xl xl:text-8xl 2xl:text-9xl italic mt-2"
-                  style={{ color: "#C37B60" }}
-                  initial={{ opacity: shouldReduceMotion ? 1 : 0, x: shouldReduceMotion ? 0 : -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.35 }}
-                >
-                  & {couple.person2}
-                </motion.span>
-              </h1>
+      <section id="home" className="hidden md:block relative overflow-hidden">
+        <div className="pt-12 md:pt-20 pb-20 px-6" style={{ backgroundColor: "#F5F5F0" }}>
+          {/* Grid layout - overlapping: text cols 1-8, image cols 6-13 */}
+          <div className="max-w-[1200px] mx-auto">
+            <div className="relative grid grid-cols-12 items-center gap-8 md:gap-0">
               
-              {/* Date and Location - below names */}
+              {/* Left - Names (cols 1-8, z-10 to appear above image) */}
               <motion.div 
-                className="mt-10 flex flex-col gap-1"
-                initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.5 }}
+                className="col-start-1 col-end-9 z-10 text-left"
+                initial="hidden"
+                animate="visible"
+                variants={textVariants}
               >
-                <p 
-                  className="text-[11px] uppercase font-bold"
-                  style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.6)" }}
+                {/* Large italic serif names */}
+                <h1 className="font-serif leading-[0.8] tracking-tight mb-8" style={{ fontWeight: 400 }}>
+                  <motion.span 
+                    className="block text-[5rem] md:text-[9rem] italic"
+                    style={{ color: "#2D2926" }}
+                    initial={{ opacity: shouldReduceMotion ? 1 : 0, x: shouldReduceMotion ? 0 : -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.2 }}
+                  >
+                    {couple.person1}
+                  </motion.span>
+                  <motion.span 
+                    className="block text-[5rem] md:text-[9rem] italic md:ml-24"
+                    style={{ color: "#C37B60" }}
+                    initial={{ opacity: shouldReduceMotion ? 1 : 0, x: shouldReduceMotion ? 0 : -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.35 }}
+                  >
+                    & {couple.person2}
+                  </motion.span>
+                </h1>
+                
+                {/* Date and Location - below names */}
+                <motion.div 
+                  className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-12 md:ml-4"
+                  initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.5 }}
                 >
-                  {date.full}
-                </p>
-                <p 
-                  className="text-[11px] uppercase font-bold"
-                  style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.6)" }}
-                >
-                  {venue.city}
-                </p>
+                  <div className="text-left">
+                    <p 
+                      className="text-[11px] uppercase font-bold"
+                      style={{ letterSpacing: "0.4em", color: "rgba(45, 41, 38, 0.8)" }}
+                    >
+                      {date.full}
+                    </p>
+                    <p 
+                      className="font-serif text-lg md:text-xl font-light italic"
+                      style={{ color: "rgba(45, 41, 38, 0.9)" }}
+                    >
+                      {venue.city}
+                    </p>
+                  </div>
+                </motion.div>
               </motion.div>
-            </motion.div>
 
-            {/* Right - Image (spans 7 columns) */}
-            <motion.div 
-              className="col-span-7 relative h-[75vh] xl:h-[80vh]"
-              initial="hidden"
-              animate="visible"
-              variants={imageVariants}
-            >
-              <Image
-                src="/images/hero-home.jpg"
-                alt={`${couple.person1} and ${couple.person2}`}
-                fill
-                className="object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
-                priority
-                sizes="60vw"
-              />
-            </motion.div>
+              {/* Right - Image (cols 6-13, overlaps with text) */}
+              <motion.div 
+                className="col-start-6 col-end-13 relative"
+                initial="hidden"
+                animate="visible"
+                variants={imageVariants}
+              >
+                <div className="w-full aspect-[4/5] rounded-lg shadow-2xl overflow-hidden">
+                  <Image
+                    src="/images/hero-home.jpg"
+                    alt={`${couple.person1} and ${couple.person2}`}
+                    fill
+                    className="object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
+                    priority
+                    sizes="60vw"
+                  />
+                </div>
+              </motion.div>
 
+            </div>
           </div>
         </div>
       </section>
