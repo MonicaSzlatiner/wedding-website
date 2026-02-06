@@ -7,7 +7,7 @@ import { motion, useReducedMotion } from "framer-motion";
 interface AnimatedHeroProps {
   couple: { person1: string; person2: string };
   date: { full: string; timeDisplay: string };
-  venue: { name: string; city: string };
+  venue: { name: string; city: string; country: string };
   children?: ReactNode;
 }
 
@@ -84,7 +84,7 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
                     className="font-serif text-lg md:text-xl font-light italic mt-1"
                     style={{ color: "#2D2926" }}
                   >
-                    {venue.city}
+                    {venue.city}, the {venue.country}
                   </p>
                 </div>
               </div>
@@ -168,7 +168,7 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
                       className="font-serif text-lg md:text-xl font-light italic"
                       style={{ color: "rgba(45, 41, 38, 0.9)" }}
                     >
-                      {venue.city}
+                      {venue.city}, the {venue.country}
                     </p>
                   </div>
                 </motion.div>
