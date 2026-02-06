@@ -34,6 +34,8 @@ export const weddingConfig = {
 
   // Venue information
   venue: {
+    label: "The Venue",
+    heading: "The Destination",
     name: "Parkheuvel",
     address: "Heuvellaan 21",
     city: "Rotterdam",
@@ -50,7 +52,8 @@ export const weddingConfig = {
 
   // Event schedule
   schedule: {
-    title: "Schedule",
+    label: "The Celebration",
+    heading: "Schedule",
     subtitle: "Dinner, drinks, dancing, and some speeches? Details are still being worked out but not the speeches.",
     events: [
       {
@@ -80,7 +83,8 @@ export const weddingConfig = {
 
   // Dress code
   dressCode: {
-    title: "Dress Code",
+    label: "The Dress Code",
+    heading: "Our Aesthetic",
     code: "Cocktail Attire",
     description: "Think: summer evening by the water. Elegant, not stiff. You'll want to dance later.",
     inspiration: {
@@ -97,7 +101,8 @@ export const weddingConfig = {
 
   // Travel information
   travel: {
-    title: "Travel",
+    label: "Getting There",
+    heading: "Travel",
     subtitle: "Some of you are crossing borders to be there. Here's how to get to us.",
     heroImage: "/images/hero-travel.jpg",
     sections: {
@@ -132,7 +137,8 @@ export const weddingConfig = {
 
   // Hotels (placeholder for later)
   hotels: {
-    title: "Where to Stay",
+    label: "Where to Stay",
+    heading: "Accommodations",
     subtitle: "Recommended accommodations",
     comingSoon: true,
     items: [
@@ -150,7 +156,7 @@ export const weddingConfig = {
 
   // RSVP
   rsvp: {
-    title: "RSVP",
+    heading: "Ready to Celebrate?",
     subtitle: "We would be honored to have you celebrate with us",
     deadline: "May 1, 2026",
     deadlineDisplay: "Please respond by May 1, 2026",
@@ -161,7 +167,8 @@ export const weddingConfig = {
 
   // Gifts / Honeymoon Fund
   gifts: {
-    title: "Gifts",
+    label: "Registry",
+    heading: "Your Presence is Enough",
     subtitle: "Your presence is the greatest gift",
     heroImage: "/images/hero-gifts.jpg",
     message: "Your presence is enough of a present to us! But for those of you who are stubborn, we've put together a honeymoon fund. See below for more details.",
@@ -176,7 +183,8 @@ export const weddingConfig = {
 
   // FAQ
   faq: {
-    title: "Questions",
+    label: "Details to Note",
+    heading: "Questions",
     subtitle: "Frequently asked questions",
     items: [
       {

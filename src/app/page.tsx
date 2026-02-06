@@ -83,7 +83,7 @@ const eventIcons: Record<string, React.FC<{ className?: string; style?: React.CS
 };
 
 export default function HomePage() {
-  const { couple, date, venue, schedule, travel, gifts, rsvp, faq, dressCode } = weddingConfig;
+  const { couple, date, venue, schedule, travel, hotels, gifts, rsvp, faq, dressCode } = weddingConfig;
 
   return (
     <>
@@ -104,13 +104,13 @@ export default function HomePage() {
                 className="text-[10px] uppercase font-medium mb-3"
                 style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
               >
-                The Celebration
+                {schedule.label}
               </p>
               <h2 
                 className="font-serif text-5xl md:text-6xl italic"
                 style={{ fontWeight: 400, color: "#2D2926" }}
               >
-                Schedule
+                {schedule.heading}
               </h2>
             </div>
           </FadeIn>
@@ -205,7 +205,7 @@ export default function HomePage() {
                 className="font-serif text-5xl italic mb-6"
                 style={{ fontWeight: 400, color: "#2D2926" }}
               >
-                The Destination
+                {venue.heading}
               </h2>
               <p 
                 className="text-lg font-light mb-10 max-w-md mx-auto md:mx-0 leading-relaxed"
@@ -238,13 +238,13 @@ export default function HomePage() {
                 className="text-[10px] uppercase font-medium mb-3"
                 style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
               >
-                Getting There
+                {travel.label}
               </p>
               <h2 
                 className="font-serif text-5xl md:text-6xl italic"
                 style={{ fontWeight: 400, color: "#2D2926" }}
               >
-                {travel.title}
+                {travel.heading}
               </h2>
               <p 
                 className="text-lg font-light mt-6 max-w-lg leading-relaxed"
@@ -360,13 +360,13 @@ export default function HomePage() {
                     className="text-[10px] uppercase font-bold mb-4"
                     style={{ letterSpacing: "0.4em", color: "#C37B60" }}
                   >
-                    The Dress Code
+                    {dressCode.label}
                   </p>
                   <h2 
                     className="font-serif text-6xl italic mb-4"
                     style={{ fontWeight: 400, color: "#F5F5F0" }}
                   >
-                    Our Aesthetic
+                    {dressCode.heading}
                   </h2>
                   <p 
                     className="font-serif text-3xl italic mb-6"
@@ -484,13 +484,13 @@ export default function HomePage() {
                 className="text-[10px] uppercase font-medium mb-3"
                 style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
               >
-                Where to Stay
+                {hotels.label}
               </p>
               <h2 
                 className="font-serif text-5xl italic"
                 style={{ fontWeight: 400, color: "#2D2926" }}
               >
-                Accommodations
+                {hotels.heading}
               </h2>
             </div>
           </FadeIn>
@@ -566,13 +566,13 @@ export default function HomePage() {
                   className="text-[10px] uppercase font-medium mb-3"
                   style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
                 >
-                  Registry
+                  {gifts.label}
                 </p>
                 <h2 
                   className="font-serif text-5xl italic mb-6"
                   style={{ fontWeight: 400, color: "#2D2926" }}
                 >
-                  Your Presence is Enough
+                  {gifts.heading}
                 </h2>
                 <p 
                   className="text-lg font-light leading-relaxed mb-10 max-w-xl"
@@ -617,13 +617,13 @@ export default function HomePage() {
                   className="text-[10px] uppercase font-medium mb-3"
                   style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
                 >
-                  Details to Note
+                  {faq.label}
                 </p>
                 <h2 
                   className="font-serif text-5xl italic"
                   style={{ fontWeight: 400, color: "#2D2926" }}
                 >
-                  F.A.Q.
+                  {faq.heading}
                 </h2>
               </div>
             </FadeIn>
@@ -647,7 +647,7 @@ export default function HomePage() {
               className="font-serif text-6xl md:text-8xl italic mb-12"
               style={{ fontWeight: 400, color: "#2D2926" }}
             >
-              Ready to Celebrate?
+              {rsvp.heading}
             </h2>
 
             {/* Full-width RSVP Button */}
