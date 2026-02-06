@@ -240,7 +240,7 @@ export const weddingConfig = {
 
   // SEO Metadata
   meta: {
-    title: "Laurens & Monica | August 1, 2026",
+    title: "Laurens & Monica",
     description: "Join us in celebrating our wedding on August 1, 2026 at Parkheuvel in Rotterdam.",
     ogImage: "/images/og-image.jpg",
     siteUrl: "https://laurens-and-monica.vercel.app", // Update with actual URL
