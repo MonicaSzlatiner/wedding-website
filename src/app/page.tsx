@@ -98,8 +98,8 @@ export default function HomePage() {
       <section id="schedule" className="scroll-mt-20 py-24 md:py-32 border-t" style={{ backgroundColor: "#F5F5F0", borderColor: "rgba(45, 41, 38, 0.05)" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           {/* Section Header */}
-          <FadeIn className="mb-20">
-            <div className="text-center">
+          <FadeIn className="w-full mb-20">
+            <div className="flex flex-col items-center text-center">
               <p 
                 className="text-[10px] uppercase font-medium mb-3"
                 style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
@@ -330,7 +330,7 @@ export default function HomePage() {
               <div className="grid grid-cols-2 gap-6 items-start">
                 <div className="aspect-[3/4] rounded-lg shadow-2xl overflow-hidden relative">
                   <Image
-                    src="/images/hero-home.jpg"
+                    src="/images/dresscode-1.jpg"
                     alt="Dress code inspiration"
                     fill
                     className="object-cover"
@@ -339,7 +339,7 @@ export default function HomePage() {
                 </div>
                 <div className="aspect-[3/4] rounded-lg shadow-2xl overflow-hidden relative mt-12 md:mt-24">
                   <Image
-                    src="/images/hero-gifts.jpg"
+                    src="/images/dresscode-2.jpg"
                     alt="Dress code inspiration"
                     fill
                     className="object-cover"
@@ -358,8 +358,8 @@ export default function HomePage() {
       <section id="stay" className="scroll-mt-20 py-32 border-t" style={{ backgroundColor: "#F5F5F0", borderColor: "rgba(45, 41, 38, 0.05)" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           {/* Section Header */}
-          <FadeIn className="mb-20">
-            <div className="text-center">
+          <FadeIn className="w-full mb-20">
+            <div className="flex flex-col items-center text-center">
               <p 
                 className="text-[10px] uppercase font-medium mb-3"
                 style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
