@@ -227,6 +227,126 @@ export default function HomePage() {
       </section>
 
       {/* ============================================
+          TRAVEL SECTION
+          ============================================ */}
+      <section id="travel" className="scroll-mt-20 py-32" style={{ backgroundColor: "#F5F5F0" }}>
+        <div className="max-w-[1200px] mx-auto px-6">
+          {/* Section Header */}
+          <FadeIn className="w-full mb-20">
+            <div className="flex flex-col items-center text-center">
+              <p 
+                className="text-[10px] uppercase font-medium mb-3"
+                style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
+              >
+                Getting There
+              </p>
+              <h2 
+                className="font-serif text-5xl md:text-6xl italic"
+                style={{ fontWeight: 400, color: "#2D2926" }}
+              >
+                {travel.title}
+              </h2>
+              <p 
+                className="text-lg font-light mt-6 max-w-lg leading-relaxed"
+                style={{ color: "rgba(45, 41, 38, 0.7)" }}
+              >
+                {travel.subtitle}
+              </p>
+            </div>
+          </FadeIn>
+
+          {/* Travel Options Grid */}
+          <div className="grid gap-12 md:gap-8 md:grid-cols-3">
+            {/* By Air */}
+            <FadeIn delay={0.1}>
+              <div className="text-center">
+                <PaperAirplaneIcon 
+                  className="w-8 h-8 mx-auto mb-6" 
+                  style={{ color: "#C37B60" }} 
+                />
+                <h3 
+                  className="font-serif text-2xl italic mb-4"
+                  style={{ fontWeight: 400, color: "#2D2926" }}
+                >
+                  {travel.sections.flights.title}
+                </h3>
+                <div className="space-y-4">
+                  {travel.sections.flights.items.map((item, index) => (
+                    <div key={index} className="text-left p-4 rounded-lg" style={{ backgroundColor: "rgba(45, 41, 38, 0.03)" }}>
+                      <p 
+                        className="font-medium mb-1"
+                        style={{ color: "#2D2926" }}
+                      >
+                        {item.name}
+                        {item.recommended && (
+                          <span 
+                            className="ml-2 text-[10px] uppercase px-2 py-0.5 rounded"
+                            style={{ backgroundColor: "#C37B60", color: "#F5F5F0", letterSpacing: "0.1em" }}
+                          >
+                            Recommended
+                          </span>
+                        )}
+                      </p>
+                      <p 
+                        className="text-sm font-light"
+                        style={{ color: "rgba(45, 41, 38, 0.7)" }}
+                      >
+                        {item.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
+
+            {/* By Train */}
+            <FadeIn delay={0.2}>
+              <div className="text-center">
+                <TrainIcon 
+                  className="w-8 h-8 mx-auto mb-6" 
+                  style={{ color: "#C37B60" }} 
+                />
+                <h3 
+                  className="font-serif text-2xl italic mb-4"
+                  style={{ fontWeight: 400, color: "#2D2926" }}
+                >
+                  {travel.sections.train.title}
+                </h3>
+                <p 
+                  className="text-sm font-light leading-relaxed"
+                  style={{ color: "rgba(45, 41, 38, 0.7)" }}
+                >
+                  {travel.sections.train.description}
+                </p>
+              </div>
+            </FadeIn>
+
+            {/* By Car */}
+            <FadeIn delay={0.3}>
+              <div className="text-center">
+                <TruckIcon 
+                  className="w-8 h-8 mx-auto mb-6" 
+                  style={{ color: "#C37B60" }} 
+                />
+                <h3 
+                  className="font-serif text-2xl italic mb-4"
+                  style={{ fontWeight: 400, color: "#2D2926" }}
+                >
+                  {travel.sections.car.title}
+                </h3>
+                <p 
+                  className="text-sm font-light leading-relaxed"
+                  style={{ color: "rgba(45, 41, 38, 0.7)" }}
+                >
+                  {travel.sections.car.description}
+                </p>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================
           DRESS CODE SECTION - Dark Espresso Background
           ============================================ */}
       <section id="dresscode" className="scroll-mt-20 py-32" style={{ backgroundColor: "#2D2926" }}>
