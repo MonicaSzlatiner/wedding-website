@@ -98,7 +98,7 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
             animate="visible"
             variants={imageVariants}
           >
-            <div className="relative w-full h-full aspect-[4/5] rounded-2xl shadow-2xl overflow-hidden">
+            <div className="relative w-full h-full aspect-[4/5] rounded-[2rem] shadow-2xl overflow-hidden">
               <Image
                 src="/images/hero-home.jpg"
                 alt={`${couple.person1} and ${couple.person2}`}
@@ -181,7 +181,7 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
                 animate="visible"
                 variants={imageVariants}
               >
-                <div className="w-full aspect-[4/5] rounded-2xl shadow-2xl overflow-hidden">
+                <div className="w-full aspect-[4/5] rounded-[2rem] shadow-2xl overflow-hidden">
                   <Image
                     src="/images/hero-home.jpg"
                     alt={`${couple.person1} and ${couple.person2}`}
