@@ -16,11 +16,30 @@ export function HotelCard({ hotel }: HotelCardProps) {
       {/* Hotel Name - Large serif */}
       <h3 
         id={`hotel-${hotel.id}-name`}
-        className="font-serif text-4xl italic mb-4"
+        className="font-serif text-4xl italic mb-2"
         style={{ color: "#2D2926", fontWeight: 400 }}
       >
         {hotel.name}
       </h3>
+
+      {/* Badges */}
+      {hotel.badges.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-4">
+          {hotel.badges.map((badge, index) => (
+            <span
+              key={index}
+              className="text-[10px] uppercase font-medium px-2 py-1 rounded"
+              style={{ 
+                color: "#C37B60",
+                backgroundColor: "rgba(195, 123, 96, 0.1)",
+                letterSpacing: "0.1em"
+              }}
+            >
+              {badge}
+            </span>
+          ))}
+        </div>
+      )}
 
       {/* Description */}
       <p 

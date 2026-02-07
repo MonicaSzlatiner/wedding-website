@@ -66,7 +66,7 @@ export const hotels: HotelData[] = [
     googleReviewsUrl: "https://www.google.com/search?sca_esv=2d7c89a134cd9f4b&q=bilderberg+hotel+rotterdam&si=AL3DRZHrmvnFAVQPOO2Bzhf8AX9KZZ6raUI_dT7DG_z0kV2_xwKWP7hjNqkb3Vi64GX1osy9hXqDHjec-zt102WIJY-kwMFuY0ncvmfcMQ2SnYgTxDA9FGM%3D&uds=ALYpb_n4BwUhK1uaN1SPx2VrIkEtGJjqH9EClbVFyDD3cDvhGNtL4kAYdroe9NqsBzKf6wyQez6IbOxv9C9HkfG56cxYirM3O4oZIJmejbXrcM3gvjbXEAwVEKyUQkpu4jr4z7xjhNmJ&sa=X&sqi=2&ved=2ahUKEwin6c_T8beSAxWd1gIHHRFqOKYQ3PALegQIFRAE",
     directionsUrl: `https://www.google.com/maps/dir/Bilderberg+Parkhotel+Rotterdam,+Westersingel,+Rotterdam/${VENUE_ADDRESS}`,
     bookingUrl: "https://www.bilderberg.nl/hotels/parkhotel-rotterdam/",
-    badges: ["Closest to Venue"],
+    badges: ["Boutique Hotel"],
     rating: {
       score: 4.3,
     },
