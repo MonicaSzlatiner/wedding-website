@@ -24,27 +24,66 @@ export function HotelCard({ hotel }: HotelCardProps) {
 
       {/* Description */}
       <p 
-        className="text-base font-light leading-relaxed mb-8 max-w-sm"
+        className="text-base font-light leading-relaxed mb-4 break-words"
         style={{ color: "rgba(45, 41, 38, 0.7)" }}
       >
         {hotel.description}
       </p>
 
-      {/* View Availability Link - with underline styling */}
-      <a
-        href={hotel.bookingUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-block text-[11px] uppercase font-bold pb-2 border-b-2 transition-all hover:border-terracotta"
+      {/* Travel Time */}
+      <p 
+        className="text-[11px] mb-5"
         style={{ 
-          color: "#C37B60", 
-          letterSpacing: "0.3em",
-          borderBottomColor: "rgba(195, 123, 96, 0.2)"
+          color: "rgba(45, 41, 38, 0.5)",
+          letterSpacing: "0.02em"
         }}
       >
-        View Availability
-        <span className="sr-only">(opens in new tab)</span>
-      </a>
+        {hotel.travelTime}
+      </p>
+
+      {/* Action Links */}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-0">
+        <a
+          href={hotel.bookingUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[11px] uppercase font-bold transition-opacity hover:opacity-70"
+          style={{ 
+            color: "#C37B60", 
+            letterSpacing: "0.2em"
+          }}
+        >
+          View Availability
+          <span className="sr-only"> (opens in new tab)</span>
+        </a>
+        
+        <span 
+          className="hidden sm:inline px-3"
+          style={{ color: "rgba(45, 41, 38, 0.3)" }}
+        >
+          ·
+        </span>
+        
+        <a
+          href={hotel.directionsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[11px] uppercase font-bold transition-opacity hover:opacity-70 hover:underline"
+          style={{ 
+            color: "rgba(45, 41, 38, 0.6)", 
+            letterSpacing: "0.2em"
+          }}
+        >
+          Route to Venue
+          <span className="sr-only"> (opens in new tab)</span>
+        </a>
+      </div>
+
+      {/* Full-width accent underline */}
+      <div 
+        className="mt-4 border-b-2"
+        style={{ borderBottomColor: "rgba(195, 123, 96, 0.2)" }}
+      />
     </article>
   );
 }
