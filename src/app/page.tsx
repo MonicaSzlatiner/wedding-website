@@ -255,11 +255,11 @@ export default function HomePage() {
             />
           </div>
 
-          {/* Travel Options Grid */}
+          {/* Travel Options Grid - equal height boxes */}
           <div className="grid gap-12 md:gap-8 md:grid-cols-3">
             {/* By Air */}
-            <FadeIn delay={0.1}>
-              <div className="text-center">
+            <FadeIn delay={0.1} className="h-full">
+              <div className="text-center h-full flex flex-col">
                 <PaperAirplaneIcon 
                   className="w-8 h-8 mx-auto mb-6" 
                   style={{ color: "#C37B60" }} 
@@ -270,22 +270,14 @@ export default function HomePage() {
                 >
                   {travel.sections.flights.title}
                 </h3>
-                <div className="space-y-4">
+                <div className="flex-1 text-left p-4 rounded-lg" style={{ backgroundColor: "rgba(45, 41, 38, 0.03)" }}>
                   {travel.sections.flights.items.map((item, index) => (
-                    <div key={index} className="text-left p-4 rounded-lg" style={{ backgroundColor: "rgba(45, 41, 38, 0.03)" }}>
+                    <div key={index}>
                       <p 
                         className="font-medium mb-1"
                         style={{ color: "#2D2926" }}
                       >
                         {item.name}
-                        {item.recommended && (
-                          <span 
-                            className="ml-2 text-[10px] uppercase px-2 py-0.5 rounded"
-                            style={{ backgroundColor: "#C37B60", color: "#F5F5F0", letterSpacing: "0.1em" }}
-                          >
-                            Recommended
-                          </span>
-                        )}
                       </p>
                       <p 
                         className="text-sm font-light"
@@ -300,8 +292,8 @@ export default function HomePage() {
             </FadeIn>
 
             {/* By Train */}
-            <FadeIn delay={0.2}>
-              <div className="text-center">
+            <FadeIn delay={0.2} className="h-full">
+              <div className="text-center h-full flex flex-col">
                 <TrainIcon 
                   className="w-8 h-8 mx-auto mb-6" 
                   style={{ color: "#C37B60" }} 
@@ -312,7 +304,7 @@ export default function HomePage() {
                 >
                   {travel.sections.train.title}
                 </h3>
-                <div className="text-left p-4 rounded-lg" style={{ backgroundColor: "rgba(45, 41, 38, 0.03)" }}>
+                <div className="flex-1 text-left p-4 rounded-lg" style={{ backgroundColor: "rgba(45, 41, 38, 0.03)" }}>
                   <p 
                     className="text-sm font-light leading-relaxed"
                     style={{ color: "rgba(45, 41, 38, 0.7)" }}
@@ -324,8 +316,8 @@ export default function HomePage() {
             </FadeIn>
 
             {/* By Car */}
-            <FadeIn delay={0.3}>
-              <div className="text-center">
+            <FadeIn delay={0.3} className="h-full">
+              <div className="text-center h-full flex flex-col">
                 <TruckIcon 
                   className="w-8 h-8 mx-auto mb-6" 
                   style={{ color: "#C37B60" }} 
@@ -336,7 +328,7 @@ export default function HomePage() {
                 >
                   {travel.sections.car.title}
                 </h3>
-                <div className="text-left p-4 rounded-lg" style={{ backgroundColor: "rgba(45, 41, 38, 0.03)" }}>
+                <div className="flex-1 text-left p-4 rounded-lg" style={{ backgroundColor: "rgba(45, 41, 38, 0.03)" }}>
                   <p 
                     className="text-sm font-light leading-relaxed"
                     style={{ color: "rgba(45, 41, 38, 0.7)" }}
