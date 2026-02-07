@@ -113,6 +113,12 @@ export default function HomePage() {
               >
                 {schedule.heading}
               </h2>
+              <p 
+                className="text-lg font-light mt-6 max-w-[520px] leading-relaxed"
+                style={{ color: "rgba(45, 41, 38, 0.7)" }}
+              >
+                {schedule.subtitle}
+              </p>
             </div>
           </FadeIn>
 
@@ -362,6 +368,12 @@ export default function HomePage() {
               >
                 {hotelsConfig.heading}
               </h2>
+              <p 
+                className="text-lg font-light mt-6 max-w-[520px] leading-relaxed"
+                style={{ color: "rgba(45, 41, 38, 0.7)" }}
+              >
+                {hotelsConfig.subtitle}
+              </p>
             </div>
           </FadeIn>
 
@@ -639,7 +651,15 @@ export default function HomePage() {
               className="text-lg font-light leading-relaxed max-w-lg mx-auto"
               style={{ color: "rgba(45, 41, 38, 0.7)" }}
             >
-              We&apos;re still putting together our RSVP system. Check back soon for details!
+              Let us know you&apos;re coming so we can save you a seat and a glass. RSVP opening soon.
+            </p>
+
+            {/* Closing line */}
+            <p 
+              className="font-serif text-3xl md:text-4xl italic mt-16"
+              style={{ color: "rgba(45, 41, 38, 0.6)" }}
+            >
+              See you on the river.
             </p>
 
             {/* Footer-style divider and text */}

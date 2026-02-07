@@ -52,31 +52,31 @@ export const weddingConfig = {
 
   // Event schedule
   schedule: {
-    label: "The Celebration",
+    label: "The Evening",
     heading: "Schedule",
-    subtitle: "Dinner, drinks, dancing, and some speeches? Details are still being worked out but not the speeches.",
+    subtitle: "Dinner, drinks, dancing, and probably a few tears. Here's how the evening unfolds.",
     events: [
       {
         time: "16:30",
         title: "Arrival",
-        description: "Join us for a drink and some snacks",
+        description: "Drinks and bites on the terrace while we try to keep it together backstage.",
       },
       
       {
         time: "17:00",
         title: "Ceremony",
-        description: "The ceremony will begin promptly at 5 PM",
+        description: "We're starting at five. Sharp. Please be seated by 4:45.",
       },
       {
         time: "17:30",
         title: "Toast & Dinner",
-        description: "A curated dining experience at Parkheuvel with views of the river",
+        description: "A multi-course dinner at Parkheuvel with views of the river. Bring your appetite.",
       },
 
       {
         time: "20:00",
         title: "Dancing",
-        description: "Celebrate with us into the night",
+        description: "The shoes come off and the music goes up. Stay as late as you can.",
       },
     ],
   },
@@ -134,7 +134,7 @@ export const weddingConfig = {
   hotels: {
     label: "Where to Stay",
     heading: "Accommodations",
-    subtitle: "Recommended accommodations",
+    subtitle: "We've picked a few of our favorite spots around the city.",
     comingSoon: true,
     items: [
       // Will be filled in later
@@ -166,7 +166,7 @@ export const weddingConfig = {
     heading: "Your Presence is Enough",
     subtitle: "Your presence is the greatest gift",
     heroImage: "/images/hero-gifts.jpg",
-    message: "Your presence is enough of a present to us! But for those of you who are stubborn, we will put together a honeymoon fund. Check back later for details.",
+    message: "Your presence is enough of a present to us! But for those of you who are stubborn, we're putting together a honeymoon fund. We're still arguing about the destination, but we know it'll involve good food and zero alarm clocks.",
     fund: {
       name: "Honeymoon Fund",
       description: "Help us explore the world together",
@@ -192,15 +192,15 @@ export const weddingConfig = {
       },
       {
         question: "Are children welcome?",
-        answer: "While we love your little ones, our wedding will be an adults-only celebration.",
+        answer: "This one's for the grown-ups. We promise they'll survive a night without you (and you might enjoy it too).",
       },
       {
         question: "Is there parking available?",
-        answer: "Yes, paid parking is available near the venue in Het Park area.",
+        answer: "Yes, there's paid parking near the venue in the Het Park area.",
       },
       {
         question: "What time should I arrive?",
-        answer: "Please arrive by 4:45 PM so we can begin the ceremony promptly at 5:00 PM.",
+        answer: "By 4:45 PM, please. We will actually start on time.",
       },
       // Add more FAQ items as needed
     ],

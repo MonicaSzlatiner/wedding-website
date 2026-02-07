@@ -85,6 +85,14 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
               animate="visible"
               variants={textContainerVariants}
             >
+              {/* Label - An Evening on the Maas */}
+              <motion.p 
+                className="text-[10px] uppercase font-medium mb-6"
+                style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.5)" }}
+                variants={textVariants}
+              >
+                An Evening on the Maas
+              </motion.p>
               {/* Names - Large italic serif */}
               <h1 className="font-serif leading-[0.8] tracking-tight" style={{ fontWeight: 400 }}>
                 <motion.span 
@@ -164,6 +172,14 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
                 animate="visible"
                 variants={textContainerVariants}
               >
+                {/* Label - An Evening on the Maas */}
+                <motion.p 
+                  className="text-[10px] uppercase font-medium mb-6"
+                  style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.5)" }}
+                  variants={textVariants}
+                >
+                  An Evening on the Maas
+                </motion.p>
                 {/* Large italic serif names */}
                 <h1 className="font-serif leading-[0.8] tracking-tight mb-8" style={{ fontWeight: 400 }}>
                   <motion.span 
