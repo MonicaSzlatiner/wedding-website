@@ -173,6 +173,23 @@ export const weddingConfig = {
         ],
       },
       {
+        name: "Eat & Drink",
+        items: [
+          {
+            name: "Fenix Food Factory",
+            description: "A waterfront food hall in a former warehouse on the south bank. Craft beer, local cheese, good burgers, and a view of the river. It's where we'd go on a Saturday afternoon, honestly.",
+            url: "https://www.fenixfoodfactory.nl",
+            linkText: "See More",
+          },
+          {
+            name: "Markthal",
+            description: "You've probably seen photos of it — the giant arch with the painted ceiling. Inside it's a proper food market with Dutch cheese, fresh stroopwafels, and about thirty things you didn't know you wanted to eat. Walk through even if you're not hungry.",
+            url: "https://www.markthal.nl/en",
+            linkText: "Explore the Markthal",
+          },
+        ],
+      },
+      {
         name: "Art & Museums",
         items: [
           {
@@ -192,23 +209,6 @@ export const weddingConfig = {
             description: "The national photography museum just moved into a beautifully renovated 1903 warehouse on Katendrecht. If you're into photography or just like a gorgeous building, put this on the list.",
             url: "https://www.nederlandsfotomuseum.nl/en/",
             linkText: "Visit the Museum",
-          },
-        ],
-      },
-      {
-        name: "Eat & Drink",
-        items: [
-          {
-            name: "Fenix Food Factory",
-            description: "A waterfront food hall in a former warehouse on the south bank. Craft beer, local cheese, good burgers, and a view of the river. It's where we'd go on a Saturday afternoon, honestly.",
-            url: "https://www.fenixfoodfactory.nl",
-            linkText: "See More",
-          },
-          {
-            name: "Markthal",
-            description: "You've probably seen photos of it — the giant arch with the painted ceiling. Inside it's a proper food market with Dutch cheese, fresh stroopwafels, and about thirty things you didn't know you wanted to eat. Walk through even if you're not hungry.",
-            url: "https://www.markthal.nl/en",
-            linkText: "Explore the Markthal",
           },
         ],
       },

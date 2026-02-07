@@ -6,7 +6,8 @@ import Link from "next/link";
 import { weddingConfig } from "@/config/content";
 import { generateGoogleCalendarUrl, downloadICSFile } from "@/lib/calendar";
 import { recordSaveTheDateView } from "@/lib/supabase";
-import { CalendarDaysIcon, ClipboardDocumentIcon, CheckIcon } from "@heroicons/react/24/outline";
+import { CalendarDaysIcon, ClipboardDocumentIcon, CheckIcon, EnvelopeIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { AddressCollectionForm } from "@/components/AddressCollectionForm";
 
 interface SaveTheDateClientProps {
   guestName: string | null;
@@ -27,6 +28,7 @@ export function SaveTheDateClient({
 }: SaveTheDateClientProps) {
   const [animationPhase, setAnimationPhase] = useState<"closed" | "opening" | "open">("closed");
   const [copied, setCopied] = useState(false);
+  const [showAddressPanel, setShowAddressPanel] = useState(false);
 
   // Extract first name only
   const fullName = guestName || "Friend";
@@ -477,6 +479,64 @@ export function SaveTheDateClient({
                     View Wedding Website →
                   </Link>
                 </div>
+
+                {/* Address Collection CTA */}
+                {isValidCode && (
+                  <div className="mt-10 pt-8" style={{ borderTop: "1px solid rgba(45, 41, 38, 0.1)" }}>
+                    <button
+                      onClick={() => setShowAddressPanel(!showAddressPanel)}
+                      className="w-full flex items-center justify-center gap-2 font-sans text-[10px] uppercase font-bold transition-opacity hover:opacity-70"
+                      style={{ color: "rgba(45, 41, 38, 0.6)", letterSpacing: "0.2em" }}
+                    >
+                      <EnvelopeIcon className="h-4 w-4" />
+                      Help us send the formal invitation →
+                      <motion.span
+                        animate={{ rotate: showAddressPanel ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ChevronDownIcon className="h-3 w-3" />
+                      </motion.span>
+                    </button>
+
+                    {/* Expandable Address Panel */}
+                    <AnimatePresence>
+                      {showAddressPanel && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                          className="overflow-hidden"
+                        >
+                          <div className="pt-8">
+                            {/* Panel Header */}
+                            <div className="text-center mb-6">
+                              <h3 
+                                className="font-serif text-lg italic mb-3"
+                                style={{ color: "#2D2926" }}
+                              >
+                                One small detail before we send the paper invite ✉️
+                              </h3>
+                              <p 
+                                className="text-sm leading-relaxed max-w-sm mx-auto"
+                                style={{ color: "rgba(45, 41, 38, 0.6)" }}
+                              >
+                                We&apos;ll be mailing a formal invitation later this year. If you&apos;re happy to share your mailing address, we&apos;ll make sure it reaches you and is addressed correctly. Optional and you can update it later.
+                              </p>
+                            </div>
+
+                            {/* Address Form */}
+                            <AddressCollectionForm
+                              code={code}
+                              initialName={guestName || ""}
+                              onClose={() => setShowAddressPanel(false)}
+                            />
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                )}
               </div>
             </motion.div>
           )}

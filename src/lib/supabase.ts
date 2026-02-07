@@ -19,6 +19,17 @@ export interface Guest {
   plus_one_allowed: boolean;
   group_side: "Bride" | "Groom";
   created_at: string;
+  // Address collection fields (added for formal invitation mailing)
+  invitation_name: string | null;
+  country: string | null;
+  address_line1: string | null;
+  address_line2: string | null;
+  city: string | null;
+  region: string | null;
+  postal_code: string | null;
+  address_freeform: string | null;
+  address_formatted: string | null;
+  address_updated_at: string | null;
 }
 
 export interface SaveTheDateView {

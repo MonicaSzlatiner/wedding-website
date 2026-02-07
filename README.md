@@ -123,6 +123,73 @@ Then uncomment the Image components in the respective pages.
 2. Update `gifts.fund.stripeLink` in `src/config/content.ts`
 3. Set `gifts.fund.enabled` to `true`
 
+## Address Collection Feature
+
+The Save the Date page includes an address collection form for mailing formal invitations.
+
+### Database Columns Added
+
+The following columns were added to the `guests` table (see `scripts/migrations/001_add_address_columns.sql`):
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `invitation_name` | TEXT | Name as it should appear on the invitation |
+| `country` | TEXT | Country selection (United States, Netherlands, France, Other) |
+| `address_line1` | TEXT | Street address or street + house number |
+| `address_line2` | TEXT | Optional apartment, suite, etc. |
+| `city` | TEXT | City name |
+| `region` | TEXT | US state (empty for NL/FR) |
+| `postal_code` | TEXT | ZIP or postal code |
+| `address_freeform` | TEXT | Freeform address for "Other" countries |
+| `address_formatted` | TEXT | Pre-computed display string for printing |
+| `address_updated_at` | TIMESTAMPTZ | Timestamp of last address update |
+
+### Running the Migration
+
+1. Open the Supabase SQL Editor for your project
+2. Copy the contents of `scripts/migrations/001_add_address_columns.sql`
+3. Run the SQL to add the new columns
+
+### Formatted Address Rules
+
+The `address_formatted` column is computed on save based on country:
+
+**United States:**
+```
+{address_line1}
+{address_line2}
+{city}, {region} {postal_code}
+United States
+```
+
+**Netherlands:**
+```
+{address_line1}
+{postal_code} {city}
+Netherlands
+```
+
+**France:**
+```
+{address_line1}
+{address_line2}
+{postal_code} {city}
+France
+```
+
+**Other:**
+```
+{address_freeform}
+{country}
+```
+
+### API Route
+
+- **POST /api/guests/address**: Update guest address (requires `code` in body)
+- **GET /api/guests/address?code=XXXXXX**: Fetch existing address data
+
+The API uses the Supabase service role key (`SUPABASE_SERVICE_ROLE_KEY` env var) for secure server-side updates.
+
 ## Deployment to Vercel
 
 ### Option 1: Via Vercel Dashboard

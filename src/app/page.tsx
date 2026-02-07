@@ -465,7 +465,7 @@ export default function HomePage() {
           </FadeIn>
 
           {/* Recommendations Grid */}
-          <div className="grid gap-16 md:grid-cols-2">
+          <div className="grid gap-16 md:grid-cols-2 items-start">
             {weddingConfig.explore.categories.map((category, catIndex) => (
               <FadeIn key={category.name} delay={catIndex * 0.1}>
                 <div className="space-y-8">
@@ -698,7 +698,7 @@ export default function HomePage() {
                 color: "white" 
               }}
             >
-              Honeymoon Fund TBD
+              Honeymoon Fund
             </a>
           </FadeIn>
         </div>
@@ -760,7 +760,7 @@ export default function HomePage() {
 
             {/* Closing line */}
             <p 
-              className="font-serif text-3xl md:text-4xl italic mt-16"
+              className="font-serif text-3xl md:text-4xl italic mt-16 text-center"
               style={{ color: "rgba(45, 41, 38, 0.6)" }}
             >
               See you on the river.
