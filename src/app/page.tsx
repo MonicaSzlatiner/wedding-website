@@ -434,14 +434,14 @@ export default function HomePage() {
             </div>
           </FadeIn>
 
-          {/* Large image - no zoom, preserve aspect ratio */}
+          {/* Image with controlled height */}
           <div className="mb-16">
             <ParallaxImage
               src="/images/gifts-hero.jpg"
               alt="Laurens and Monica"
-              aspectRatio="3/4"
+              height="450px"
               clipReveal
-              contain
+              objectPosition="center 40%"
             />
           </div>
 
