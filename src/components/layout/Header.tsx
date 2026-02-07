@@ -5,6 +5,9 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { weddingConfig } from "@/config/content";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
+// Luxury editorial easing - never bounce, never spring
+const EASING = [0.25, 0.1, 0.25, 1.0] as const;
+
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -71,23 +74,23 @@ export function Header() {
   const menuVariants = {
     closed: {
       opacity: 0,
-      transition: { duration: 0.2 },
+      transition: { duration: 0.2, ease: EASING },
     },
     open: {
       opacity: 1,
-      transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 0.3, ease: EASING },
     },
   };
 
   return (
     <>
-      {/* Header Bar */}
+      {/* Header Bar - 0.4s transition for luxury feel */}
       <header
-        className={`sticky top-0 z-50 transition-all duration-200 border-b ${
+        className={`sticky top-0 z-50 border-b transition-[background-color,border-color,padding] duration-[400ms] ease-out ${
           isScrolled ? "backdrop-blur-md border-espresso/5" : "border-transparent"
         }`}
         style={{ 
-          backgroundColor: isScrolled ? "rgba(245, 245, 240, 0.9)" : "transparent"
+          backgroundColor: isScrolled ? "rgba(245, 245, 240, 0.95)" : "transparent"
         }}
       >
         <nav className="max-content px-6 py-6 flex items-center justify-between" aria-label="Main navigation">
@@ -101,24 +104,38 @@ export function Header() {
             L&M
           </a>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation with sliding active underline */}
           <div className="hidden md:flex items-center gap-10">
-            {navigation.items.slice(1).map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={(e) => scrollToSection(e, item.href)}
-                className="text-[10px] uppercase font-bold transition-colors hover:text-espresso"
-                style={{ 
-                  letterSpacing: "0.3em",
-                  color: activeSection === item.href.replace("#", "") 
-                    ? "#2D2926" 
-                    : "rgba(45, 41, 38, 0.6)"
-                }}
-              >
-                {item.label}
-              </a>
-            ))}
+            {navigation.items.slice(1).map((item) => {
+              const isActive = activeSection === item.href.replace("#", "");
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => scrollToSection(e, item.href)}
+                  className="relative text-[10px] uppercase font-bold transition-colors duration-[250ms] hover:text-espresso py-1"
+                  style={{ 
+                    letterSpacing: "0.3em",
+                    color: isActive ? "#2D2926" : "rgba(45, 41, 38, 0.6)"
+                  }}
+                >
+                  {item.label}
+                  {/* Sliding underline indicator */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-underline"
+                      className="absolute -bottom-0.5 left-0 right-0 h-[1px]"
+                      style={{ backgroundColor: "#C37B60" }}
+                      transition={{ 
+                        type: "tween", 
+                        duration: shouldReduceMotion ? 0 : 0.3,
+                        ease: EASING 
+                      }}
+                    />
+                  )}
+                </a>
+              );
+            })}
             {/* RSVP Button - Terracotta accent */}
             <a
               href="#rsvp"

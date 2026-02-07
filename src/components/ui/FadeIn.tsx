@@ -16,10 +16,12 @@ interface FadeInProps {
 /**
  * FadeIn component for scroll-triggered reveal animations
  * 
+ * Luxury editorial standard:
  * - Respects prefers-reduced-motion
  * - Only animates once (no repeated triggers)
  * - Triggers at 15% visibility
  * - Uses hardware-accelerated properties only
+ * - 30px drift, 0.7s duration by default
  */
 export function FadeIn({
   children,
@@ -27,7 +29,7 @@ export function FadeIn({
   delay = 0,
   direction = "up",
   duration = TIMING.normal,
-  distance = 20,
+  distance = 30,
 }: FadeInProps) {
   const shouldReduceMotion = useReducedMotion();
 

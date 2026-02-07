@@ -18,8 +18,12 @@ export function Button({
   className = "",
   ...props
 }: ButtonProps) {
+  // Luxury editorial button style:
+  // - 0.25s color transitions
+  // - Very subtle scale on click (0.98)
+  // - NO scale on hover (only color changes)
   const baseStyles =
-    "inline-flex items-center justify-center font-sans font-bold transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-terracotta active:scale-[0.98] uppercase whitespace-nowrap";
+    "inline-flex items-center justify-center font-sans font-bold transition-colors duration-[250ms] ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-terracotta active:scale-[0.98] active:transition-transform active:duration-100 uppercase whitespace-nowrap";
 
   const variantStyles = {
     // Primary: Espresso background - main CTA

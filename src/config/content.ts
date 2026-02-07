@@ -103,7 +103,8 @@ export const weddingConfig = {
   travel: {
     label: "Getting There",
     heading: "Travel",
-    subtitle: "Some of you are crossing borders to be there. Here's how to get to us.",
+    subtitle: "Some of you are crossing borders to be there.", 
+    subtitle: "Here's how to get to us.",
     heroImage: "/images/hero-travel.jpg",
     sections: {
       flights: {
@@ -113,11 +114,6 @@ export const weddingConfig = {
           {
             name: "Amsterdam Schiphol Airport (AMS)",
             description: "The main international airport, about 50 minutes from Rotterdam by train.",
-            recommended: true,
-          },
-          {
-            name: "Rotterdam The Hague Airport (RTM)",
-            description: "Regional airport with European connections, 15 minutes from the city center.",
             recommended: false,
           },
         ],

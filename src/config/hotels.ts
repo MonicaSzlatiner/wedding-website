@@ -59,10 +59,10 @@ export const hotels: HotelData[] = [
   {
     id: "bilderberg-parkhotel",
     name: "Bilderberg Parkhotel Rotterdam",
-    description: "Classic elegance near Het Park and the Euromast, very close to the wedding venue.",
+    description: "Boutique hotel, 20 min walk to the venue and 15 min walk to Rotterdam Centraal.",
     area: "Het Park",
     vibe: "Classic charm",
-    travelTime: "~10 min walk to Parkheuvel",
+    travelTime: "~20 min walk to Parkheuvel",
     googleReviewsUrl: "https://www.google.com/search?sca_esv=2d7c89a134cd9f4b&q=bilderberg+hotel+rotterdam&si=AL3DRZHrmvnFAVQPOO2Bzhf8AX9KZZ6raUI_dT7DG_z0kV2_xwKWP7hjNqkb3Vi64GX1osy9hXqDHjec-zt102WIJY-kwMFuY0ncvmfcMQ2SnYgTxDA9FGM%3D&uds=ALYpb_n4BwUhK1uaN1SPx2VrIkEtGJjqH9EClbVFyDD3cDvhGNtL4kAYdroe9NqsBzKf6wyQez6IbOxv9C9HkfG56cxYirM3O4oZIJmejbXrcM3gvjbXEAwVEKyUQkpu4jr4z7xjhNmJ&sa=X&sqi=2&ved=2ahUKEwin6c_T8beSAxWd1gIHHRFqOKYQ3PALegQIFRAE",
     directionsUrl: `https://www.google.com/maps/dir/Bilderberg+Parkhotel+Rotterdam,+Westersingel,+Rotterdam/${VENUE_ADDRESS}`,
     bookingUrl: "https://www.bilderberg.nl/en/rotterdam/parkhotel-rotterdam/",
@@ -126,6 +126,6 @@ export const accommodationsContent = {
   
   otherOptions: {
     title: "Other Options",
-    description: "Rotterdam also has wonderful Airbnb options and boutique stays. Book early as August is a popular time to visit the city.",
+    description: "Book early, because August is a very popular month in Rotterdam.",
   },
 };

@@ -4,6 +4,7 @@ import { hotels, accommodationsContent } from "@/config/hotels";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { ParallaxImage, RevealImage } from "@/components/ui/ParallaxImage";
 import { AnimatedHero } from "@/components/AnimatedHero";
 import { VenueMap } from "@/components/VenueMap";
 import { AddToCalendar } from "@/components/AddToCalendar";
@@ -127,17 +128,10 @@ export default function HomePage() {
                       className="w-8 h-8 mb-6" 
                       style={{ color: "#C37B60" }} 
                     />
-                    {/* Date/Day Label */}
+                    {/* Time - using the terracotta uppercase style */}
                     <p 
-                      className="text-[11px] uppercase font-bold mb-2"
+                      className="text-[11px] uppercase font-bold mb-6"
                       style={{ letterSpacing: "0.15em", color: "#C37B60" }}
-                    >
-                      {date.short}
-                    </p>
-                    {/* Time */}
-                    <p 
-                      className="text-sm mb-6"
-                      style={{ color: "rgba(45, 41, 38, 0.6)" }}
                     >
                       {event.time}
                     </p>
@@ -179,20 +173,14 @@ export default function HomePage() {
       <section id="venue" className="scroll-mt-20 py-24 border-y" style={{ backgroundColor: "#F2F2EC", borderColor: "rgba(45, 41, 38, 0.05)" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-16 items-center">
-            {/* Left - Image */}
-            <FadeIn className="order-2 md:order-1">
-              <div className="w-full aspect-[16/10] rounded-xl overflow-hidden shadow-lg">
-                <div className="relative w-full h-full grayscale hover:grayscale-0 transition-all duration-1000">
-                  <Image
-                    src="/images/venue.jpg"
-                    alt={venue.name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-              </div>
-            </FadeIn>
+            {/* Left - Image with reveal animation */}
+            <div className="order-2 md:order-1">
+              <RevealImage
+                src="/images/venue.jpg"
+                alt={venue.name}
+                aspectRatio="16/10"
+              />
+            </div>
 
             {/* Right - Text Content */}
             <FadeIn className="order-1 md:order-2 text-center md:text-left">
@@ -255,21 +243,15 @@ export default function HomePage() {
             </div>
           </FadeIn>
 
-          {/* Large image with rounded corners */}
-          <FadeIn className="mb-24">
-            <div 
-              className="w-full h-[400px] rounded-xl overflow-hidden relative shadow-sm"
-              style={{ backgroundColor: "#E8E8E1" }}
-            >
-              <Image
-                src="/images/travel-hero.jpg"
-                alt="Laurens and Monica in New York"
-                fill
-                className="object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
-                sizes="100vw"
-              />
-            </div>
-          </FadeIn>
+          {/* Large image with parallax + clip reveal */}
+          <div className="mb-24">
+            <ParallaxImage
+              src="/images/travel-hero.jpg"
+              alt="Laurens and Monica in New York"
+              height="400px"
+              clipReveal
+            />
+          </div>
 
           {/* Travel Options Grid */}
           <div className="grid gap-12 md:gap-8 md:grid-cols-3">
@@ -328,12 +310,14 @@ export default function HomePage() {
                 >
                   {travel.sections.train.title}
                 </h3>
-                <p 
-                  className="text-sm font-light leading-relaxed"
-                  style={{ color: "rgba(45, 41, 38, 0.7)" }}
-                >
-                  {travel.sections.train.description}
-                </p>
+                <div className="text-left p-4 rounded-lg" style={{ backgroundColor: "rgba(45, 41, 38, 0.03)" }}>
+                  <p 
+                    className="text-sm font-light leading-relaxed"
+                    style={{ color: "rgba(45, 41, 38, 0.7)" }}
+                  >
+                    {travel.sections.train.description}
+                  </p>
+                </div>
               </div>
             </FadeIn>
 
@@ -350,12 +334,14 @@ export default function HomePage() {
                 >
                   {travel.sections.car.title}
                 </h3>
-                <p 
-                  className="text-sm font-light leading-relaxed"
-                  style={{ color: "rgba(45, 41, 38, 0.7)" }}
-                >
-                  {travel.sections.car.description}
-                </p>
+                <div className="text-left p-4 rounded-lg" style={{ backgroundColor: "rgba(45, 41, 38, 0.03)" }}>
+                  <p 
+                    className="text-sm font-light leading-relaxed"
+                    style={{ color: "rgba(45, 41, 38, 0.7)" }}
+                  >
+                    {travel.sections.car.description}
+                  </p>
+                </div>
               </div>
             </FadeIn>
           </div>
@@ -385,21 +371,15 @@ export default function HomePage() {
             </div>
           </FadeIn>
 
-          {/* Large placeholder/image area */}
-          <FadeIn className="mb-24">
-            <div 
-              className="w-full h-[400px] rounded-xl overflow-hidden relative shadow-sm"
-              style={{ backgroundColor: "#E8E8E1" }}
-            >
-              <Image
-                src="/images/dogs.jpg"
-                alt="Our welcome committee. They won't be at the wedding, but they wanted to say hi."
-                fill
-                className="object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
-                sizes="100vw"
-              />
-            </div>
-          </FadeIn>
+          {/* Large image with parallax + clip reveal */}
+          <div className="mb-24">
+            <ParallaxImage
+              src="/images/dogs.jpg"
+              alt="Our welcome committee. They won't be at the wedding, but they wanted to say hi."
+              height="400px"
+              clipReveal
+            />
+          </div>
 
           {/* Hotels Grid - 2 column layout per HTML design */}
           <div className="grid gap-16 md:grid-cols-2">
@@ -453,21 +433,16 @@ export default function HomePage() {
             </div>
           </FadeIn>
 
-          {/* Large image with rounded corners */}
-          <FadeIn className="mb-16">
-            <div 
-              className="w-full h-[400px] rounded-xl overflow-hidden relative shadow-sm"
-              style={{ backgroundColor: "#E8E8E1" }}
-            >
-              <Image
-                src="/images/gifts-hero.jpg"
-                alt="Laurens and Monica"
-                fill
-                className="object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
-                sizes="100vw"
-              />
-            </div>
-          </FadeIn>
+          {/* Large image with parallax + clip reveal - positioned to show mountains */}
+          <div className="mb-16">
+            <ParallaxImage
+              src="/images/gifts-hero.jpg"
+              alt="Laurens and Monica"
+              height="400px"
+              clipReveal
+              objectPosition="center 35%"
+            />
+          </div>
 
           {/* Message + Button centered */}
           <FadeIn className="text-center max-w-xl mx-auto">

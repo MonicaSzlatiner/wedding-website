@@ -4,6 +4,9 @@ import { ReactNode } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 
+// Luxury editorial easing - never bounce, never spring
+const EASING = [0.25, 0.1, 0.25, 1.0] as const;
+
 interface AnimatedHeroProps {
   couple: { person1: string; person2: string };
   date: { full: string; timeDisplay: string };
@@ -12,32 +15,59 @@ interface AnimatedHeroProps {
 }
 
 /**
- * AnimatedHero - Quiet Luxury aesthetic
+ * AnimatedHero - Luxury Editorial Grade
  * 
- * Design Philosophy:
- * - Asymmetric overlapping layout: Names left (cols 1-8), image right (cols 6-13)
- * - Massive italic serif typography with terracotta accent
- * - "& Monica" indented with ml-24
- * - Grayscale hover effect on image with rounded corners and shadow
+ * Animation Philosophy:
+ * - Motion should reveal, never perform
+ * - Total hero sequence: ~1.4s
+ * - Image settles with subtle scale (1.03 → 1.0)
+ * - Text elements stagger with precise timing
+ * - Respects prefers-reduced-motion
  */
 export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProps) {
   const shouldReduceMotion = useReducedMotion();
 
-  // Animation variants
+  // Hero image: fade in with subtle scale settle effect
   const imageVariants = {
-    hidden: { opacity: shouldReduceMotion ? 1 : 0 },
+    hidden: { 
+      opacity: shouldReduceMotion ? 1 : 0,
+      scale: shouldReduceMotion ? 1 : 1.03,
+    },
     visible: {
       opacity: 1,
-      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
+      scale: 1,
+      transition: { 
+        duration: 1.0, 
+        ease: EASING,
+      },
     },
   };
 
+  // Text container with staggered children
+  const textContainerVariants = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.15,
+        delayChildren: shouldReduceMotion ? 0 : 0.2,
+      },
+    },
+  };
+
+  // Individual text elements
   const textVariants = {
-    hidden: { opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 15 },
+    hidden: { 
+      opacity: shouldReduceMotion ? 1 : 0, 
+      y: shouldReduceMotion ? 0 : 15,
+    },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+      transition: { 
+        duration: 0.8, 
+        ease: EASING,
+      },
     },
   };
 
@@ -53,26 +83,31 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
             <motion.div
               initial="hidden"
               animate="visible"
-              variants={textVariants}
+              variants={textContainerVariants}
             >
               {/* Names - Large italic serif */}
               <h1 className="font-serif leading-[0.8] tracking-tight" style={{ fontWeight: 400 }}>
-                <span 
+                <motion.span 
                   className="block text-[5rem] italic"
                   style={{ color: "#2D2926" }}
+                  variants={textVariants}
                 >
                   {couple.person1}
-                </span>
-                <span 
+                </motion.span>
+                <motion.span 
                   className="block text-[5rem] italic"
                   style={{ color: "#C37B60" }}
+                  variants={textVariants}
                 >
                   & {couple.person2}
-                </span>
+                </motion.span>
               </h1>
               
               {/* Date and Location */}
-              <div className="mt-8 flex flex-col md:flex-row items-center gap-4 md:gap-12">
+              <motion.div 
+                className="mt-8 flex flex-col md:flex-row items-center gap-4 md:gap-12"
+                variants={textVariants}
+              >
                 <div className="text-center">
                   <p 
                     className="text-[11px] uppercase font-bold"
@@ -87,7 +122,7 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
                     {venue.city}, The {venue.country}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
           
@@ -127,25 +162,21 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
                 className="col-start-1 col-end-9 z-10 text-left"
                 initial="hidden"
                 animate="visible"
-                variants={textVariants}
+                variants={textContainerVariants}
               >
                 {/* Large italic serif names */}
                 <h1 className="font-serif leading-[0.8] tracking-tight mb-8" style={{ fontWeight: 400 }}>
                   <motion.span 
                     className="block text-[5rem] md:text-[9rem] italic"
                     style={{ color: "#2D2926" }}
-                    initial={{ opacity: shouldReduceMotion ? 1 : 0, x: shouldReduceMotion ? 0 : -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.2 }}
+                    variants={textVariants}
                   >
                     {couple.person1}
                   </motion.span>
                   <motion.span 
                     className="block text-[5rem] md:text-[9rem] italic md:ml-24"
                     style={{ color: "#C37B60" }}
-                    initial={{ opacity: shouldReduceMotion ? 1 : 0, x: shouldReduceMotion ? 0 : -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.35 }}
+                    variants={textVariants}
                   >
                     & {couple.person2}
                   </motion.span>
@@ -154,9 +185,7 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
                 {/* Date and Location - below names */}
                 <motion.div 
                   className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-12 md:ml-4"
-                  initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.5 }}
+                  variants={textVariants}
                 >
                   <div className="text-left">
                     <p 
