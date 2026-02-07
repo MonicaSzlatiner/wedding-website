@@ -104,7 +104,7 @@ export function Header() {
             L&M
           </a>
 
-          {/* Desktop Navigation with sliding active underline */}
+          {/* Desktop Navigation with sliding active underline + hover underline */}
           <div className="hidden md:flex items-center gap-10">
             {navigation.items.slice(1).map((item) => {
               const isActive = activeSection === item.href.replace("#", "");
@@ -113,14 +113,14 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={(e) => scrollToSection(e, item.href)}
-                  className="relative text-[10px] uppercase font-bold transition-colors duration-[250ms] hover:text-espresso py-1"
+                  className="group relative text-[10px] uppercase font-bold transition-colors duration-[250ms] hover:text-espresso py-1"
                   style={{ 
                     letterSpacing: "0.3em",
                     color: isActive ? "#2D2926" : "rgba(45, 41, 38, 0.6)"
                   }}
                 >
                   {item.label}
-                  {/* Sliding underline indicator */}
+                  {/* Sliding underline for active state */}
                   {isActive && (
                     <motion.div
                       layoutId="nav-underline"
@@ -131,6 +131,13 @@ export function Header() {
                         duration: shouldReduceMotion ? 0 : 0.3,
                         ease: EASING 
                       }}
+                    />
+                  )}
+                  {/* Hover underline for non-active items */}
+                  {!isActive && (
+                    <span 
+                      className="absolute -bottom-0.5 left-0 right-0 h-[1px] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"
+                      style={{ backgroundColor: "rgba(45, 41, 38, 0.3)" }}
                     />
                   )}
                 </a>

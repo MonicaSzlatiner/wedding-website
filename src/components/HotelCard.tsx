@@ -80,7 +80,7 @@ export function HotelCard({ hotel }: HotelCardProps) {
             href={hotel.bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[11px] uppercase font-bold transition-opacity hover:opacity-70"
+            className="group relative text-[11px] uppercase font-bold"
             style={{ 
               color: "#C37B60", 
               letterSpacing: "0.2em"
@@ -88,6 +88,11 @@ export function HotelCard({ hotel }: HotelCardProps) {
           >
             View Availability
             <span className="sr-only"> (opens in new tab)</span>
+            {/* Hover underline animation */}
+            <span 
+              className="absolute -bottom-0.5 left-0 right-0 h-[1px] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+              style={{ backgroundColor: "#C37B60" }}
+            />
           </a>
           
           <span 
