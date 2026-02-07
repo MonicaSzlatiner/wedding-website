@@ -35,7 +35,7 @@ export const hotels: HotelData[] = [
     travelTime: "~15 min by taxi to Parkheuvel",
     googleReviewsUrl: "https://www.google.com/search?sca_esv=2d7c89a134cd9f4b&q=mainport+hotel+rotterdam&si=AL3DRZFIhG6pAqfNLal55wUTwygCG0fClF3UxiOmgw9Hq7nbWQt7zWCuvbs6EnmDf6eX-EJQJDCR0xu6DNh8_ZMz_xStWh2QCR_tC37ZUGHhCeW2Y4A6-6o%3D&uds=ALYpb_kG5vW-vCilX_Rbjx0DZ5HJ4u5mgxc1geHR9HiF6babMT-M_BRUJaS5MQmoWLlHiFebMaFBR4wf-fSKrsht3kMjCPWcEXLOqgEs5om6yDTu3M-4-EmtRc2Q8XH_yr0Eyk9SbjCJ&sa=X&ved=2ahUKEwjhlPDH8LeSAxURxQIHHVKbMbIQ3PALegQIHhAE",
     directionsUrl: `https://www.google.com/maps/dir/Mainport+Hotel+Rotterdam,+Leuvehaven,+Rotterdam/${VENUE_ADDRESS}`,
-    bookingUrl: "https://www.mainporthotel.com",
+    bookingUrl: "https://www.hotelmainport.com/en/",
     badges: ["5-Star Hotel"],
     rating: {
       score: 4.5,
@@ -65,7 +65,7 @@ export const hotels: HotelData[] = [
     travelTime: "~10 min walk to Parkheuvel",
     googleReviewsUrl: "https://www.google.com/search?sca_esv=2d7c89a134cd9f4b&q=bilderberg+hotel+rotterdam&si=AL3DRZHrmvnFAVQPOO2Bzhf8AX9KZZ6raUI_dT7DG_z0kV2_xwKWP7hjNqkb3Vi64GX1osy9hXqDHjec-zt102WIJY-kwMFuY0ncvmfcMQ2SnYgTxDA9FGM%3D&uds=ALYpb_n4BwUhK1uaN1SPx2VrIkEtGJjqH9EClbVFyDD3cDvhGNtL4kAYdroe9NqsBzKf6wyQez6IbOxv9C9HkfG56cxYirM3O4oZIJmejbXrcM3gvjbXEAwVEKyUQkpu4jr4z7xjhNmJ&sa=X&sqi=2&ved=2ahUKEwin6c_T8beSAxWd1gIHHRFqOKYQ3PALegQIFRAE",
     directionsUrl: `https://www.google.com/maps/dir/Bilderberg+Parkhotel+Rotterdam,+Westersingel,+Rotterdam/${VENUE_ADDRESS}`,
-    bookingUrl: "https://www.bilderberg.nl/hotels/parkhotel-rotterdam/",
+    bookingUrl: "https://www.bilderberg.nl/en/rotterdam/parkhotel-rotterdam/",
     badges: ["Boutique Hotel"],
     rating: {
       score: 4.3,
@@ -80,7 +80,7 @@ export const hotels: HotelData[] = [
     travelTime: "~15 min by taxi to Parkheuvel",
     googleReviewsUrl: "https://www.google.com/search?sca_esv=2d7c89a134cd9f4b&q=nhow+rotterdam+hotel&si=AL3DRZFIhG6pAqfNLal55wUTwygCG0fClF3UxiOmgw9Hq7nbWUwbVNt2_zbxnAqG5ZFXq1baz2mJyGA8evgM0YwhZxj5l0eKw_cowFmL6j3s6gtU3oKDRSA%3D&uds=ALYpb_lLt3rF4OntvAcKw6YR8l5Vnji3ze_Mekw--Pbh5lsq3w9foUNYM7HXjrvF9PA_v6QXtQAjd4pMwjUlX-i1zSKNLaoOy4sTRgEyutgVsvO0I2yhxVn8alBB9bqsuypARudjLmfA&sa=X&sqi=2&ved=2ahUKEwjCh5WL8reSAxVZ5QIHHRhGAY4Q3PALegQIIBAE",
     directionsUrl: `https://www.google.com/maps/dir/nhow+Rotterdam,+Wilhelminakade,+Rotterdam/${VENUE_ADDRESS}`,
-    bookingUrl: "https://www.nh-hotels.com/en/hotel/nhow-rotterdam?utm_campaign=local-gmb&utm_medium=organic_search&utm_source=google_gmb",
+    bookingUrl: "https://www.nhow-hotels.com/en/nhow-rotterdam",
     badges: ["4-Star Hotel"],
     rating: {
       score: 4.4,
@@ -110,7 +110,7 @@ export const hotels: HotelData[] = [
     travelTime: "~10 min by taxi to Parkheuvel",
     googleReviewsUrl: "https://www.google.com/search?q=thon+hotel+rotterdam",
     directionsUrl: `https://www.google.com/maps/dir/Thon+Hotel+Rotterdam,+Willemsplein,+Rotterdam/${VENUE_ADDRESS}`,
-    bookingUrl: "https://www.thonhotels.com/hotels/nederland/rotterdam/thon-hotel-rotterdam/",
+    bookingUrl: "https://www.thonhotels.com/hotels/netherlands/rotterdam/",
     badges: ["Budget-Friendly"],
     rating: {
       score: 4.1,
