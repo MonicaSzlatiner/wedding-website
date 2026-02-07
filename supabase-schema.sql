@@ -71,12 +71,15 @@ DROP POLICY IF EXISTS "Allow public insert of rsvps" ON rsvps;
 DROP POLICY IF EXISTS "Allow public update of rsvps" ON rsvps;
 DROP POLICY IF EXISTS "Allow public read of rsvps" ON rsvps;
 
--- Guests: Allow public read (for code lookup) and insert (for initial import)
+-- Guests: Allow public read (for code lookup), insert, and update (for import)
 CREATE POLICY "Allow public read of guests" ON guests
   FOR SELECT USING (true);
 
 CREATE POLICY "Allow public insert of guests" ON guests
   FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Allow public update of guests" ON guests
+  FOR UPDATE USING (true);
 
 -- Save the Date Views: Allow public insert (for tracking views)
 CREATE POLICY "Allow public insert of views" ON save_the_date_views

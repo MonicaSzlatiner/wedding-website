@@ -417,9 +417,103 @@ export default function HomePage() {
       </section>
 
       {/* ============================================
+          EXPLORE ROTTERDAM SECTION
+          ============================================ */}
+      <section className="scroll-mt-20 py-32" style={{ backgroundColor: "#F2F2EC" }}>
+        <div className="max-w-[1200px] mx-auto px-6">
+          {/* Section Header */}
+          <FadeIn className="w-full mb-20">
+            <div className="flex flex-col items-center text-center">
+              <p 
+                className="text-[10px] uppercase font-medium mb-3"
+                style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
+              >
+                {weddingConfig.explore.label}
+              </p>
+              <h2 
+                className="font-serif text-5xl italic"
+                style={{ fontWeight: 400, color: "#2D2926" }}
+              >
+                {weddingConfig.explore.heading}
+              </h2>
+              <p 
+                className="text-lg font-light mt-6 max-w-[520px] leading-relaxed"
+                style={{ color: "rgba(45, 41, 38, 0.7)" }}
+              >
+                {weddingConfig.explore.subtitle}
+              </p>
+            </div>
+          </FadeIn>
+
+          {/* Recommendations Grid */}
+          <div className="grid gap-16 md:grid-cols-2">
+            {weddingConfig.explore.categories.map((category, catIndex) => (
+              <FadeIn key={category.name} delay={catIndex * 0.1}>
+                <div className="space-y-8">
+                  {/* Category Label */}
+                  <p 
+                    className="text-[11px] uppercase font-bold"
+                    style={{ letterSpacing: "0.15em", color: "#C37B60" }}
+                  >
+                    {category.name}
+                  </p>
+                  
+                  {/* Items in category */}
+                  <div className="space-y-10">
+                    {category.items.map((item) => (
+                      <div key={item.name}>
+                        <h3 
+                          className="font-serif text-2xl italic mb-3"
+                          style={{ fontWeight: 400, color: "#2D2926" }}
+                        >
+                          {item.name}
+                        </h3>
+                        <p 
+                          className="text-sm font-light leading-relaxed mb-4"
+                          style={{ color: "rgba(45, 41, 38, 0.7)" }}
+                        >
+                          {item.description}
+                        </p>
+                        {item.url && (
+                          <a
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group relative text-[11px] uppercase font-bold"
+                            style={{ color: "#C37B60", letterSpacing: "0.2em" }}
+                          >
+                            {item.linkText}
+                            <span className="sr-only"> (opens in new tab)</span>
+                            <span
+                              className="absolute -bottom-0.5 left-0 right-0 h-[1px] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+                              style={{ backgroundColor: "#C37B60" }}
+                            />
+                          </a>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+
+          {/* Closing Line */}
+          <FadeIn delay={0.4} className="mt-20 text-center">
+            <p 
+              className="text-base font-light italic max-w-2xl mx-auto leading-relaxed"
+              style={{ color: "rgba(45, 41, 38, 0.5)" }}
+            >
+              {weddingConfig.explore.closingLine}
+            </p>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ============================================
           GIFTS SECTION
           ============================================ */}
-      <section id="gifts" className="scroll-mt-20 py-32 border-y" style={{ backgroundColor: "#F2F2EC", borderColor: "rgba(45, 41, 38, 0.05)" }}>
+      <section id="gifts" className="scroll-mt-20 py-32 border-y" style={{ backgroundColor: "#F5F5F0", borderColor: "rgba(45, 41, 38, 0.05)" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           {/* Section Header - centered */}
           <FadeIn className="w-full mb-20">

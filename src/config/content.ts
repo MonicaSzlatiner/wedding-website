@@ -149,6 +149,78 @@ export const weddingConfig = {
     ],
   },
 
+  // Explore Rotterdam
+  explore: {
+    label: "While You're Here",
+    heading: "Explore Rotterdam",
+    subtitle: "We're not going to pretend this is a travel guide. But Rotterdam is our city, and if you've got a day or two to spare, here's where we'd actually take you.",
+    closingLine: "Rotterdam rebuilt itself from scratch after WWII, and it shows. The whole city feels like it's still deciding what it wants to be — which is kind of what makes it great.",
+    categories: [
+      {
+        name: "On the Water",
+        items: [
+          {
+            name: "Spido Harbour Tour",
+            description: "A 75-minute boat ride through Europe's largest port. You'll pass under the Erasmus Bridge, through working shipyards, and get a feel for why this city exists. It's the one thing we'd say is non-negotiable.",
+            url: "https://www.spido.nl/en/cruises/rotterdam-harbour-tour",
+            linkText: "Book Tickets",
+          },
+        ],
+      },
+      {
+        name: "Art & Museums",
+        items: [
+          {
+            name: "Depot Boijmans Van Beuningen",
+            description: "The world's first publicly accessible art storage — 155,000 works behind glass, a mirrored building that's a piece of art itself, and a rooftop restaurant with a panoramic view of the city. Go to the sixth floor even if you skip everything else.",
+            url: "https://www.boijmans.nl/en/depot",
+            linkText: "Plan Your Visit",
+          },
+          {
+            name: "Kunsthal Rotterdam",
+            description: "No permanent collection, just rotating exhibitions that swing from photography to fashion to contemporary art. Check what's on before you go — it changes often, and it's almost always worth the detour.",
+            url: "https://www.kunsthal.nl/en/",
+            linkText: "See What's On",
+          },
+          {
+            name: "Nederlands Fotomuseum",
+            description: "The national photography museum just moved into a beautifully renovated 1903 warehouse on Katendrecht. If you're into photography or just like a gorgeous building, put this on the list.",
+            url: "https://www.nederlandsfotomuseum.nl/en/",
+            linkText: "Visit the Museum",
+          },
+        ],
+      },
+      {
+        name: "Eat & Drink",
+        items: [
+          {
+            name: "Fenix Food Factory",
+            description: "A waterfront food hall in a former warehouse on the south bank. Craft beer, local cheese, good burgers, and a view of the river. It's where we'd go on a Saturday afternoon, honestly.",
+            url: "https://www.fenixfoodfactory.nl",
+            linkText: "See More",
+          },
+          {
+            name: "Markthal",
+            description: "You've probably seen photos of it — the giant arch with the painted ceiling. Inside it's a proper food market with Dutch cheese, fresh stroopwafels, and about thirty things you didn't know you wanted to eat. Walk through even if you're not hungry.",
+            url: "https://www.markthal.nl/en",
+            linkText: "Explore the Markthal",
+          },
+        ],
+      },
+      {
+        name: "Just Walk Around",
+        items: [
+          {
+            name: "Witte de Withstraat & Museumpark",
+            description: "The cultural spine of the city. Witte de With has the best bars and restaurants on one street, and Museumpark connects most of the museums within a 10-minute walk. No plan needed — just wander.",
+            url: null,
+            linkText: null,
+          },
+        ],
+      },
+    ],
+  },
+
   // RSVP
   rsvp: {
     heading: "Ready to Celebrate?",
@@ -192,7 +264,7 @@ export const weddingConfig = {
       },
       {
         question: "Are children welcome?",
-        answer: "This one's for the grown-ups. We promise they'll survive a night without you (and you might enjoy it too).",
+        answer: "While we love your little ones, our wedding will be an adults-only celebration.",
       },
       {
         question: "Is there parking available?",
