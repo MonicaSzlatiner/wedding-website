@@ -30,6 +30,15 @@ interface ParallaxImageProps {
    * Use to show more of specific parts of the image
    */
   objectPosition?: string;
+  /**
+   * Use object-contain instead of object-cover (no zoom/crop)
+   */
+  contain?: boolean;
+  /**
+   * Aspect ratio for the container (e.g., "4/3", "16/9")
+   * When set, height is ignored and aspect ratio is used instead
+   */
+  aspectRatio?: string;
 }
 
 /**
@@ -50,6 +59,8 @@ export function ParallaxImage({
   clipReveal = true,
   height = "400px",
   objectPosition = "center center",
+  contain = false,
+  aspectRatio,
 }: ParallaxImageProps) {
   const ref = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -83,27 +94,32 @@ export function ParallaxImage({
     shouldReduceMotion ? [1, 1] : [0, 1]
   );
 
+  // Container style: use aspectRatio if provided, otherwise height
+  const containerStyle = aspectRatio 
+    ? { aspectRatio, backgroundColor: "#E8E8E1" }
+    : { height, backgroundColor: "#E8E8E1" };
+
   return (
     <div
       ref={ref}
       className={`relative overflow-hidden rounded-xl shadow-sm ${className}`}
-      style={{ height, backgroundColor: "#E8E8E1" }}
+      style={containerStyle}
     >
       <motion.div
         className="absolute inset-0"
         style={{
-          y,
+          y: contain ? 0 : y, // No parallax when using contain
           clipPath,
           opacity,
         }}
       >
-        {/* Image needs to be larger than container for parallax */}
-        <div className="absolute inset-0 scale-110">
+        {/* Image container - no scale when using contain */}
+        <div className={`absolute inset-0 ${contain ? "" : "scale-110"}`}>
           <Image
             src={src}
             alt={alt}
             fill
-            className="object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
+            className={`${contain ? "object-contain" : "object-cover"} grayscale-[20%] hover:grayscale-0 transition-all duration-1000`}
             style={{ objectPosition }}
             sizes="100vw"
             priority={priority}

@@ -434,14 +434,14 @@ export default function HomePage() {
             </div>
           </FadeIn>
 
-          {/* Large image with parallax + clip reveal - positioned to show mountains */}
+          {/* Large image - no zoom, preserve aspect ratio */}
           <div className="mb-16">
             <ParallaxImage
               src="/images/gifts-hero.jpg"
               alt="Laurens and Monica"
-              height="400px"
+              aspectRatio="3/4"
               clipReveal
-              objectPosition="center 60%"
+              contain
             />
           </div>
 
