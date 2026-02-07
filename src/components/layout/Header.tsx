@@ -133,11 +133,11 @@ export function Header() {
                       }}
                     />
                   )}
-                  {/* Hover underline for non-active items */}
+                  {/* Hover underline for non-active items - terracotta color */}
                   {!isActive && (
                     <span 
                       className="absolute -bottom-0.5 left-0 right-0 h-[1px] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"
-                      style={{ backgroundColor: "rgba(45, 41, 38, 0.3)" }}
+                      style={{ backgroundColor: "#C37B60" }}
                     />
                   )}
                 </a>
