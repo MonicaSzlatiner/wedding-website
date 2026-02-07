@@ -440,7 +440,7 @@ export default function HomePage() {
               alt="Laurens and Monica"
               height="400px"
               clipReveal
-              objectPosition="center 35%"
+              objectPosition="center 60%"
             />
           </div>
 
