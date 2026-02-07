@@ -153,8 +153,13 @@ export const weddingConfig = {
   explore: {
     label: "While You're Here",
     heading: "Explore Rotterdam",
-    subtitle: "We're not going to pretend this is a travel guide. But Rotterdam is our city, and if you've got a day or two to spare, here's where we'd actually take you.",
-    closingLine: "Rotterdam rebuilt itself from scratch after WWII, and it shows. The whole city feels like it's still deciding what it wants to be — which is kind of what makes it great.",
+    heroImage: "/images/rotterdam-hero.jpg",
+    heroAlt: "The Erasmus Bridge and Rotterdam skyline at dusk",
+    intro: [
+      "Rotterdam was bombed flat in 1940. Like, actually flat — the entire city center, gone in one afternoon. Instead of rebuilding what was there, they just... started experimenting. That's why you've got cube houses from the '80s next to a building shaped like a horseshoe next to a mirrored blob full of art. No other Dutch city looks like this, and most Dutch people will tell you that's the point.",
+      "It's also home to the largest port in Europe, which explains the skyline — it looks more like a startup than a medieval town. The port brought the world in, too. Rotterdam is one of the most multicultural cities on the continent, and you'll taste it: Surinamese, Turkish, Indonesian, and Michelin-starred Dutch all within a 15-minute walk.",
+      "The local saying is that money is earned in Rotterdam and spent in Amsterdam. There's a scrappy, no-nonsense energy here that we love. We're not going to pretend this is a travel guide, but if you've got a day or two to spare, here's where we'd actually take you.",
+    ],
     categories: [
       {
         name: "On the Water",
@@ -238,7 +243,7 @@ export const weddingConfig = {
     heading: "Your Presence is Enough",
     subtitle: "Your presence is the greatest gift",
     heroImage: "/images/hero-gifts.jpg",
-    message: "Your presence is enough of a present to us! But for those of you who are stubborn, we're putting together a honeymoon fund. We're still arguing about the destination, but we know it'll involve good food and zero alarm clocks.",
+    message: "Your presence is enough of a present to us! But for those of you who are stubborn, we're putting together a honeymoon fund. We're still debating about the destination, but we know it'll involve good food and zero alarm clocks.",
     fund: {
       name: "Honeymoon Fund",
       description: "Help us explore the world together",

@@ -422,7 +422,7 @@ export default function HomePage() {
       <section className="scroll-mt-20 py-32" style={{ backgroundColor: "#F2F2EC" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           {/* Section Header */}
-          <FadeIn className="w-full mb-20">
+          <FadeIn className="w-full mb-12">
             <div className="flex flex-col items-center text-center">
               <p 
                 className="text-[10px] uppercase font-medium mb-3"
@@ -436,12 +436,31 @@ export default function HomePage() {
               >
                 {weddingConfig.explore.heading}
               </h2>
-              <p 
-                className="text-lg font-light mt-6 max-w-[520px] leading-relaxed"
-                style={{ color: "rgba(45, 41, 38, 0.7)" }}
-              >
-                {weddingConfig.explore.subtitle}
-              </p>
+            </div>
+          </FadeIn>
+
+          {/* Hero Image */}
+          <div className="mb-16">
+            <ParallaxImage
+              src={weddingConfig.explore.heroImage}
+              alt={weddingConfig.explore.heroAlt}
+              height="400px"
+              clipReveal
+            />
+          </div>
+
+          {/* Intro Paragraphs */}
+          <FadeIn className="mb-20">
+            <div className="max-w-[640px] mx-auto text-center space-y-6">
+              {weddingConfig.explore.intro.map((paragraph, index) => (
+                <p 
+                  key={index}
+                  className="text-base font-light leading-relaxed"
+                  style={{ color: "rgba(45, 41, 38, 0.7)" }}
+                >
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </FadeIn>
 
@@ -498,15 +517,6 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* Closing Line */}
-          <FadeIn delay={0.4} className="mt-20 text-center">
-            <p 
-              className="text-base font-light italic max-w-2xl mx-auto leading-relaxed"
-              style={{ color: "rgba(45, 41, 38, 0.5)" }}
-            >
-              {weddingConfig.explore.closingLine}
-            </p>
-          </FadeIn>
         </div>
       </section>
 
