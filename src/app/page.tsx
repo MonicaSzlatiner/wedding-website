@@ -238,7 +238,8 @@ export default function HomePage() {
                 className="text-lg font-light mt-6 max-w-lg leading-relaxed"
                 style={{ color: "rgba(45, 41, 38, 0.7)" }}
               >
-                {travel.subtitle}
+                Some of you are crossing borders to be there.<br />
+                Here&apos;s how to get to us.
               </p>
             </div>
           </FadeIn>
