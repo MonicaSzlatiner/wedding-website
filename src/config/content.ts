@@ -305,6 +305,7 @@ export const weddingConfig = {
       { label: "Schedule", href: "#schedule" },
       { label: "Travel", href: "#travel" },
       { label: "Stay", href: "#stay" },
+      { label: "Rotterdam", href: "#rotterdam" },
       { label: "Gifts", href: "#gifts" },
       { label: "FAQ", href: "#faq" },
     ],

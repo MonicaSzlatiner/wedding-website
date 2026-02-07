@@ -419,7 +419,7 @@ export default function HomePage() {
       {/* ============================================
           EXPLORE ROTTERDAM SECTION
           ============================================ */}
-      <section className="scroll-mt-20 py-32" style={{ backgroundColor: "#F2F2EC" }}>
+      <section id="rotterdam" className="scroll-mt-20 py-32" style={{ backgroundColor: "#F2F2EC" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           {/* Section Header */}
           <FadeIn className="w-full mb-12">
@@ -517,64 +517,6 @@ export default function HomePage() {
             ))}
           </div>
 
-        </div>
-      </section>
-
-      {/* ============================================
-          GIFTS SECTION
-          ============================================ */}
-      <section id="gifts" className="scroll-mt-20 py-32 border-y" style={{ backgroundColor: "#F5F5F0", borderColor: "rgba(45, 41, 38, 0.05)" }}>
-        <div className="max-w-[1200px] mx-auto px-6">
-          {/* Section Header - centered */}
-          <FadeIn className="w-full mb-20">
-            <div className="flex flex-col items-center text-center">
-              <p 
-                className="text-[10px] uppercase font-medium mb-3"
-                style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
-              >
-                {gifts.label}
-              </p>
-              <h2 
-                className="font-serif text-5xl italic"
-                style={{ fontWeight: 400, color: "#2D2926" }}
-              >
-                {gifts.heading}
-              </h2>
-            </div>
-          </FadeIn>
-
-          {/* Image with controlled height */}
-          <div className="mb-16">
-            <ParallaxImage
-              src="/images/gifts-hero.jpg"
-              alt="Laurens and Monica"
-              height="450px"
-              clipReveal
-              objectPosition="center 40%"
-            />
-          </div>
-
-          {/* Message + Button centered */}
-          <FadeIn className="text-center max-w-xl mx-auto">
-            <p 
-              className="text-lg font-light leading-relaxed mb-10"
-              style={{ color: "rgba(45, 41, 38, 0.7)" }}
-            >
-              {gifts.message}
-            </p>
-            
-            <a
-              href="#"
-              className="inline-block px-12 py-5 rounded-full text-[11px] uppercase font-bold transition-all hover:shadow-lg"
-              style={{ 
-                letterSpacing: "0.3em",
-                backgroundColor: "#2D2926", 
-                color: "white" 
-              }}
-            >
-              Honeymoon Fund TBD
-            </a>
-          </FadeIn>
         </div>
       </section>
 
@@ -701,6 +643,64 @@ export default function HomePage() {
               </div>
             </FadeIn>
           </div>
+        </div>
+      </section>
+
+      {/* ============================================
+          GIFTS SECTION
+          ============================================ */}
+      <section id="gifts" className="scroll-mt-20 py-32" style={{ backgroundColor: "#F5F5F0" }}>
+        <div className="max-w-[1200px] mx-auto px-6">
+          {/* Section Header - centered */}
+          <FadeIn className="w-full mb-20">
+            <div className="flex flex-col items-center text-center">
+              <p 
+                className="text-[10px] uppercase font-medium mb-3"
+                style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.4)" }}
+              >
+                {gifts.label}
+              </p>
+              <h2 
+                className="font-serif text-5xl italic"
+                style={{ fontWeight: 400, color: "#2D2926" }}
+              >
+                {gifts.heading}
+              </h2>
+            </div>
+          </FadeIn>
+
+          {/* Image with controlled height */}
+          <div className="mb-16">
+            <ParallaxImage
+              src="/images/gifts-hero.jpg"
+              alt="Laurens and Monica"
+              height="450px"
+              clipReveal
+              objectPosition="center 40%"
+            />
+          </div>
+
+          {/* Message + Button centered */}
+          <FadeIn className="text-center max-w-xl mx-auto">
+            <p 
+              className="text-lg font-light leading-relaxed mb-10"
+              style={{ color: "rgba(45, 41, 38, 0.7)" }}
+            >
+              {gifts.message}
+            </p>
+            
+            <a
+              href="#"
+              className="inline-block px-12 py-5 rounded-full text-[11px] uppercase font-bold transition-all hover:shadow-lg"
+              style={{ 
+                letterSpacing: "0.3em",
+                backgroundColor: "#2D2926", 
+                color: "white" 
+              }}
+            >
+              Honeymoon Fund TBD
+            </a>
+          </FadeIn>
         </div>
       </section>
 
