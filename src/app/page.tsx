@@ -396,7 +396,7 @@ export default function HomePage() {
           )}
 
           {/* Other Options */}
-          <FadeIn delay={0.3} className="mt-12 text-center">
+          <FadeIn delay={0.3} className="mt-12">
             <p className="text-sm" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
               {accommodationsContent.otherOptions.description}
             </p>
