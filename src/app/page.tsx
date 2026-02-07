@@ -173,12 +173,13 @@ export default function HomePage() {
       <section id="venue" className="scroll-mt-20 py-24 border-y" style={{ backgroundColor: "#F2F2EC", borderColor: "rgba(45, 41, 38, 0.05)" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-16 items-center">
-            {/* Left - Image with reveal animation */}
+            {/* Left - Image with clip reveal animation */}
             <div className="order-2 md:order-1">
-              <RevealImage
+              <ParallaxImage
                 src="/images/venue.jpg"
                 alt={venue.name}
-                aspectRatio="16/10"
+                height="320px"
+                clipReveal
               />
             </div>
 
