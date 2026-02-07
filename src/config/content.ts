@@ -103,8 +103,7 @@ export const weddingConfig = {
   travel: {
     label: "Getting There",
     heading: "Travel",
-    subtitle: "Some of you are crossing borders to be there.", 
-    subtitle: "Here's how to get to us.",
+    subtitle: "Some of you are crossing borders to be there. Here's how to get to us.",
     heroImage: "/images/hero-travel.jpg",
     sections: {
       flights: {
