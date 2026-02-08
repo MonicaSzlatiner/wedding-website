@@ -523,7 +523,7 @@ export function SaveTheDateClient({
                                 className="text-sm leading-relaxed max-w-sm mx-auto"
                                 style={{ color: "rgba(45, 41, 38, 0.6)" }}
                               >
-                                We&apos;ll be mailing a formal invitation later this year. If you&apos;re happy to share your mailing address, we&apos;ll make sure it reaches you and is addressed correctly. Optional and you can update it later.
+                                Share your mailing address and we&apos;ll make sure your invitation reaches you and is addressed correctly. Optional and you can update it later.
                               </p>
                             </div>
 
