@@ -205,16 +205,22 @@ export const weddingConfig = {
             linkText: "See What's On",
           },
           {
-            name: "Nederlands Fotomuseum",
-            description: "The national photography museum just moved into a beautifully renovated 1903 warehouse on Katendrecht. If you're into photography or just like a gorgeous building, put this on the list.",
-            url: "https://www.nederlandsfotomuseum.nl/en/",
-            linkText: "Visit the Museum",
+            name: "Fenix — Museum of Migration",
+            description: "The world's first art museum dedicated to migration, inside a 1923 warehouse where millions of people actually boarded ships to start new lives in America. The building alone is worth the visit — there's a 30-meter twisting stainless steel staircase called the Tornado that takes you up to a panoramic deck over the river. It's on Katendrecht, right next to Fenix Food Factory, so you can do both in one afternoon.",
+            url: "https://www.fenix.nl/en/",
+            linkText: "Plan Your Visit",
           },
         ],
       },
       {
         name: "Just Walk Around",
         items: [
+          {
+            name: "Scheepvaartkwartier & Veerhaven",
+            description: "Our neighborhood, and one of the few parts of Rotterdam that survived the war. Tree-lined avenues, white 19th-century mansions, and a tiny harbor full of historic sailing ships that look like they belong in a painting. Start at the Veerhaven, walk along the Westerkade, and let it pull you into Het Park — which, by the way, is where you'll end up at the wedding venue. History buffs: this neighborhood has 98 of Rotterdam's 500 national monuments packed into a few blocks.",
+            url: null,
+            linkText: null,
+          },
           {
             name: "Witte de Withstraat & Museumpark",
             description: "The cultural spine of the city. Witte de With has the best bars and restaurants on one street, and Museumpark connects most of the museums within a 10-minute walk. No plan needed — just wander.",
