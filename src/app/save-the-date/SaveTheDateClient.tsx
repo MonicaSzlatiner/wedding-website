@@ -523,7 +523,7 @@ export function SaveTheDateClient({
                                 className="text-sm leading-relaxed max-w-sm mx-auto"
                                 style={{ color: "rgba(45, 41, 38, 0.6)" }}
                               >
-                                Share your mailing address and we&apos;ll make sure your invitation reaches you and is addressed correctly. Optional and you can update it later.
+                                Where should we send your invitation? This is optional and you can update it later.
                               </p>
                             </div>
 
