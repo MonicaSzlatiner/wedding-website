@@ -450,12 +450,12 @@ export default function HomePage() {
           </div>
 
           {/* Intro Paragraphs */}
-          <FadeIn className="mb-20">
-            <div className="max-w-[640px] mx-auto text-center space-y-6">
+          <FadeIn className="w-full mb-20">
+            <div className="w-full space-y-6">
               {weddingConfig.explore.intro.map((paragraph, index) => (
                 <p 
                   key={index}
-                  className="text-base font-light leading-relaxed"
+                  className="text-base font-light leading-relaxed max-w-none"
                   style={{ color: "rgba(45, 41, 38, 0.7)" }}
                 >
                   {paragraph}
