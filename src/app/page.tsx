@@ -444,8 +444,9 @@ export default function HomePage() {
             <ParallaxImage
               src={weddingConfig.explore.heroImage}
               alt={weddingConfig.explore.heroAlt}
-              height="400px"
+              height="500px"
               clipReveal
+              objectPosition="center 75%"
             />
           </div>
 
