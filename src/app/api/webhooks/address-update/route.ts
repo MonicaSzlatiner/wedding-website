@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
       invitationName: record.invitation_name,
       formattedAddress: record.address_formatted,
       country: record.country,
-      updatedAt: record.address_updated_at,
+      updatedAt: record.address_updated_at || new Date().toISOString(),
     });
 
     if (!result.success) {
