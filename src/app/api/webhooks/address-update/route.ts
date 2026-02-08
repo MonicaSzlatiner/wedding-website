@@ -38,9 +38,20 @@ interface WebhookPayload {
 
 export async function POST(request: NextRequest) {
   try {
+    // Log incoming request for debugging
+    console.log("Webhook received");
+    
     // Verify webhook secret for security
     const webhookSecret = request.headers.get("x-webhook-secret");
-    if (webhookSecret !== process.env.WEBHOOK_SECRET) {
+    const expectedSecret = process.env.WEBHOOK_SECRET;
+    
+    // Log for debugging (remove in production)
+    console.log("Webhook secret received:", webhookSecret ? "yes" : "no");
+    console.log("Expected secret configured:", expectedSecret ? "yes" : "no");
+    
+    if (!expectedSecret) {
+      console.warn("WEBHOOK_SECRET not configured, skipping verification");
+    } else if (webhookSecret !== expectedSecret) {
       console.error("Invalid webhook secret");
       return NextResponse.json(
         { error: "Unauthorized" },
