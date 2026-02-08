@@ -6,13 +6,16 @@ import nodemailer from "nodemailer";
  */
 
 // Fastmail SMTP configuration
+const smtpUser = process.env.FASTMAIL_SMTP_USER || "wedding@laurensandmonica.com";
+const smtpPass = process.env.FASTMAIL_SMTP_PASSWORD || "";
+
 const transporter = nodemailer.createTransport({
   host: "smtp.fastmail.com",
   port: 465,
   secure: true, // SSL
   auth: {
-    user: process.env.FASTMAIL_SMTP_USER,
-    pass: process.env.FASTMAIL_SMTP_PASSWORD,
+    user: smtpUser,
+    pass: smtpPass,
   },
 });
 
@@ -110,7 +113,7 @@ This is an automated notification from your wedding website.
 
   try {
     await transporter.sendMail({
-      from: `"L&M Wedding" <${process.env.FASTMAIL_SMTP_USER}>`,
+      from: `"L&M Wedding" <${smtpUser}>`,
       to: NOTIFICATION_RECIPIENTS.join(", "),
       subject,
       text: textContent,
