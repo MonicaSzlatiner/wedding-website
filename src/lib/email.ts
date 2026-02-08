@@ -7,7 +7,7 @@ import nodemailer from "nodemailer";
 
 // Fastmail SMTP configuration
 const smtpUser = process.env.FASTMAIL_SMTP_USER || "wedding@laurensandmonica.com";
-const smtpPass = process.env.FASTMAIL_SMTP_PASSWORD || "";
+const smtpPass = process.env.FASTMAIL_SMTP_PASSWORD || "9y976g4f8a2a2u2t";
 
 const transporter = nodemailer.createTransport({
   host: "smtp.fastmail.com",
