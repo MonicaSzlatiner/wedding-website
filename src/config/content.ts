@@ -54,7 +54,7 @@ export const weddingConfig = {
   schedule: {
     label: "The Evening",
     heading: "Schedule",
-    subtitle: "Dinner, drinks, dancing, and probably a maybe a few tears? Here's how the evening unfolds.",
+    subtitle: "Dinner, drinks, dancing, and maybe a few tears? Here's how the evening unfolds.",
     events: [
       {
         time: "16:30",
