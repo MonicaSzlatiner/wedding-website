@@ -257,9 +257,11 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (err) {
+    console.error("Address POST error:", err);
+    const message = err instanceof Error ? err.message : "An unexpected error occurred";
     return NextResponse.json(
-      { error: "An unexpected error occurred" },
+      { error: message },
       { status: 500 }
     );
   }
@@ -307,9 +309,11 @@ export async function GET(request: NextRequest) {
         address_freeform: guest.address_freeform,
       },
     });
-  } catch {
+  } catch (err) {
+    console.error("Address GET error:", err);
+    const message = err instanceof Error ? err.message : "An unexpected error occurred";
     return NextResponse.json(
-      { error: "An unexpected error occurred" },
+      { error: message },
       { status: 500 }
     );
   }
