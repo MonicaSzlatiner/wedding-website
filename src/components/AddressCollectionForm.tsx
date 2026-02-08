@@ -177,6 +177,19 @@ export function AddressCollectionForm({
     color: "#2D2926",
   };
 
+  // Select-specific styles (fixes grayed out text on some browsers)
+  const selectStyles = {
+    ...inputStyles,
+    WebkitAppearance: "none" as const,
+    MozAppearance: "none" as const,
+    appearance: "none" as const,
+    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%232D2926' stroke-width='1.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E")`,
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "right 12px center",
+    backgroundSize: "16px",
+    paddingRight: "40px",
+  };
+
   const labelStyles = {
     color: "rgba(45, 41, 38, 0.7)",
     letterSpacing: "0.05em",
@@ -263,7 +276,7 @@ export function AddressCollectionForm({
                   value={formData.region}
                   onChange={handleChange}
                   className="w-full px-4 py-3 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-terracotta/30"
-                  style={inputStyles}
+                  style={selectStyles}
                 >
                   {US_STATES.map((state) => (
                     <option key={state.value} value={state.value}>
@@ -577,7 +590,7 @@ export function AddressCollectionForm({
           value={formData.country}
           onChange={handleChange}
           className="w-full px-4 py-3 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-terracotta/30"
-          style={inputStyles}
+          style={selectStyles}
         >
           {COUNTRIES.map((country) => (
             <option key={country.value} value={country.value}>
