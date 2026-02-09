@@ -143,8 +143,8 @@ export function Header() {
                 </a>
               );
             })}
-            {/* RSVP Button - Terracotta accent */}
-            <a
+            {/* RSVP Button - Hidden until RSVP is live */}
+            {/* <a
               href="#rsvp"
               onClick={(e) => scrollToSection(e, "#rsvp")}
               className="text-[10px] uppercase font-black px-6 py-2 rounded-full border transition-all hover:bg-terracotta hover:text-white"
@@ -155,7 +155,7 @@ export function Header() {
               }}
             >
               RSVP
-            </a>
+            </a> */}
           </div>
 
           {/* Mobile Menu Button */}
