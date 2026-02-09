@@ -487,12 +487,13 @@ export function SaveTheDateClient({
                   <div className="mt-6 pt-6" style={{ borderTop: "1px solid rgba(45, 41, 38, 0.1)" }}>
                     <button
                       onClick={() => setShowAddressPanel(!showAddressPanel)}
-                      className="w-full flex items-center justify-center gap-2 font-sans text-xs uppercase font-bold transition-opacity hover:opacity-70"
-                      style={{ color: "rgba(45, 41, 38, 0.75)", letterSpacing: "0.15em" }}
+                      className="w-full flex items-center justify-center gap-2 font-sans text-[11px] uppercase font-bold transition-opacity hover:opacity-70 text-center"
+                      style={{ color: "rgba(45, 41, 38, 0.75)", letterSpacing: "0.1em" }}
                     >
-                      <EnvelopeIcon className="h-3.5 w-3.5 flex-shrink-0" />
-                      Help us send the formal invitation →
+                      <EnvelopeIcon className="h-4 w-4 flex-shrink-0 self-center" />
+                      <span className="text-center">Help us send the formal invitation →</span>
                       <motion.span
+                        className="flex-shrink-0"
                         animate={{ rotate: showAddressPanel ? 180 : 0 }}
                         transition={{ duration: 0.2 }}
                       >
