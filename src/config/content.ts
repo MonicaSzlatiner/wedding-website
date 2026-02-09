@@ -285,6 +285,10 @@ export const weddingConfig = {
         question: "What time should I arrive?",
         answer: "By 4:45 PM, please. We will actually start on time.",
       },
+      {
+        question: "Can we take photos and post them online?",
+        answer: "Absolutely! Capture and share whatever you want. We love that you'll help us remember the day from every angle. Tag us so we don't miss anything.",
+      },
       // Add more FAQ items as needed
     ],
   },
