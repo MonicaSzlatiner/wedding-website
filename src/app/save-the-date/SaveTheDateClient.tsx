@@ -490,7 +490,7 @@ export function SaveTheDateClient({
                       className="w-full flex items-center justify-center gap-2 font-sans text-xs uppercase font-bold transition-opacity hover:opacity-70"
                       style={{ color: "rgba(45, 41, 38, 0.75)", letterSpacing: "0.15em" }}
                     >
-                      <EnvelopeIcon className="h-4 w-4 flex-shrink-0 -mt-px" />
+                      <EnvelopeIcon className="h-3.5 w-3.5 flex-shrink-0" />
                       Help us send the formal invitation →
                       <motion.span
                         animate={{ rotate: showAddressPanel ? 180 : 0 }}
