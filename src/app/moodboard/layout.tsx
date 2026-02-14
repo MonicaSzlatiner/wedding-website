@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "M & L | Mood Board",
+  title: "L & M | Mood Board",
   description: "Wedding aesthetic mood board - Japandi style",
   robots: {
     index: false,

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { weddingConfig } from "@/config/content";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -14,6 +15,9 @@ export function Header() {
   const [activeSection, setActiveSection] = useState("home");
   const { navigation } = weddingConfig;
   const shouldReduceMotion = useReducedMotion();
+  const pathname = usePathname();
+  const router = useRouter();
+  const isHomePage = pathname === "/";
 
   // Track scroll position for header background and active section
   useEffect(() => {
@@ -50,10 +54,18 @@ export function Header() {
     };
   }, [menuOpen]);
 
-  // Smooth scroll to section
+  // Smooth scroll to section — navigates to homepage first if on a different page
   const scrollToSection = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const targetId = href.replace("#", "");
+
+    if (!isHomePage) {
+      // Navigate to homepage with hash fragment
+      router.push(`/${href}`);
+      setMenuOpen(false);
+      return;
+    }
+
     const target = document.getElementById(targetId);
     
     if (target) {
@@ -68,7 +80,7 @@ export function Header() {
     }
 
     setMenuOpen(false);
-  }, [shouldReduceMotion]);
+  }, [shouldReduceMotion, isHomePage, router]);
 
   // Menu animation variants
   const menuVariants = {
