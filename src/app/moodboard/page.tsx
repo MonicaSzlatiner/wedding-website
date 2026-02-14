@@ -257,7 +257,7 @@ export default function MoodboardPage() {
             Japandi Wedding Aesthetic
           </p>
           <p
-            className="text-xs uppercase tracking-[0.3em] font-sans font-bold mb-8"
+            className="text-xs uppercase tracking-[0.3em] font-sans font-bold mb-8 mx-auto"
             style={{ color: colors.emerald }}
           >
             01 August 2026 · Parkheuvel · Rotterdam
