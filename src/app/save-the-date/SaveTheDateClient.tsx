@@ -435,7 +435,7 @@ export function SaveTheDateClient({
 
                 {/* Message */}
                 <p 
-                  className="font-serif text-base sm:text-lg italic leading-relaxed mb-8 max-w-sm mx-auto"
+                  className="font-serif text-base sm:text-lg italic leading-relaxed mb-6 max-w-sm mx-auto"
                   style={{ 
                     color: "rgba(45, 41, 38, 0.7)",
                     textShadow: "0 2px 4px rgba(0, 0, 0, 0.25)",
@@ -475,7 +475,7 @@ export function SaveTheDateClient({
 
                   <Link
                     href="/"
-                    className="inline-block font-sans text-[10px] uppercase font-bold transition-opacity hover:opacity-70 pt-4"
+                    className="inline-block font-sans text-[10px] uppercase font-bold transition-opacity hover:opacity-70 pt-2"
                     style={{ color: "#C37B60", letterSpacing: "0.3em" }}
                   >
                     View Wedding Website →
@@ -484,11 +484,11 @@ export function SaveTheDateClient({
 
                 {/* Address Collection CTA */}
                 {isValidCode && (
-                  <div className="mt-6 pt-6" style={{ borderTop: "1px solid rgba(45, 41, 38, 0.1)" }}>
+                  <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(45, 41, 38, 0.1)" }}>
                     <button
                       onClick={() => setShowAddressPanel(!showAddressPanel)}
-                      className="w-full flex items-center justify-center gap-2 font-sans text-[11px] uppercase font-bold transition-opacity hover:opacity-70 text-center"
-                      style={{ color: "rgba(45, 41, 38, 0.75)", letterSpacing: "0.1em" }}
+                      className="w-full flex items-center justify-center gap-2 py-2 font-sans text-[11px] uppercase font-bold transition-all duration-200 hover:opacity-80 text-center rounded-lg"
+                      style={{ color: "#2D2926", letterSpacing: "0.12em", backgroundColor: "rgba(45, 41, 38, 0.04)" }}
                     >
                       <EnvelopeIcon className="h-4 w-4 flex-shrink-0 self-center" />
                       <span className="text-center">Help us send the formal invitation →</span>
