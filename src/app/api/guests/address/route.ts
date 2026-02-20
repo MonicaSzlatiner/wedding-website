@@ -11,9 +11,8 @@ import { createClient } from "@supabase/supabase-js";
  * Body: { code, invitation_name, country, address_line1, address_line2, city, region, postal_code, address_freeform }
  */
 
-// Create Supabase client with service role key for secure operations
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://ncuffceyfgjccejxjvwa.supabase.co";
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jdWZmY2V5ZmdqY2NlanhqdndhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MDAzMjU0OSwiZXhwIjoyMDg1NjA4NTQ5fQ.wi-CBjuI7UdZqyzZA0EO09scPSD5QF1gmuJrALrv5DU";
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 function getSupabaseAdmin() {
   if (!supabaseUrl || !supabaseServiceKey) {
