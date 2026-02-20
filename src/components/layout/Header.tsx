@@ -158,12 +158,8 @@ export function Header() {
             })}
             <Link
               href="/rsvp"
-              className="text-[10px] uppercase font-black px-6 py-2 rounded-full border transition-all hover:bg-[#C37B60] hover:text-white hover:border-[#C37B60]"
-              style={{ 
-                letterSpacing: "0.4em",
-                color: "#C37B60",
-                borderColor: "rgba(195, 123, 96, 0.3)"
-              }}
+              className="text-[10px] uppercase font-black px-6 py-2 rounded-full border text-[#C37B60] border-[rgba(195,123,96,0.3)] transition-all hover:bg-[#C37B60] hover:text-white hover:border-[#C37B60]"
+              style={{ letterSpacing: "0.4em" }}
             >
               RSVP
             </Link>
