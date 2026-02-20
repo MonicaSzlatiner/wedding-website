@@ -750,13 +750,16 @@ export default function HomePage() {
               {rsvp.heading}
             </h2>
 
-            {/* Coming soon message */}
+            {/* CTA */}
             <p 
-              className="text-lg font-light leading-relaxed max-w-lg mx-auto"
+              className="text-lg font-light leading-relaxed max-w-lg mx-auto mb-10"
               style={{ color: "rgba(45, 41, 38, 0.7)" }}
             >
-              Let us know you&apos;re coming so we can save you a seat and a glass. RSVP opening soon.
+              Let us know you&apos;re coming so we can save you a seat and a glass.
             </p>
+            <Button href="/rsvp" variant="primary" size="lg">
+              RSVP Now
+            </Button>
 
             {/* Closing line */}
             <p 

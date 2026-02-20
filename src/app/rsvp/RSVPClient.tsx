@@ -1,414 +1,977 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
-import { Guest, RSVP, submitRSVP } from "@/lib/supabase";
-import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import { FadeIn } from "@/components/ui/FadeIn";
+import { EASING, TIMING } from "@/lib/animations";
 
-interface RSVPClientProps {
-  guest: Guest;
-  existingRSVP: RSVP | null;
-  deadline: string;
+interface GuestResult {
+  id: string;
+  name: string;
+  has_plus_one: boolean;
+  has_rsvp: boolean;
 }
 
-// Dietary options - customize labels as needed
-const DIETARY_OPTIONS = [
-  { value: "A", label: "Option A - Meat" },
-  { value: "B", label: "Option B - Fish" },
-  { value: "C", label: "Option C - Vegetarian" },
+type DietaryPreference = "standard" | "vegetarian" | "vegan";
+
+const DIETARY_OPTIONS: { value: DietaryPreference; label: string }[] = [
+  { value: "standard", label: "Standard" },
+  { value: "vegetarian", label: "Vegetarian" },
+  { value: "vegan", label: "Vegan" },
 ];
 
-export function RSVPClient({ guest, existingRSVP, deadline }: RSVPClientProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+const sectionReveal = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: TIMING.normal, ease: EASING.out },
+  },
+  exit: {
+    opacity: 0,
+    y: -12,
+    transition: { duration: 0.25, ease: EASING.out },
+  },
+};
+
+export function RSVPClient() {
+  const shouldReduceMotion = useReducedMotion();
+
+  // Search state
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<GuestResult[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const searchRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
+
+  // Selected guest
+  const [selectedGuest, setSelectedGuest] = useState<GuestResult | null>(null);
 
   // Form state
-  const [attending, setAttending] = useState<boolean | null>(
-    existingRSVP?.attending ?? null
-  );
-  const [plusOneName, setPlusOneName] = useState(
-    existingRSVP?.plus_one_name || ""
-  );
-  const [plusOneAttending, setPlusOneAttending] = useState<boolean>(
-    existingRSVP?.plus_one_attending ?? false
-  );
-  const [dietaryChoice, setDietaryChoice] = useState(
-    existingRSVP?.dietary_choice || ""
-  );
-  const [plusOneDietaryChoice, setPlusOneDietaryChoice] = useState(
-    existingRSVP?.plus_one_dietary_choice || ""
-  );
-  const [specialConsiderations, setSpecialConsiderations] = useState(
-    existingRSVP?.special_considerations || ""
-  );
+  const [attending, setAttending] = useState<boolean | null>(null);
+  const [dietary, setDietary] = useState<DietaryPreference | null>(null);
+  const [allergies, setAllergies] = useState("");
+  const [bringingGuest, setBringingGuest] = useState<boolean | null>(null);
+  const [plusOneName, setPlusOneName] = useState("");
+  const [plusOneDietary, setPlusOneDietary] = useState<DietaryPreference | null>(null);
+  const [plusOneAllergies, setPlusOneAllergies] = useState("");
 
-  const firstName = guest.name.split(" ")[0];
-  const isUpdate = !!existingRSVP;
+  // Submission state
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (attending === null) {
-      setError("Please let us know if you can attend.");
+  const formRef = useRef<HTMLDivElement>(null);
+
+  // Debounced search
+  const searchGuests = useCallback(async (q: string) => {
+    if (q.length < 2) {
+      setResults([]);
+      setShowDropdown(false);
       return;
     }
 
-    if (attending && !dietaryChoice) {
-      setError("Please select a meal preference.");
+    setIsSearching(true);
+    try {
+      const res = await fetch(`/api/rsvp/search?q=${encodeURIComponent(q)}`);
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        setResults(data);
+        setShowDropdown(data.length > 0);
+        setHighlightedIndex(-1);
+      }
+    } catch {
+      setResults([]);
+    } finally {
+      setIsSearching(false);
+    }
+  }, []);
+
+  const handleInputChange = (value: string) => {
+    setQuery(value);
+    setSelectedGuest(null);
+    setSubmitError(null);
+
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => searchGuests(value), 250);
+  };
+
+  // Keyboard navigation for dropdown
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!showDropdown || results.length === 0) return;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setHighlightedIndex((prev) =>
+        prev < results.length - 1 ? prev + 1 : 0
+      );
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setHighlightedIndex((prev) =>
+        prev > 0 ? prev - 1 : results.length - 1
+      );
+    } else if (e.key === "Enter" && highlightedIndex >= 0) {
+      e.preventDefault();
+      selectGuest(results[highlightedIndex]);
+    } else if (e.key === "Escape") {
+      setShowDropdown(false);
+    }
+  };
+
+  const selectGuest = (guest: GuestResult) => {
+    setSelectedGuest(guest);
+    setQuery(guest.name);
+    setShowDropdown(false);
+    setAttending(null);
+    setDietary(null);
+    setAllergies("");
+    setBringingGuest(null);
+    setPlusOneName("");
+    setPlusOneDietary(null);
+    setPlusOneAllergies("");
+    setSubmitError(null);
+    setSubmitted(false);
+
+    // Scroll to form area after a brief delay for render
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({
+        behavior: shouldReduceMotion ? "auto" : "smooth",
+        block: "start",
+      });
+    }, 100);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setShowDropdown(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleSubmit = async () => {
+    if (!selectedGuest || attending === null) return;
+
+    if (attending && !dietary) {
+      setSubmitError("Please select a dietary preference.");
       return;
     }
 
-    if (guest.plus_one_allowed && plusOneAttending && !plusOneDietaryChoice) {
-      setError("Please select a meal preference for your guest.");
+    if (
+      attending &&
+      selectedGuest.has_plus_one &&
+      bringingGuest &&
+      !plusOneName.trim()
+    ) {
+      setSubmitError("Please enter your plus one's name.");
+      return;
+    }
+
+    if (
+      attending &&
+      selectedGuest.has_plus_one &&
+      bringingGuest &&
+      !plusOneDietary
+    ) {
+      setSubmitError("Please select a dietary preference for your plus one.");
       return;
     }
 
     setIsSubmitting(true);
-    setError(null);
+    setSubmitError(null);
 
-    const result = await submitRSVP(guest.id, {
-      attending,
-      plus_one_name: plusOneAttending ? plusOneName : null,
-      plus_one_attending: guest.plus_one_allowed ? plusOneAttending : null,
-      dietary_choice: attending ? dietaryChoice : null,
-      plus_one_dietary_choice: plusOneAttending ? plusOneDietaryChoice : null,
-      special_considerations: specialConsiderations || null,
-    });
+    try {
+      const res = await fetch("/api/rsvp/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          guest_id: selectedGuest.id,
+          attending,
+          dietary_preference: attending ? dietary : null,
+          allergies: attending ? allergies || null : null,
+          plus_one_name:
+            attending && bringingGuest ? plusOneName.trim() : null,
+          plus_one_attending: attending ? bringingGuest ?? false : null,
+          plus_one_dietary_preference:
+            attending && bringingGuest ? plusOneDietary : null,
+          plus_one_allergies:
+            attending && bringingGuest ? plusOneAllergies || null : null,
+        }),
+      });
 
-    setIsSubmitting(false);
+      const data = await res.json();
 
-    if (result.success) {
-      setIsSubmitted(true);
-    } else {
-      setError(result.error || "Something went wrong. Please try again.");
+      if (!res.ok) {
+        setSubmitError(data.error || "Something went wrong. Please try again.");
+        return;
+      }
+
+      setSubmitted(true);
+
+      window.scrollTo({
+        top: 0,
+        behavior: shouldReduceMotion ? "auto" : "smooth",
+      });
+    } catch {
+      setSubmitError("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  // Success state
-  if (isSubmitted) {
+  // Already RSVP'd state
+  if (selectedGuest?.has_rsvp && !submitted) {
     return (
-      <>
-        <section 
-          className="pt-24 pb-16 md:pt-32 md:pb-20" 
-          style={{ backgroundColor: "#2D2926" }}
-        >
+      <div style={{ backgroundColor: "#F5F5F0", minHeight: "100vh" }}>
+        <section className="pt-24 pb-16 md:pt-32 md:pb-20">
           <Container size="content">
-            <div className="text-center px-2">
-              <h1 
-                className="font-serif text-4xl md:text-6xl italic text-white"
-                style={{ fontWeight: 400 }}
-              >
-                Thank You!
-              </h1>
-            </div>
+            <FadeIn>
+              <div className="text-center px-2">
+                <p
+                  className="text-[10px] uppercase font-bold mb-4"
+                  style={{
+                    letterSpacing: "0.3em",
+                    color: "rgba(45, 41, 38, 0.5)",
+                  }}
+                >
+                  You&apos;re all set
+                </p>
+                <h1
+                  className="font-serif text-4xl md:text-6xl italic mb-6"
+                  style={{ fontWeight: 400, color: "#2D2926" }}
+                >
+                  RSVP
+                </h1>
+              </div>
+            </FadeIn>
           </Container>
         </section>
 
-        <section className="py-16 md:py-24" style={{ backgroundColor: "#F5F5F0" }}>
+        <section className="pb-32">
           <Container size="content">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center max-w-xl mx-auto px-2"
-            >
-              <div 
-                className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8"
-                style={{ backgroundColor: "rgba(195, 123, 96, 0.1)" }}
-              >
-                <CheckCircleIcon className="h-10 w-10" style={{ color: "#C37B60" }} />
+            <FadeIn delay={0.1}>
+              <div className="text-center max-w-lg mx-auto px-2">
+                <div
+                  className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-8"
+                  style={{ backgroundColor: "rgba(195, 123, 96, 0.1)" }}
+                >
+                  <svg
+                    className="w-8 h-8"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="#C37B60"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <p
+                  className="text-lg font-light leading-relaxed mb-8"
+                  style={{ color: "rgba(45, 41, 38, 0.7)" }}
+                >
+                  You&apos;ve already RSVP&apos;d. If something changed, reach out to
+                  us directly.
+                </p>
+                <a
+                  href="mailto:laurensandmonica@gmail.com"
+                  className="inline-block text-[11px] uppercase font-bold transition-colors"
+                  style={{
+                    letterSpacing: "0.2em",
+                    color: "#C37B60",
+                  }}
+                >
+                  Get in Touch
+                </a>
               </div>
-              <h2 
-                className="font-serif text-2xl md:text-3xl italic mb-4"
-                style={{ color: "#2D2926", fontWeight: 400 }}
-              >
-                {attending ? "We can't wait to see you!" : "We'll miss you!"}
-              </h2>
-              <p className="text-base md:text-lg leading-relaxed mb-8" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
-                {attending 
-                  ? "Your RSVP has been received. We're so excited to celebrate with you!"
-                  : "Thank you for letting us know. We'll be thinking of you on our special day."}
-              </p>
-              <Button href="/" variant="primary">
-                View Wedding Details
-              </Button>
-            </motion.div>
+            </FadeIn>
           </Container>
         </section>
-      </>
+      </div>
+    );
+  }
+
+  // Submitted confirmation
+  if (submitted) {
+    return (
+      <div style={{ backgroundColor: "#F5F5F0", minHeight: "100vh" }}>
+        <section className="pt-24 pb-16 md:pt-32 md:pb-20">
+          <Container size="content">
+            <FadeIn>
+              <div className="text-center px-2">
+                <h1
+                  className="font-serif text-4xl md:text-6xl italic mb-6"
+                  style={{ fontWeight: 400, color: "#2D2926" }}
+                >
+                  {attending ? "See You There" : "We\u2019ll Miss You"}
+                </h1>
+              </div>
+            </FadeIn>
+          </Container>
+        </section>
+
+        <section className="pb-32">
+          <Container size="content">
+            <FadeIn delay={0.1}>
+              <div className="text-center max-w-lg mx-auto px-2">
+                <div
+                  className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-8"
+                  style={{ backgroundColor: "rgba(195, 123, 96, 0.1)" }}
+                >
+                  <svg
+                    className="w-8 h-8"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="#C37B60"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <p
+                  className="text-lg font-light leading-relaxed"
+                  style={{ color: "rgba(45, 41, 38, 0.7)" }}
+                >
+                  {attending
+                    ? "You\u2019re in. We\u2019ll save you a seat and a glass."
+                    : "We\u2019ll miss you. But we get it."}
+                </p>
+              </div>
+            </FadeIn>
+          </Container>
+        </section>
+      </div>
     );
   }
 
   return (
-    <>
-      {/* Header */}
-      <section 
-        className="pt-24 pb-16 md:pt-32 md:pb-20" 
-        style={{ backgroundColor: "#F5F5F0" }}
-      >
+    <div style={{ backgroundColor: "#F5F5F0", minHeight: "100vh" }}>
+      {/* Hero */}
+      <section className="pt-24 pb-12 md:pt-32 md:pb-16">
         <Container size="content">
-          <div className="text-center px-2">
-            <p 
-              className="text-[10px] uppercase font-bold mb-4"
-              style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.5)" }}
-            >
-              {isUpdate ? "Update Your Response" : "You're Invited"}
-            </p>
-            <h1 
-              className="font-serif text-4xl md:text-6xl italic mb-4 md:mb-6"
-              style={{ fontWeight: 400, color: "#2D2926" }}
-            >
-              RSVP
-            </h1>
-            <p className="text-base md:text-lg" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
-              Dear {firstName}, please respond by {deadline}
-            </p>
-          </div>
+          <FadeIn>
+            <div className="text-center px-2">
+              <p
+                className="text-[10px] uppercase font-bold mb-4"
+                style={{
+                  letterSpacing: "0.3em",
+                  color: "rgba(45, 41, 38, 0.5)",
+                }}
+              >
+                You&apos;re Invited
+              </p>
+              <h1
+                className="font-serif text-5xl md:text-7xl italic mb-6"
+                style={{ fontWeight: 400, color: "#2D2926" }}
+              >
+                RSVP
+              </h1>
+              <p
+                className="text-base md:text-lg font-light leading-relaxed max-w-xl mx-auto"
+                style={{ color: "rgba(45, 41, 38, 0.65)" }}
+              >
+                We need a headcount and a dinner order. Find your name below,
+                let us know if you&apos;re coming, and tell us how you eat. The
+                kitchen at Parkheuvel will take it from there.
+              </p>
+            </div>
+          </FadeIn>
         </Container>
       </section>
 
-      {/* Form */}
-      <section className="py-12 md:py-16 lg:py-20" style={{ backgroundColor: "#F5F5F0" }}>
+      {/* Search */}
+      <section className="pb-8 md:pb-12">
         <Container size="content">
-          <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
-            {/* Guest Name Display */}
-            <div className="text-center mb-8 md:mb-12">
-              <p 
-                className="text-[10px] uppercase font-bold mb-2"
-                style={{ letterSpacing: "0.3em", color: "#C37B60" }}
-              >
-                Responding for
-              </p>
-              <p 
-                className="font-serif text-2xl md:text-3xl italic"
-                style={{ color: "#2D2926", fontWeight: 400 }}
-              >
-                {guest.name}
-              </p>
-            </div>
-
-            {/* Attendance */}
-            <div className="mb-8">
-              <label 
-                className="block text-[10px] uppercase font-bold mb-4 text-center"
-                style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.6)" }}
-              >
-                Will you be attending?
-              </label>
-              <div className="flex gap-4 justify-center">
-                <button
-                  type="button"
-                  onClick={() => setAttending(true)}
-                  className={`px-6 py-4 rounded-lg font-sans text-[10px] uppercase font-bold transition-all ${
-                    attending === true 
-                      ? "text-white shadow-lg" 
-                      : "bg-white border hover:border-espresso/40"
-                  }`}
-                  style={attending === true 
-                    ? { backgroundColor: "#2D2926", letterSpacing: "0.2em" } 
-                    : { letterSpacing: "0.2em", borderColor: "rgba(45, 41, 38, 0.2)", color: "#2D2926" }
+          <FadeIn delay={0.15}>
+            <div className="max-w-md mx-auto" ref={searchRef}>
+              <div className="relative">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={query}
+                  onChange={(e) => handleInputChange(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  onFocus={() => {
+                    if (results.length > 0 && !selectedGuest)
+                      setShowDropdown(true);
+                  }}
+                  placeholder="Start typing your name..."
+                  className="w-full px-5 py-4 text-base rounded-xl border outline-none transition-all duration-200 focus:border-[#C37B60] focus:ring-0"
+                  style={{
+                    backgroundColor: "white",
+                    borderColor: showDropdown
+                      ? "#C37B60"
+                      : "rgba(45, 41, 38, 0.15)",
+                    color: "#2D2926",
+                  }}
+                  autoComplete="off"
+                  role="combobox"
+                  aria-expanded={showDropdown}
+                  aria-controls="guest-listbox"
+                  aria-activedescendant={
+                    highlightedIndex >= 0
+                      ? `guest-option-${highlightedIndex}`
+                      : undefined
                   }
-                >
-                  Joyfully Accept
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setAttending(false)}
-                  className={`px-6 py-4 rounded-lg font-sans text-[10px] uppercase font-bold transition-all ${
-                    attending === false 
-                      ? "text-white shadow-lg" 
-                      : "bg-white border hover:border-espresso/40"
-                  }`}
-                  style={attending === false 
-                    ? { backgroundColor: "#2D2926", letterSpacing: "0.2em" } 
-                    : { letterSpacing: "0.2em", borderColor: "rgba(45, 41, 38, 0.2)", color: "#2D2926" }
-                  }
-                >
-                  Regretfully Decline
-                </button>
-              </div>
-            </div>
+                />
 
-            {/* Conditional fields when attending */}
-            {attending && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                transition={{ duration: 0.3 }}
-              >
-                {/* Plus One Section */}
-                {guest.plus_one_allowed && (
-                  <div 
-                    className="mb-8 p-6 rounded-lg"
-                    style={{ backgroundColor: "rgba(45, 41, 38, 0.03)", border: "1px solid rgba(45, 41, 38, 0.1)" }}
-                  >
-                    <label className="flex items-center gap-3 cursor-pointer mb-4">
-                      <input
-                        type="checkbox"
-                        checked={plusOneAttending}
-                        onChange={(e) => setPlusOneAttending(e.target.checked)}
-                        className="w-5 h-5 rounded border-2 text-terracotta focus:ring-terracotta"
-                        style={{ borderColor: "rgba(45, 41, 38, 0.3)" }}
-                      />
-                      <span className="text-sm" style={{ color: "#2D2926" }}>
-                        I will be bringing a guest
-                      </span>
-                    </label>
-
-                    {plusOneAttending && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="space-y-4 mt-4"
-                      >
-                        <div>
-                          <label 
-                            className="block text-[10px] uppercase font-bold mb-2"
-                            style={{ letterSpacing: "0.2em", color: "rgba(45, 41, 38, 0.6)" }}
-                          >
-                            Guest Name
-                          </label>
-                          <input
-                            type="text"
-                            value={plusOneName}
-                            onChange={(e) => setPlusOneName(e.target.value)}
-                            placeholder="Enter guest name"
-                            className="w-full px-4 py-3 rounded-lg border focus:ring-1 outline-none"
-                            style={{ 
-                              backgroundColor: "#FFFFFF",
-                              borderColor: "rgba(45, 41, 38, 0.2)",
-                            }}
-                          />
-                        </div>
-
-                        <div>
-                          <label 
-                            className="block text-[10px] uppercase font-bold mb-2"
-                            style={{ letterSpacing: "0.2em", color: "rgba(45, 41, 38, 0.6)" }}
-                          >
-                            Guest Meal Preference
-                          </label>
-                          <div className="space-y-2">
-                            {DIETARY_OPTIONS.map((option) => (
-                              <label 
-                                key={option.value} 
-                                className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-white/50 transition-colors"
-                              >
-                                <input
-                                  type="radio"
-                                  name="plusOneDietary"
-                                  value={option.value}
-                                  checked={plusOneDietaryChoice === option.value}
-                                  onChange={(e) => setPlusOneDietaryChoice(e.target.value)}
-                                  className="w-4 h-4 text-terracotta focus:ring-terracotta"
-                                />
-                                <span className="text-sm" style={{ color: "#2D2926" }}>
-                                  {option.label}
-                                </span>
-                              </label>
-                            ))}
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
+                {/* Loading indicator */}
+                {isSearching && (
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2">
+                    <div
+                      className="w-4 h-4 rounded-full border-2 border-t-transparent animate-spin"
+                      style={{ borderColor: "rgba(45,41,38,0.2)", borderTopColor: "transparent" }}
+                    />
                   </div>
                 )}
 
-                {/* Dietary Choice */}
-                <div className="mb-8">
-                  <label 
-                    className="block text-[10px] uppercase font-bold mb-4 text-center"
-                    style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.6)" }}
+                {/* Dropdown */}
+                <AnimatePresence>
+                  {showDropdown && results.length > 0 && (
+                    <motion.ul
+                      id="guest-listbox"
+                      role="listbox"
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute top-full left-0 right-0 mt-2 rounded-xl border overflow-hidden z-10 shadow-lg"
+                      style={{
+                        backgroundColor: "white",
+                        borderColor: "rgba(45, 41, 38, 0.1)",
+                      }}
+                    >
+                      {results.map((guest, index) => (
+                        <li
+                          key={guest.id}
+                          id={`guest-option-${index}`}
+                          role="option"
+                          aria-selected={highlightedIndex === index}
+                          onClick={() => selectGuest(guest)}
+                          onMouseEnter={() => setHighlightedIndex(index)}
+                          className="px-5 py-3.5 cursor-pointer transition-colors duration-100"
+                          style={{
+                            backgroundColor:
+                              highlightedIndex === index
+                                ? "rgba(195, 123, 96, 0.06)"
+                                : "transparent",
+                            color: "#2D2926",
+                          }}
+                        >
+                          <span className="text-base">{guest.name}</span>
+                          {guest.has_rsvp && (
+                            <span
+                              className="ml-2 text-xs font-medium"
+                              style={{ color: "rgba(45, 41, 38, 0.4)" }}
+                            >
+                              (already responded)
+                            </span>
+                          )}
+                        </li>
+                      ))}
+                    </motion.ul>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* No results message */}
+              {query.length >= 2 &&
+                !isSearching &&
+                results.length === 0 &&
+                !selectedGuest && (
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-center mt-4 text-sm"
+                    style={{ color: "rgba(45, 41, 38, 0.5)" }}
                   >
-                    Your Meal Preference
-                  </label>
-                  <div className="space-y-2">
-                    {DIETARY_OPTIONS.map((option) => (
-                      <label 
-                        key={option.value} 
-                        className={`flex items-center gap-3 cursor-pointer p-4 rounded-lg transition-all ${
-                          dietaryChoice === option.value 
-                            ? "border-2" 
-                            : "bg-white border-2 border-transparent hover:border-espresso/10"
-                        }`}
-                        style={dietaryChoice === option.value 
-                          ? { backgroundColor: "rgba(195, 123, 96, 0.1)", borderColor: "#C37B60" }
-                          : {}
-                        }
-                      >
-                        <input
-                          type="radio"
-                          name="dietary"
-                          value={option.value}
-                          checked={dietaryChoice === option.value}
-                          onChange={(e) => setDietaryChoice(e.target.value)}
-                          className="w-4 h-4 text-terracotta focus:ring-terracotta"
-                        />
-                        <span className="text-sm" style={{ color: "#2D2926" }}>
-                          {option.label}
-                        </span>
-                      </label>
-                    ))}
+                    Can&apos;t find your name?{" "}
+                    <a
+                      href="mailto:laurensandmonica@gmail.com"
+                      className="underline transition-colors hover:text-[#C37B60]"
+                      style={{ color: "rgba(45, 41, 38, 0.7)" }}
+                    >
+                      Reach out to us directly.
+                    </a>
+                  </motion.p>
+                )}
+            </div>
+          </FadeIn>
+        </Container>
+      </section>
+
+      {/* RSVP Form */}
+      <AnimatePresence mode="wait">
+        {selectedGuest && !selectedGuest.has_rsvp && (
+          <motion.section
+            key="rsvp-form"
+            ref={formRef}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={sectionReveal}
+            className="pb-32 scroll-mt-24"
+          >
+            <Container size="content">
+              <div className="max-w-lg mx-auto">
+                {/* Responding for */}
+                <div className="text-center mb-10">
+                  <p
+                    className="text-[10px] uppercase font-bold mb-2"
+                    style={{
+                      letterSpacing: "0.3em",
+                      color: "#C37B60",
+                    }}
+                  >
+                    Responding for
+                  </p>
+                  <p
+                    className="font-serif text-2xl md:text-3xl italic"
+                    style={{ color: "#2D2926", fontWeight: 400 }}
+                  >
+                    {selectedGuest.name}
+                  </p>
+                </div>
+
+                {/* Divider */}
+                <div
+                  className="w-12 h-px mx-auto mb-10"
+                  style={{ backgroundColor: "rgba(45, 41, 38, 0.12)" }}
+                />
+
+                {/* Attending */}
+                <div className="mb-10">
+                  <p
+                    className="text-[10px] uppercase font-bold mb-5 text-center"
+                    style={{
+                      letterSpacing: "0.3em",
+                      color: "rgba(45, 41, 38, 0.6)",
+                    }}
+                  >
+                    Will you be joining us?
+                  </p>
+                  <div className="flex gap-4 justify-center">
+                    <ToggleButton
+                      selected={attending === true}
+                      onClick={() => setAttending(true)}
+                    >
+                      Yes
+                    </ToggleButton>
+                    <ToggleButton
+                      selected={attending === false}
+                      onClick={() => setAttending(false)}
+                    >
+                      No
+                    </ToggleButton>
                   </div>
                 </div>
 
-                {/* Special Considerations */}
-                <div className="mb-8">
-                  <label 
-                    className="block text-[10px] uppercase font-bold mb-3"
-                    style={{ letterSpacing: "0.2em", color: "rgba(45, 41, 38, 0.6)" }}
-                  >
-                    Allergies or Special Considerations
-                  </label>
-                  <textarea
-                    value={specialConsiderations}
-                    onChange={(e) => setSpecialConsiderations(e.target.value)}
-                    placeholder="Please let us know of any allergies or dietary restrictions..."
-                    rows={3}
-                    className="w-full px-4 py-3 rounded-lg border focus:ring-1 outline-none resize-none"
-                    style={{ 
-                      backgroundColor: "rgba(45, 41, 38, 0.03)",
-                      borderColor: "rgba(45, 41, 38, 0.1)",
+                {/* Attending = Yes flow */}
+                <AnimatePresence mode="wait">
+                  {attending === true && (
+                    <motion.div
+                      key="attending-yes"
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      variants={sectionReveal}
+                    >
+                      {/* Dietary preference */}
+                      <div className="mb-10">
+                        <p
+                          className="text-[10px] uppercase font-bold mb-5 text-center"
+                          style={{
+                            letterSpacing: "0.3em",
+                            color: "rgba(45, 41, 38, 0.6)",
+                          }}
+                        >
+                          Dietary Preference
+                        </p>
+                        <div className="space-y-3">
+                          {DIETARY_OPTIONS.map((opt) => (
+                            <DietaryOption
+                              key={opt.value}
+                              label={opt.label}
+                              selected={dietary === opt.value}
+                              onClick={() => setDietary(opt.value)}
+                              name="dietary"
+                            />
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Allergies */}
+                      <div className="mb-10">
+                        <label
+                          className="block text-[10px] uppercase font-bold mb-3"
+                          style={{
+                            letterSpacing: "0.2em",
+                            color: "rgba(45, 41, 38, 0.6)",
+                          }}
+                        >
+                          Allergies or Dietary Notes
+                        </label>
+                        <textarea
+                          value={allergies}
+                          onChange={(e) => setAllergies(e.target.value)}
+                          placeholder="Anything the kitchen should know?"
+                          rows={2}
+                          className="w-full px-4 py-3 rounded-xl border outline-none resize-none transition-colors duration-200 focus:border-[#C37B60]"
+                          style={{
+                            backgroundColor: "rgba(45, 41, 38, 0.02)",
+                            borderColor: "rgba(45, 41, 38, 0.12)",
+                            color: "#2D2926",
+                          }}
+                        />
+                      </div>
+
+                      {/* Plus one section */}
+                      {selectedGuest.has_plus_one && (
+                        <PlusOneSection
+                          bringingGuest={bringingGuest}
+                          setBringingGuest={setBringingGuest}
+                          plusOneName={plusOneName}
+                          setPlusOneName={setPlusOneName}
+                          plusOneDietary={plusOneDietary}
+                          setPlusOneDietary={setPlusOneDietary}
+                          plusOneAllergies={plusOneAllergies}
+                          setPlusOneAllergies={setPlusOneAllergies}
+                        />
+                      )}
+                    </motion.div>
+                  )}
+
+                  {attending === false && (
+                    <motion.div
+                      key="attending-no"
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      variants={sectionReveal}
+                      className="text-center mb-10"
+                    >
+                      <p
+                        className="font-serif text-lg italic"
+                        style={{ color: "rgba(45, 41, 38, 0.5)" }}
+                      >
+                        We&apos;re sorry to hear that. We&apos;ll miss you.
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Error */}
+                {submitError && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="mb-6 p-4 rounded-xl text-center text-sm"
+                    style={{
+                      backgroundColor: "rgba(220, 38, 38, 0.08)",
+                      color: "#DC2626",
                     }}
-                  />
-                </div>
-              </motion.div>
-            )}
+                  >
+                    {submitError}
+                  </motion.div>
+                )}
 
-            {/* Error Message */}
-            {error && (
-              <div 
-                className="mb-6 p-4 rounded-lg text-center text-sm"
-                style={{ backgroundColor: "rgba(220, 38, 38, 0.1)", color: "#DC2626" }}
-              >
-                {error}
+                {/* Submit */}
+                {attending !== null && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.1 }}
+                    className="text-center"
+                  >
+                    <button
+                      type="button"
+                      onClick={handleSubmit}
+                      disabled={isSubmitting}
+                      className="px-12 py-4 rounded-full text-[11px] uppercase font-bold transition-all duration-200 hover:shadow-lg active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                      style={{
+                        backgroundColor: "#2D2926",
+                        color: "#F5F5F0",
+                        letterSpacing: "0.3em",
+                      }}
+                    >
+                      {isSubmitting ? "Sending..." : "Submit RSVP"}
+                    </button>
+                  </motion.div>
+                )}
               </div>
-            )}
+            </Container>
+          </motion.section>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
-            {/* Submit Button */}
-            <div className="text-center">
-              <button
-                type="submit"
-                disabled={isSubmitting || attending === null}
-                className={`px-10 py-4 rounded-full font-sans text-[10px] uppercase font-bold transition-all ${
-                  isSubmitting || attending === null
-                    ? "opacity-50 cursor-not-allowed"
-                    : "hover:opacity-90 active:scale-[0.98]"
-                }`}
-                style={{ 
-                  backgroundColor: "#2D2926", 
-                  color: "#F5F5F0",
-                  letterSpacing: "0.3em"
+/* ============================================
+   Sub-components
+   ============================================ */
+
+function ToggleButton({
+  selected,
+  onClick,
+  children,
+}: {
+  selected: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="min-w-[120px] px-8 py-4 rounded-xl text-[11px] uppercase font-bold transition-all duration-200"
+      style={
+        selected
+          ? {
+              backgroundColor: "#2D2926",
+              color: "#F5F5F0",
+              letterSpacing: "0.2em",
+              boxShadow: "0 4px 12px rgba(45, 41, 38, 0.2)",
+            }
+          : {
+              backgroundColor: "white",
+              color: "#2D2926",
+              letterSpacing: "0.2em",
+              border: "1px solid rgba(45, 41, 38, 0.15)",
+            }
+      }
+    >
+      {children}
+    </button>
+  );
+}
+
+function DietaryOption({
+  label,
+  selected,
+  onClick,
+  name,
+}: {
+  label: string;
+  selected: boolean;
+  onClick: () => void;
+  name: string;
+}) {
+  return (
+    <label
+      className="flex items-center gap-4 cursor-pointer p-4 rounded-xl transition-all duration-200"
+      style={
+        selected
+          ? {
+              backgroundColor: "rgba(195, 123, 96, 0.08)",
+              border: "1.5px solid #C37B60",
+            }
+          : {
+              backgroundColor: "white",
+              border: "1.5px solid rgba(45, 41, 38, 0.1)",
+            }
+      }
+    >
+      <div
+        className="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors duration-200"
+        style={{
+          borderColor: selected ? "#C37B60" : "rgba(45, 41, 38, 0.25)",
+        }}
+      >
+        {selected && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className="w-2.5 h-2.5 rounded-full"
+            style={{ backgroundColor: "#C37B60" }}
+          />
+        )}
+      </div>
+      <input
+        type="radio"
+        name={name}
+        checked={selected}
+        onChange={onClick}
+        className="sr-only"
+      />
+      <span className="text-base" style={{ color: "#2D2926" }}>
+        {label}
+      </span>
+    </label>
+  );
+}
+
+function PlusOneSection({
+  bringingGuest,
+  setBringingGuest,
+  plusOneName,
+  setPlusOneName,
+  plusOneDietary,
+  setPlusOneDietary,
+  plusOneAllergies,
+  setPlusOneAllergies,
+}: {
+  bringingGuest: boolean | null;
+  setBringingGuest: (v: boolean) => void;
+  plusOneName: string;
+  setPlusOneName: (v: string) => void;
+  plusOneDietary: DietaryPreference | null;
+  setPlusOneDietary: (v: DietaryPreference) => void;
+  plusOneAllergies: string;
+  setPlusOneAllergies: (v: string) => void;
+}) {
+  return (
+    <div
+      className="mb-10 p-6 rounded-2xl"
+      style={{
+        backgroundColor: "rgba(45, 41, 38, 0.02)",
+        border: "1px solid rgba(45, 41, 38, 0.08)",
+      }}
+    >
+      <p
+        className="text-[10px] uppercase font-bold mb-2 text-center"
+        style={{
+          letterSpacing: "0.3em",
+          color: "rgba(45, 41, 38, 0.6)",
+        }}
+      >
+        Plus One
+      </p>
+      <p
+        className="font-serif text-lg italic mb-6 text-center"
+        style={{ color: "#2D2926" }}
+      >
+        You&apos;ve got a plus one. Are you bringing someone?
+      </p>
+
+      <div className="flex gap-3 justify-center mb-6">
+        <ToggleButton
+          selected={bringingGuest === true}
+          onClick={() => setBringingGuest(true)}
+        >
+          Yes
+        </ToggleButton>
+        <ToggleButton
+          selected={bringingGuest === false}
+          onClick={() => setBringingGuest(false)}
+        >
+          No
+        </ToggleButton>
+      </div>
+
+      <AnimatePresence mode="wait">
+        {bringingGuest === true && (
+          <motion.div
+            key="plus-one-fields"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={sectionReveal}
+            className="space-y-6 pt-4"
+          >
+            {/* Plus one name */}
+            <div>
+              <label
+                className="block text-[10px] uppercase font-bold mb-2"
+                style={{
+                  letterSpacing: "0.2em",
+                  color: "rgba(45, 41, 38, 0.6)",
                 }}
               >
-                {isSubmitting ? "Submitting..." : isUpdate ? "Update Response" : "Submit RSVP"}
-              </button>
+                Their Name
+              </label>
+              <input
+                type="text"
+                value={plusOneName}
+                onChange={(e) => setPlusOneName(e.target.value)}
+                placeholder="Enter their name"
+                className="w-full px-4 py-3 rounded-xl border outline-none transition-colors duration-200 focus:border-[#C37B60]"
+                style={{
+                  backgroundColor: "white",
+                  borderColor: "rgba(45, 41, 38, 0.15)",
+                  color: "#2D2926",
+                }}
+              />
             </div>
-          </form>
-        </Container>
-      </section>
-    </>
+
+            {/* Plus one dietary */}
+            <div>
+              <p
+                className="text-[10px] uppercase font-bold mb-3"
+                style={{
+                  letterSpacing: "0.2em",
+                  color: "rgba(45, 41, 38, 0.6)",
+                }}
+              >
+                Their Dietary Preference
+              </p>
+              <div className="space-y-3">
+                {DIETARY_OPTIONS.map((opt) => (
+                  <DietaryOption
+                    key={opt.value}
+                    label={opt.label}
+                    selected={plusOneDietary === opt.value}
+                    onClick={() => setPlusOneDietary(opt.value)}
+                    name="plusOneDietary"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Plus one allergies */}
+            <div>
+              <label
+                className="block text-[10px] uppercase font-bold mb-2"
+                style={{
+                  letterSpacing: "0.2em",
+                  color: "rgba(45, 41, 38, 0.6)",
+                }}
+              >
+                Allergies or Dietary Notes
+              </label>
+              <textarea
+                value={plusOneAllergies}
+                onChange={(e) => setPlusOneAllergies(e.target.value)}
+                placeholder="Anything the kitchen should know?"
+                rows={2}
+                className="w-full px-4 py-3 rounded-xl border outline-none resize-none transition-colors duration-200 focus:border-[#C37B60]"
+                style={{
+                  backgroundColor: "white",
+                  borderColor: "rgba(45, 41, 38, 0.15)",
+                  color: "#2D2926",
+                }}
+              />
+            </div>
+          </motion.div>
+        )}
+
+        {bringingGuest === false && (
+          <motion.p
+            key="no-plus-one"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="text-center font-serif italic text-sm pt-2"
+            style={{ color: "rgba(45, 41, 38, 0.45)" }}
+          >
+            More cake for us.
+          </motion.p>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

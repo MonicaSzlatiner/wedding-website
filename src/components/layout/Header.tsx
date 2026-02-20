@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { weddingConfig } from "@/config/content";
@@ -118,7 +119,7 @@ export function Header() {
 
           {/* Desktop Navigation with sliding active underline + hover underline */}
           <div className="hidden md:flex items-center gap-10">
-            {navigation.items.slice(1).map((item) => {
+            {navigation.items.slice(1).filter(item => item.href.startsWith("#")).map((item) => {
               const isActive = activeSection === item.href.replace("#", "");
               return (
                 <a
@@ -155,19 +156,17 @@ export function Header() {
                 </a>
               );
             })}
-            {/* RSVP Button - Hidden until RSVP is live */}
-            {/* <a
-              href="#rsvp"
-              onClick={(e) => scrollToSection(e, "#rsvp")}
-              className="text-[10px] uppercase font-black px-6 py-2 rounded-full border transition-all hover:bg-terracotta hover:text-white"
+            <Link
+              href="/rsvp"
+              className="text-[10px] uppercase font-black px-6 py-2 rounded-full border transition-all hover:bg-[#C37B60] hover:text-white hover:border-[#C37B60]"
               style={{ 
                 letterSpacing: "0.4em",
                 color: "#C37B60",
-                borderColor: "rgba(195, 123, 96, 0.2)"
+                borderColor: "rgba(195, 123, 96, 0.3)"
               }}
             >
               RSVP
-            </a> */}
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -206,8 +205,37 @@ export function Header() {
             <div className="flex-1 flex flex-col justify-start pt-24 px-6">
               <div className="space-y-4">
                 {navigation.items.map((item, index) => {
+                  const isPageLink = !item.href.startsWith("#");
                   const sectionId = item.href.replace("#", "");
-                  const isActive = activeSection === sectionId;
+                  const isActive = isPageLink
+                    ? pathname === item.href
+                    : activeSection === sectionId;
+
+                  if (isPageLink) {
+                    return (
+                      <motion.div
+                        key={item.href}
+                        initial={{ opacity: 0, x: shouldReduceMotion ? 0 : -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: shouldReduceMotion ? 0 : index * 0.05 }}
+                      >
+                        <Link
+                          href={item.href}
+                          role="menuitem"
+                          aria-current={isActive ? "page" : undefined}
+                          onClick={() => setMenuOpen(false)}
+                          className={`block font-serif text-4xl italic transition-all duration-200 ${
+                            isActive
+                              ? "text-white"
+                              : "text-white/40 hover:text-white"
+                          }`}
+                          style={{ fontWeight: 400, lineHeight: 1.3 }}
+                        >
+                          {item.label}
+                        </Link>
+                      </motion.div>
+                    );
+                  }
 
                   return (
                     <motion.div
