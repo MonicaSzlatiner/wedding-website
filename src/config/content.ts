@@ -229,6 +229,23 @@ export const weddingConfig = {
           },
         ],
       },
+      {
+        name: "Worth the Detour",
+        items: [
+          {
+            name: "Van Nelle Factory",
+            description: "Rotterdam's own UNESCO World Heritage site, and it's not a church or a canal. It's a factory. Built in the 1920s for processing coffee, tea, and tobacco, the whole thing is steel and glass and flooded with daylight. Le Corbusier visited in the 1930s and called it \"the most beautiful spectacle of the modern age,\" which is a wild thing to say about a place that made cigarettes. It's now a creative business hub and event space, and you can visit on a guided tour through UrbanGuides. If you're someone who collects UNESCO sites, this one is about 15 minutes from the city center.",
+            url: "https://www.urbanguides.nl/en/tours/unesco-nelle-rotterdam-architecture/",
+            linkText: "Book a Tour",
+          },
+          {
+            name: "Kinderdijk",
+            description: "Nineteen windmills from the 1740s, all lined up along canals in a flat green polder about 15 km east of Rotterdam. It's the most \"I'm in the Netherlands\" thing you'll ever see, and yes, it's the image on every Dutch postcard. The whole site is a UNESCO World Heritage Site built to keep the low-lying land from flooding, and the system still works today. You can walk or bike between the mills, take a boat tour, and go inside a few of them to see how millers actually lived. Buy your tickets online ahead of time. You can drive, take public transport, or catch the Waterbus from Rotterdam, which is honestly the more fun option.",
+            url: "https://kinderdijk.com/",
+            linkText: "Plan Your Visit",
+          },
+        ],
+      },
     ],
   },
 
