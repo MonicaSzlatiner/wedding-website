@@ -27,8 +27,8 @@ interface SubmitBody {
 /**
  * POST /api/rsvp/submit
  *
- * Submits an RSVP for a guest. Updates the guests table directly.
- * Blocks re-submission if rsvp_submitted_at is already set.
+ * Submits or updates an RSVP. Always overwrites the existing row —
+ * guests can change their RSVP at any time.
  */
 export async function POST(request: NextRequest) {
   try {
@@ -65,10 +65,9 @@ export async function POST(request: NextRequest) {
 
     const supabase = getSupabaseAdmin();
 
-    // Check if guest exists and hasn't already RSVP'd
     const { data: guest, error: lookupError } = await supabase
       .from("guests")
-      .select("id, rsvp_submitted_at, plus_one_allowed")
+      .select("id, plus_one_allowed")
       .eq("id", body.guest_id)
       .single();
 
@@ -79,14 +78,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (guest.rsvp_submitted_at) {
-      return NextResponse.json(
-        { error: "You've already submitted your RSVP." },
-        { status: 409 }
-      );
-    }
-
-    // Build update payload
     const update: Record<string, unknown> = {
       attending: body.attending,
       rsvp_submitted_at: new Date().toISOString(),

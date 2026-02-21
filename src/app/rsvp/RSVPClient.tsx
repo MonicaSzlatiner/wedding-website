@@ -1,22 +1,29 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { EASING, TIMING } from "@/lib/animations";
 
-interface GuestResult {
+interface GuestData {
   id: string;
   name: string;
   has_plus_one: boolean;
-  has_rsvp: boolean;
+  has_submitted: boolean;
+  attending: boolean | null;
+  dietary_preference: string | null;
+  allergies: string | null;
+  plus_one_name: string | null;
+  plus_one_attending: boolean | null;
+  plus_one_dietary_preference: string | null;
+  plus_one_allergies: string | null;
 }
 
 type DietaryPreference = "standard" | "vegetarian" | "vegan";
 
 const DIETARY_OPTIONS: { value: DietaryPreference; label: string }[] = [
-  { value: "standard", label: "Standard" },
+  { value: "standard", label: "No preference" },
   { value: "vegetarian", label: "Vegetarian" },
   { value: "vegan", label: "Vegan" },
 ];
@@ -38,18 +45,15 @@ const sectionReveal = {
 export function RSVPClient() {
   const shouldReduceMotion = useReducedMotion();
 
-  // Search state
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState<GuestResult[]>([]);
-  const [isSearching, setIsSearching] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [highlightedIndex, setHighlightedIndex] = useState(-1);
-  const searchRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
+  // Lookup state
+  const [nameInput, setNameInput] = useState("");
+  const [isLooking, setIsLooking] = useState(false);
+  const [lookupError, setLookupError] = useState<string | null>(null);
+  const [cooldown, setCooldown] = useState(false);
 
-  // Selected guest
-  const [selectedGuest, setSelectedGuest] = useState<GuestResult | null>(null);
+  // Guest state
+  const [guest, setGuest] = useState<GuestData | null>(null);
+  const [showForm, setShowForm] = useState(false);
 
   // Form state
   const [attending, setAttending] = useState<boolean | null>(null);
@@ -67,65 +71,17 @@ export function RSVPClient() {
 
   const formRef = useRef<HTMLDivElement>(null);
 
-  // Debounced search
-  const searchGuests = useCallback(async (q: string) => {
-    if (q.length < 2) {
-      setResults([]);
-      setShowDropdown(false);
-      return;
-    }
+  function prefillForm(g: GuestData) {
+    setAttending(g.attending);
+    setDietary((g.dietary_preference as DietaryPreference) || null);
+    setAllergies(g.allergies || "");
+    setBringingGuest(g.plus_one_attending ?? null);
+    setPlusOneName(g.plus_one_name || "");
+    setPlusOneDietary((g.plus_one_dietary_preference as DietaryPreference) || null);
+    setPlusOneAllergies(g.plus_one_allergies || "");
+  }
 
-    setIsSearching(true);
-    try {
-      const res = await fetch(`/api/rsvp/search?q=${encodeURIComponent(q)}`);
-      const data = await res.json();
-      if (Array.isArray(data)) {
-        setResults(data);
-        setShowDropdown(data.length > 0);
-        setHighlightedIndex(-1);
-      }
-    } catch {
-      setResults([]);
-    } finally {
-      setIsSearching(false);
-    }
-  }, []);
-
-  const handleInputChange = (value: string) => {
-    setQuery(value);
-    setSelectedGuest(null);
-    setSubmitError(null);
-
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => searchGuests(value), 250);
-  };
-
-  // Keyboard navigation for dropdown
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (!showDropdown || results.length === 0) return;
-
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setHighlightedIndex((prev) =>
-        prev < results.length - 1 ? prev + 1 : 0
-      );
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setHighlightedIndex((prev) =>
-        prev > 0 ? prev - 1 : results.length - 1
-      );
-    } else if (e.key === "Enter" && highlightedIndex >= 0) {
-      e.preventDefault();
-      selectGuest(results[highlightedIndex]);
-    } else if (e.key === "Escape") {
-      setShowDropdown(false);
-    }
-  };
-
-  const selectGuest = (guest: GuestResult) => {
-    setSelectedGuest(guest);
-    setQuery(guest.name);
-    setShowDropdown(false);
+  function resetForm() {
     setAttending(null);
     setDietary(null);
     setAllergies("");
@@ -135,8 +91,66 @@ export function RSVPClient() {
     setPlusOneAllergies("");
     setSubmitError(null);
     setSubmitted(false);
+  }
 
-    // Scroll to form area after a brief delay for render
+  const handleLookup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = nameInput.trim();
+    if (!trimmed || cooldown) return;
+
+    setIsLooking(true);
+    setLookupError(null);
+
+    try {
+      const res = await fetch("/api/rsvp/search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: trimmed }),
+      });
+
+      if (res.status === 404) {
+        setLookupError(
+          "We couldn\u2019t find that name. Make sure it matches your invitation exactly, or reach out to us directly."
+        );
+        setCooldown(true);
+        setTimeout(() => setCooldown(false), 2000);
+        return;
+      }
+
+      if (!res.ok) {
+        setLookupError("Something went wrong. Please try again.");
+        return;
+      }
+
+      const data: GuestData = await res.json();
+      setGuest(data);
+
+      if (data.has_submitted) {
+        prefillForm(data);
+        setShowForm(false);
+        setSubmitted(true);
+      } else {
+        resetForm();
+        setShowForm(true);
+      }
+
+      setTimeout(() => {
+        formRef.current?.scrollIntoView({
+          behavior: shouldReduceMotion ? "auto" : "smooth",
+          block: "start",
+        });
+      }, 100);
+    } catch {
+      setLookupError("Something went wrong. Please try again.");
+    } finally {
+      setIsLooking(false);
+    }
+  };
+
+  const handleChangeRsvp = () => {
+    if (guest) prefillForm(guest);
+    setSubmitted(false);
+    setShowForm(true);
     setTimeout(() => {
       formRef.current?.scrollIntoView({
         behavior: shouldReduceMotion ? "auto" : "smooth",
@@ -145,41 +159,20 @@ export function RSVPClient() {
     }, 100);
   };
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
-        setShowDropdown(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
   const handleSubmit = async () => {
-    if (!selectedGuest || attending === null) return;
+    if (!guest || attending === null) return;
 
     if (attending && !dietary) {
       setSubmitError("Please select a dietary preference.");
       return;
     }
 
-    if (
-      attending &&
-      selectedGuest.has_plus_one &&
-      bringingGuest &&
-      !plusOneName.trim()
-    ) {
-      setSubmitError("Please enter your plus one's name.");
+    if (attending && guest.has_plus_one && bringingGuest && !plusOneName.trim()) {
+      setSubmitError("Please enter your plus one\u2019s name.");
       return;
     }
 
-    if (
-      attending &&
-      selectedGuest.has_plus_one &&
-      bringingGuest &&
-      !plusOneDietary
-    ) {
+    if (attending && guest.has_plus_one && bringingGuest && !plusOneDietary) {
       setSubmitError("Please select a dietary preference for your plus one.");
       return;
     }
@@ -192,12 +185,11 @@ export function RSVPClient() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          guest_id: selectedGuest.id,
+          guest_id: guest.id,
           attending,
           dietary_preference: attending ? dietary : null,
           allergies: attending ? allergies || null : null,
-          plus_one_name:
-            attending && bringingGuest ? plusOneName.trim() : null,
+          plus_one_name: attending && bringingGuest ? plusOneName.trim() : null,
           plus_one_attending: attending ? bringingGuest ?? false : null,
           plus_one_dietary_preference:
             attending && bringingGuest ? plusOneDietary : null,
@@ -213,7 +205,23 @@ export function RSVPClient() {
         return;
       }
 
+      // Update local guest state so "Change your RSVP" works
+      setGuest({
+        ...guest,
+        has_submitted: true,
+        attending,
+        dietary_preference: attending ? dietary : null,
+        allergies: attending ? allergies || null : null,
+        plus_one_name: attending && bringingGuest ? plusOneName.trim() : null,
+        plus_one_attending: attending ? bringingGuest ?? false : null,
+        plus_one_dietary_preference:
+          attending && bringingGuest ? plusOneDietary : null,
+        plus_one_allergies:
+          attending && bringingGuest ? plusOneAllergies || null : null,
+      });
+
       setSubmitted(true);
+      setShowForm(false);
 
       window.scrollTo({
         top: 0,
@@ -226,83 +234,8 @@ export function RSVPClient() {
     }
   };
 
-  // Already RSVP'd state
-  if (selectedGuest?.has_rsvp && !submitted) {
-    return (
-      <div style={{ backgroundColor: "#F5F5F0", minHeight: "100vh" }}>
-        <section className="pt-24 pb-16 md:pt-32 md:pb-20">
-          <Container size="content">
-            <FadeIn>
-              <div className="text-center px-2">
-                <p
-                  className="text-[10px] uppercase font-bold mb-4"
-                  style={{
-                    letterSpacing: "0.3em",
-                    color: "rgba(45, 41, 38, 0.5)",
-                  }}
-                >
-                  You&apos;re all set
-                </p>
-                <h1
-                  className="font-serif text-4xl md:text-6xl italic mb-6"
-                  style={{ fontWeight: 400, color: "#2D2926" }}
-                >
-                  RSVP
-                </h1>
-              </div>
-            </FadeIn>
-          </Container>
-        </section>
-
-        <section className="pb-32">
-          <Container size="content">
-            <FadeIn delay={0.1}>
-              <div className="text-center max-w-lg mx-auto px-2">
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-8"
-                  style={{ backgroundColor: "rgba(195, 123, 96, 0.1)" }}
-                >
-                  <svg
-                    className="w-8 h-8"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="#C37B60"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </div>
-                <p
-                  className="text-lg font-light leading-relaxed mb-8"
-                  style={{ color: "rgba(45, 41, 38, 0.7)" }}
-                >
-                  You&apos;ve already RSVP&apos;d. If something changed, reach out to
-                  us directly.
-                </p>
-                <a
-                  href="mailto:laurensandmonica@gmail.com"
-                  className="inline-block text-[11px] uppercase font-bold transition-colors"
-                  style={{
-                    letterSpacing: "0.2em",
-                    color: "#C37B60",
-                  }}
-                >
-                  Get in Touch
-                </a>
-              </div>
-            </FadeIn>
-          </Container>
-        </section>
-      </div>
-    );
-  }
-
-  // Submitted confirmation
-  if (submitted) {
+  // ---- Submitted / returning guest confirmation ----
+  if (guest && submitted && !showForm) {
     return (
       <div style={{ backgroundColor: "#F5F5F0", minHeight: "100vh" }}>
         <section className="pt-24 pb-16 md:pt-32 md:pb-20">
@@ -343,13 +276,24 @@ export function RSVPClient() {
                   </svg>
                 </div>
                 <p
-                  className="text-lg font-light leading-relaxed"
+                  className="text-lg font-light leading-relaxed mb-10"
                   style={{ color: "rgba(45, 41, 38, 0.7)" }}
                 >
                   {attending
                     ? "You\u2019re in. We\u2019ll save you a seat and a glass."
                     : "We\u2019ll miss you. But we get it."}
                 </p>
+                <button
+                  type="button"
+                  onClick={handleChangeRsvp}
+                  className="text-[11px] uppercase font-bold transition-colors hover:text-[#C37B60]"
+                  style={{
+                    letterSpacing: "0.2em",
+                    color: "rgba(45, 41, 38, 0.5)",
+                  }}
+                >
+                  Change your RSVP
+                </button>
               </div>
             </FadeIn>
           </Container>
@@ -358,6 +302,7 @@ export function RSVPClient() {
     );
   }
 
+  // ---- Main page: lookup + form ----
   return (
     <div style={{ backgroundColor: "#F5F5F0", minHeight: "100vh" }}>
       {/* Hero */}
@@ -384,139 +329,84 @@ export function RSVPClient() {
                 className="text-base md:text-lg font-light leading-relaxed max-w-xl mx-auto"
                 style={{ color: "rgba(45, 41, 38, 0.65)" }}
               >
-                We need a headcount and a dinner order. Find your name below,
-                let us know if you&apos;re coming, and tell us how you eat. The
-                kitchen at Parkheuvel will take it from there.
+                We need a headcount and a dinner order. Type your name exactly
+                as it appears on your invitation, and we&apos;ll pull up your
+                details.
               </p>
             </div>
           </FadeIn>
         </Container>
       </section>
 
-      {/* Search */}
+      {/* Name lookup */}
       <section className="pb-8 md:pb-12">
         <Container size="content">
           <FadeIn delay={0.15}>
-            <div className="max-w-md mx-auto" ref={searchRef}>
-              <div className="relative">
+            <form
+              onSubmit={handleLookup}
+              className="max-w-md mx-auto"
+            >
+              <div className="flex gap-3">
                 <input
-                  ref={inputRef}
                   type="text"
-                  value={query}
-                  onChange={(e) => handleInputChange(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  onFocus={() => {
-                    if (results.length > 0 && !selectedGuest)
-                      setShowDropdown(true);
+                  value={nameInput}
+                  onChange={(e) => {
+                    setNameInput(e.target.value);
+                    setLookupError(null);
                   }}
-                  placeholder="Start typing your name..."
-                  className="w-full px-5 py-4 text-base rounded-xl border outline-none transition-all duration-200 focus:border-[#C37B60] focus:ring-0"
+                  placeholder="Your full name"
+                  className="flex-1 px-5 py-4 text-base rounded-xl border outline-none transition-colors duration-200 focus:border-[#C37B60]"
                   style={{
                     backgroundColor: "white",
-                    borderColor: showDropdown
-                      ? "#C37B60"
+                    borderColor: lookupError
+                      ? "rgba(220, 38, 38, 0.4)"
                       : "rgba(45, 41, 38, 0.15)",
                     color: "#2D2926",
                   }}
                   autoComplete="off"
-                  role="combobox"
-                  aria-expanded={showDropdown}
-                  aria-controls="guest-listbox"
-                  aria-activedescendant={
-                    highlightedIndex >= 0
-                      ? `guest-option-${highlightedIndex}`
-                      : undefined
-                  }
                 />
-
-                {/* Loading indicator */}
-                {isSearching && (
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                    <div
-                      className="w-4 h-4 rounded-full border-2 border-t-transparent animate-spin"
-                      style={{ borderColor: "rgba(45,41,38,0.2)", borderTopColor: "transparent" }}
-                    />
-                  </div>
-                )}
-
-                {/* Dropdown */}
-                <AnimatePresence>
-                  {showDropdown && results.length > 0 && (
-                    <motion.ul
-                      id="guest-listbox"
-                      role="listbox"
-                      initial={{ opacity: 0, y: -4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -4 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute top-full left-0 right-0 mt-2 rounded-xl border overflow-hidden z-10 shadow-lg"
-                      style={{
-                        backgroundColor: "white",
-                        borderColor: "rgba(45, 41, 38, 0.1)",
-                      }}
-                    >
-                      {results.map((guest, index) => (
-                        <li
-                          key={guest.id}
-                          id={`guest-option-${index}`}
-                          role="option"
-                          aria-selected={highlightedIndex === index}
-                          onClick={() => selectGuest(guest)}
-                          onMouseEnter={() => setHighlightedIndex(index)}
-                          className="px-5 py-3.5 cursor-pointer transition-colors duration-100"
-                          style={{
-                            backgroundColor:
-                              highlightedIndex === index
-                                ? "rgba(195, 123, 96, 0.06)"
-                                : "transparent",
-                            color: "#2D2926",
-                          }}
-                        >
-                          <span className="text-base">{guest.name}</span>
-                          {guest.has_rsvp && (
-                            <span
-                              className="ml-2 text-xs font-medium"
-                              style={{ color: "rgba(45, 41, 38, 0.4)" }}
-                            >
-                              (already responded)
-                            </span>
-                          )}
-                        </li>
-                      ))}
-                    </motion.ul>
-                  )}
-                </AnimatePresence>
+                <button
+                  type="submit"
+                  disabled={isLooking || cooldown || !nameInput.trim()}
+                  className="px-6 py-4 rounded-xl text-[11px] uppercase font-bold transition-all duration-200 hover:shadow-lg active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                  style={{
+                    backgroundColor: "#2D2926",
+                    color: "#F5F5F0",
+                    letterSpacing: "0.15em",
+                  }}
+                >
+                  {isLooking ? "..." : "Find me"}
+                </button>
               </div>
 
-              {/* No results message */}
-              {query.length >= 2 &&
-                !isSearching &&
-                results.length === 0 &&
-                !selectedGuest && (
+              {/* Error message */}
+              <AnimatePresence>
+                {lookupError && (
                   <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-center mt-4 text-sm"
-                    style={{ color: "rgba(45, 41, 38, 0.5)" }}
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="mt-4 text-sm text-center leading-relaxed"
+                    style={{ color: "rgba(45, 41, 38, 0.6)" }}
                   >
-                    Can&apos;t find your name?{" "}
+                    {lookupError}{" "}
                     <a
                       href="mailto:laurensandmonica@gmail.com"
                       className="underline transition-colors hover:text-[#C37B60]"
-                      style={{ color: "rgba(45, 41, 38, 0.7)" }}
                     >
-                      Reach out to us directly.
+                      laurensandmonica@gmail.com
                     </a>
                   </motion.p>
                 )}
-            </div>
+              </AnimatePresence>
+            </form>
           </FadeIn>
         </Container>
       </section>
 
       {/* RSVP Form */}
       <AnimatePresence mode="wait">
-        {selectedGuest && !selectedGuest.has_rsvp && (
+        {guest && showForm && (
           <motion.section
             key="rsvp-form"
             ref={formRef}
@@ -528,22 +418,13 @@ export function RSVPClient() {
           >
             <Container size="content">
               <div className="max-w-lg mx-auto">
-                {/* Responding for */}
+                {/* Greeting */}
                 <div className="text-center mb-10">
                   <p
-                    className="text-[10px] uppercase font-bold mb-2"
-                    style={{
-                      letterSpacing: "0.3em",
-                      color: "#C37B60",
-                    }}
+                    className="font-serif text-xl md:text-2xl italic"
+                    style={{ color: "#2D2926" }}
                   >
-                    Responding for
-                  </p>
-                  <p
-                    className="font-serif text-2xl md:text-3xl italic"
-                    style={{ color: "#2D2926", fontWeight: 400 }}
-                  >
-                    {selectedGuest.name}
+                    Hi, {guest.name.split(" ")[0]}. Let&apos;s get you sorted.
                   </p>
                 </div>
 
@@ -628,7 +509,7 @@ export function RSVPClient() {
                         <textarea
                           value={allergies}
                           onChange={(e) => setAllergies(e.target.value)}
-                          placeholder="Anything the kitchen should know?"
+                          placeholder="Anything the kitchen should know? (e.g. 'no fish, I beg you')"
                           rows={2}
                           className="w-full px-4 py-3 rounded-xl border outline-none resize-none transition-colors duration-200 focus:border-[#C37B60]"
                           style={{
@@ -640,7 +521,7 @@ export function RSVPClient() {
                       </div>
 
                       {/* Plus one section */}
-                      {selectedGuest.has_plus_one && (
+                      {guest.has_plus_one && (
                         <PlusOneSection
                           bringingGuest={bringingGuest}
                           setBringingGuest={setBringingGuest}
@@ -708,7 +589,11 @@ export function RSVPClient() {
                         letterSpacing: "0.3em",
                       }}
                     >
-                      {isSubmitting ? "Sending..." : "Submit RSVP"}
+                      {isSubmitting
+                        ? "Sending..."
+                        : guest.has_submitted
+                        ? "Update RSVP"
+                        : "Submit RSVP"}
                     </button>
                   </motion.div>
                 )}
@@ -883,7 +768,6 @@ function PlusOneSection({
             variants={sectionReveal}
             className="space-y-6 pt-4"
           >
-            {/* Plus one name */}
             <div>
               <label
                 className="block text-[10px] uppercase font-bold mb-2"
@@ -908,7 +792,6 @@ function PlusOneSection({
               />
             </div>
 
-            {/* Plus one dietary */}
             <div>
               <p
                 className="text-[10px] uppercase font-bold mb-3"
@@ -932,7 +815,6 @@ function PlusOneSection({
               </div>
             </div>
 
-            {/* Plus one allergies */}
             <div>
               <label
                 className="block text-[10px] uppercase font-bold mb-2"
@@ -946,7 +828,7 @@ function PlusOneSection({
               <textarea
                 value={plusOneAllergies}
                 onChange={(e) => setPlusOneAllergies(e.target.value)}
-                placeholder="Anything the kitchen should know?"
+                placeholder="Anything the kitchen should know? (e.g. 'no fish, I beg you')"
                 rows={2}
                 className="w-full px-4 py-3 rounded-xl border outline-none resize-none transition-colors duration-200 focus:border-[#C37B60]"
                 style={{

@@ -12,45 +12,46 @@ function getSupabaseAdmin() {
 }
 
 /**
- * GET /api/rsvp/search?q=<name>
+ * POST /api/rsvp/search
  *
- * Returns matching guests for the typeahead. Only exposes safe fields:
- * id, name, has_plus_one, has_rsvp. Never exposes email, dietary info,
- * allergies, or address data.
+ * Exact case-insensitive name lookup via the lookup_guest_by_name RPC.
+ * Returns the guest record if found, or a 404 if not.
+ * No partial matching, no LIKE, no browsing the guest list.
  */
-export async function GET(request: NextRequest) {
-  const q = request.nextUrl.searchParams.get("q")?.trim();
-
-  if (!q || q.length < 2) {
-    return NextResponse.json([]);
-  }
-
+export async function POST(request: NextRequest) {
   try {
+    const { name } = await request.json();
+    const trimmed = (name || "").trim();
+
+    if (!trimmed) {
+      return NextResponse.json(
+        { error: "Please enter your name." },
+        { status: 400 }
+      );
+    }
+
     const supabase = getSupabaseAdmin();
 
-    const { data, error } = await supabase
-      .from("guests")
-      .select("id, name, plus_one_allowed, rsvp_submitted_at")
-      .ilike("name", `%${q}%`)
-      .order("name")
-      .limit(8);
+    const { data, error } = await supabase.rpc("lookup_guest_by_name", {
+      lookup_name: trimmed,
+    });
 
     if (error) {
-      console.error("Guest search error:", error);
+      console.error("Guest lookup error:", error);
       return NextResponse.json(
-        { error: "Search failed" },
+        { error: "Something went wrong. Please try again." },
         { status: 500 }
       );
     }
 
-    const results = (data || []).map((guest) => ({
-      id: guest.id,
-      name: guest.name,
-      has_plus_one: guest.plus_one_allowed,
-      has_rsvp: guest.rsvp_submitted_at !== null,
-    }));
+    if (!data || data.length === 0) {
+      return NextResponse.json(
+        { error: "not_found" },
+        { status: 404 }
+      );
+    }
 
-    return NextResponse.json(results);
+    return NextResponse.json(data[0]);
   } catch {
     return NextResponse.json(
       { error: "Internal server error" },
