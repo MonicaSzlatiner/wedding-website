@@ -321,15 +321,17 @@ export function RSVPClient() {
         <Container size="content">
           <FadeIn>
             <div className="text-center px-2">
-              <p
-                className="text-[10px] uppercase font-bold mb-4"
-                style={{
-                  letterSpacing: "0.3em",
-                  textIndent: "0.3em",
-                  color: "rgba(45, 41, 38, 0.5)",
-                }}
-              >
-                You&apos;re Invited
+              <p className="text-[10px] uppercase font-bold mb-4 text-center">
+                <span
+                  style={{
+                    letterSpacing: "0.3em",
+                    marginRight: "-0.3em",
+                    display: "inline-block",
+                    color: "rgba(45, 41, 38, 0.5)",
+                  }}
+                >
+                  You&apos;re Invited
+                </span>
               </p>
               <h1
                 className="font-serif text-5xl md:text-7xl italic mb-6"
@@ -448,15 +450,17 @@ export function RSVPClient() {
 
                 {/* Attending */}
                 <div className="mb-10">
-                  <p
-                    className="text-[10px] uppercase font-bold mb-5 text-center"
-                    style={{
-                      letterSpacing: "0.3em",
-                      textIndent: "0.3em",
-                      color: "rgba(45, 41, 38, 0.6)",
-                    }}
-                  >
-                    Will you be joining us?
+                  <p className="text-[10px] uppercase font-bold mb-5 text-center">
+                    <span
+                      style={{
+                        letterSpacing: "0.3em",
+                        marginRight: "-0.3em",
+                        display: "inline-block",
+                        color: "rgba(45, 41, 38, 0.6)",
+                      }}
+                    >
+                      Will you be joining us?
+                    </span>
                   </p>
                   <div className="flex gap-3 justify-center">
                     <ToggleButton
@@ -486,15 +490,17 @@ export function RSVPClient() {
                     >
                       {/* Dietary preference */}
                       <div className="mb-10">
-                        <p
-                          className="text-[10px] uppercase font-bold mb-5 text-center"
-                          style={{
-                            letterSpacing: "0.3em",
-                            textIndent: "0.3em",
-                            color: "rgba(45, 41, 38, 0.6)",
-                          }}
-                        >
-                          Dietary Preference
+                        <p className="text-[10px] uppercase font-bold mb-5 text-center">
+                          <span
+                            style={{
+                              letterSpacing: "0.3em",
+                              marginRight: "-0.3em",
+                              display: "inline-block",
+                              color: "rgba(45, 41, 38, 0.6)",
+                            }}
+                          >
+                            Dietary Preference
+                          </span>
                         </p>
                         <div className="space-y-3">
                           {DIETARY_OPTIONS.map((opt) => (
@@ -601,14 +607,15 @@ export function RSVPClient() {
                         backgroundColor: "#2D2926",
                         color: "#F5F5F0",
                         letterSpacing: "0.3em",
-                        paddingLeft: "calc(3rem + 0.3em)",
                       }}
                     >
-                      {isSubmitting
-                        ? "Sending..."
-                        : guest.has_submitted
-                        ? "Update RSVP"
-                        : "Submit RSVP"}
+                      <span style={{ marginRight: "-0.3em" }}>
+                        {isSubmitting
+                          ? "Sending..."
+                          : guest.has_submitted
+                          ? "Update RSVP"
+                          : "Submit RSVP"}
+                      </span>
                     </button>
                   </motion.div>
                 )}
@@ -645,19 +652,17 @@ function ToggleButton({
               backgroundColor: "#2D2926",
               color: "#F5F5F0",
               letterSpacing: "0.2em",
-              paddingLeft: "calc(1.5rem + 0.2em)",
               boxShadow: "0 4px 12px rgba(45, 41, 38, 0.2)",
             }
           : {
               backgroundColor: "white",
               color: "#2D2926",
               letterSpacing: "0.2em",
-              paddingLeft: "calc(1.5rem + 0.2em)",
               border: "1px solid rgba(45, 41, 38, 0.15)",
             }
       }
     >
-      {children}
+      <span style={{ marginRight: "-0.2em" }}>{children}</span>
     </button>
   );
 }
@@ -744,15 +749,17 @@ function PlusOneSection({
         border: "1px solid rgba(45, 41, 38, 0.08)",
       }}
     >
-      <p
-        className="text-[10px] uppercase font-bold mb-2 text-center"
-        style={{
-          letterSpacing: "0.3em",
-          textIndent: "0.3em",
-          color: "rgba(45, 41, 38, 0.6)",
-        }}
-      >
-        Plus One
+      <p className="text-[10px] uppercase font-bold mb-2 text-center">
+        <span
+          style={{
+            letterSpacing: "0.3em",
+            marginRight: "-0.3em",
+            display: "inline-block",
+            color: "rgba(45, 41, 38, 0.6)",
+          }}
+        >
+          Plus One
+        </span>
       </p>
       <p
         className="font-serif text-lg italic mb-6 text-center"
