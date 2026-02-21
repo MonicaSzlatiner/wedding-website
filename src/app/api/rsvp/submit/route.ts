@@ -122,18 +122,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Fire-and-forget email notification — don't block the response
-    sendRsvpNotification({
-      guestName: guest.name,
-      attending: body.attending,
-      dietaryPreference: body.attending ? body.dietary_preference : null,
-      allergies: body.attending ? body.allergies : null,
-      plusOneName: body.plus_one_name,
-      plusOneAttending: body.plus_one_attending,
-      plusOneDietaryPreference: body.plus_one_dietary_preference,
-      plusOneAllergies: body.plus_one_allergies,
-      isUpdate: guest.rsvp_submitted_at !== null,
-    }).catch((err) => console.error("RSVP email notification failed:", err));
+    try {
+      await sendRsvpNotification({
+        guestName: guest.name,
+        attending: body.attending,
+        dietaryPreference: body.attending ? body.dietary_preference : null,
+        allergies: body.attending ? body.allergies : null,
+        plusOneName: body.plus_one_name,
+        plusOneAttending: body.plus_one_attending,
+        plusOneDietaryPreference: body.plus_one_dietary_preference,
+        plusOneAllergies: body.plus_one_allergies,
+        isUpdate: guest.rsvp_submitted_at !== null,
+      });
+    } catch (emailErr) {
+      console.error("RSVP email notification failed:", emailErr);
+    }
 
     return NextResponse.json({
       success: true,
