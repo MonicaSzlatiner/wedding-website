@@ -248,76 +248,71 @@ export function RSVPClient() {
   // ---- Submitted / returning guest confirmation ----
   if (guest && submitted && !showForm) {
     return (
-      <div style={{ backgroundColor: "#F5F5F0", minHeight: "100vh" }}>
-        <section className="pt-24 pb-16 md:pt-32 md:pb-20">
-          <Container size="content">
-            <FadeIn>
-              <div className="text-center px-2">
-                <h1
-                  className="font-serif text-4xl md:text-6xl italic mb-6"
-                  style={{ fontWeight: 400, color: "#2D2926" }}
-                >
-                  {attending ? "See You There" : "We\u2019ll Miss You"}
-                </h1>
-              </div>
-            </FadeIn>
-          </Container>
-        </section>
-
-        <section className="pb-32">
-          <Container size="content">
-            <FadeIn delay={0.1}>
-              <div className="text-center max-w-lg mx-auto px-2">
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-8"
-                  style={{ backgroundColor: "rgba(195, 123, 96, 0.1)" }}
-                >
-                  <svg
-                    className="w-8 h-8"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="#C37B60"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </div>
-                <p
-                  className="text-lg font-light leading-relaxed mb-10"
-                  style={{ color: "rgba(45, 41, 38, 0.7)" }}
-                >
-                  {attending
-                    ? "You\u2019re in. We\u2019ll save you a seat and a glass."
-                    : "We\u2019ll miss you. But we get it."}
-                </p>
-                <button
-                  type="button"
-                  onClick={handleChangeRsvp}
-                  className="text-[11px] uppercase font-bold transition-colors hover:text-[#C37B60]"
-                  style={{
-                    letterSpacing: "0.2em",
-                    color: "rgba(45, 41, 38, 0.5)",
-                  }}
-                >
-                  Change your RSVP
-                </button>
-              </div>
-            </FadeIn>
-          </Container>
-        </section>
+      <div
+        className="flex flex-col items-center justify-center px-4"
+        style={{
+          backgroundColor: "#F5F5F0",
+          minHeight: "calc(100vh - 72px)",
+          paddingTop: "max(6rem, env(safe-area-inset-top, 0px) + 5rem)",
+          paddingBottom: "max(4rem, env(safe-area-inset-bottom, 0px) + 2rem)",
+        }}
+      >
+        <FadeIn>
+          <div className="text-center max-w-lg mx-auto">
+            <div
+              className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-8"
+              style={{ backgroundColor: "rgba(195, 123, 96, 0.1)" }}
+            >
+              <svg
+                className="w-8 h-8"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="#C37B60"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <h1
+              className="font-serif text-4xl md:text-6xl italic mb-6"
+              style={{ fontWeight: 400, color: "#2D2926" }}
+            >
+              {attending ? "See You There" : "We\u2019ll Miss You"}
+            </h1>
+            <p
+              className="text-[1.1rem] md:text-lg font-light leading-relaxed mb-10"
+              style={{ color: "rgba(45, 41, 38, 0.7)" }}
+            >
+              {attending
+                ? "You\u2019re in. We\u2019ll save you a seat and a glass."
+                : "We\u2019ll miss you. But we get it."}
+            </p>
+            <button
+              type="button"
+              onClick={handleChangeRsvp}
+              className="text-[11px] uppercase font-bold transition-colors hover:text-[#C37B60]"
+              style={{
+                letterSpacing: "0.2em",
+                color: "rgba(45, 41, 38, 0.5)",
+              }}
+            >
+              Change your RSVP
+            </button>
+          </div>
+        </FadeIn>
       </div>
     );
   }
 
   // ---- Main page: lookup + form ----
   return (
-    <div style={{ backgroundColor: "#F5F5F0", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#F5F5F0" }}>
       {/* Hero */}
-      <section className="pt-24 pb-12 md:pt-32 md:pb-16">
+      <section className="pt-28 pb-10 md:pt-32 md:pb-16 scroll-mt-20">
         <Container size="content">
           <FadeIn>
             <div className="text-center px-2">
@@ -340,7 +335,7 @@ export function RSVPClient() {
                 RSVP
               </h1>
               <p
-                className="text-base md:text-lg font-light leading-relaxed max-w-xl mx-auto"
+                className="text-[1.05rem] md:text-lg font-light leading-relaxed max-w-xl mx-auto"
                 style={{ color: "rgba(45, 41, 38, 0.65)" }}
               >
                 We need a headcount and a dinner order. Type your name exactly
@@ -428,14 +423,17 @@ export function RSVPClient() {
             animate="visible"
             exit="exit"
             variants={sectionReveal}
-            className="pb-32 scroll-mt-24"
+            className="scroll-mt-24"
+            style={{
+              paddingBottom: "max(8rem, calc(6rem + env(safe-area-inset-bottom, 0px)))",
+            }}
           >
             <Container size="content">
               <div className="max-w-lg mx-auto">
                 {/* Greeting */}
                 <div className="text-center mb-10">
                   <p
-                    className="font-serif text-xl md:text-2xl italic"
+                    className="font-serif text-[1.15rem] md:text-2xl italic"
                     style={{ color: "#2D2926" }}
                   >
                     Hi, {guest.name.split(" ")[0]}. Let&apos;s get you sorted.
@@ -566,7 +564,7 @@ export function RSVPClient() {
                       className="text-center mb-10"
                     >
                       <p
-                        className="font-serif text-lg italic"
+                        className="font-serif text-[1.1rem] md:text-lg italic"
                         style={{ color: "rgba(45, 41, 38, 0.5)" }}
                       >
                         We&apos;re sorry to hear that. We&apos;ll miss you.
@@ -762,7 +760,7 @@ function PlusOneSection({
         </span>
       </div>
       <p
-        className="font-serif text-lg italic mb-6 text-center"
+        className="font-serif text-[1.1rem] md:text-lg italic mb-6 text-center"
         style={{ color: "#2D2926" }}
       >
         You&apos;ve got a plus one. Are you bringing someone?
