@@ -314,6 +314,7 @@ export function RSVPClient() {
                 className="text-[10px] uppercase font-bold mb-4"
                 style={{
                   letterSpacing: "0.3em",
+                  paddingLeft: "0.3em",
                   color: "rgba(45, 41, 38, 0.5)",
                 }}
               >
@@ -440,12 +441,13 @@ export function RSVPClient() {
                     className="text-[10px] uppercase font-bold mb-5 text-center"
                     style={{
                       letterSpacing: "0.3em",
+                      paddingLeft: "0.3em",
                       color: "rgba(45, 41, 38, 0.6)",
                     }}
                   >
                     Will you be joining us?
                   </p>
-                  <div className="flex gap-4 justify-center">
+                  <div className="flex gap-3 justify-center">
                     <ToggleButton
                       selected={attending === true}
                       onClick={() => setAttending(true)}
@@ -477,6 +479,7 @@ export function RSVPClient() {
                           className="text-[10px] uppercase font-bold mb-5 text-center"
                           style={{
                             letterSpacing: "0.3em",
+                            paddingLeft: "0.3em",
                             color: "rgba(45, 41, 38, 0.6)",
                           }}
                         >
@@ -587,6 +590,7 @@ export function RSVPClient() {
                         backgroundColor: "#2D2926",
                         color: "#F5F5F0",
                         letterSpacing: "0.3em",
+                        paddingLeft: "calc(3rem + 0.3em)",
                       }}
                     >
                       {isSubmitting
@@ -623,19 +627,21 @@ function ToggleButton({
     <button
       type="button"
       onClick={onClick}
-      className="min-w-[120px] px-8 py-4 rounded-xl text-[11px] uppercase font-bold transition-all duration-200"
+      className="min-w-[100px] px-6 py-3 rounded-lg text-[11px] uppercase font-bold transition-all duration-200"
       style={
         selected
           ? {
               backgroundColor: "#2D2926",
               color: "#F5F5F0",
               letterSpacing: "0.2em",
+              paddingLeft: "calc(1.5rem + 0.2em)",
               boxShadow: "0 4px 12px rgba(45, 41, 38, 0.2)",
             }
           : {
               backgroundColor: "white",
               color: "#2D2926",
               letterSpacing: "0.2em",
+              paddingLeft: "calc(1.5rem + 0.2em)",
               border: "1px solid rgba(45, 41, 38, 0.15)",
             }
       }
@@ -731,6 +737,7 @@ function PlusOneSection({
         className="text-[10px] uppercase font-bold mb-2 text-center"
         style={{
           letterSpacing: "0.3em",
+          paddingLeft: "0.3em",
           color: "rgba(45, 41, 38, 0.6)",
         }}
       >
