@@ -130,6 +130,145 @@ This is an automated notification from your wedding website.
   }
 }
 
+const SITE_URL = "https://laurensandmonica.com";
+
+interface RsvpConfirmationData {
+  guestName: string;
+  guestEmail: string;
+  attending: boolean;
+  dietaryPreference?: string | null;
+  allergies?: string | null;
+  plusOneName?: string | null;
+  plusOneAttending?: boolean | null;
+  plusOneDietaryPreference?: string | null;
+  plusOneAllergies?: string | null;
+  isUpdate: boolean;
+}
+
+export async function sendRsvpConfirmationToGuest(
+  data: RsvpConfirmationData
+): Promise<{ success: boolean; error?: string }> {
+  const dietaryLabel = (pref: string | null | undefined) => {
+    if (!pref) return "—";
+    if (pref === "standard") return "No preference";
+    return pref.charAt(0).toUpperCase() + pref.slice(1);
+  };
+
+  const firstName = data.guestName.split(" ")[0];
+  const updateUrl = `${SITE_URL}/rsvp?name=${encodeURIComponent(data.guestName)}`;
+
+  const subject = data.attending
+    ? `We'll see you there, ${firstName}`
+    : `We'll miss you, ${firstName}`;
+
+  let summaryHtml = "";
+  let summaryText = "";
+
+  if (data.attending) {
+    summaryHtml = `
+        <p style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          Your Dinner
+        </p>
+        <p style="margin: 0 0 20px 0; font-size: 16px; color: #2D2926;">
+          ${dietaryLabel(data.dietaryPreference)}${data.allergies ? ` · ${data.allergies}` : ""}
+        </p>
+        ${data.plusOneAttending && data.plusOneName ? `
+        <p style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          Your Plus One
+        </p>
+        <p style="margin: 0 0 4px 0; font-size: 16px; color: #2D2926;">
+          ${data.plusOneName}
+        </p>
+        <p style="margin: 0 0 20px 0; font-size: 14px; color: rgba(45, 41, 38, 0.6);">
+          ${dietaryLabel(data.plusOneDietaryPreference)}${data.plusOneAllergies ? ` · ${data.plusOneAllergies}` : ""}
+        </p>` : ""}`;
+
+    summaryText = `Dinner: ${dietaryLabel(data.dietaryPreference)}${data.allergies ? ` (${data.allergies})` : ""}
+${data.plusOneAttending && data.plusOneName ? `\nPlus One: ${data.plusOneName}\nDinner: ${dietaryLabel(data.plusOneDietaryPreference)}${data.plusOneAllergies ? ` (${data.plusOneAllergies})` : ""}\n` : ""}`;
+  }
+
+  const heroMessage = data.attending
+    ? "You're all set. We'll save you a seat and a glass at Parkheuvel on August 1st."
+    : "We're sorry you can't make it. If your plans change, you can always update your RSVP.";
+
+  const htmlContent = `
+    <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+      <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: #C37B60; margin: 0 0 16px 0; text-align: center;">
+        ${data.isUpdate ? "RSVP Updated" : "RSVP Confirmed"}
+      </p>
+      <h1 style="font-size: 28px; font-weight: normal; font-style: italic; color: #2D2926; margin: 0 0 24px 0; text-align: center;">
+        ${data.attending ? `See you there, ${firstName}` : `We'll miss you, ${firstName}`}
+      </h1>
+      <p style="font-size: 16px; color: rgba(45, 41, 38, 0.65); line-height: 1.6; margin: 0 0 32px 0; text-align: center;">
+        ${heroMessage}
+      </p>
+
+      ${data.attending ? `
+      <div style="background: #F5F5F0; padding: 30px; border-radius: 8px; margin-bottom: 32px;">
+        <p style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          Status
+        </p>
+        <p style="margin: 0 0 20px 0; font-size: 18px; color: #2D6A4F; font-weight: bold;">
+          ✓ Attending
+        </p>
+        ${summaryHtml}
+      </div>` : `
+      <div style="background: #F5F5F0; padding: 30px; border-radius: 8px; margin-bottom: 32px; text-align: center;">
+        <p style="margin: 0; font-size: 16px; color: rgba(45, 41, 38, 0.6);">
+          Not attending
+        </p>
+      </div>`}
+
+      <div style="text-align: center; margin-bottom: 32px;">
+        <a href="${updateUrl}" style="display: inline-block; background-color: #2D2926; color: #F5F5F0; text-decoration: none; padding: 14px 32px; border-radius: 50px; font-size: 11px; text-transform: uppercase; letter-spacing: 3px; font-family: sans-serif; font-weight: bold;">
+          Update your RSVP
+        </a>
+      </div>
+
+      <p style="font-size: 13px; color: rgba(45, 41, 38, 0.45); text-align: center; line-height: 1.6; margin: 0 0 32px 0;">
+        Plans changed? No worries — click the button above to update your details anytime.
+      </p>
+
+      <hr style="border: none; border-top: 1px solid rgba(45, 41, 38, 0.1); margin: 0 0 24px 0;" />
+
+      <p style="font-size: 12px; color: rgba(45, 41, 38, 0.35); margin: 0; text-align: center; font-style: italic;">
+        Laurens & Monica · August 1, 2026 · Parkheuvel, Rotterdam
+      </p>
+    </div>
+  `;
+
+  const textContent = `${data.isUpdate ? "RSVP Updated" : "RSVP Confirmed"}
+
+${data.attending ? `See you there, ${firstName}!` : `We'll miss you, ${firstName}.`}
+
+${heroMessage}
+
+Status: ${data.attending ? "Attending" : "Not attending"}
+${data.attending ? summaryText : ""}
+Plans changed? Update your RSVP here: ${updateUrl}
+
+---
+Laurens & Monica · August 1, 2026 · Parkheuvel, Rotterdam`.trim();
+
+  try {
+    await transporter.sendMail({
+      from: `"Laurens & Monica" <${smtpUser}>`,
+      to: data.guestEmail,
+      subject,
+      text: textContent,
+      html: htmlContent,
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to send RSVP confirmation to guest:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    };
+  }
+}
+
 interface RsvpNotificationData {
   guestName: string;
   attending: boolean;

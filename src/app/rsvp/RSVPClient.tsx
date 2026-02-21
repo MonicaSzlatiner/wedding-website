@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
@@ -44,6 +45,7 @@ const sectionReveal = {
 
 export function RSVPClient() {
   const shouldReduceMotion = useReducedMotion();
+  const searchParams = useSearchParams();
 
   // Lookup state
   const [nameInput, setNameInput] = useState("");
@@ -70,6 +72,15 @@ export function RSVPClient() {
   const [submitted, setSubmitted] = useState(false);
 
   const formRef = useRef<HTMLDivElement>(null);
+  const prefilled = useRef(false);
+
+  useEffect(() => {
+    const name = searchParams.get("name");
+    if (name && !prefilled.current) {
+      prefilled.current = true;
+      setNameInput(name);
+    }
+  }, [searchParams]);
 
   function prefillForm(g: GuestData) {
     setAttending(g.attending);

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import { weddingConfig } from "@/config/content";
 import { RSVPClient } from "./RSVPClient";
@@ -9,5 +10,9 @@ export const metadata: Metadata = {
 };
 
 export default function RSVPPage() {
-  return <RSVPClient />;
+  return (
+    <Suspense>
+      <RSVPClient />
+    </Suspense>
+  );
 }
