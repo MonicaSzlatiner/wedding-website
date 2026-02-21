@@ -321,18 +321,18 @@ export function RSVPClient() {
         <Container size="content">
           <FadeIn>
             <div className="text-center px-2">
-              <p className="text-[10px] uppercase font-bold mb-4 text-center">
+              <div className="flex justify-center mb-4">
                 <span
+                  className="text-[10px] uppercase font-bold"
                   style={{
                     letterSpacing: "0.3em",
                     marginRight: "-0.3em",
-                    display: "inline-block",
                     color: "rgba(45, 41, 38, 0.5)",
                   }}
                 >
                   You&apos;re Invited
                 </span>
-              </p>
+              </div>
               <h1
                 className="font-serif text-5xl md:text-7xl italic mb-6"
                 style={{ fontWeight: 400, color: "#2D2926" }}
@@ -450,18 +450,18 @@ export function RSVPClient() {
 
                 {/* Attending */}
                 <div className="mb-10">
-                  <p className="text-[10px] uppercase font-bold mb-5 text-center">
+                  <div className="flex justify-center mb-5">
                     <span
+                      className="text-[10px] uppercase font-bold"
                       style={{
                         letterSpacing: "0.3em",
                         marginRight: "-0.3em",
-                        display: "inline-block",
                         color: "rgba(45, 41, 38, 0.6)",
                       }}
                     >
                       Will you be joining us?
                     </span>
-                  </p>
+                  </div>
                   <div className="flex gap-3 justify-center">
                     <ToggleButton
                       selected={attending === true}
@@ -490,18 +490,18 @@ export function RSVPClient() {
                     >
                       {/* Dietary preference */}
                       <div className="mb-10">
-                        <p className="text-[10px] uppercase font-bold mb-5 text-center">
+                        <div className="flex justify-center mb-5">
                           <span
+                            className="text-[10px] uppercase font-bold"
                             style={{
                               letterSpacing: "0.3em",
                               marginRight: "-0.3em",
-                              display: "inline-block",
                               color: "rgba(45, 41, 38, 0.6)",
                             }}
                           >
                             Dietary Preference
                           </span>
-                        </p>
+                        </div>
                         <div className="space-y-3">
                           {DIETARY_OPTIONS.map((opt) => (
                             <DietaryOption
@@ -749,18 +749,18 @@ function PlusOneSection({
         border: "1px solid rgba(45, 41, 38, 0.08)",
       }}
     >
-      <p className="text-[10px] uppercase font-bold mb-2 text-center">
+      <div className="flex justify-center mb-2">
         <span
+          className="text-[10px] uppercase font-bold"
           style={{
             letterSpacing: "0.3em",
             marginRight: "-0.3em",
-            display: "inline-block",
             color: "rgba(45, 41, 38, 0.6)",
           }}
         >
           Plus One
         </span>
-      </p>
+      </div>
       <p
         className="font-serif text-lg italic mb-6 text-center"
         style={{ color: "#2D2926" }}
