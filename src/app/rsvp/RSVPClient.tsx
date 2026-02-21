@@ -314,7 +314,7 @@ export function RSVPClient() {
                 className="text-[10px] uppercase font-bold mb-4"
                 style={{
                   letterSpacing: "0.3em",
-                  paddingLeft: "0.3em",
+                  textIndent: "0.3em",
                   color: "rgba(45, 41, 38, 0.5)",
                 }}
               >
@@ -441,7 +441,7 @@ export function RSVPClient() {
                     className="text-[10px] uppercase font-bold mb-5 text-center"
                     style={{
                       letterSpacing: "0.3em",
-                      paddingLeft: "0.3em",
+                      textIndent: "0.3em",
                       color: "rgba(45, 41, 38, 0.6)",
                     }}
                   >
@@ -479,7 +479,7 @@ export function RSVPClient() {
                           className="text-[10px] uppercase font-bold mb-5 text-center"
                           style={{
                             letterSpacing: "0.3em",
-                            paddingLeft: "0.3em",
+                            textIndent: "0.3em",
                             color: "rgba(45, 41, 38, 0.6)",
                           }}
                         >
@@ -737,7 +737,7 @@ function PlusOneSection({
         className="text-[10px] uppercase font-bold mb-2 text-center"
         style={{
           letterSpacing: "0.3em",
-          paddingLeft: "0.3em",
+          textIndent: "0.3em",
           color: "rgba(45, 41, 38, 0.6)",
         }}
       >
