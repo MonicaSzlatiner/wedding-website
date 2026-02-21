@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { sendRsvpNotification } from "@/lib/email";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -67,7 +68,7 @@ export async function POST(request: NextRequest) {
 
     const { data: guest, error: lookupError } = await supabase
       .from("guests")
-      .select("id, plus_one_allowed")
+      .select("id, name, plus_one_allowed, rsvp_submitted_at")
       .eq("id", body.guest_id)
       .single();
 
@@ -120,6 +121,19 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
+
+    // Fire-and-forget email notification — don't block the response
+    sendRsvpNotification({
+      guestName: guest.name,
+      attending: body.attending,
+      dietaryPreference: body.attending ? body.dietary_preference : null,
+      allergies: body.attending ? body.allergies : null,
+      plusOneName: body.plus_one_name,
+      plusOneAttending: body.plus_one_attending,
+      plusOneDietaryPreference: body.plus_one_dietary_preference,
+      plusOneAllergies: body.plus_one_allergies,
+      isUpdate: guest.rsvp_submitted_at !== null,
+    }).catch((err) => console.error("RSVP email notification failed:", err));
 
     return NextResponse.json({
       success: true,

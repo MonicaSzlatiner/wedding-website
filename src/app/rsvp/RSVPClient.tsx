@@ -392,10 +392,10 @@ export function RSVPClient() {
                   >
                     {lookupError}{" "}
                     <a
-                      href="mailto:laurensandmonica@gmail.com"
+                      href="mailto:wedding@laurensandmonica.com"
                       className="underline transition-colors hover:text-[#C37B60]"
                     >
-                      laurensandmonica@gmail.com
+                      wedding@laurensandmonica.com
                     </a>
                   </motion.p>
                 )}

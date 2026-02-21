@@ -129,3 +129,149 @@ This is an automated notification from your wedding website.
     };
   }
 }
+
+interface RsvpNotificationData {
+  guestName: string;
+  attending: boolean;
+  dietaryPreference?: string | null;
+  allergies?: string | null;
+  plusOneName?: string | null;
+  plusOneAttending?: boolean | null;
+  plusOneDietaryPreference?: string | null;
+  plusOneAllergies?: string | null;
+  isUpdate: boolean;
+}
+
+export async function sendRsvpNotification(
+  data: RsvpNotificationData
+): Promise<{ success: boolean; error?: string }> {
+  const action = data.isUpdate ? "Updated" : "New";
+  const status = data.attending ? "Attending" : "Not attending";
+  const subject = `🎉 ${action} RSVP — ${data.guestName} (${status})`;
+
+  const dietaryLabel = (pref: string | null | undefined) => {
+    if (!pref) return "—";
+    if (pref === "standard") return "No preference";
+    return pref.charAt(0).toUpperCase() + pref.slice(1);
+  };
+
+  let detailsHtml = "";
+  let detailsText = "";
+
+  if (data.attending) {
+    detailsHtml = `
+        <p style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          Dietary Preference
+        </p>
+        <p style="margin: 0 0 20px 0; font-size: 16px; color: #2D2926;">
+          ${dietaryLabel(data.dietaryPreference)}
+        </p>
+        ${data.allergies ? `
+        <p style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          Allergies / Notes
+        </p>
+        <p style="margin: 0 0 20px 0; font-size: 16px; color: #2D2926;">
+          ${data.allergies}
+        </p>` : ""}
+        ${data.plusOneAttending ? `
+        <hr style="border: none; border-top: 1px solid rgba(45, 41, 38, 0.1); margin: 20px 0;" />
+        <p style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          Plus One
+        </p>
+        <p style="margin: 0 0 20px 0; font-size: 16px; color: #2D2926;">
+          ${data.plusOneName || "Not specified"}
+        </p>
+        <p style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          Plus One Dietary
+        </p>
+        <p style="margin: 0 0 20px 0; font-size: 16px; color: #2D2926;">
+          ${dietaryLabel(data.plusOneDietaryPreference)}
+        </p>
+        ${data.plusOneAllergies ? `
+        <p style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          Plus One Allergies / Notes
+        </p>
+        <p style="margin: 0 0 20px 0; font-size: 16px; color: #2D2926;">
+          ${data.plusOneAllergies}
+        </p>` : ""}` : ""}`;
+
+    detailsText = `Dietary: ${dietaryLabel(data.dietaryPreference)}
+${data.allergies ? `Allergies: ${data.allergies}\n` : ""}${data.plusOneAttending ? `\nPlus One: ${data.plusOneName || "Not specified"}
+Plus One Dietary: ${dietaryLabel(data.plusOneDietaryPreference)}
+${data.plusOneAllergies ? `Plus One Allergies: ${data.plusOneAllergies}\n` : ""}` : ""}`;
+  }
+
+  const now = new Date().toLocaleString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZoneName: "short",
+  });
+
+  const htmlContent = `
+    <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+      <h1 style="font-size: 24px; font-weight: normal; font-style: italic; color: #2D2926; margin-bottom: 30px;">
+        ${action} RSVP
+      </h1>
+      
+      <div style="background: #F5F5F0; padding: 30px; border-radius: 8px; margin-bottom: 30px;">
+        <p style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          Guest
+        </p>
+        <p style="margin: 0 0 20px 0; font-size: 20px; color: #2D2926;">
+          ${data.guestName}
+        </p>
+        
+        <p style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          Status
+        </p>
+        <p style="margin: 0 0 20px 0; font-size: 18px; color: ${data.attending ? "#2D6A4F" : "#C37B60"}; font-weight: bold;">
+          ${data.attending ? "✓ Attending" : "✗ Not attending"}
+        </p>
+        
+        ${detailsHtml}
+      </div>
+      
+      <p style="font-size: 14px; color: rgba(45, 41, 38, 0.6); margin: 0;">
+        ${data.isUpdate ? "Updated" : "Submitted"} on ${now}
+      </p>
+      
+      <hr style="border: none; border-top: 1px solid rgba(45, 41, 38, 0.1); margin: 30px 0;" />
+      
+      <p style="font-size: 12px; color: rgba(45, 41, 38, 0.4); margin: 0; font-style: italic;">
+        This is an automated notification from your wedding website.
+      </p>
+    </div>
+  `;
+
+  const textContent = `${action} RSVP
+
+Guest: ${data.guestName}
+Status: ${data.attending ? "Attending" : "Not attending"}
+${data.attending ? detailsText : ""}
+${data.isUpdate ? "Updated" : "Submitted"} on ${now}
+
+---
+This is an automated notification from your wedding website.`.trim();
+
+  try {
+    await transporter.sendMail({
+      from: `"L&M Wedding" <${smtpUser}>`,
+      to: NOTIFICATION_RECIPIENTS.join(", "),
+      subject,
+      text: textContent,
+      html: htmlContent,
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to send RSVP email notification:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    };
+  }
+}
