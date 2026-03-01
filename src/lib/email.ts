@@ -414,3 +414,171 @@ This is an automated notification from your wedding website.`.trim();
     };
   }
 }
+
+interface WeeklySummaryData {
+  total: number;
+  withAddress: number;
+  withoutAddress: number;
+  withoutAddressNames: string[];
+  maxHeadcount: number;
+  rsvpYes: number;
+  rsvpNo: number;
+  rsvpPending: number;
+}
+
+export async function sendWeeklySummary(
+  data: WeeklySummaryData
+): Promise<{ success: boolean; error?: string }> {
+  const date = new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  const missingList = data.withoutAddressNames
+    .map((n) => `<li style="padding: 4px 0; color: #2D2926;">${n}</li>`)
+    .join("");
+
+  const missingTextList = data.withoutAddressNames
+    .map((n) => `  - ${n}`)
+    .join("\n");
+
+  const subject = `Weekly Wedding Update — ${data.withAddress}/${data.total} addresses collected`;
+
+  const htmlContent = `
+    <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+      <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: #C37B60; margin: 0 0 16px 0;">
+        Weekly Summary
+      </p>
+      <h1 style="font-size: 24px; font-weight: normal; font-style: italic; color: #2D2926; margin: 0 0 8px 0;">
+        Wedding Dashboard
+      </h1>
+      <p style="font-size: 14px; color: rgba(45, 41, 38, 0.5); margin: 0 0 32px 0;">
+        ${date}
+      </p>
+
+      <div style="background: #F5F5F0; padding: 30px; border-radius: 8px; margin-bottom: 24px;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr>
+            <td style="padding: 12px 0; border-bottom: 1px solid rgba(45, 41, 38, 0.08);">
+              <span style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">Total Guests</span>
+            </td>
+            <td style="padding: 12px 0; border-bottom: 1px solid rgba(45, 41, 38, 0.08); text-align: right;">
+              <span style="font-size: 20px; font-weight: bold; color: #2D2926;">${data.total}</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 12px 0; border-bottom: 1px solid rgba(45, 41, 38, 0.08);">
+              <span style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">Addresses Collected</span>
+            </td>
+            <td style="padding: 12px 0; border-bottom: 1px solid rgba(45, 41, 38, 0.08); text-align: right;">
+              <span style="font-size: 20px; font-weight: bold; color: #2D6A4F;">${data.withAddress}</span>
+              <span style="font-size: 14px; color: rgba(45, 41, 38, 0.5);"> / ${data.total}</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 12px 0; border-bottom: 1px solid rgba(45, 41, 38, 0.08);">
+              <span style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">Still Missing</span>
+            </td>
+            <td style="padding: 12px 0; border-bottom: 1px solid rgba(45, 41, 38, 0.08); text-align: right;">
+              <span style="font-size: 20px; font-weight: bold; color: ${data.withoutAddress > 0 ? "#C37B60" : "#2D6A4F"};">${data.withoutAddress}</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 12px 0;">
+              <span style="font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">Max Headcount</span>
+            </td>
+            <td style="padding: 12px 0; text-align: right;">
+              <span style="font-size: 20px; font-weight: bold; color: #2D2926;">${data.maxHeadcount}</span>
+              <span style="font-size: 12px; color: rgba(45, 41, 38, 0.4);"> (w/ plus ones)</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div style="background: #F5F5F0; padding: 30px; border-radius: 8px; margin-bottom: 24px;">
+        <p style="margin: 0 0 16px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          RSVP Status
+        </p>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr>
+            <td style="padding: 8px 0;">
+              <span style="font-size: 15px; color: #2D6A4F;">Attending</span>
+            </td>
+            <td style="padding: 8px 0; text-align: right;">
+              <span style="font-size: 18px; font-weight: bold; color: #2D6A4F;">${data.rsvpYes}</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 0;">
+              <span style="font-size: 15px; color: #C37B60;">Not attending</span>
+            </td>
+            <td style="padding: 8px 0; text-align: right;">
+              <span style="font-size: 18px; font-weight: bold; color: #C37B60;">${data.rsvpNo}</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 0;">
+              <span style="font-size: 15px; color: rgba(45, 41, 38, 0.5);">Pending</span>
+            </td>
+            <td style="padding: 8px 0; text-align: right;">
+              <span style="font-size: 18px; font-weight: bold; color: rgba(45, 41, 38, 0.5);">${data.rsvpPending}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      ${data.withoutAddress > 0 ? `
+      <div style="background: #F5F5F0; padding: 30px; border-radius: 8px; margin-bottom: 32px;">
+        <p style="margin: 0 0 12px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          Missing Addresses (${data.withoutAddress})
+        </p>
+        <ul style="margin: 0; padding: 0 0 0 20px; font-size: 15px; line-height: 1.8;">
+          ${missingList}
+        </ul>
+      </div>` : ""}
+
+      <hr style="border: none; border-top: 1px solid rgba(45, 41, 38, 0.1); margin: 0 0 24px 0;" />
+
+      <p style="font-size: 12px; color: rgba(45, 41, 38, 0.35); margin: 0; text-align: center; font-style: italic;">
+        Laurens & Monica · August 1, 2026 · Parkheuvel, Rotterdam
+      </p>
+    </div>
+  `;
+
+  const textContent = `Weekly Wedding Summary — ${date}
+
+Total Guests: ${data.total}
+Addresses Collected: ${data.withAddress} / ${data.total}
+Still Missing: ${data.withoutAddress}
+Max Headcount (w/ plus ones): ${data.maxHeadcount}
+
+RSVP Status:
+  Attending: ${data.rsvpYes}
+  Not attending: ${data.rsvpNo}
+  Pending: ${data.rsvpPending}
+
+${data.withoutAddress > 0 ? `Missing Addresses (${data.withoutAddress}):\n${missingTextList}` : "All addresses collected!"}
+
+---
+Laurens & Monica · August 1, 2026 · Parkheuvel, Rotterdam`.trim();
+
+  try {
+    await transporter.sendMail({
+      from: `"L&M Wedding" <${smtpUser}>`,
+      to: NOTIFICATION_RECIPIENTS.join(", "),
+      subject,
+      text: textContent,
+      html: htmlContent,
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to send weekly summary:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    };
+  }
+}
