@@ -70,6 +70,8 @@ const config: Config = {
         sans: ["var(--font-manrope)", "system-ui", "sans-serif"],
         // Display font (same as sans but explicit)
         display: ["var(--font-manrope)", "sans-serif"],
+        // Jost for wedding brief page
+        jost: ["var(--font-jost)", "system-ui", "sans-serif"],
       },
       fontSize: {
         // Typography scale - mobile-first, responsive
