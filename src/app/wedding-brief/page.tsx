@@ -197,7 +197,6 @@ export default function WeddingBriefPage() {
             {[
               { hex: "#1B2A4A", nameColor: "#8BA0C8", roleColor: "#5A7098", name: "midnight navy", role: "groom & groomsmen" },
               { hex: "#2D5A3D", nameColor: "#7AAF8A", roleColor: "#4A8A5A", name: "deep emerald", role: "bridesmaids" },
-              { hex: "#C46A3A", nameColor: "#E8C4A0", roleColor: "#C8A080", name: "burnt terracotta", role: "junior group" },
               { hex: "#E2D4B0", nameColor: "#8A7A50", roleColor: "#9A8A60", name: "warm champagne", role: "flower girls" },
               { hex: "#F5F0E4", nameColor: "#8A7A60", roleColor: "#AAA090", name: "bridal ivory", role: "the bride", border: true },
             ].map((c) => (
@@ -222,9 +221,8 @@ export default function WeddingBriefPage() {
             {[
               { hex: "#1B2A4A", name: "Midnight Navy", detail: "Laurens · slim fit suit · gold tie\n2 groomsmen · navy suit" },
               { hex: "#2D5A3D", name: "Deep Emerald", detail: "Rosa · Cori · Lauren / Ujaz\none-shoulder satin gown" },
-              { hex: "#C46A3A", name: "Burnt Terracotta", detail: "Laurens' sister · Chaima · girl 13\nmuted, dusty tone — not bright" },
-              { hex: "#E8DDB8", name: "Warm Champagne", detail: "Flower girl · 8\nclassic ivory tulle dress", border: true },
-              { hex: "#F5F0E4", name: "Bridal Ivory", detail: "Monica\nwarm bouquet · terracotta\nblush · champagne florals", border: true },
+              { hex: "#E8DDB8", name: "Warm Champagne", detail: "Eline · Chaima · Noura\njunior bridesmaids\nflower girl · 8 · classic ivory tulle dress", border: true },
+              { hex: "#F5F0E4", name: "Bridal Ivory", detail: "Monica\nwarm bouquet · blush\nchampagne florals", border: true },
               { hex: "#C9A96E", name: "Warm Gold", detail: "Laurens' tie · invitation accent\ncandles · Parkheuvel detail\nthe thread that ties it all" },
             ].map((c) => (
               <div key={c.name} className="bg-white border border-[#e0d8cc] rounded-lg overflow-hidden">
@@ -243,7 +241,7 @@ export default function WeddingBriefPage() {
           <div className="font-serif text-[#c9a96e] text-lg italic font-light mb-3">why this works</div>
           <p className="text-[0.85rem] font-jost font-light text-[#ccc] leading-relaxed">
             The palette moves from <strong className="text-[#f7f3ec]">cool and deep at the front</strong> — navy, emerald — to{" "}
-            <strong className="text-[#f7f3ec]">warm and soft at the back</strong> — terracotta, champagne, bridal ivory. As guests watch the procession walk toward the altar, the colors tell a story that warms up as it reaches you. The terracotta bridges the cool jewel tones to the warm invitation palette, so nothing feels accidental.{" "}
+            <strong className="text-[#f7f3ec]">warm and soft at the back</strong> — champagne, bridal ivory. As guests watch the procession walk toward the altar, the colors tell a story that warms up as it reaches you.{" "}
             <strong className="text-[#f7f3ec]">The gold thread</strong> — Laurens&apos; tie, the candles, the invitation accent — runs through everything and anchors it as one considered aesthetic. Quiet. Rich. Intentional.
           </p>
         </div>
