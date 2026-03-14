@@ -188,32 +188,67 @@ export default function WeddingBriefPage() {
         title="Japandi Wedding Aesthetic"
         subtitle="Japanese minimalism meets Scandinavian warmth. Modern. Editorial. Quiet luxury."
       >
-        {/* Color palette */}
+        {/* Full palette strip */}
         <div className="mb-6">
           <div className="text-[0.68rem] tracking-[0.2em] uppercase font-jost font-semibold text-[#252525] mb-4">
             Color Palette
           </div>
-          <div className="grid grid-cols-5 gap-3">
+          <div className="flex rounded-lg overflow-hidden h-24 mb-6 shadow-sm">
             {[
-              { hex: "#037A4D", name: "Emerald", code: "#037A4D", light: false },
-              { hex: "#F5F3EE", name: "Warm Ivory", code: "#F5F3EE", light: true },
-              { hex: "#D4CCC4", name: "Greige", code: "#D4CCC4", light: true },
-              { hex: "#E8DCC4", name: "Champagne", code: "#E8DCC4", light: true },
-              { hex: "#4A4A4A", name: "Soft Charcoal", code: "#4A4A4A", light: false },
+              { hex: "#1B2A4A", nameColor: "#8BA0C8", roleColor: "#5A7098", name: "midnight navy", role: "groom & groomsmen" },
+              { hex: "#2D5A3D", nameColor: "#7AAF8A", roleColor: "#4A8A5A", name: "deep emerald", role: "bridesmaids" },
+              { hex: "#C46A3A", nameColor: "#E8C4A0", roleColor: "#C8A080", name: "burnt terracotta", role: "junior group" },
+              { hex: "#E2D4B0", nameColor: "#8A7A50", roleColor: "#9A8A60", name: "warm champagne", role: "flower girls" },
+              { hex: "#F5F0E4", nameColor: "#8A7A60", roleColor: "#AAA090", name: "bridal ivory", role: "the bride", border: true },
             ].map((c) => (
-              <div key={c.name} className="group text-center">
-                <div
-                  className={`h-20 rounded-lg mb-2 transition-transform duration-300 group-hover:scale-105 ${c.light ? "border border-[#ddd]" : ""}`}
-                  style={{ backgroundColor: c.hex }}
-                />
-                <div className="text-[0.75rem] font-jost font-medium text-[#252525]">{c.name}</div>
-                <div className="text-[0.65rem] font-jost text-[#999] font-mono">{c.code}</div>
+              <div
+                key={c.name}
+                className={`flex-1 flex flex-col justify-end p-3 transition-all duration-300 hover:flex-[1.4] ${c.border ? "border border-[#ddd]" : ""}`}
+                style={{ backgroundColor: c.hex }}
+              >
+                <div className="font-serif text-sm italic" style={{ color: c.nameColor }}>{c.name}</div>
+                <div className="text-[0.55rem] tracking-[0.12em] uppercase mt-0.5" style={{ color: c.roleColor }}>{c.role}</div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Aesthetic */}
+        {/* Who wears what */}
+        <div className="mb-6">
+          <div className="text-[0.68rem] tracking-[0.2em] uppercase font-jost font-semibold text-[#252525] mb-4">
+            Who Wears What
+          </div>
+          <div className="grid grid-cols-3 gap-4">
+            {[
+              { hex: "#1B2A4A", name: "Midnight Navy", detail: "Laurens · slim fit suit · gold tie\n2 groomsmen · navy suit" },
+              { hex: "#2D5A3D", name: "Deep Emerald", detail: "Rosa · Cori · Lauren / Ujaz\none-shoulder satin gown" },
+              { hex: "#C46A3A", name: "Burnt Terracotta", detail: "Laurens' sister · Chaima · girl 13\nmuted, dusty tone — not bright" },
+              { hex: "#E8DDB8", name: "Warm Champagne", detail: "Flower girl · 8\nclassic ivory tulle dress", border: true },
+              { hex: "#F5F0E4", name: "Bridal Ivory", detail: "Monica\nwarm bouquet · terracotta\nblush · champagne florals", border: true },
+              { hex: "#C9A96E", name: "Warm Gold", detail: "Laurens' tie · invitation accent\ncandles · Parkheuvel detail\nthe thread that ties it all" },
+            ].map((c) => (
+              <div key={c.name} className="bg-white border border-[#e0d8cc] rounded-lg overflow-hidden">
+                <div className={`h-16 ${c.border ? "border-b border-[#e8e0d4]" : ""}`} style={{ backgroundColor: c.hex }} />
+                <div className="p-3">
+                  <div className="font-serif italic text-[#252525] text-base">{c.name}</div>
+                  <div className="text-[0.65rem] tracking-[0.08em] uppercase text-[#aaa] mt-1 leading-relaxed whitespace-pre-line">{c.detail}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Why this works */}
+        <div className="bg-[#252525] rounded-lg p-6 mb-6">
+          <div className="font-serif text-[#c9a96e] text-lg italic font-light mb-3">why this works</div>
+          <p className="text-[0.85rem] font-jost font-light text-[#ccc] leading-relaxed">
+            The palette moves from <strong className="text-[#f7f3ec]">cool and deep at the front</strong> — navy, emerald — to{" "}
+            <strong className="text-[#f7f3ec]">warm and soft at the back</strong> — terracotta, champagne, bridal ivory. As guests watch the procession walk toward the altar, the colors tell a story that warms up as it reaches you. The terracotta bridges the cool jewel tones to the warm invitation palette, so nothing feels accidental.{" "}
+            <strong className="text-[#f7f3ec]">The gold thread</strong> — Laurens&apos; tie, the candles, the invitation accent — runs through everything and anchors it as one considered aesthetic. Quiet. Rich. Intentional.
+          </p>
+        </div>
+
+        {/* Aesthetic principles */}
         <div className="bg-white border border-[#e0d8cc] rounded-lg p-6 mb-6">
           <div className="text-[0.68rem] tracking-[0.2em] uppercase font-jost font-semibold text-[#252525] mb-3">
             The Aesthetic: Japandi
@@ -299,13 +334,13 @@ export default function WeddingBriefPage() {
         <div className="bg-[#252525] rounded-lg p-6 flex items-center justify-between mb-6">
           <div>
             <div className="text-[0.68rem] tracking-[0.2em] uppercase font-jost font-semibold text-[#c9a96e] mb-1">
-              For Bridesmaids
+              For Bridesmaids — Rosa · Cori · Lauren / Ujaz
             </div>
             <div className="font-serif text-[#f7f3ec] text-xl font-light">
-              Emerald green · Column or sheath silhouette · Clean, minimal, refined
+              Deep emerald · One-shoulder satin gown · Clean, minimal, refined
             </div>
           </div>
-          <div className="w-10 h-10 rounded-full bg-[#037A4D] shrink-0 ml-6" />
+          <div className="w-10 h-10 rounded-full bg-[#2D5A3D] shrink-0 ml-6" />
         </div>
 
         {/* Curated inspiration links */}
@@ -416,8 +451,8 @@ export default function WeddingBriefPage() {
           {[
             { name: "Main Dining Room", size: "~170m²", role: "Ceremony → Dinner → Dancing", color: "#2d5a45" },
             { name: "Private Dining", size: "~30–35m²", role: "Green room · overflow · kids", color: "#6080c0" },
-            { name: "Champagne Lounge", size: "~35m²", role: "Cocktail hour · possibly dancing", color: "#c9a96e" },
-            { name: "Foyer / Entrance", size: "~25–40m²", role: "Arrival · cocktail overflow", color: "#777" },
+            { name: "Champagne Lounge", size: "~35m²", role: "Secondary bar · too small for full guest cocktail hour", color: "#c9a96e" },
+            { name: "Foyer / Entrance", size: "~25–40m²", role: "Cocktail hour · arrival · main indoor overflow", color: "#777" },
             { name: "Terrace", size: "~80m²", role: "August overflow · dancing wildcard", color: "#4a8a4a" },
             { name: "Kitchen Opening", size: "~8m wide", role: "Processional entrance — the key question for April", color: "#9e3a3a" },
           ].map((s) => (
@@ -586,7 +621,7 @@ export default function WeddingBriefPage() {
           {[
             { time: "16:30", label: "Guests Arrive", detail: "9 perimeter dinner tables already dressed and set. Ceremony chairs in the center only. The room looks beautiful from the moment people walk in — not like a room mid-setup.", confirmed: true },
             { time: "17:00", label: "Ceremony", detail: "~45 minutes. Full 45-person seating. Wedding party at the river wall. Luis Miguel at the glass. Maas behind them.", confirmed: true },
-            { time: "17:45", label: "Cocktail Hour — The Flip", detail: "Guests move to champagne lounge, foyer, and private dining room. Venue team removes ~56 chairs from the center, brings in 4 tables. Estimated: ~30 minutes. The 45-minute cocktail hour covers it with room to spare.", confirmed: true },
+            { time: "17:45", label: "Cocktail Hour — The Flip", detail: "Guests move to the foyer and terrace (weather permitting). Venue team removes ~56 chairs from the center, brings in 4 tables. Estimated: ~30 minutes. The 45-minute cocktail hour covers it with room to spare.", confirmed: true },
             { time: "18:30", label: "Dinner", detail: "Main dining room: 13 tables, 54 guests. 1 table of 6 + 12 tables of 4. 2 tables remain spare. Room is full — which is exactly right for Parkheuvel.", confirmed: true },
             { time: "20:00", label: "Dancing", detail: "4 center tables cleared (~15 min). ~35–45m² opens in the middle of the half-moon. DJ in there. Perimeter tables stay for guests who want to sit. Terrace doors open for August overflow.", confirmed: false },
           ].map((item, i) => (
@@ -626,7 +661,7 @@ export default function WeddingBriefPage() {
           {[
             { name: "1 — Recommended", ceremony: "Main dining room · 9 pre-set tables · ceremony chairs in center · kitchen opening processional", dinner: "Main dining room · 4 center tables added during cocktail flip", dancing: "Main dining room (4 tables cleared) + terrace", verdict: "Best", verdictStyle: "bg-[#0d2a14] text-[#5aaa70]", rowStyle: "bg-[#0d1a10]" },
             { name: "2 — No flip needed", ceremony: "Private dining room (tight for 55 guests)", dinner: "Main dining room", dancing: "Main dining room (4 tables cleared) + terrace", verdict: "Possible", verdictStyle: "bg-[#1e1608] text-[#c47f2a]", rowStyle: "bg-[#111]" },
-            { name: "3 — Foyer unlock", ceremony: "Main dining room", dinner: "Main dining room", dancing: "Foyer + champagne lounge combined (~55–75m²)", verdict: "Unconfirmed", verdictStyle: "bg-[#1e1608] text-[#c47f2a]", rowStyle: "bg-[#111]" },
+            { name: "3 — Foyer unlock", ceremony: "Main dining room", dinner: "Main dining room", dancing: "Foyer + champagne lounge combined (~55–75m²) — unconfirmed if they connect", verdict: "Unconfirmed", verdictStyle: "bg-[#1e1608] text-[#c47f2a]", rowStyle: "bg-[#111]" },
             { name: "4 — Outdoor", ceremony: "Terrace (August, beautiful)", dinner: "Main dining room", dancing: "Terrace after dinner · DJ near doors", verdict: "Weather risk", verdictStyle: "bg-[#1e0808] text-[#aa4a4a]", rowStyle: "bg-[#111]" },
           ].map((row, i) => (
             <div key={i} className={`grid grid-cols-[140px_1fr_1fr_1fr_90px] border-t border-[#1a1a1a] ${row.rowStyle}`}>
@@ -673,7 +708,7 @@ export default function WeddingBriefPage() {
             title="Dancing"
             items={[
               "For Option A: where do the 4 cleared tables go, and how fast can the team clear them post-dinner?",
-              "For Option B: do the foyer and champagne lounge connect openly? Can that combined space work for dancing?",
+              "For Option B: do the foyer and champagne lounge connect openly? If yes, can that combined space work for dancing?",
               "What is the rain or wind backup if the terrace is ruled out on the night?",
               "Is there a sound curfew or music policy given the park location?",
             ]}
