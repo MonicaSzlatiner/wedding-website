@@ -514,11 +514,9 @@ export function RSVPClient() {
                           className="mt-4 text-[0.8rem] leading-relaxed"
                           style={{ color: "rgba(45, 41, 38, 0.45)" }}
                         >
-                          Parkheuvel&apos;s kitchen uses butter, cream, and other
-                          animal products throughout their menu. We&apos;re sorry we
-                          can&apos;t offer a fully vegan option. If you have specific
-                          needs, please use the notes field below and we&apos;ll do
-                          our best.
+                          Parkheuvel&apos;s menu is not fully vegan, their kitchen
+                          works extensively with butter and cream. Please use the
+                          notes field below if you have specific requirements.
                         </p>
                       </div>
 
@@ -849,9 +847,9 @@ function PlusOneSection({
                 className="mt-4 text-[0.8rem] leading-relaxed"
                 style={{ color: "rgba(45, 41, 38, 0.45)" }}
               >
-                Parkheuvel&apos;s kitchen uses butter, cream, and other
-                animal products throughout their menu. We&apos;re sorry we
-                can&apos;t offer a fully vegan option.
+                Parkheuvel&apos;s menu is not fully vegan, their kitchen
+                works extensively with butter and cream. Please use the
+                notes field below if you have specific requirements.
               </p>
             </div>
 
