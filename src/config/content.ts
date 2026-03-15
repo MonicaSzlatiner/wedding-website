@@ -130,6 +130,7 @@ export const weddingConfig = {
           {
             name: "Parklaan",
             details: "paid street parking, ~5 min walk through the park. Closest and easiest.",
+            mapUrl: undefined,
           },
           {
             name: "Parkeergarage Westzeedijk",
@@ -139,6 +140,7 @@ export const weddingConfig = {
           {
             name: "At the venue",
             details: "a handful of spots right at Parkheuvel, but they go fast. Don't count on it.",
+            mapUrl: undefined,
           },
         ],
         tip: "August is busy in Rotterdam — if you're driving, give yourself an extra 10 minutes to park.",
