@@ -137,15 +137,44 @@ export default function TravelPage() {
               <div className="mb-6">
                 <TruckIcon className="h-6 w-6" style={{ color: "#C37B60" }} />
               </div>
-              <h3 
+              <h3
                 className="font-serif text-xl italic mb-4"
                 style={{ fontWeight: 400, color: "#2D2926" }}
               >
                 {travel.sections.car.title}
               </h3>
-              <p className="text-sm leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
+              <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
                 {travel.sections.car.description}
               </p>
+              {travel.sections.car.parkingOptions && (
+                <ul className="space-y-2 mb-3">
+                  {travel.sections.car.parkingOptions.map((option, i) => (
+                    <li key={i} className="text-sm leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
+                      <span className="font-medium" style={{ color: "#2D2926" }}>
+                        {option.mapUrl ? (
+                          <a
+                            href={option.mapUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline"
+                            style={{ color: "#C37B60" }}
+                          >
+                            {option.name}
+                          </a>
+                        ) : (
+                          option.name
+                        )}
+                      </span>
+                      {" — "}{option.details}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {travel.sections.car.tip && (
+                <p className="text-xs leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.45)" }}>
+                  {travel.sections.car.tip}
+                </p>
+              )}
             </div>
           </div>
 

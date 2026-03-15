@@ -125,7 +125,23 @@ export const weddingConfig = {
       car: {
         title: "By Car",
         icon: "car",
-        description: "Paid parking is available nearby. The venue is located in Het Park, near the Euromast.",
+        description: "Paid parking is available nearby. Your best options:",
+        parkingOptions: [
+          {
+            name: "Parklaan",
+            details: "paid street parking, ~5 min walk through the park. Closest and easiest.",
+          },
+          {
+            name: "Parkeergarage Westzeedijk",
+            details: "covered garage at Westzeedijk 361, ~10 min walk. Open 24/7, around €2.70/hr. Good option if you want to guarantee a spot.",
+            mapUrl: "https://maps.google.com/?q=Westzeedijk+361,+3015+CP+Rotterdam",
+          },
+          {
+            name: "At the venue",
+            details: "a handful of spots right at Parkheuvel, but they go fast. Don't count on it.",
+          },
+        ],
+        tip: "August is busy in Rotterdam — if you're driving, give yourself an extra 10 minutes to park.",
       },
     },
   },
