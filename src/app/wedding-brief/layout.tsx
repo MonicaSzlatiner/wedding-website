@@ -25,11 +25,15 @@ export default function WeddingBriefLayout({
 }) {
   return (
     <div className={jost.variable}>
-      <style>{`
-        header { display: none !important; }
-        footer[role="contentinfo"] { display: none !important; }
-        svg text { font-family: var(--font-jost), sans-serif !important; }
-      `}</style>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            header { display: none !important; }
+            footer[role="contentinfo"] { display: none !important; }
+            svg text { font-family: var(--font-jost), sans-serif !important; }
+          `,
+        }}
+      />
       {children}
     </div>
   );
