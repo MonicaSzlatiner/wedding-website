@@ -21,12 +21,11 @@ interface GuestData {
   plus_one_allergies: string | null;
 }
 
-type DietaryPreference = "standard" | "vegetarian" | "vegan";
+type DietaryPreference = "standard" | "vegetarian";
 
 const DIETARY_OPTIONS: { value: DietaryPreference; label: string }[] = [
   { value: "standard", label: "No preference" },
   { value: "vegetarian", label: "Vegetarian" },
-  { value: "vegan", label: "Vegan" },
 ];
 
 const sectionReveal = {
@@ -511,6 +510,16 @@ export function RSVPClient() {
                             />
                           ))}
                         </div>
+                        <p
+                          className="mt-4 text-[0.8rem] leading-relaxed"
+                          style={{ color: "rgba(45, 41, 38, 0.45)" }}
+                        >
+                          Parkheuvel&apos;s kitchen uses butter, cream, and other
+                          animal products throughout their menu. We&apos;re sorry we
+                          can&apos;t offer a fully vegan option. If you have specific
+                          needs, please use the notes field below and we&apos;ll do
+                          our best.
+                        </p>
                       </div>
 
                       {/* Allergies */}
@@ -836,6 +845,14 @@ function PlusOneSection({
                   />
                 ))}
               </div>
+              <p
+                className="mt-4 text-[0.8rem] leading-relaxed"
+                style={{ color: "rgba(45, 41, 38, 0.45)" }}
+              >
+                Parkheuvel&apos;s kitchen uses butter, cream, and other
+                animal products throughout their menu. We&apos;re sorry we
+                can&apos;t offer a fully vegan option.
+              </p>
             </div>
 
             <div>

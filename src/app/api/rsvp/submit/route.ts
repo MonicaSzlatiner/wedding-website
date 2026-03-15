@@ -12,7 +12,7 @@ function getSupabaseAdmin() {
   return createClient(supabaseUrl, supabaseServiceKey);
 }
 
-const VALID_DIETARY = ["standard", "vegetarian", "vegan"];
+const VALID_DIETARY = ["standard", "vegetarian"];
 
 interface SubmitBody {
   guest_id: string;
