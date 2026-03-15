@@ -336,11 +336,29 @@ export default function HomePage() {
                 </h3>
                 <div className="flex-1 text-left p-4 rounded-lg" style={{ backgroundColor: "rgba(45, 41, 38, 0.03)" }}>
                   <p 
-                    className="text-sm font-light leading-relaxed"
+                    className="text-sm font-light leading-relaxed mb-3"
                     style={{ color: "rgba(45, 41, 38, 0.7)" }}
                   >
                     {travel.sections.car.description}
                   </p>
+                  <ul className="space-y-2">
+                    <li className="text-sm leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
+                      <span className="font-medium" style={{ color: "#2D2926" }}>Parklaan</span>
+                      {" "}— paid street parking, ~5 min walk through the park. Closest and easiest.
+                    </li>
+                    <li className="text-sm leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
+                      <span className="font-medium" style={{ color: "#2D2926" }}>
+                        <a href="https://maps.google.com/?q=Westzeedijk+361,+3015+CP+Rotterdam" target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: "#C37B60" }}>
+                          Parkeergarage Westzeedijk
+                        </a>
+                      </span>
+                      {" "}— covered garage, ~10 min walk. Open 24/7, around &euro;2.70/hr.
+                    </li>
+                    <li className="text-sm leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
+                      <span className="font-medium" style={{ color: "#2D2926" }}>At the venue</span>
+                      {" "}— a handful of spots right at Parkheuvel, but they go fast.
+                    </li>
+                  </ul>
                 </div>
               </div>
             </FadeIn>
