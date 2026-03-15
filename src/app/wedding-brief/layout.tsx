@@ -28,9 +28,8 @@ export default function WeddingBriefLayout({
       <style
         dangerouslySetInnerHTML={{
           __html: `
-            header { display: none !important; }
-            footer[role="contentinfo"] { display: none !important; }
-            svg text { font-family: var(--font-jost), sans-serif !important; }
+            body > div > header { display: none !important; }
+            body > div > footer[role="contentinfo"] { display: none !important; }
           `,
         }}
       />

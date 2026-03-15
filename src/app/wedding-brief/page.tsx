@@ -407,7 +407,7 @@ export default function WeddingBriefPage() {
             <text x="390" y="478" textAnchor="middle" fontFamily="Jost,sans-serif" fontSize="9" fill="#2a5a78">river views · terrace faces this direction</text>
             <rect x="110" y="385" width="560" height="50" fill="#0d200d" stroke="#2d4a2d" strokeWidth="1.5" rx="3" />
             <text x="390" y="406" textAnchor="middle" fontFamily="Jost,sans-serif" fontSize="10" fill="#4a8a4a" fontWeight="500">TERRACE  ~80m²</text>
-            <text x="390" y="422" textAnchor="middle" fontFamily="Jost,sans-serif" fontSize="8.5" fill="#2d5a2d">ceremony option (weather risk) · dancing option (August, weather dependent)</text>
+            <text x="390" y="422" textAnchor="middle" fontFamily="Jost,sans-serif" fontSize="8.5" fill="#2d5a2d">Option B ceremony (weather call · 15:00) · dancing post-dinner</text>
             <ellipse cx="390" cy="230" rx="260" ry="160" fill="#1a1a1a" stroke="#444" strokeWidth="2" />
             <rect x="308" y="80" width="165" height="55" fill="#252525" stroke="#555" strokeWidth="1.5" rx="3" />
             <text x="390" y="101" textAnchor="middle" fontFamily="Jost,sans-serif" fontSize="10" fill="#bbb" fontWeight="500">FOYER / ENTRANCE</text>
@@ -418,9 +418,7 @@ export default function WeddingBriefPage() {
             <text x="208" y="172" textAnchor="middle" fontFamily="Jost,sans-serif" fontSize="10" fill="#c9a96e" fontWeight="500">CHAMPAGNE LOUNGE</text>
             <text x="208" y="187" textAnchor="middle" fontFamily="Jost,sans-serif" fontSize="8.5" fill="#9a7a30">~35m² · new post-renovation</text>
             <text x="208" y="200" textAnchor="middle" fontFamily="Jost,sans-serif" fontSize="8" fill="#7a5a20">alone: too small for dancing</text>
-            <text x="208" y="213" textAnchor="middle" fontFamily="Jost,sans-serif" fontSize="8" fill="#7a5a20">with foyer: possibly 55–75m²</text>
-            <rect x="122" y="74" width="172" height="168" fill="none" stroke="#c47f2a" strokeWidth="1.2" strokeDasharray="5,3" rx="4" />
-            <text x="128" y="70" fontFamily="Jost,sans-serif" fontSize="8" fill="#c47f2a" fontWeight="500">Option B dance zone (unconfirmed)</text>
+            <text x="208" y="213" textAnchor="middle" fontFamily="Jost,sans-serif" fontSize="8" fill="#7a5a20">too small for dancing</text>
             <rect x="308" y="135" width="165" height="50" fill="#1e1e1e" stroke="#444" strokeWidth="1" rx="2" />
             <text x="390" y="156" textAnchor="middle" fontFamily="Jost,sans-serif" fontSize="9.5" fill="#777" fontWeight="500">OPEN KITCHEN</text>
             <text x="390" y="170" textAnchor="middle" fontFamily="Jost,sans-serif" fontSize="8" fill="#555">8m opening into dining room</text>
@@ -615,6 +613,88 @@ export default function WeddingBriefPage() {
         subtitle="How the same room does three different jobs in one evening"
         dark
       >
+        {/* Event cards — Ceremony · Dinner · Dancing */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+          {/* Ceremony card */}
+          <div className="bg-[#111] border border-[#c47f2a]/50 rounded-lg overflow-hidden">
+            <div className="px-4 py-3 border-b border-[#2a2a2a]" style={{ background: "linear-gradient(135deg, #1a1508, #111)" }}>
+              <div className="text-[0.6rem] font-jost font-semibold tracking-[0.15em] uppercase text-[#c47f2a] mb-0.5">Step 1</div>
+              <div className="font-serif text-[#f7f3ec] text-lg font-light">Ceremony</div>
+              <span className="text-[0.6rem] font-jost font-medium px-2 py-0.5 rounded-full bg-[#1e1608] text-[#c47f2a] tracking-wide">&#9888; Not decided</span>
+            </div>
+            <div className="p-4 space-y-3">
+              <div className="text-[0.75rem] font-jost font-light text-[#777]">55 guests · American-style processional · ~45 min</div>
+              <div className="bg-[#0d1a10] border border-[#2d5a45]/30 rounded-md p-3">
+                <div className="text-[0.65rem] font-jost font-semibold tracking-[0.1em] uppercase text-[#2d5a45] mb-1">Option A — Recommended</div>
+                <div className="text-[0.72rem] font-jost font-medium text-[#ccc] mb-1">Main dining room · aisle toward the Maas</div>
+                <p className="text-[0.72rem] font-jost font-light text-[#777] leading-relaxed mb-1">9 perimeter dinner tables are pre-set before guests arrive. Ceremony chairs fill the center only. Wedding party enters through the 8m kitchen opening, walks toward the river. Luis Miguel at the curved glass wall. Flip takes ~30 min.</p>
+                <span className="text-[0.6rem] font-jost text-[#555]">~8–9m aisle · river backdrop · flip ~30 min</span>
+              </div>
+              <div className="bg-[#1a1508] border border-[#c47f2a]/30 rounded-md p-3">
+                <div className="text-[0.65rem] font-jost font-semibold tracking-[0.1em] uppercase text-[#c47f2a] mb-1">Option B — Weather-conditional upgrade</div>
+                <div className="text-[0.72rem] font-jost font-medium text-[#ccc] mb-1">Terrace · curved crescent · Maas backdrop</div>
+                <p className="text-[0.72rem] font-jost font-light text-[#777] leading-relaxed mb-1">The building is a full semicircle — the terrace wraps the river-facing arc. 80m² of open crescent. Wedding party walks through the dining room and out through the curved glass doors. Luis Miguel at the railing with the river behind him. Chairs follow the arc naturally. No flip needed: dinner is already set inside. Call it at 15:00 on the day.</p>
+                <span className="text-[0.6rem] font-jost text-[#555]">~80m² crescent · Maas backdrop · weather call by 15:00</span>
+              </div>
+              <p className="text-[0.72rem] font-jost font-light text-[#9e3a3a] leading-relaxed italic">Critical April questions: does the kitchen opening feel like a proper entrance or a kitchen door? And on the terrace — how exposed is it to wind off the river? Stand there and feel it. Both of these can only be answered in person.</p>
+            </div>
+          </div>
+
+          {/* Dinner card */}
+          <div className="bg-[#111] border border-[#2d5a45]/50 rounded-lg overflow-hidden">
+            <div className="px-4 py-3 border-b border-[#2a2a2a]" style={{ background: "linear-gradient(135deg, #0d1a10, #111)" }}>
+              <div className="text-[0.6rem] font-jost font-semibold tracking-[0.15em] uppercase text-[#2d5a45] mb-0.5">Step 2</div>
+              <div className="font-serif text-[#f7f3ec] text-lg font-light">Dinner</div>
+              <span className="text-[0.6rem] font-jost font-medium px-2 py-0.5 rounded-full bg-[#0d2a14] text-[#5aaa70] tracking-wide">&#10003; Confirmed direction</span>
+            </div>
+            <div className="p-4 space-y-3">
+              <div className="text-[0.75rem] font-jost font-light text-[#777]">55 guests · 13 tables · 1 table of 6 + 12 tables of 4</div>
+              <div className="bg-[#0d1a10] border border-[#2d5a45]/30 rounded-md p-3">
+                <div className="text-[0.65rem] font-jost font-semibold tracking-[0.1em] uppercase text-[#2d5a45] mb-1">Confirmed</div>
+                <p className="text-[0.72rem] font-jost font-light text-[#777] leading-relaxed">Main dining room only. 13 of 15 available tables in use. 2 tables spare. Room is full during dinner — that&apos;s correct and expected for Parkheuvel.</p>
+              </div>
+              <div className="bg-[#0d1a10] border border-[#2d5a45]/30 rounded-md p-3">
+                <div className="text-[0.65rem] font-jost font-semibold tracking-[0.1em] uppercase text-[#2d5a45] mb-1">Seating</div>
+                <div className="text-[0.72rem] font-jost font-medium text-[#ccc] mb-1">1 table of 6 + 12 tables of 4 = 54</div>
+                <p className="text-[0.72rem] font-jost font-light text-[#777] leading-relaxed mb-1">One guest short. Seat them at the table of 6 (now 7), or ask if one 4-top can take a 5th chair.</p>
+                <span className="text-[0.6rem] font-jost text-[#555]">13 tables used · 2 tables remain empty</span>
+              </div>
+              <div className="bg-[#0d1a10] border border-[#2d5a45]/30 rounded-md p-3">
+                <div className="text-[0.65rem] font-jost font-semibold tracking-[0.1em] uppercase text-[#2d5a45] mb-1">Private dining room role</div>
+                <div className="text-[0.72rem] font-jost font-medium text-[#ccc] mb-1">Available for overflow or kids</div>
+                <p className="text-[0.72rem] font-jost font-light text-[#777] leading-relaxed mb-1">Even if dinner is main room only, the private dining room can hold a kids table, gift table, or overflow bar.</p>
+                <span className="text-[0.6rem] font-jost text-[#555]">~30–35m² · separate room</span>
+              </div>
+              <p className="text-[0.72rem] font-jost font-light text-[#9e3a3a] leading-relaxed italic">One open question: does the private dining room stay available during dinner for secondary use, or does Parkheuvel need it for something else?</p>
+            </div>
+          </div>
+
+          {/* Dancing card */}
+          <div className="bg-[#111] border border-[#c47f2a]/50 rounded-lg overflow-hidden">
+            <div className="px-4 py-3 border-b border-[#2a2a2a]" style={{ background: "linear-gradient(135deg, #1a1508, #111)" }}>
+              <div className="text-[0.6rem] font-jost font-semibold tracking-[0.15em] uppercase text-[#c47f2a] mb-0.5">Step 3</div>
+              <div className="font-serif text-[#f7f3ec] text-lg font-light">Dancing</div>
+              <span className="text-[0.6rem] font-jost font-medium px-2 py-0.5 rounded-full bg-[#1e1608] text-[#c47f2a] tracking-wide">&#9888; Still unknown</span>
+            </div>
+            <div className="p-4 space-y-3">
+              <div className="text-[0.75rem] font-jost font-light text-[#777]">~20–25 dancing at once · DJ · post-dinner</div>
+              <div className="bg-[#0d1a10] border border-[#2d5a45]/30 rounded-md p-3">
+                <div className="text-[0.65rem] font-jost font-semibold tracking-[0.1em] uppercase text-[#2d5a45] mb-1">Option A — Most viable</div>
+                <div className="text-[0.72rem] font-jost font-medium text-[#ccc] mb-1">Main dining room after flip</div>
+                <p className="text-[0.72rem] font-jost font-light text-[#777] leading-relaxed mb-1">4 center tables cleared after dinner. Opens ~35–45m² in the middle of the half-moon. DJ sets up there. Perimeter tables stay for guests who want to sit. Terrace doors open for August overflow — guests drift in and out naturally.</p>
+                <span className="text-[0.6rem] font-jost text-[#555]">~35–45m² after flip · needs 15–20 min</span>
+              </div>
+              <div className="bg-[#1a1508] border border-[#c47f2a]/30 rounded-md p-3">
+                <div className="text-[0.65rem] font-jost font-semibold tracking-[0.1em] uppercase text-[#c47f2a] mb-1">Option B — August night on the river</div>
+                <div className="text-[0.72rem] font-jost font-medium text-[#ccc] mb-1">Terrace · Maas at night · DJ near the doors</div>
+                <p className="text-[0.72rem] font-jost font-light text-[#777] leading-relaxed mb-1">DJ sets up near the open terrace doors so sound carries both ways. Guests dance on the crescent with the Maas in front. Perimeter tables inside stay for anyone who wants to sit. Wind and noise curfew are the two things to confirm in April.</p>
+                <span className="text-[0.6rem] font-jost text-[#555]">~80m² · weather dependent · confirm noise curfew</span>
+              </div>
+              <p className="text-[0.72rem] font-jost font-light text-[#9e3a3a] leading-relaxed italic">Ask in April: can the DJ set up near the terrace doors so sound works both inside and out? Is there a noise or music curfew given the park location?</p>
+            </div>
+          </div>
+        </div>
+
         <div className="relative mb-10 pl-10 border-l border-[#2a2a2a]">
           {[
             { time: "16:30", label: "Guests Arrive", detail: "9 perimeter dinner tables already dressed and set. Ceremony chairs in the center only. The room looks beautiful from the moment people walk in — not like a room mid-setup.", confirmed: true },
@@ -644,7 +724,260 @@ export default function WeddingBriefPage() {
           </p>
         </div>
 
-        {/* Scenario table — header is first element in DOM, no CSS tricks */}
+{/* Option B — Terrace Ceremony Diagram */}
+        <div className="bg-[#111] border border-[#2a2a2a] rounded-lg p-6 mb-8">
+          <div className="text-[0.68rem] tracking-[0.2em] uppercase font-jost font-semibold text-[#c9a96e] mb-4">
+            Option B — Terrace ceremony · curved crescent · weather-conditional
+          </div>
+          <div className="rounded-md p-4 mb-4" style={{ background: "#fffbf2", border: "1px solid #e0c87a" }}>
+            <p className="text-[0.8rem] font-jost font-light leading-relaxed" style={{ color: "#7a5c00" }}>
+              <strong style={{ color: "#5a3c00" }}>The building is a full semicircle.</strong> The terrace wraps the river-facing arc &mdash; it&apos;s a curved crescent, not a rectangle. Chairs follow the arc naturally, so every seat curves inward toward the aisle. Option A (indoor) is the default plan; this is the upgrade if August cooperates. Rain call: 15:00 on the day.
+            </p>
+          </div>
+          <div dangerouslySetInnerHTML={{ __html: `<svg viewBox="0 0 960 700" width="100%" style="max-width:960px;display:block;margin:0 auto;">
+        <defs>
+          <marker id="tda" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#888"/>
+          </marker>
+          <marker id="tda-r" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto-start-reverse">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#888"/>
+          </marker>
+          <marker id="t-ag" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#2d5a45"/>
+          </marker>
+          <marker id="t-ab" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#5c4a3a"/>
+          </marker>
+          <marker id="t-agold" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#c9a96e"/>
+          </marker>
+          <marker id="t-ablue" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#5e8da8"/>
+          </marker>
+          <marker id="t-sight" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#9e3a3a" opacity="0.6"/>
+          </marker>
+          <g id="tch">
+            <rect x="-4.5" y="-9" width="9" height="5.5" rx="1" fill="#b8ae9c"/>
+            <rect x="-4.5" y="-3.5" width="9" height="5" rx="1" fill="#ccc5b8"/>
+            <circle cx="0" cy="-13" r="3.5" fill="#cfc8ba"/>
+          </g>
+          <g id="t-spe">
+            <circle cx="0" cy="-22" r="7" fill="#2d5a45"/>
+            <rect x="-6" y="-15" width="12" height="15" rx="3" fill="#2d5a45"/>
+          </g>
+          <g id="t-spb">
+            <circle cx="0" cy="-22" r="7" fill="#5c4a3a"/>
+            <rect x="-6" y="-15" width="12" height="15" rx="3" fill="#5c4a3a"/>
+          </g>
+          <g id="t-spg">
+            <circle cx="0" cy="-22" r="7" fill="#c9a96e"/>
+            <rect x="-6" y="-15" width="12" height="15" rx="3" fill="#c9a96e"/>
+          </g>
+          <clipPath id="t-bottom">
+            <rect x="0" y="230" width="960" height="470"/>
+          </clipPath>
+          <clipPath id="t-top">
+            <rect x="0" y="0" width="960" height="230"/>
+          </clipPath>
+        </defs>
+
+        <rect width="960" height="700" fill="#f8f6f0" rx="6"/>
+
+        
+        <rect x="0" y="620" width="960" height="80" fill="#d4eaf7"/>
+        <text x="480" y="654" text-anchor="middle" font-family="Jost,sans-serif" font-size="13" fill="#5e8da8" letter-spacing="5">NIEUWE MAAS</text>
+        <text x="480" y="672" text-anchor="middle" font-family="Jost,sans-serif" font-size="9" fill="#7ab4cc">river · open water · ships passing</text>
+
+        
+        <rect x="100" y="608" width="760" height="14" fill="#c8d8b0" stroke="#9ab880" stroke-width="1" rx="2"/>
+        <text x="480" y="619" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="#5a7a40">embankment edge</text>
+
+        
+        <ellipse cx="480" cy="230" rx="360" ry="300" fill="#edf5e8" clip-path="url(#t-bottom)"/>
+        <ellipse cx="480" cy="230" rx="260" ry="218" fill="#f0ede4" clip-path="url(#t-bottom)"/>
+
+        
+        <ellipse cx="480" cy="230" rx="360" ry="300" fill="none" stroke="#7ab87a" stroke-width="2.5" clip-path="url(#t-bottom)"/>
+        
+        <ellipse cx="480" cy="230" rx="260" ry="218" fill="none" stroke="#5e8da8" stroke-width="2" stroke-dasharray="8,5" clip-path="url(#t-bottom)"/>
+
+        
+        <text x="185" y="530" text-anchor="middle" font-family="Jost,sans-serif" font-size="9" fill="#5a9a5a" font-style="italic">terrace · ~80m²</text>
+        <text x="775" y="530" text-anchor="middle" font-family="Jost,sans-serif" font-size="9" fill="#5a9a5a" font-style="italic">terrace · ~80m²</text>
+        <text x="480" y="598" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="#5a9a5a">outer railing — river below</text>
+        <text x="178" y="390" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="#5e8da8" transform="rotate(-52 178 390)">curved glass wall</text>
+
+        
+        <ellipse cx="480" cy="230" rx="260" ry="218" fill="#f0ede4" stroke="#2d5a45" stroke-width="2.5" clip-path="url(#t-top)"/>
+        <line x1="220" y1="230" x2="740" y2="230" stroke="#2d5a45" stroke-width="2.5"/>
+        <text x="480" y="130" text-anchor="middle" font-family="Jost,sans-serif" font-size="11" fill="#2d5a45" font-weight="600">MAIN DINING ROOM</text>
+        <text x="480" y="147" text-anchor="middle" font-family="Jost,sans-serif" font-size="8.5" fill="#4a8c6e">dinner tables pre-set · guests assemble here</text>
+
+        
+        <rect x="350" y="20" width="260" height="38" fill="#e8e4da" stroke="#a09880" stroke-width="1.5" rx="3"/>
+        <text x="480" y="36" text-anchor="middle" font-family="Jost,sans-serif" font-size="9.5" fill="#555" font-weight="600">FOYER / ENTRANCE · Heuvellaan 21</text>
+        <text x="480" y="50" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="#888">guests arrive up the steps · park side</text>
+
+        
+        <text x="480" y="14" text-anchor="middle" font-family="Jost,sans-serif" font-size="9" fill="#888" font-style="italic">← Het Park · entrance via steps</text>
+
+        
+        <rect x="650" y="58" width="180" height="75" fill="#edf0ff" stroke="#6080c0" stroke-width="1.5" rx="4"/>
+        <text x="740" y="80" text-anchor="middle" font-family="Jost,sans-serif" font-size="10" fill="#3050a0" font-weight="600">PRIVATE DINING</text>
+        <text x="740" y="95" text-anchor="middle" font-family="Jost,sans-serif" font-size="8.5" fill="#5070b0">wedding party stages here</text>
+        <text x="740" y="108" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="#888">→ dining room → glass doors → terrace</text>
+        <path d="M700,133 Q640,180 560,232" stroke="#6080c0" stroke-width="1.5" fill="none" stroke-dasharray="5,4" marker-end="url(#t-ablue)"/>
+
+        
+        <path d="M390,448 A260,218 0 0,1 570,448" fill="rgba(201,169,110,0.2)" stroke="#c9a96e" stroke-width="2" stroke-dasharray="5,3"/>
+        <text x="480" y="444" text-anchor="middle" font-family="Jost,sans-serif" font-size="8.5" fill="#c9a96e" font-weight="500">curved glass doors · open · party enters here</text>
+
+        
+        <rect x="455" y="450" width="50" height="140" fill="rgba(201,169,110,0.12)"/>
+        <line x1="455" y1="450" x2="455" y2="590" stroke="rgba(201,169,110,0.5)" stroke-width="1" stroke-dasharray="5,5"/>
+        <line x1="505" y1="450" x2="505" y2="590" stroke="rgba(201,169,110,0.5)" stroke-width="1" stroke-dasharray="5,5"/>
+        <text x="480" y="510" text-anchor="middle" font-family="Jost,sans-serif" font-size="8.5" fill="#c9a96e" font-style="italic" transform="rotate(-90 480 510)">aisle ~1.2m</text>
+
+        
+        
+        
+
+        
+        <use href="#tch" transform="translate(194,273) rotate(80)"/>
+        <use href="#tch" transform="translate(217,334) rotate(65)"/>
+        <use href="#tch" transform="translate(258,387) rotate(50)"/>
+        <use href="#tch" transform="translate(294,418) rotate(40)"/>
+        <use href="#tch" transform="translate(335,442) rotate(30)"/>
+        <use href="#tch" transform="translate(381,460) rotate(20)"/>
+        <use href="#tch" transform="translate(410,466) rotate(12)"/>
+        
+        <use href="#tch" transform="translate(766,273) rotate(-80)"/>
+        <use href="#tch" transform="translate(743,334) rotate(-65)"/>
+        <use href="#tch" transform="translate(702,387) rotate(-50)"/>
+        <use href="#tch" transform="translate(666,418) rotate(-40)"/>
+        <use href="#tch" transform="translate(625,442) rotate(-30)"/>
+        <use href="#tch" transform="translate(579,460) rotate(-20)"/>
+        <use href="#tch" transform="translate(550,466) rotate(-12)"/>
+
+        
+        <use href="#tch" transform="translate(165,277) rotate(80)"/>
+        <use href="#tch" transform="translate(190,344) rotate(65)"/>
+        <use href="#tch" transform="translate(235,404) rotate(50)"/>
+        <use href="#tch" transform="translate(274,437) rotate(40)"/>
+        <use href="#tch" transform="translate(320,464) rotate(30)"/>
+        <use href="#tch" transform="translate(371,484) rotate(20)"/>
+        <use href="#tch" transform="translate(413,494) rotate(12)"/>
+        
+        <use href="#tch" transform="translate(795,277) rotate(-80)"/>
+        <use href="#tch" transform="translate(770,344) rotate(-65)"/>
+        <use href="#tch" transform="translate(725,404) rotate(-50)"/>
+        <use href="#tch" transform="translate(686,437) rotate(-40)"/>
+        <use href="#tch" transform="translate(640,464) rotate(-30)"/>
+        <use href="#tch" transform="translate(589,484) rotate(-20)"/>
+        <use href="#tch" transform="translate(547,494) rotate(-12)"/>
+
+        
+        <use href="#tch" transform="translate(135,281) rotate(80)"/>
+        <use href="#tch" transform="translate(163,355) rotate(65)"/>
+        <use href="#tch" transform="translate(212,420) rotate(50)"/>
+        <use href="#tch" transform="translate(255,456) rotate(40)"/>
+        <use href="#tch" transform="translate(305,486) rotate(30)"/>
+        <use href="#tch" transform="translate(360,507) rotate(20)"/>
+        <use href="#tch" transform="translate(407,519) rotate(12)"/>
+        
+        <use href="#tch" transform="translate(825,281) rotate(-80)"/>
+        <use href="#tch" transform="translate(817,355) rotate(-65)"/>
+        <use href="#tch" transform="translate(748,420) rotate(-50)"/>
+        <use href="#tch" transform="translate(705,456) rotate(-40)"/>
+        <use href="#tch" transform="translate(655,486) rotate(-30)"/>
+        <use href="#tch" transform="translate(600,507) rotate(-20)"/>
+        <use href="#tch" transform="translate(553,519) rotate(-12)"/>
+
+        
+        <text x="112" y="292" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="#999" font-style="italic">row 3</text>
+        <text x="143" y="360" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="#999" font-style="italic">row 2</text>
+        <text x="174" y="430" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="#999" font-style="italic">row 1</text>
+        <text x="838" y="292" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="#999" font-style="italic">row 3</text>
+        <text x="808" y="360" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="#999" font-style="italic">row 2</text>
+        <text x="787" y="430" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="#999" font-style="italic">row 1</text>
+
+        
+        <use href="#t-spe" transform="translate(340,555) rotate(30)"/>
+        <use href="#t-spe" transform="translate(372,565) rotate(20)"/>
+        <use href="#t-spe" transform="translate(407,570) rotate(10)"/>
+        <text x="365" y="590" text-anchor="middle" font-family="Jost,sans-serif" font-size="9.5" fill="#2d5a45" font-weight="600">bridesmaids</text>
+
+        <use href="#t-spb" transform="translate(620,555) rotate(-30)"/>
+        <use href="#t-spb" transform="translate(588,565) rotate(-20)"/>
+        <use href="#t-spb" transform="translate(553,570) rotate(-10)"/>
+        <text x="595" y="590" text-anchor="middle" font-family="Jost,sans-serif" font-size="9.5" fill="#5c4a3a" font-weight="600">groomsmen</text>
+
+        <use href="#t-spg" transform="translate(435,543)"/>
+        <use href="#t-spg" transform="translate(525,543)"/>
+        <text x="480" y="530" text-anchor="middle" font-family="Jost,sans-serif" font-size="9" fill="#a08040">flower girls</text>
+
+        
+        <rect x="425" y="558" width="110" height="24" fill="rgba(201,169,110,0.1)" stroke="#c9a96e" stroke-width="1.8" stroke-dasharray="5,3" rx="4"/>
+        <text x="480" y="574" text-anchor="middle" font-family="Jost,sans-serif" font-size="9" fill="#c9a96e" font-weight="500">Monica + Laurens</text>
+
+        
+        <circle cx="480" cy="596" r="10" fill="#2d5a45"/>
+        <rect x="474" y="606" width="12" height="13" rx="3" fill="#2d5a45"/>
+        <text x="480" y="593" text-anchor="middle" font-family="Jost,sans-serif" font-size="7" fill="white" font-weight="700">L.M.</text>
+        <rect x="506" y="582" width="140" height="34" fill="white" stroke="#2d5a45" stroke-width="1" rx="3" opacity="0.92"/>
+        <text x="576" y="597" text-anchor="middle" font-family="Jost,sans-serif" font-size="9" fill="#2d5a45" font-weight="600">Luis Miguel · officiant</text>
+        <text x="576" y="609" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="#4a8c6e">at the railing · Maas behind him</text>
+        <line x1="506" y1="596" x2="490" y2="596" stroke="#2d5a45" stroke-width="1"/>
+
+        
+        <path d="M452,450 Q400,490 372,540" stroke="#2d5a45" stroke-width="2" fill="none" stroke-dasharray="7,5" marker-end="url(#t-ag)"/>
+        <path d="M508,450 Q560,490 588,540" stroke="#5c4a3a" stroke-width="2" fill="none" stroke-dasharray="7,5" marker-end="url(#t-ab)"/>
+        <path d="M466,450 L435,520" stroke="#c9a96e" stroke-width="1.5" fill="none" stroke-dasharray="5,5"/>
+        <path d="M494,450 L525,520" stroke="#c9a96e" stroke-width="1.5" fill="none" stroke-dasharray="5,5"/>
+        <path d="M480,450 L480,550" stroke="#c9a96e" stroke-width="3" fill="none" marker-end="url(#t-agold)"/>
+
+        
+        <rect x="516" y="466" width="138" height="36" fill="white" stroke="#c9a96e" stroke-width="1.2" rx="3"/>
+        <text x="585" y="481" text-anchor="middle" font-family="Jost,sans-serif" font-size="10" fill="#c9a96e" font-weight="600">Monica + Cesar</text>
+        <text x="585" y="495" text-anchor="middle" font-family="Jost,sans-serif" font-size="8.5" fill="#c9a96e">enter last · center</text>
+        <line x1="516" y1="484" x2="506" y2="484" stroke="#c9a96e" stroke-width="1"/>
+
+        
+        <line x1="135" y1="281" x2="480" y2="566" stroke="#9e3a3a" stroke-width="1.3" stroke-dasharray="8,5" opacity="0.45" marker-end="url(#t-sight)"/>
+        <line x1="825" y1="281" x2="480" y2="566" stroke="#9e3a3a" stroke-width="1.3" stroke-dasharray="8,5" opacity="0.45" marker-end="url(#t-sight)"/>
+
+        <rect x="14" y="270" width="120" height="52" fill="white" stroke="#9e3a3a" stroke-width="1" rx="3" opacity="0.92"/>
+        <text x="74" y="288" text-anchor="middle" font-family="Jost,sans-serif" font-size="9" fill="#9e3a3a" font-weight="600">Worst corner seat</text>
+        <text x="74" y="302" text-anchor="middle" font-family="Jost,sans-serif" font-size="8.5" fill="#9e3a3a">clear open-air view</text>
+        <text x="74" y="315" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="#888">arc rows curve inward —</text>
+        <text x="74" y="326" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="#888">no angle problem</text>
+
+        
+        <rect x="814" y="42" width="140" height="158" fill="white" stroke="#e0d8cc" stroke-width="1.2" rx="5"/>
+        <text x="824" y="62" font-family="Jost,sans-serif" font-size="8" fill="#aaa" font-weight="600" letter-spacing="0.1em">PROCESSIONAL ORDER</text>
+        <line x1="824" y1="68" x2="944" y2="68" stroke="#eee" stroke-width="1"/>
+        <circle cx="832" cy="86" r="5" fill="#5c4a3a"/>
+        <text x="844" y="90" font-family="Jost,sans-serif" font-size="9.5" fill="#555">1. Groomsmen</text>
+        <circle cx="832" cy="110" r="5" fill="#2d5a45"/>
+        <text x="844" y="114" font-family="Jost,sans-serif" font-size="9.5" fill="#555">2. Bridesmaids</text>
+        <circle cx="832" cy="134" r="5" fill="#c9a96e"/>
+        <text x="844" y="138" font-family="Jost,sans-serif" font-size="9.5" fill="#555">3. Flower girls</text>
+        <circle cx="832" cy="158" r="5" fill="#5c4a3a"/>
+        <text x="844" y="162" font-family="Jost,sans-serif" font-size="9.5" fill="#555">4. Best man</text>
+        <circle cx="832" cy="182" r="6" fill="#c9a96e" stroke="#a08040" stroke-width="1.5"/>
+        <text x="844" y="186" font-family="Jost,sans-serif" font-size="9.5" fill="#c9a96e" font-weight="700">5. Monica + Cesar ✦</text>
+
+      </svg>` }} />
+          <div className="rounded-md p-4 mt-4" style={{ background: "#fffbf2", border: "1px solid #e8c870" }}>
+            <div className="text-[0.7rem] font-jost font-semibold tracking-[0.12em] uppercase mb-1" style={{ color: "#b07820" }}>Weather protocol</div>
+            <p className="text-[0.84rem] font-jost font-light leading-relaxed" style={{ color: "#333" }}>
+              Option A (indoor) is the default and requires no decision. Option B (terrace) is the upgrade &mdash; call it at <strong>15:00 on the day</strong>. If it&apos;s clear and calm, step outside. If there&apos;s any doubt, the indoor ceremony is already set and ready. Discuss with Parkheuvel in April how quickly chairs can move from inside to terrace if you decide late.
+            </p>
+          </div>
+        </div>
+
+                {/* Scenario table — header is first element in DOM, no CSS tricks */}
         <div className="text-[0.68rem] tracking-[0.2em] uppercase font-jost font-semibold text-[#c9a96e] mb-4">
           All Possible Combinations
         </div>
@@ -658,9 +991,8 @@ export default function WeddingBriefPage() {
           </div>
           {[
             { name: "1 — Recommended", ceremony: "Main dining room · 9 pre-set tables · ceremony chairs in center · kitchen opening processional", dinner: "Main dining room · 4 center tables added during cocktail flip", dancing: "Main dining room (4 tables cleared) + terrace", verdict: "Best", verdictStyle: "bg-[#0d2a14] text-[#5aaa70]", rowStyle: "bg-[#0d1a10]" },
-            { name: "2 — No flip needed", ceremony: "Private dining room (tight for 55 guests)", dinner: "Main dining room", dancing: "Main dining room (4 tables cleared) + terrace", verdict: "Possible", verdictStyle: "bg-[#1e1608] text-[#c47f2a]", rowStyle: "bg-[#111]" },
-            { name: "3 — Foyer unlock", ceremony: "Main dining room", dinner: "Main dining room", dancing: "Foyer + champagne lounge combined (~55–75m²) — unconfirmed if they connect", verdict: "Unconfirmed", verdictStyle: "bg-[#1e1608] text-[#c47f2a]", rowStyle: "bg-[#111]" },
-            { name: "4 — Outdoor", ceremony: "Terrace (August, beautiful)", dinner: "Main dining room", dancing: "Terrace after dinner · DJ near doors", verdict: "Weather risk", verdictStyle: "bg-[#1e0808] text-[#aa4a4a]", rowStyle: "bg-[#111]" },
+            { name: "2 — Terrace upgrade", ceremony: "Terrace · curved crescent · party exits through glass doors · Luis Miguel at railing · Maas behind him · call at 15:00", dinner: "Main dining room (already set — no flip needed)", dancing: "Main dining room (4 tables cleared) + terrace doors open", verdict: "Weather call", verdictStyle: "bg-[#1e1608] text-[#c47f2a]", rowStyle: "bg-[#111]" },
+            { name: "3 — No flip", ceremony: "Private dining room (too small for 55 guests)", dinner: "Main dining room", dancing: "Main dining room (4 tables cleared) + terrace", verdict: "Too small", verdictStyle: "bg-[#1e0808] text-[#aa4a4a]", rowStyle: "bg-[#111]" },
           ].map((row, i) => (
             <div key={i} className={`grid grid-cols-[140px_1fr_1fr_1fr_90px] border-t border-[#1a1a1a] ${row.rowStyle}`}>
               <div className="p-3 font-jost font-medium text-[0.8rem] text-[#f7f3ec] border-r border-[#1a1a1a]">{row.name}</div>
@@ -686,13 +1018,23 @@ export default function WeddingBriefPage() {
       >
         <div className="bg-[#252525] rounded-lg p-8">
           <CheckGroup
-            title="Ceremony + Processional"
+            title="Option A — Indoor ceremony"
             items={[
               "Stand in the kitchen opening and feel it. Does it read as a proper entrance or does it feel like walking out of a kitchen? This is the most important thing to verify in person — the whole processional concept depends on this one answer.",
               "Can 9 perimeter dinner tables be pre-set and dressed before guests arrive, with ceremony chairs in the center only?",
               "Can the wedding party access the private dining room before the ceremony without crossing through the main dining room in front of guests?",
               "How wide is the kitchen opening exactly? ~8m is estimated — confirm. Wide enough for Monica + Cesar side by side?",
               "Flip timing: with 3–4 staff removing ~56 chairs and bringing in 4 tables, is 30 minutes realistic or do they need 45?",
+            ]}
+          />
+          <CheckGroup
+            title="Option B — Terrace ceremony"
+            items={[
+              "Stand at the terrace railing and feel the wind. It comes off the Maas — is it manageable in August, or does it make vows and music difficult?",
+              "How wide is the crescent at its deepest point? 80m² total, but usable depth at the outer edges may be tighter than the center.",
+              "How quickly can chairs move from indoors to the terrace? If you call it at 15:00, when can it be set?",
+              "Where do the glass doors open onto the terrace — one central opening or multiple points across the arc?",
+              "Is there any sound or noise curfew for the park location?",
             ]}
           />
           <CheckGroup
@@ -706,9 +1048,8 @@ export default function WeddingBriefPage() {
             title="Dancing"
             items={[
               "For Option A: where do the 4 cleared tables go, and how fast can the team clear them post-dinner?",
-              "For Option B: do the foyer and champagne lounge connect openly? If yes, can that combined space work for dancing?",
-              "What is the rain or wind backup if the terrace is ruled out on the night?",
-              "Is there a sound curfew or music policy given the park location?",
+              "Can the DJ set up near the terrace doors so sound carries both ways — inside and out?",
+              "Is there a sound curfew or music cutoff time given the park location?",
             ]}
           />
         </div>
