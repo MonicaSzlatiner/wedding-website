@@ -9,6 +9,7 @@ export interface HotelData {
   id: string;
   name: string;
   description: string;
+  promoNote?: { prefix: string; code: string; suffix: string }; // Optional promo code line
   area: string;
   vibe?: string; // Optional vibe descriptor
   travelTime: string; // e.g., "~15 min by taxi to Parkheuvel"
@@ -42,6 +43,20 @@ export const hotels: HotelData[] = [
     },
   },
   {
+    id: "the-james",
+    name: "The James",
+    description: "A design hotel that earns its stripes. Right in the center of Rotterdam — steps from the Lijnbaan, a short walk from Central Station, and an easy taxi ride from Parkheuvel. Stylish rooms, king beds, rain showers, and a 24/7 food market for when jet lag hits at 2am.",
+    promoNote: { prefix: "Use code ", code: "TheJames-M.Szlatiner2026", suffix: " for your exclusive rate." },
+    area: "City Centre",
+    vibe: "Design hotel",
+    travelTime: "~20 min by taxi to Parkheuvel",
+    googleReviewsUrl: "https://www.google.com/search?q=the+james+hotel+rotterdam",
+    directionsUrl: "https://www.google.com/maps/dir/The+James+Hotel+Rotterdam,+Aert+van+Nesstraat+25,+3012+CA+Rotterdam/Parkheuvel,+Heuvellaan+21,+3016+GL+Rotterdam",
+    bookingUrl: "https://app.mews.com/distributor/4fe90ad0-30d4-4513-8531-1320f26c933d?mewsVoucherCode=TheJames-M.Szlatiner2026",
+    badges: ["4-Star Hotel"],
+    rating: null,
+  },
+  {
     id: "hotel-new-york",
     name: "Hotel New York",
     description: "Historic landmark in the former Holland America Line headquarters with waterfront dining. You can also arrive by water taxi!",
@@ -70,19 +85,6 @@ export const hotels: HotelData[] = [
     rating: {
       score: 4.4,
     },
-  },
-  {
-    id: "the-james",
-    name: "The James",
-    description: "A design hotel that earns its stripes. Right in the center of Rotterdam — steps from the Lijnbaan, a short walk from Central Station, and an easy taxi ride from Parkheuvel. Stylish rooms, king beds, rain showers, and a 24/7 food market for when jet lag hits at 2am. Use code TheJames-M.Szlatiner2026 at checkout for your exclusive rate.",
-    area: "City Centre",
-    vibe: "Design hotel",
-    travelTime: "~20 min by taxi to Parkheuvel",
-    googleReviewsUrl: "https://www.google.com/search?q=the+james+hotel+rotterdam",
-    directionsUrl: "https://www.google.com/maps/dir/The+James+Hotel+Rotterdam,+Aert+van+Nesstraat+25,+3012+CA+Rotterdam/Parkheuvel,+Heuvellaan+21,+3016+GL+Rotterdam",
-    bookingUrl: "https://app.mews.com/distributor/4fe90ad0-30d4-4513-8531-1320f26c933d?mewsVoucherCode=TheJames-M.Szlatiner2026",
-    badges: ["4-Star Hotel"],
-    rating: null,
   },
 ];
 

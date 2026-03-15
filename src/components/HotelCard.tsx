@@ -55,12 +55,24 @@ export function HotelCard({ hotel }: HotelCardProps) {
       )}
 
       {/* Description */}
-      <p 
-        className="text-base font-light leading-relaxed mb-4 break-words"
+      <p
+        className="text-base font-light leading-relaxed mb-2 break-words"
         style={{ color: "rgba(45, 41, 38, 0.7)" }}
       >
         {hotel.description}
       </p>
+
+      {/* Promo note */}
+      {hotel.promoNote && (
+        <p
+          className="text-xs font-light leading-relaxed mb-4 break-words"
+          style={{ color: "rgba(45, 41, 38, 0.55)" }}
+        >
+          {hotel.promoNote.prefix}
+          <strong>{hotel.promoNote.code}</strong>
+          {hotel.promoNote.suffix}
+        </p>
+      )}
 
       {/* Travel Time */}
       <p 
