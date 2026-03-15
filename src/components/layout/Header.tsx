@@ -119,21 +119,15 @@ export function Header() {
 
           {/* Desktop Navigation with sliding active underline + hover underline */}
           <div className="hidden md:flex items-center gap-10">
-            {navigation.items.slice(1).filter(item => item.href.startsWith("#")).map((item) => {
-              const isActive = activeSection === item.href.replace("#", "");
-              return (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={(e) => scrollToSection(e, item.href)}
-                  className="group relative text-[10px] uppercase font-bold transition-colors duration-[250ms] hover:text-espresso py-1"
-                  style={{ 
-                    letterSpacing: "0.3em",
-                    color: isActive ? "#2D2926" : "rgba(45, 41, 38, 0.6)"
-                  }}
-                >
+            {navigation.items.slice(1).filter(item => item.href !== "/rsvp").map((item) => {
+              const isHashLink = item.href.startsWith("#");
+              const isActive = isHashLink
+                ? activeSection === item.href.replace("#", "")
+                : pathname === item.href;
+
+              const navContent = (
+                <>
                   {item.label}
-                  {/* Sliding underline for active state */}
                   {isActive && (
                     <motion.div
                       layoutId="nav-underline"
@@ -146,14 +140,44 @@ export function Header() {
                       }}
                     />
                   )}
-                  {/* Hover underline for non-active items - terracotta color */}
                   {!isActive && (
                     <span 
                       className="absolute -bottom-0.5 left-0 right-0 h-[1px] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"
                       style={{ backgroundColor: "#C37B60" }}
                     />
                   )}
-                </a>
+                </>
+              );
+
+              const navClassName = "group relative text-[10px] uppercase font-bold transition-colors duration-[250ms] hover:text-espresso py-1";
+              const navStyle = { 
+                letterSpacing: "0.3em" as const,
+                color: isActive ? "#2D2926" : "rgba(45, 41, 38, 0.6)"
+              };
+
+              if (isHashLink) {
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={(e) => scrollToSection(e, item.href)}
+                    className={navClassName}
+                    style={navStyle}
+                  >
+                    {navContent}
+                  </a>
+                );
+              }
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={navClassName}
+                  style={navStyle}
+                >
+                  {navContent}
+                </Link>
               );
             })}
             <Link

@@ -690,7 +690,7 @@ export default function HomePage() {
             </p>
             
             <a
-              href="#"
+              href="/gifts"
               className="inline-block px-12 py-5 rounded-full text-[11px] uppercase font-bold transition-all hover:shadow-lg"
               style={{ 
                 letterSpacing: "0.3em",

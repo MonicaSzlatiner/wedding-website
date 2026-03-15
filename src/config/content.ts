@@ -351,7 +351,7 @@ export const weddingConfig = {
       { label: "Travel", href: "#travel" },
       { label: "Stay", href: "#stay" },
       { label: "Rotterdam", href: "#rotterdam" },
-      { label: "Gifts", href: "#gifts" },
+      { label: "Gifts", href: "/gifts" },
       { label: "FAQ", href: "#faq" },
       { label: "RSVP", href: "/rsvp" },
     ],
