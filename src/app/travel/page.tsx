@@ -146,30 +146,24 @@ export default function TravelPage() {
               <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
                 {travel.sections.car.description}
               </p>
-              {travel.sections.car.parkingOptions && (
-                <ul className="space-y-2 mb-3">
-                  {travel.sections.car.parkingOptions.map((option, i) => (
-                    <li key={i} className="text-sm leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
-                      <span className="font-medium" style={{ color: "#2D2926" }}>
-                        {option.mapUrl ? (
-                          <a
-                            href={option.mapUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:underline"
-                            style={{ color: "#C37B60" }}
-                          >
-                            {option.name}
-                          </a>
-                        ) : (
-                          option.name
-                        )}
-                      </span>
-                      {" — "}{option.details}
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <ul className="space-y-2 mb-3">
+                <li className="text-sm leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
+                  <span className="font-medium" style={{ color: "#2D2926" }}>Parklaan</span>
+                  {" "}— paid street parking, ~5 min walk through the park. Closest and easiest.
+                </li>
+                <li className="text-sm leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
+                  <span className="font-medium" style={{ color: "#2D2926" }}>
+                    <a href="https://maps.google.com/?q=Westzeedijk+361,+3015+CP+Rotterdam" target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: "#C37B60" }}>
+                      Parkeergarage Westzeedijk
+                    </a>
+                  </span>
+                  {" "}— covered garage at Westzeedijk 361, ~10 min walk. Open 24/7, around &euro;2.70/hr. Good option if you want to guarantee a spot.
+                </li>
+                <li className="text-sm leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
+                  <span className="font-medium" style={{ color: "#2D2926" }}>At the venue</span>
+                  {" "}— a handful of spots right at Parkheuvel, but they go fast. Don&apos;t count on it.
+                </li>
+              </ul>
               {travel.sections.car.tip && (
                 <p className="text-xs leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.45)" }}>
                   {travel.sections.car.tip}
