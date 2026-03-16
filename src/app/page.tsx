@@ -343,7 +343,11 @@ export default function HomePage() {
                   </p>
                   <ul className="space-y-2">
                     <li className="text-sm leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
-                      <span className="font-medium" style={{ color: "#2D2926" }}>Parklaan</span>
+                      <span className="font-medium" style={{ color: "#2D2926" }}>
+                        <a href="https://www.google.com/maps/place/Parklaan,+Rotterdam/@51.9077502,4.4713439,18.07z" target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: "#C37B60" }}>
+                          Parklaan
+                        </a>
+                      </span>
                       {" "}— paid street parking, ~5 min walk through the park. Closest and easiest.
                     </li>
                     <li className="text-sm leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
@@ -355,7 +359,11 @@ export default function HomePage() {
                       {" "}— covered garage, ~10 min walk. Open 24/7, around &euro;2.70/hr.
                     </li>
                     <li className="text-sm leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
-                      <span className="font-medium" style={{ color: "#2D2926" }}>At the venue</span>
+                      <span className="font-medium" style={{ color: "#2D2926" }}>
+                        <a href="https://www.google.com/maps/place/?q=place_id:ChIJSxHdIIM0xEcRvcnb5I6LJJc" target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: "#C37B60" }}>
+                          At the venue
+                        </a>
+                      </span>
                       {" "}— a handful of spots right at Parkheuvel, but they go fast.
                     </li>
                   </ul>
