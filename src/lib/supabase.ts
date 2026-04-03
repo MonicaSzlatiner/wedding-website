@@ -7,7 +7,12 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables");
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  global: {
+    fetch: (url: RequestInfo | URL, options?: RequestInit) =>
+      fetch(url, { ...options, cache: 'no-store' }),
+  },
+});
 
 // ============================================
 // Database Types
