@@ -23,6 +23,7 @@ const transporter = nodemailer.createTransport({
 const NOTIFICATION_RECIPIENTS = [
   "wedding@laurensandmonica.com",
   "mszlatiner@gmail.com",
+  "laurens.j@gmail.com",
 ];
 
 interface AddressNotificationData {
