@@ -63,18 +63,18 @@ export const weddingConfig = {
       },
       
       {
-        time: "16:30",
+        time: "17:00",
         title: "Ceremony",
         description: "We're starting at half past four. Sharp. Please be seated by 4:15.",
       },
       {
-        time: "17:30",
+        time: "18:00",
         title: "Toast & Dinner",
         description: "A multi-course dinner at Parkheuvel with views of the river. Bring your appetite.",
       },
 
       {
-        time: "20:00",
+        time: "20:30",
         title: "Dancing",
         description: "The shoes come off and the music goes up. Stay as late as you can.",
       },
@@ -318,7 +318,7 @@ export const weddingConfig = {
       },
       {
         question: "What time should I arrive?",
-        answer: "By 4:15 PM, please. We will actually start on time.",
+        answer: "By 16:30 PM, please. We will actually start on time.",
       },
       {
         question: "Can we take photos and post them online?",

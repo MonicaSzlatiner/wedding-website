@@ -28,15 +28,15 @@ const VENUE_ADDRESS = "Parkheuvel,+Heuvellaan+21,+3016+GL+Rotterdam";
 // Hotels in strict display order
 export const hotels: HotelData[] = [
   {
-    id: "mainport",
-    name: "Mainport Hotel Rotterdam",
+    id: "haven",
+    name: "Haven Hotel Rotterdam",
     description: "Design hotel on the waterfront with spa, rooftop bar, and stunning river views.",
     area: "Leuvehaven",
     vibe: "Modern waterfront",
     travelTime: "~15 min by taxi to Parkheuvel",
-    googleReviewsUrl: "https://www.google.com/search?sca_esv=2d7c89a134cd9f4b&q=mainport+hotel+rotterdam&si=AL3DRZFIhG6pAqfNLal55wUTwygCG0fClF3UxiOmgw9Hq7nbWQt7zWCuvbs6EnmDf6eX-EJQJDCR0xu6DNh8_ZMz_xStWh2QCR_tC37ZUGHhCeW2Y4A6-6o%3D&uds=ALYpb_kG5vW-vCilX_Rbjx0DZ5HJ4u5mgxc1geHR9HiF6babMT-M_BRUJaS5MQmoWLlHiFebMaFBR4wf-fSKrsht3kMjCPWcEXLOqgEs5om6yDTu3M-4-EmtRc2Q8XH_yr0Eyk9SbjCJ&sa=X&ved=2ahUKEwjhlPDH8LeSAxURxQIHHVKbMbIQ3PALegQIHhAE",
-    directionsUrl: `https://www.google.com/maps/dir/Mainport+Hotel+Rotterdam,+Leuvehaven,+Rotterdam/${VENUE_ADDRESS}`,
-    bookingUrl: "https://www.hotelmainport.com/en/",
+    googleReviewsUrl: "https://www.google.com/search?q=haven+hotel+rotterdam+reviews",
+    directionsUrl: `https://www.google.com/maps/dir/Haven+Hotel+Rotterdam,+Leuvehaven,+Rotterdam/${VENUE_ADDRESS}`,
+    bookingUrl: "https://www.hilton.com/en/hotels/rtmccqq-haven-hotel-rotterdam/?SEO_id=GMB-EMEA-QQ-RTMCCQQ",
     badges: ["5-Star Hotel"],
     rating: {
       score: 4.5,
