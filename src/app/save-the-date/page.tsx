@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { SaveTheDateClient } from "./SaveTheDateClient";
 import { getGuestByCode } from "@/lib/supabase";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: "Save the Date | Laurens & Monica",
   description: "You're invited to celebrate our wedding on August 1, 2026.",
