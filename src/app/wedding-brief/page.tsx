@@ -697,9 +697,9 @@ export default function WeddingBriefPage() {
 
         <div className="relative mb-10 pl-10 border-l border-[#2a2a2a]">
           {[
-            { time: "16:30", label: "Guests Arrive", detail: "9 perimeter dinner tables already dressed and set. Ceremony chairs in the center only. The room looks beautiful from the moment people walk in — not like a room mid-setup.", confirmed: true },
-            { time: "17:00", label: "Ceremony", detail: "~45 minutes. Full 45-person seating. Wedding party at the river wall. Luis Miguel at the glass. Maas behind them.", confirmed: true },
-            { time: "17:45", label: "Cocktail Hour — The Flip", detail: "Guests move to the foyer and terrace (weather permitting). Venue team removes ~56 chairs from the center, brings in 4 tables. Estimated: ~30 minutes. The 45-minute cocktail hour covers it with room to spare.", confirmed: true },
+            { time: "16:00", label: "Guests Arrive", detail: "9 perimeter dinner tables already dressed and set. Ceremony chairs in the center only. The room looks beautiful from the moment people walk in — not like a room mid-setup.", confirmed: true },
+            { time: "16:30", label: "Ceremony", detail: "~45 minutes. Full 45-person seating. Wedding party at the river wall. Luis Miguel at the glass. Maas behind them.", confirmed: true },
+            { time: "17:15", label: "Cocktail Hour — The Flip", detail: "Guests move to the foyer and terrace (weather permitting). Venue team removes ~56 chairs from the center, brings in 4 tables. Estimated: ~30 minutes. The 45-minute cocktail hour covers it with room to spare.", confirmed: true },
             { time: "18:30", label: "Dinner", detail: "Main dining room: 13 tables, 54 guests. 1 table of 6 + 12 tables of 4. 2 tables remain spare. Room is full — which is exactly right for Parkheuvel.", confirmed: true },
             { time: "20:00", label: "Dancing", detail: "4 center tables cleared (~15 min). ~35–45m² opens in the middle of the half-moon. DJ in there. Perimeter tables stay for guests who want to sit. Terrace doors open for August overflow.", confirmed: false },
           ].map((item, i) => (

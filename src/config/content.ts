@@ -26,8 +26,8 @@ export const weddingConfig = {
     short: "August 1, 2026",
   
     iso: "2026-08-01",
-    time: "17:00",
-    timeDisplay: "5:00 PM",
+    time: "16:30",
+    timeDisplay: "4:30 PM",
     timezone: "Europe/Amsterdam",
     timezoneAbbr: "CEST",
   },
@@ -63,9 +63,9 @@ export const weddingConfig = {
       },
       
       {
-        time: "17:00",
+        time: "16:30",
         title: "Ceremony",
-        description: "We're starting at five. Sharp. Please be seated by 4:45.",
+        description: "We're starting at half past four. Sharp. Please be seated by 4:15.",
       },
       {
         time: "17:30",
@@ -318,7 +318,7 @@ export const weddingConfig = {
       },
       {
         question: "What time should I arrive?",
-        answer: "By 4:45 PM, please. We will actually start on time.",
+        answer: "By 4:15 PM, please. We will actually start on time.",
       },
       {
         question: "Can we take photos and post them online?",
@@ -371,7 +371,7 @@ export const weddingConfig = {
     description: "Wedding ceremony and celebration at Parkheuvel, Rotterdam",
     location: "Parkheuvel, Heuvellaan 21, 3016 GL Rotterdam, Netherlands",
     startDate: "2026-08-01",
-    startTime: "17:00",
+    startTime: "16:30",
     endDate: "2026-08-02",
     endTime: "00:00",
     timezone: "Europe/Amsterdam",
