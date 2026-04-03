@@ -314,7 +314,7 @@ export const weddingConfig = {
       },
       {
         question: "Is there parking available?",
-        answer: "Yes, there's paid parking near the venue in the Het Park area.",
+        answer: "Yes, there's paid parking near the venue in the Het Park area. Check the travel section for links to best spots to park",
       },
       {
         question: "What time should I arrive?",

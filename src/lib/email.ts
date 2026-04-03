@@ -152,6 +152,7 @@ export async function sendRsvpConfirmationToGuest(
   const dietaryLabel = (pref: string | null | undefined) => {
     if (!pref) return "—";
     if (pref === "standard") return "No preference";
+    if (pref === "allergies") return "No preference (has allergies)";
     return pref.charAt(0).toUpperCase() + pref.slice(1);
   };
 
@@ -292,6 +293,7 @@ export async function sendRsvpNotification(
   const dietaryLabel = (pref: string | null | undefined) => {
     if (!pref) return "—";
     if (pref === "standard") return "No preference";
+    if (pref === "allergies") return "No preference (has allergies)";
     return pref.charAt(0).toUpperCase() + pref.slice(1);
   };
 

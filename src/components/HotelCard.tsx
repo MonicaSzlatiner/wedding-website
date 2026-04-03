@@ -65,11 +65,11 @@ export function HotelCard({ hotel }: HotelCardProps) {
       {/* Promo note */}
       {hotel.promoNote && (
         <p
-          className="text-xs font-light leading-relaxed mb-4 break-words"
-          style={{ color: "rgba(45, 41, 38, 0.55)" }}
+          className="text-sm font-medium leading-relaxed mb-4 break-words px-3 py-2 rounded-md"
+          style={{ color: "rgba(45, 41, 38, 0.85)", backgroundColor: "rgba(45, 41, 38, 0.06)" }}
         >
           {hotel.promoNote.prefix}
-          <strong>{hotel.promoNote.code}</strong>
+          <strong className="font-bold">{hotel.promoNote.code}</strong>
           {hotel.promoNote.suffix}
         </p>
       )}

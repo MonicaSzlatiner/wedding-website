@@ -21,11 +21,12 @@ interface GuestData {
   plus_one_allergies: string | null;
 }
 
-type DietaryPreference = "standard" | "vegetarian";
+type DietaryPreference = "standard" | "vegetarian" | "allergies";
 
 const DIETARY_OPTIONS: { value: DietaryPreference; label: string }[] = [
   { value: "standard", label: "No preference" },
   { value: "vegetarian", label: "Vegetarian" },
+  { value: "allergies", label: "No preference but have allergies (please use below to add your preference)" },
 ];
 
 const sectionReveal = {
