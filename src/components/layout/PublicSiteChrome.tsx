@@ -1,16 +1,8 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
-/**
- * Site chrome for all “main” wedding pages. Save-the-date and wedding-brief
- * live outside this group so they stay header/footer-free without middleware
- * or headers() in the root (which broke dev RSC / hydration).
- */
-export default function PublicSiteLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+/** Shared header + main landmark + footer for the main wedding site. */
+export function PublicSiteChrome({ children }: { children: React.ReactNode }) {
   return (
     <>
       <a

@@ -57,6 +57,7 @@ function socialLabel(count: number): string {
 export default function HoneymoonFund() {
   const [counts, setCounts] = useState<Record<string, number>>({})
   const [selected, setSelected] = useState<string | null>(null)
+  const [amount, setAmount] = useState('')
   const panelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -67,12 +68,25 @@ export default function HoneymoonFund() {
   }, [])
 
   const selectedActivity = ACTIVITIES.find((a) => a.key === selected)
+  const amountNum = parseFloat(amount)
 
   function handleSelectTile(key: string) {
     setSelected(key)
     setTimeout(() => {
       panelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
     }, 100)
+  }
+
+  function recordContribution() {
+    if (!selectedActivity || !(amountNum > 0)) return
+    fetch('/api/contributions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        activity: selectedActivity.name,
+        amount_cents: Math.round(amountNum * 100),
+      }),
+    }).catch(() => {})
   }
 
   return (
@@ -186,11 +200,46 @@ export default function HoneymoonFund() {
               {selectedActivity?.name}
             </p>
 
+            <p
+              className="text-[10px] uppercase font-bold mb-3"
+              style={{ letterSpacing: '0.2em', color: 'rgba(45, 41, 38, 0.5)' }}
+            >
+              Your contribution
+            </p>
+            <div className="flex items-baseline gap-2 mb-2">
+              <span
+                className="font-serif italic text-2xl"
+                style={{ color: 'rgba(45, 41, 38, 0.4)' }}
+              >
+                &euro;
+              </span>
+              <input
+                type="number"
+                min="1"
+                step="1"
+                placeholder="any amount"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className="flex-1 font-serif italic text-3xl outline-none border-b-2 pb-1 bg-transparent transition-colors duration-200 focus:border-[#C37B60] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                style={{
+                  borderBottomColor: amount ? '#C37B60' : 'rgba(45, 41, 38, 0.15)',
+                  color: '#2D2926',
+                }}
+              />
+            </div>
+            <p
+              className="text-[0.78rem] font-light leading-relaxed mb-6"
+              style={{ color: 'rgba(45, 41, 38, 0.45)' }}
+            >
+              Give whatever feels right &mdash; there&rsquo;s no minimum and no wrong answer.
+            </p>
+
             <div className="flex gap-3">
               <a
                 href="https://www.ing.nl/de-ing/payreq?trxid=mdH0dM8iGbS0qO6zsJ7kTNQ0EjibEpPQ&flow-step=payment-request"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={recordContribution}
                 className="flex-1 text-center py-3 rounded-full text-[0.75rem] font-medium tracking-wide transition-opacity duration-200 hover:opacity-85 active:scale-[0.98]"
                 style={{
                   backgroundColor: '#1B2A4A',
@@ -204,6 +253,7 @@ export default function HoneymoonFund() {
                 href="https://paypal.me/monicaandlaurens"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={recordContribution}
                 className="flex-1 text-center py-3 rounded-full text-[0.75rem] font-medium tracking-wide transition-colors duration-200 hover:bg-[#1B2A4A] hover:text-[#E8DDB8] active:scale-[0.98]"
                 style={{
                   border: '1px solid #1B2A4A',
