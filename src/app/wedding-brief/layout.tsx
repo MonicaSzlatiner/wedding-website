@@ -23,5 +23,9 @@ export default function WeddingBriefLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className={jost.variable}>{children}</div>;
+  return (
+    <main id="main-content" className="flex-1" role="main">
+      <div className={jost.variable}>{children}</div>
+    </main>
+  );
 }

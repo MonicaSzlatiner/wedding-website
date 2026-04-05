@@ -12,10 +12,6 @@ export const metadata: Metadata = {
 export default function GiftsPage() {
   const { gifts, couple } = weddingConfig;
 
-  const PAYPAL_URL = "https://paypal.me/monicaandlaurens";
-  const BANK_TRANSFER_URL =
-    "https://www.ing.nl/de-ing/payreq?trxid=mdH0dM8iGbS0qO6zsJ7kTNQ0EjibEpPQ&flow-step=payment-request";
-
   return (
     <>
       {/* Hero Section */}
@@ -49,7 +45,7 @@ export default function GiftsPage() {
       {/* Honeymoon Fund */}
       <section className="pb-20 md:pb-28 overflow-hidden" style={{ backgroundColor: "#F5F5F0" }}>
         <Container size="content">
-          <HoneymoonFund paypalUrl={PAYPAL_URL} bankTransferUrl={BANK_TRANSFER_URL} />
+          <HoneymoonFund />
         </Container>
       </section>
 

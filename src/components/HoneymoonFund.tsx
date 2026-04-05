@@ -54,19 +54,10 @@ function socialLabel(count: number): string {
   return `${count} people contributed`
 }
 
-export default function HoneymoonFund({
-  paypalUrl,
-  bankTransferUrl,
-}: {
-  paypalUrl: string
-  bankTransferUrl: string
-}) {
+export default function HoneymoonFund() {
   const [counts, setCounts] = useState<Record<string, number>>({})
   const [selected, setSelected] = useState<string | null>(null)
-  const [amount, setAmount] = useState('')
-  const [submitting, setSubmitting] = useState(false)
-  const [done, setDone] = useState(false)
-  const formRef = useRef<HTMLDivElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     fetch('/api/contributions/counts')
@@ -76,48 +67,12 @@ export default function HoneymoonFund({
   }, [])
 
   const selectedActivity = ACTIVITIES.find((a) => a.key === selected)
-  const amountNum = parseFloat(amount)
-  const canSubmit = !!selected && amountNum > 0
 
   function handleSelectTile(key: string) {
     setSelected(key)
     setTimeout(() => {
-      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      panelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
     }, 100)
-  }
-
-  async function handleContribute() {
-    if (!canSubmit || submitting) return
-    setSubmitting(true)
-
-    try {
-      await fetch('/api/contributions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          activity: selectedActivity!.name,
-          amount_cents: Math.round(amountNum * 100),
-        }),
-      })
-    } catch {
-      // Don't block the PayPal redirect if recording fails
-    }
-
-    setDone(true)
-
-    setTimeout(() => {
-      const url = `${paypalUrl}/${Math.round(amountNum)}EUR`
-      window.open(url, '_blank', 'noopener,noreferrer')
-      setSubmitting(false)
-    }, 600)
-  }
-
-  function btnLabel() {
-    if (done) return 'Opening PayPal\u2026'
-    if (submitting) return 'Just a moment\u2026'
-    if (!selected) return 'Select an experience first'
-    if (!amountNum || amountNum <= 0) return 'Enter an amount to continue'
-    return 'Contribute \u2192 PayPal'
   }
 
   return (
@@ -203,133 +158,61 @@ export default function HoneymoonFund({
         })}
       </div>
 
-      <div className="flex items-center justify-center gap-3 mb-6">
-        <a
-          href="https://paypal.me/monicaandlaurens"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-4 py-1.5 rounded-full text-[0.72rem] font-light tracking-wide transition-colors duration-200 hover:bg-[rgba(45,41,38,0.04)]"
-          style={{
-            border: '1px solid rgba(45, 41, 38, 0.22)',
-            color: 'rgba(45, 41, 38, 0.65)',
-            letterSpacing: '0.04em',
-          }}
-        >
-          PayPal
-        </a>
-        <a
-          href="https://www.ing.nl/de-ing/payreq?trxid=mdH0dM8iGbS0qO6zsJ7kTNQ0EjibEpPQ&flow-step=payment-request"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-4 py-1.5 rounded-full text-[0.72rem] font-light tracking-wide transition-colors duration-200 hover:bg-[rgba(45,41,38,0.04)]"
-          style={{
-            border: '1px solid rgba(45, 41, 38, 0.22)',
-            color: 'rgba(45, 41, 38, 0.65)',
-            letterSpacing: '0.04em',
-          }}
-        >
-          Bank transfer
-        </a>
-      </div>
-
       <AnimatePresence mode="wait">
         {selected && (
           <motion.div
-            ref={formRef}
-            key="fund-form"
+            ref={panelRef}
+            key="fund-panel"
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={fadeUp}
-            className="rounded-2xl overflow-hidden"
-            style={{ border: '1px solid rgba(45, 41, 38, 0.12)' }}
+            className="rounded-2xl p-6"
+            style={{
+              border: '1px solid rgba(45, 41, 38, 0.12)',
+              backgroundColor: 'white',
+            }}
           >
-            <div className="p-6" style={{ backgroundColor: 'white' }}>
+            <p
+              className="text-[10px] uppercase font-bold mb-1"
+              style={{ letterSpacing: '0.2em', color: 'rgba(45, 41, 38, 0.5)' }}
+            >
+              Contributing to
+            </p>
+            <p
+              className="font-serif italic text-[1.05rem] mb-6"
+              style={{ color: '#2D2926' }}
+            >
+              {selectedActivity?.name}
+            </p>
 
-              <p
-                className="text-[10px] uppercase font-bold mb-1"
-                style={{ letterSpacing: '0.2em', color: 'rgba(45, 41, 38, 0.5)' }}
-              >
-                Contributing to
-              </p>
-              <p
-                className="font-serif italic text-[1.05rem] mb-6"
-                style={{ color: '#2D2926' }}
-              >
-                {selectedActivity?.name}
-              </p>
-
-              <p
-                className="text-[10px] uppercase font-bold mb-3"
-                style={{ letterSpacing: '0.2em', color: 'rgba(45, 41, 38, 0.5)' }}
-              >
-                Your contribution
-              </p>
-              <div className="flex items-baseline gap-2 mb-2">
-                <span
-                  className="font-serif italic text-2xl"
-                  style={{ color: 'rgba(45, 41, 38, 0.4)' }}
-                >
-                  &euro;
-                </span>
-                <input
-                  type="number"
-                  min="1"
-                  step="1"
-                  placeholder="any amount"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  className="flex-1 font-serif italic text-3xl outline-none border-b-2 pb-1 bg-transparent transition-colors duration-200 focus:border-[#C37B60] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                  style={{
-                    borderBottomColor: amount ? '#C37B60' : 'rgba(45, 41, 38, 0.15)',
-                    color: '#2D2926',
-                  }}
-                />
-              </div>
-              <p
-                className="text-[0.78rem] font-light leading-relaxed mb-6"
-                style={{ color: 'rgba(45, 41, 38, 0.45)' }}
-              >
-                Give whatever feels right &mdash; there&rsquo;s no minimum and no wrong answer.
-              </p>
-
-              <button
-                type="button"
-                disabled={!canSubmit || submitting}
-                onClick={handleContribute}
-                className="w-full py-4 rounded-full text-[11px] uppercase font-bold transition-all duration-200 hover:shadow-lg active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+            <div className="flex gap-3">
+              <a
+                href="https://www.ing.nl/de-ing/payreq?trxid=mdH0dM8iGbS0qO6zsJ7kTNQ0EjibEpPQ&flow-step=payment-request"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 text-center py-3 rounded-full text-[0.75rem] font-medium tracking-wide transition-opacity duration-200 hover:opacity-85 active:scale-[0.98]"
                 style={{
-                  backgroundColor: '#2D2926',
-                  color: '#F5F5F0',
-                  letterSpacing: '0.2em',
+                  backgroundColor: '#1B2A4A',
+                  color: '#E8DDB8',
+                  letterSpacing: '0.04em',
                 }}
               >
-                <span style={{ marginRight: '-0.2em' }}>{btnLabel()}</span>
-              </button>
-            </div>
-
-            <div
-              className="px-6 py-3 flex items-center gap-2 text-[0.72rem] font-light"
-              style={{
-                backgroundColor: 'rgba(45, 41, 38, 0.03)',
-                borderTop: '1px solid rgba(45, 41, 38, 0.08)',
-                color: 'rgba(45, 41, 38, 0.45)',
-              }}
-            >
-              <svg
-                width="13"
-                height="13"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                style={{ flexShrink: 0 }}
-                aria-hidden="true"
+                Bank transfer
+              </a>
+              <a
+                href="https://paypal.me/monicaandlaurens"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 text-center py-3 rounded-full text-[0.75rem] font-medium tracking-wide transition-colors duration-200 hover:bg-[#1B2A4A] hover:text-[#E8DDB8] active:scale-[0.98]"
+                style={{
+                  border: '1px solid #1B2A4A',
+                  color: '#1B2A4A',
+                  letterSpacing: '0.04em',
+                }}
               >
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg>
-              Secure payment via PayPal &mdash; no platform fees deducted
+                PayPal
+              </a>
             </div>
           </motion.div>
         )}

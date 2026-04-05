@@ -10,12 +10,16 @@ export const metadata: Metadata = {
 };
 
 /**
- * Save the Date — metadata only. Root layout omits header/footer when x-pathname is /save-the-date.
+ * Minimal shell (no site header/footer — those live only under the (public) route group).
  */
 export default function SaveTheDateLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  return (
+    <main id="main-content" className="flex-1" role="main">
+      {children}
+    </main>
+  );
 }
