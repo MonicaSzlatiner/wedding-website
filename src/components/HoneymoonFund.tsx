@@ -3,8 +3,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-const PAYMENT_BASE_URL = 'https://paypal.me/YOURNAME' // ← replace with your PayPal.me link
-
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] } },
@@ -56,7 +54,13 @@ function socialLabel(count: number): string {
   return `${count} people contributed`
 }
 
-export default function HoneymoonFund() {
+export default function HoneymoonFund({
+  paypalUrl,
+  bankTransferUrl,
+}: {
+  paypalUrl: string
+  bankTransferUrl: string
+}) {
   const [counts, setCounts] = useState<Record<string, number>>({})
   const [selected, setSelected] = useState<string | null>(null)
   const [amount, setAmount] = useState('')
@@ -102,7 +106,7 @@ export default function HoneymoonFund() {
     setDone(true)
 
     setTimeout(() => {
-      const url = `${PAYMENT_BASE_URL}/${Math.round(amountNum)}EUR`
+      const url = `${paypalUrl}/${Math.round(amountNum)}EUR`
       window.open(url, '_blank', 'noopener,noreferrer')
       setSubmitting(false)
     }, 600)
@@ -125,12 +129,9 @@ export default function HoneymoonFund() {
           const isSelected = selected === activity.key
 
           return (
-            <button
+            <div
               key={activity.key}
-              type="button"
-              onClick={() => handleSelectTile(activity.key)}
-              aria-pressed={isSelected}
-              className="relative text-center rounded-2xl p-5 transition-all duration-200 active:scale-[0.98]"
+              className="relative text-center rounded-2xl transition-all duration-200 overflow-hidden"
               style={
                 isSelected
                   ? {
@@ -143,54 +144,82 @@ export default function HoneymoonFund() {
                     }
               }
             >
-              {isSelected && (
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="absolute top-2.5 right-2.5 w-5 h-5 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: '#C37B60' }}
+              <button
+                type="button"
+                onClick={() => handleSelectTile(activity.key)}
+                aria-pressed={isSelected}
+                className="relative w-full text-center p-5 pb-3 transition-all duration-200 active:scale-[0.98]"
+              >
+                {isSelected && (
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="absolute top-2.5 right-2.5 w-5 h-5 rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: '#C37B60' }}
+                  >
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                      <path
+                        d="M2 6l3 3 5-5"
+                        stroke="white"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </motion.div>
+                )}
+
+                <span className="text-2xl mb-2 block">{activity.icon}</span>
+
+                <p
+                  className="font-serif italic text-sm leading-snug mb-1.5"
+                  style={{ color: '#2D2926' }}
                 >
-                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-                    <path
-                      d="M2 6l3 3 5-5"
-                      stroke="white"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </motion.div>
-              )}
+                  {activity.name}
+                </p>
 
-              <span className="text-2xl mb-2 block">{activity.icon}</span>
+                <p
+                  className="text-[0.7rem] leading-relaxed mb-3"
+                  style={{ color: 'rgba(45, 41, 38, 0.5)' }}
+                >
+                  {activity.desc}
+                </p>
 
-              <p
-                className="font-serif italic text-sm leading-snug mb-1.5"
-                style={{ color: '#2D2926' }}
-              >
-                {activity.name}
-              </p>
+                <p
+                  className="text-[0.65rem] uppercase font-bold flex items-center justify-center gap-1.5"
+                  style={{ letterSpacing: '0.08em', color: 'rgba(45, 41, 38, 0.35)' }}
+                >
+                  <span
+                    className="w-1.5 h-1.5 rounded-full inline-block flex-shrink-0"
+                    style={{
+                      backgroundColor: count > 0 ? '#C37B60' : 'rgba(45, 41, 38, 0.2)',
+                    }}
+                  />
+                  {socialLabel(count)}
+                </p>
+              </button>
 
-              <p
-                className="text-[0.7rem] leading-relaxed mb-3"
-                style={{ color: 'rgba(45, 41, 38, 0.5)' }}
-              >
-                {activity.desc}
-              </p>
-
-              <p
-                className="text-[0.65rem] uppercase font-bold flex items-center justify-center gap-1.5"
-                style={{ letterSpacing: '0.08em', color: 'rgba(45, 41, 38, 0.35)' }}
-              >
-                <span
-                  className="w-1.5 h-1.5 rounded-full inline-block flex-shrink-0"
-                  style={{
-                    backgroundColor: count > 0 ? '#C37B60' : 'rgba(45, 41, 38, 0.2)',
-                  }}
-                />
-                {socialLabel(count)}
-              </p>
-            </button>
+              <div className="px-5 pb-5">
+                <div className="flex gap-3 mt-4 justify-center">
+                  <a
+                    href={paypalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 bg-[#1B2A4A] text-[#E8DDB8] text-sm rounded-full hover:opacity-90 transition-opacity"
+                  >
+                    Pay via PayPal
+                  </a>
+                  <a
+                    href={bankTransferUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 border border-[#1B2A4A] text-[#1B2A4A] text-sm rounded-full hover:bg-[#1B2A4A] hover:text-[#E8DDB8] transition-colors"
+                  >
+                    Bank transfer
+                  </a>
+                </div>
+              </div>
+            </div>
           )
         })}
       </div>

@@ -23,17 +23,5 @@ export default function WeddingBriefLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className={jost.variable}>
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-            body > div > header { display: none !important; }
-            body > div > footer[role="contentinfo"] { display: none !important; }
-          `,
-        }}
-      />
-      {children}
-    </div>
-  );
+  return <div className={jost.variable}>{children}</div>;
 }
