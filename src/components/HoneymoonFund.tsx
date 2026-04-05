@@ -148,7 +148,7 @@ export default function HoneymoonFund({
                 type="button"
                 onClick={() => handleSelectTile(activity.key)}
                 aria-pressed={isSelected}
-                className="relative w-full text-center p-5 pb-3 transition-all duration-200 active:scale-[0.98]"
+                className="relative w-full text-center p-5 transition-all duration-200 active:scale-[0.98]"
               >
                 {isSelected && (
                   <motion.div
@@ -198,30 +198,38 @@ export default function HoneymoonFund({
                   {socialLabel(count)}
                 </p>
               </button>
-
-              <div className="px-5 pb-5">
-                <div className="flex gap-3 mt-4 justify-center">
-                  <a
-                    href={paypalUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 bg-[#1B2A4A] text-[#E8DDB8] text-sm rounded-full hover:opacity-90 transition-opacity"
-                  >
-                    Pay via PayPal
-                  </a>
-                  <a
-                    href={bankTransferUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 border border-[#1B2A4A] text-[#1B2A4A] text-sm rounded-full hover:bg-[#1B2A4A] hover:text-[#E8DDB8] transition-colors"
-                  >
-                    Bank transfer
-                  </a>
-                </div>
-              </div>
             </div>
           )
         })}
+      </div>
+
+      <div className="flex items-center justify-center gap-3 mb-6">
+        <a
+          href="https://paypal.me/monicaandlaurens"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-1.5 rounded-full text-[0.72rem] font-light tracking-wide transition-colors duration-200 hover:bg-[rgba(45,41,38,0.04)]"
+          style={{
+            border: '1px solid rgba(45, 41, 38, 0.22)',
+            color: 'rgba(45, 41, 38, 0.65)',
+            letterSpacing: '0.04em',
+          }}
+        >
+          PayPal
+        </a>
+        <a
+          href="https://www.ing.nl/de-ing/payreq?trxid=mdH0dM8iGbS0qO6zsJ7kTNQ0EjibEpPQ&flow-step=payment-request"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-1.5 rounded-full text-[0.72rem] font-light tracking-wide transition-colors duration-200 hover:bg-[rgba(45,41,38,0.04)]"
+          style={{
+            border: '1px solid rgba(45, 41, 38, 0.22)',
+            color: 'rgba(45, 41, 38, 0.65)',
+            letterSpacing: '0.04em',
+          }}
+        >
+          Bank transfer
+        </a>
       </div>
 
       <AnimatePresence mode="wait">
