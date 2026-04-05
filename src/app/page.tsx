@@ -18,6 +18,7 @@ import {
   TruckIcon,
   GiftIcon,
 } from "@heroicons/react/24/outline";
+import { PublicSiteChrome } from "@/components/layout/PublicSiteChrome";
 
 // Custom train icon
 function TrainIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
@@ -87,6 +88,7 @@ export default function HomePage() {
   const { couple, date, venue, schedule, travel, hotels: hotelsConfig, gifts, rsvp, faq, dressCode } = weddingConfig;
 
   return (
+    <PublicSiteChrome>
     <>
       {/* ============================================
           HOME / HERO SECTION
@@ -818,5 +820,6 @@ export default function HomePage() {
         </div>
       </section>
     </>
+    </PublicSiteChrome>
   );
 }
