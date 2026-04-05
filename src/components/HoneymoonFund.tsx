@@ -210,7 +210,7 @@ export default function HoneymoonFund() {
             </p>
             <input
               type="text"
-              placeholder="optional"
+              placeholder="Your name — we'd love to know who to thank"
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full font-serif italic text-lg outline-none border-b-2 pb-1 mb-6 bg-transparent transition-colors duration-200 focus:border-[#C37B60]"
