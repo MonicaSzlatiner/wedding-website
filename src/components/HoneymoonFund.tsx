@@ -58,6 +58,7 @@ export default function HoneymoonFund() {
   const [counts, setCounts] = useState<Record<string, number>>({})
   const [selected, setSelected] = useState<string | null>(null)
   const [amount, setAmount] = useState('')
+  const [name, setName] = useState('')
   const panelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -78,13 +79,14 @@ export default function HoneymoonFund() {
   }
 
   function recordContribution() {
-    if (!selectedActivity || !(amountNum > 0)) return
+    if (!selectedActivity) return
     fetch('/api/contributions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        guest_name: name.trim() || null,
         activity: selectedActivity.name,
-        amount_cents: Math.round(amountNum * 100),
+        amount_cents: amountNum > 0 ? Math.round(amountNum * 100) : null,
       }),
     }).catch(() => {})
   }
@@ -199,6 +201,24 @@ export default function HoneymoonFund() {
             >
               {selectedActivity?.name}
             </p>
+
+            <p
+              className="text-[10px] uppercase font-bold mb-3"
+              style={{ letterSpacing: '0.2em', color: 'rgba(45, 41, 38, 0.5)' }}
+            >
+              Your name
+            </p>
+            <input
+              type="text"
+              placeholder="optional"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full font-serif italic text-lg outline-none border-b-2 pb-1 mb-6 bg-transparent transition-colors duration-200 focus:border-[#C37B60]"
+              style={{
+                borderBottomColor: name ? '#C37B60' : 'rgba(45, 41, 38, 0.15)',
+                color: '#2D2926',
+              }}
+            />
 
             <p
               className="text-[10px] uppercase font-bold mb-3"

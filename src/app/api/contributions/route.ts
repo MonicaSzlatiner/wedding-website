@@ -10,7 +10,7 @@ export async function POST(req: Request) {
 
     const { guest_name, activity, amount_cents } = await req.json()
 
-    if (!activity || !amount_cents || amount_cents < 1) {
+    if (!activity) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
