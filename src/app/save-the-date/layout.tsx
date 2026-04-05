@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * Save the Date — metadata only. Header/footer are omitted by the (standalone) route group layout.
+ * Save the Date — metadata only. Root layout omits header/footer when x-pathname is /save-the-date.
  */
 export default function SaveTheDateLayout({
   children,
