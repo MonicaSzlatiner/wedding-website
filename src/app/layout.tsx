@@ -44,7 +44,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${cormorant.variable} ${manrope.variable}`}>
-      <body className="min-h-screen flex flex-col font-sans antialiased" style={{ backgroundColor: "#F5F5F0", color: "#2D2926" }}>
+      <body
+        className="min-h-screen flex flex-col font-sans antialiased"
+        style={{ backgroundColor: "#F5F5F0", color: "#2D2926" }}
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>

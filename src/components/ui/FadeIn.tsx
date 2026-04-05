@@ -1,7 +1,8 @@
 "use client";
 
 import { ReactNode } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useHydrationSafeReducedMotion } from "@/hooks/useHydrationSafeReducedMotion";
 import { fadeUpVariants, viewportSettings, TIMING, EASING } from "@/lib/animations";
 
 interface FadeInProps {
@@ -31,7 +32,7 @@ export function FadeIn({
   duration = TIMING.normal,
   distance = 30,
 }: FadeInProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydrationSafeReducedMotion();
 
   // If user prefers reduced motion, render without animation
   if (shouldReduceMotion) {
@@ -85,7 +86,7 @@ export function StaggerContainer({
   className = "",
   staggerDelay = TIMING.stagger,
 }: StaggerContainerProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydrationSafeReducedMotion();
 
   if (shouldReduceMotion) {
     return <div className={className}>{children}</div>;
@@ -121,7 +122,7 @@ interface StaggerItemProps {
 }
 
 export function StaggerItem({ children, className = "" }: StaggerItemProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydrationSafeReducedMotion();
 
   if (shouldReduceMotion) {
     return <div className={className}>{children}</div>;

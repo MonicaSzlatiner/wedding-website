@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useHydrationSafeReducedMotion } from "@/hooks/useHydrationSafeReducedMotion";
 
 // Luxury editorial easing
 const EASING = [0.25, 0.1, 0.25, 1.0] as const;
@@ -17,7 +18,7 @@ interface FAQAccordionProps {
 
 function FAQAccordionItem({ item, index }: { item: { question: string; answer: string }; index: number }) {
   const [isOpen, setIsOpen] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydrationSafeReducedMotion();
 
   return (
     <div

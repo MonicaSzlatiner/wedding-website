@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Image, { ImageProps } from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useHydrationSafeReducedMotion } from "@/hooks/useHydrationSafeReducedMotion";
 import { TIMING, EASING } from "@/lib/animations";
 
 interface AnimatedImageProps extends Omit<ImageProps, "onLoad"> {
@@ -25,7 +26,7 @@ export function AnimatedImage({
   ...props
 }: AnimatedImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydrationSafeReducedMotion();
 
   // Ensure alt is always provided (ESLint requirement)
   const altText = props.alt || "";

@@ -1,7 +1,8 @@
 "use client";
 
 import { HotelData } from "@/config/hotels";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useHydrationSafeReducedMotion } from "@/hooks/useHydrationSafeReducedMotion";
 
 interface HotelCardProps {
   hotel: HotelData;
@@ -11,7 +12,7 @@ interface HotelCardProps {
 const EASING = [0.25, 0.1, 0.25, 1.0] as const;
 
 export function HotelCard({ hotel }: HotelCardProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydrationSafeReducedMotion();
 
   return (
     <motion.article 

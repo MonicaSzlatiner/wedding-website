@@ -2,7 +2,8 @@
 
 import { ReactNode } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useHydrationSafeReducedMotion } from "@/hooks/useHydrationSafeReducedMotion";
 
 // Luxury editorial easing - never bounce, never spring
 const EASING = [0.25, 0.1, 0.25, 1.0] as const;
@@ -25,7 +26,7 @@ interface AnimatedHeroProps {
  * - Respects prefers-reduced-motion
  */
 export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydrationSafeReducedMotion();
 
   // Hero image: fade in with subtle scale settle effect
   const imageVariants = {

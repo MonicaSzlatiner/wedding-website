@@ -2,7 +2,8 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useHydrationSafeReducedMotion } from "@/hooks/useHydrationSafeReducedMotion";
 
 // Luxury editorial easing
 const EASING = [0.25, 0.1, 0.25, 1.0] as const;
@@ -63,7 +64,7 @@ export function ParallaxImage({
   aspectRatio,
 }: ParallaxImageProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydrationSafeReducedMotion();
 
   // Scroll progress for parallax
   const { scrollYProgress } = useScroll({
@@ -149,7 +150,7 @@ export function RevealImage({
   priority?: boolean;
   aspectRatio?: string;
 }) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useHydrationSafeReducedMotion();
 
   return (
     <motion.div
