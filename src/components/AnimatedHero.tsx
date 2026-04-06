@@ -78,9 +78,9 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
           MOBILE: Stacked layout
           ============================================ */}
       <section id="home" className="md:hidden">
-        <div className="min-h-screen flex flex-col pt-12 pb-20" style={{ backgroundColor: "#F5F5F0" }}>
-          {/* Names section - centered on mobile */}
-          <div className="px-6 pb-8 text-center">
+        <div className="min-h-0 flex flex-col pt-3 pb-14" style={{ backgroundColor: "#F5F5F0" }}>
+          {/* Names section - centered on mobile (tight under sticky nav ~375px) */}
+          <div className="px-6 pb-6 text-center">
             <motion.div
               initial="hidden"
               animate="visible"
@@ -88,7 +88,7 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
             >
               {/* Label - An Evening on the Maas */}
               <motion.p 
-                className="text-[10px] uppercase font-medium mb-6"
+                className="text-[10px] uppercase font-medium mb-3"
                 style={{ letterSpacing: "0.3em", color: "rgba(45, 41, 38, 0.5)" }}
                 variants={textVariants}
               >
@@ -135,14 +135,14 @@ export function AnimatedHero({ couple, date, venue, children }: AnimatedHeroProp
             </motion.div>
           </div>
           
-          {/* Image section - fills remaining space */}
+          {/* Image section */}
           <motion.div 
-            className="relative flex-1 min-h-[50vh] mx-6"
+            className="relative w-full max-w-lg mx-auto px-6 mt-4"
             initial="hidden"
             animate="visible"
             variants={imageVariants}
           >
-            <div className="relative w-full h-full aspect-[4/5] shadow-2xl" style={{ borderRadius: '24px', overflow: 'hidden' }}>
+            <div className="relative w-full aspect-[4/5] shadow-2xl" style={{ borderRadius: '24px', overflow: 'hidden' }}>
               <Image
                 src="/images/hero-home.jpg"
                 alt={`${couple.person1} and ${couple.person2}`}

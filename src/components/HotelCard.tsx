@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { HotelData } from "@/config/hotels";
 import { motion } from "framer-motion";
 import { useHydrationSafeReducedMotion } from "@/hooks/useHydrationSafeReducedMotion";
@@ -27,7 +28,17 @@ export function HotelCard({ hotel }: HotelCardProps) {
         transition: { duration: 0.3, ease: EASING }
       }}
     >
-      {/* Hotel Name - Large serif */}
+      {hotel.cardImage && (
+        <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden mb-5 shadow-sm">
+          <Image
+            src={hotel.cardImage}
+            alt={hotel.cardImageAlt ?? hotel.name}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        </div>
+      )}
       <h3 
         id={`hotel-${hotel.id}-name`}
         className="font-serif text-4xl italic mb-2"

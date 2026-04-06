@@ -22,12 +22,12 @@ function FAQAccordionItem({ item, index }: { item: { question: string; answer: s
 
   return (
     <div
-      className="border-b pb-8"
+      className="border-b pb-4 md:pb-8"
       style={{ borderColor: "rgba(45, 41, 38, 0.1)" }}
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between gap-4 py-8 w-full text-left cursor-pointer 
+        className="flex items-center justify-between gap-4 py-4 md:py-8 w-full text-left cursor-pointer 
                    focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
         aria-expanded={isOpen}
         aria-controls={`faq-answer-${index}`}
@@ -68,7 +68,7 @@ function FAQAccordionItem({ item, index }: { item: { question: string; answer: s
             style={{ overflow: "hidden" }}
           >
             <div 
-              className="mt-6 text-base font-light leading-relaxed max-w-xl faq-answer pb-2"
+              className="mt-3 md:mt-6 text-base font-light leading-relaxed max-w-xl faq-answer pb-2"
               style={{ color: "rgba(45, 41, 38, 0.6)" }}
               dangerouslySetInnerHTML={{ __html: item.answer }}
             />

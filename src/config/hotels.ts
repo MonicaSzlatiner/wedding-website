@@ -8,6 +8,9 @@
 export interface HotelData {
   id: string;
   name: string;
+  /** Optional card hero image (16:10-style crop) */
+  cardImage?: string;
+  cardImageAlt?: string;
   description: string;
   promoNote?: { prefix: string; code: string; suffix: string }; // Optional promo code line
   area: string;
@@ -59,6 +62,8 @@ export const hotels: HotelData[] = [
   {
     id: "hotel-new-york",
     name: "Hotel New York",
+    cardImage: "/images/rotterdam-hero.jpg",
+    cardImageAlt: "Rotterdam waterfront and architecture near Hotel New York",
     description: "Historic landmark in the former Holland America Line headquarters with waterfront dining. You can also arrive by water taxi!",
     area: "Kop van Zuid",
     vibe: "Heritage charm",

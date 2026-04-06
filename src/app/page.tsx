@@ -17,6 +17,9 @@ import {
   PaperAirplaneIcon,
   TruckIcon,
   GiftIcon,
+  BuildingStorefrontIcon,
+  PhotoIcon,
+  SparklesIcon,
 } from "@heroicons/react/24/outline";
 import { PublicSiteChrome } from "@/components/layout/PublicSiteChrome";
 
@@ -84,6 +87,25 @@ const eventIcons: Record<string, React.FC<{ className?: string; style?: React.CS
   "Dancing": MusicIcon,
 };
 
+function ExploreCategoryIcon({ name }: { name: string }) {
+  const cls = "w-6 h-6 flex-shrink-0";
+  const style = { color: "#C37B60" as const };
+  switch (name) {
+    case "On the Water":
+      return <GlobeAltIcon className={cls} style={style} aria-hidden />;
+    case "Eat & Drink":
+      return <BuildingStorefrontIcon className={cls} style={style} aria-hidden />;
+    case "Art & Museums":
+      return <PhotoIcon className={cls} style={style} aria-hidden />;
+    case "Just Walk Around":
+      return <MapPinIcon className={cls} style={style} aria-hidden />;
+    case "Worth the Detour":
+      return <SparklesIcon className={cls} style={style} aria-hidden />;
+    default:
+      return <MapPinIcon className={cls} style={style} aria-hidden />;
+  }
+}
+
 export default function HomePage() {
   const { couple, date, venue, schedule, travel, hotels: hotelsConfig, gifts, rsvp, faq, dressCode } = weddingConfig;
 
@@ -98,10 +120,10 @@ export default function HomePage() {
       {/* ============================================
           SCHEDULE SECTION - The Weekend
           ============================================ */}
-      <section id="schedule" className="scroll-mt-20 py-24 md:py-32 border-t" style={{ backgroundColor: "#F5F5F0", borderColor: "rgba(45, 41, 38, 0.05)" }}>
+      <section id="schedule" className="scroll-mt-20 py-14 md:py-32 border-t" style={{ backgroundColor: "#F5F5F0", borderColor: "rgba(45, 41, 38, 0.05)" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           {/* Section Header */}
-          <FadeIn className="w-full mb-20">
+          <FadeIn className="w-full mb-10 md:mb-20">
             <div className="flex flex-col items-center text-center">
               <p 
                 className="text-[10px] uppercase font-medium mb-3"
@@ -124,42 +146,41 @@ export default function HomePage() {
             </div>
           </FadeIn>
 
-          {/* Event Grid - 3/4 columns on desktop */}
-          <div className="grid gap-16 md:gap-8 md:grid-cols-2 lg:grid-cols-4">
+          {/* Event Grid — tight timeline on mobile */}
+          <div className="grid gap-7 md:gap-8 md:grid-cols-2 lg:grid-cols-4">
             {schedule.events.map((event, index) => {
               const IconComponent = eventIcons[event.title] || WineIcon;
               return (
                 <FadeIn key={index} delay={index * 0.1}>
                   <div className="flex flex-col items-center text-center px-4">
-                    {/* Icon */}
                     <IconComponent 
-                      className="w-8 h-8 mb-6" 
+                      className="w-8 h-8 mb-3 md:mb-6" 
                       style={{ color: "#C37B60" }} 
                     />
-                    {/* Time - using the terracotta uppercase style */}
                     <p 
-                      className="text-[11px] uppercase font-bold mb-6"
+                      className="text-[11px] uppercase font-bold mb-2 md:mb-6"
                       style={{ letterSpacing: "0.15em", color: "#C37B60" }}
                     >
                       {event.time}
                     </p>
-                    {/* Title */}
                     <h3 
-                      className="font-serif text-3xl italic mb-3"
+                      className="font-serif text-2xl md:text-3xl italic mb-2 md:mb-3"
                       style={{ fontWeight: 400, color: "#2D2926" }}
                     >
                       {event.title}
                     </h3>
-                    {/* Venue/Description - italic serif */}
                     <p 
-                      className="font-serif text-lg font-light italic"
+                      className="font-serif text-base md:text-lg font-light italic"
                       style={{ color: "rgba(45, 41, 38, 0.7)" }}
                     >
                       {event.description}
                     </p>
-                    {/* Thin divider */}
                     <div 
-                      className="w-8 mt-8"
+                      className={
+                        index === schedule.events.length - 1
+                          ? "w-8 mt-2 hidden md:block md:mt-8"
+                          : "w-8 mt-4 md:mt-8"
+                      }
                       style={{ height: "0.5px", backgroundColor: "rgba(45, 41, 38, 0.2)" }}
                     />
                   </div>
@@ -168,8 +189,7 @@ export default function HomePage() {
             })}
           </div>
 
-          {/* Add to Calendar */}
-          <FadeIn delay={0.4} className="text-center mt-16">
+          <FadeIn delay={0.4} className="text-center mt-8 md:mt-16">
             <AddToCalendar variant="secondary" />
           </FadeIn>
         </div>
@@ -178,7 +198,7 @@ export default function HomePage() {
       {/* ============================================
           VENUE / DESTINATION SECTION
           ============================================ */}
-      <section id="venue" className="scroll-mt-20 py-24 border-y" style={{ backgroundColor: "#F2F2EC", borderColor: "rgba(45, 41, 38, 0.05)" }}>
+      <section id="venue" className="scroll-mt-20 py-12 md:py-24 border-y" style={{ backgroundColor: "#F2F2EC", borderColor: "rgba(45, 41, 38, 0.05)" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             {/* Left - Image with clip reveal animation */}
@@ -226,10 +246,9 @@ export default function HomePage() {
       {/* ============================================
           TRAVEL SECTION
           ============================================ */}
-      <section id="travel" className="scroll-mt-20 py-32" style={{ backgroundColor: "#F5F5F0" }}>
+      <section id="travel" className="scroll-mt-20 py-16 md:py-32" style={{ backgroundColor: "#F5F5F0" }}>
         <div className="max-w-[1200px] mx-auto px-6">
-          {/* Section Header */}
-          <FadeIn className="w-full mb-20">
+          <FadeIn className="w-full mb-10 md:mb-20">
             <div className="flex flex-col items-center text-center">
               <p 
                 className="text-[10px] uppercase font-medium mb-3"
@@ -253,21 +272,20 @@ export default function HomePage() {
             </div>
           </FadeIn>
 
-          {/* Large image with parallax + clip reveal */}
-          <div className="mb-24">
-            <ParallaxImage
-              src="/images/travel-hero.jpg"
-              alt="Laurens and Monica in New York"
-              height="400px"
-              clipReveal
-            />
+          <div className="mb-6 md:mb-24 w-full flex justify-center">
+            <div className="w-full max-w-3xl mx-auto">
+              <ParallaxImage
+                src="/images/travel-hero.jpg"
+                alt="Laurens and Monica in New York"
+                height="400px"
+                clipReveal
+              />
+            </div>
           </div>
 
-          {/* Travel Options Grid - equal height boxes */}
-          <div className="grid gap-12 md:gap-8 md:grid-cols-3">
-            {/* By Air */}
-            <FadeIn delay={0.1} className="h-full">
-              <div className="text-center h-full flex flex-col">
+          <div className="grid gap-6 md:gap-8 md:grid-cols-3">
+            <FadeIn delay={0.1} className="md:h-full">
+              <div className="text-center md:h-full flex flex-col">
                 <PaperAirplaneIcon 
                   className="w-8 h-8 mx-auto mb-6" 
                   style={{ color: "#C37B60" }} 
@@ -278,7 +296,7 @@ export default function HomePage() {
                 >
                   {travel.sections.flights.title}
                 </h3>
-                <div className="flex-1 text-left p-4 rounded-lg" style={{ backgroundColor: "rgba(45, 41, 38, 0.03)" }}>
+                <div className="md:flex-1 text-left p-4 rounded-lg" style={{ backgroundColor: "rgba(45, 41, 38, 0.03)" }}>
                   {travel.sections.flights.items.map((item, index) => (
                     <div key={index}>
                       <p 
@@ -300,8 +318,8 @@ export default function HomePage() {
             </FadeIn>
 
             {/* By Train */}
-            <FadeIn delay={0.2} className="h-full">
-              <div className="text-center h-full flex flex-col">
+            <FadeIn delay={0.2} className="md:h-full">
+              <div className="text-center md:h-full flex flex-col">
                 <TrainIcon 
                   className="w-8 h-8 mx-auto mb-6" 
                   style={{ color: "#C37B60" }} 
@@ -312,7 +330,7 @@ export default function HomePage() {
                 >
                   {travel.sections.train.title}
                 </h3>
-                <div className="flex-1 text-left p-4 rounded-lg" style={{ backgroundColor: "rgba(45, 41, 38, 0.03)" }}>
+                <div className="md:flex-1 text-left p-4 rounded-lg" style={{ backgroundColor: "rgba(45, 41, 38, 0.03)" }}>
                   <p 
                     className="text-sm font-light leading-relaxed"
                     style={{ color: "rgba(45, 41, 38, 0.7)" }}
@@ -324,8 +342,8 @@ export default function HomePage() {
             </FadeIn>
 
             {/* By Car */}
-            <FadeIn delay={0.3} className="h-full">
-              <div className="text-center h-full flex flex-col">
+            <FadeIn delay={0.3} className="md:h-full">
+              <div className="text-center md:h-full flex flex-col">
                 <TruckIcon 
                   className="w-8 h-8 mx-auto mb-6" 
                   style={{ color: "#C37B60" }} 
@@ -336,7 +354,7 @@ export default function HomePage() {
                 >
                   {travel.sections.car.title}
                 </h3>
-                <div className="flex-1 text-left p-4 rounded-lg" style={{ backgroundColor: "rgba(45, 41, 38, 0.03)" }}>
+                <div className="md:flex-1 text-left p-4 rounded-lg" style={{ backgroundColor: "rgba(45, 41, 38, 0.03)" }}>
                   <p 
                     className="text-sm font-light leading-relaxed mb-3"
                     style={{ color: "rgba(45, 41, 38, 0.7)" }}
@@ -379,10 +397,9 @@ export default function HomePage() {
       {/* ============================================
           ACCOMMODATIONS SECTION
           ============================================ */}
-      <section id="stay" className="scroll-mt-20 py-32 border-t" style={{ backgroundColor: "#F5F5F0", borderColor: "rgba(45, 41, 38, 0.05)" }}>
+      <section id="stay" className="scroll-mt-20 py-14 md:py-32 border-t" style={{ backgroundColor: "#F5F5F0", borderColor: "rgba(45, 41, 38, 0.05)" }}>
         <div className="max-w-[1200px] mx-auto px-6">
-          {/* Section Header */}
-          <FadeIn className="w-full mb-20">
+          <FadeIn className="w-full mb-10 md:mb-20">
             <div className="flex flex-col items-center text-center">
               <p 
                 className="text-[10px] uppercase font-medium mb-3"
@@ -406,7 +423,7 @@ export default function HomePage() {
           </FadeIn>
 
           {/* Large image with parallax + clip reveal */}
-          <div className="mb-24">
+          <div className="mb-10 md:mb-24">
             <ParallaxImage
               src="/images/dogs.jpg"
               alt="Our welcome committee. They won't be at the wedding, but they wanted to say hi."
@@ -415,8 +432,7 @@ export default function HomePage() {
             />
           </div>
 
-          {/* Hotels Grid - 2 column layout per HTML design */}
-          <div className="grid gap-16 md:grid-cols-2">
+          <div className="grid gap-8 md:gap-12 md:grid-cols-2">
             {hotels.slice(0, 2).map((hotel, index) => (
               <FadeIn key={hotel.id} delay={index * 0.1}>
                 <HotelCard hotel={hotel} />
@@ -426,7 +442,7 @@ export default function HomePage() {
 
           {/* Show remaining hotels if more than 2 */}
           {hotels.length > 2 && (
-            <div className="grid gap-16 md:grid-cols-2 mt-16">
+            <div className="grid gap-8 md:gap-12 md:grid-cols-2 mt-8 md:mt-12">
               {hotels.slice(2).map((hotel, index) => (
                 <FadeIn key={hotel.id} delay={(index + 2) * 0.1}>
                   <HotelCard hotel={hotel} />
@@ -447,10 +463,9 @@ export default function HomePage() {
       {/* ============================================
           EXPLORE ROTTERDAM SECTION
           ============================================ */}
-      <section id="rotterdam" className="scroll-mt-20 py-32" style={{ backgroundColor: "#F2F2EC" }}>
+      <section id="rotterdam" className="scroll-mt-20 pt-14 pb-8 md:py-32" style={{ backgroundColor: "#F2F2EC" }}>
         <div className="max-w-[1200px] mx-auto px-6">
-          {/* Section Header */}
-          <FadeIn className="w-full mb-12">
+          <FadeIn className="w-full mb-8 md:mb-12">
             <div className="flex flex-col items-center text-center">
               <p 
                 className="text-[10px] uppercase font-medium mb-3"
@@ -468,7 +483,7 @@ export default function HomePage() {
           </FadeIn>
 
           {/* Hero Image */}
-          <div className="mb-16">
+          <div className="mb-8 md:mb-16">
             <ParallaxImage
               src={weddingConfig.explore.heroImage}
               alt={weddingConfig.explore.heroAlt}
@@ -477,8 +492,7 @@ export default function HomePage() {
             />
           </div>
 
-          {/* Intro Paragraphs */}
-          <FadeIn className="w-full mb-20">
+          <FadeIn className="w-full mb-10 md:mb-20">
             <div className="w-full space-y-6">
               {weddingConfig.explore.intro.map((paragraph, index) => (
                 <p 
@@ -493,11 +507,10 @@ export default function HomePage() {
           </FadeIn>
 
           {/* Recommendations Grid */}
-          <div className="grid gap-16 md:grid-cols-2 items-start">
+          <div className="grid gap-8 md:gap-12 md:grid-cols-2 items-start">
             {weddingConfig.explore.categories.map((category, catIndex) => (
               <FadeIn key={category.name} delay={catIndex * 0.1}>
-                <div className="space-y-8">
-                  {/* Category Label */}
+                <div className="space-y-4 md:space-y-8">
                   <p 
                     className="text-[11px] uppercase font-bold"
                     style={{ letterSpacing: "0.15em", color: "#C37B60" }}
@@ -505,38 +518,42 @@ export default function HomePage() {
                     {category.name}
                   </p>
                   
-                  {/* Items in category */}
-                  <div className="space-y-10">
+                  <div className="space-y-6 md:space-y-10">
                     {category.items.map((item) => (
-                      <div key={item.name}>
-                        <h3 
-                          className="font-serif text-2xl italic mb-3"
-                          style={{ fontWeight: 400, color: "#2D2926" }}
-                        >
-                          {item.name}
-                        </h3>
-                        <p 
-                          className="text-sm font-light leading-relaxed mb-4"
-                          style={{ color: "rgba(45, 41, 38, 0.7)" }}
-                        >
-                          {item.description}
-                        </p>
-                        {item.url && (
-                          <a
-                            href={item.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group relative text-[11px] uppercase font-bold"
-                            style={{ color: "#C37B60", letterSpacing: "0.2em" }}
+                      <div key={item.name} className="flex gap-3 items-start">
+                        <span className="flex-shrink-0 pt-1" aria-hidden>
+                          <ExploreCategoryIcon name={category.name} />
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <h3 
+                            className="font-serif text-xl md:text-2xl italic mb-2 md:mb-3"
+                            style={{ fontWeight: 400, color: "#2D2926" }}
                           >
-                            {item.linkText}
-                            <span className="sr-only"> (opens in new tab)</span>
-                            <span
-                              className="absolute -bottom-0.5 left-0 right-0 h-[1px] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
-                              style={{ backgroundColor: "#C37B60" }}
-                            />
-                          </a>
-                        )}
+                            {item.name}
+                          </h3>
+                          <p 
+                            className="text-sm font-light leading-relaxed mb-3 md:mb-4"
+                            style={{ color: "rgba(45, 41, 38, 0.7)" }}
+                          >
+                            {item.description}
+                          </p>
+                          {item.url && (
+                            <a
+                              href={item.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group relative text-[11px] uppercase font-bold"
+                              style={{ color: "#C37B60", letterSpacing: "0.2em" }}
+                            >
+                              {item.linkText}
+                              <span className="sr-only"> (opens in new tab)</span>
+                              <span
+                                className="absolute -bottom-0.5 left-0 right-0 h-[1px] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+                                style={{ backgroundColor: "#C37B60" }}
+                              />
+                            </a>
+                          )}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -551,7 +568,7 @@ export default function HomePage() {
       {/* ============================================
           DRESS CODE SECTION - Dark Espresso Background
           ============================================ */}
-      <section id="dresscode" className="scroll-mt-20 py-32" style={{ backgroundColor: "#2D2926" }}>
+      <section id="dresscode" className="scroll-mt-20 py-16 md:py-32" style={{ backgroundColor: "#2D2926" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-20 items-center">
             {/* Left - Text Content */}
@@ -735,9 +752,9 @@ export default function HomePage() {
       {/* ============================================
           FAQ SECTION - 2 Column Layout
           ============================================ */}
-      <section id="faq" className="scroll-mt-20 py-32" style={{ backgroundColor: "#F5F5F0" }}>
+      <section id="faq" className="scroll-mt-20 pt-14 pb-8 md:py-32" style={{ backgroundColor: "#F5F5F0" }}>
         <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid md:grid-cols-12 gap-16">
+          <div className="grid md:grid-cols-12 gap-8 md:gap-16">
             {/* Left - Title (4 columns) */}
             <FadeIn className="md:col-span-4">
               <div className="md:sticky md:top-32">
@@ -767,12 +784,11 @@ export default function HomePage() {
       {/* ============================================
           RSVP / CLOSING SECTION
           ============================================ */}
-      <section id="rsvp" className="scroll-mt-20 py-32 border-t" style={{ backgroundColor: "#F5F5F0", borderColor: "rgba(45, 41, 38, 0.05)" }}>
+      <section id="rsvp" className="scroll-mt-20 pt-10 pb-20 md:py-32 border-t" style={{ backgroundColor: "#F5F5F0", borderColor: "rgba(45, 41, 38, 0.05)" }}>
         <div className="max-w-[1200px] mx-auto px-6">
           <FadeIn className="text-center">
-            {/* Large Italic Heading */}
             <h2 
-              className="font-serif text-6xl md:text-8xl italic mb-12"
+              className="font-serif text-5xl md:text-8xl italic mb-8 md:mb-12"
               style={{ fontWeight: 400, color: "#2D2926" }}
             >
               {rsvp.heading}
