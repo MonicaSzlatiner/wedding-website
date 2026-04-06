@@ -62,8 +62,6 @@ export const hotels: HotelData[] = [
   {
     id: "hotel-new-york",
     name: "Hotel New York",
-    cardImage: "/images/rotterdam-hero.jpg",
-    cardImageAlt: "Rotterdam waterfront and architecture near Hotel New York",
     description: "Historic landmark in the former Holland America Line headquarters with waterfront dining. You can also arrive by water taxi!",
     area: "Kop van Zuid",
     vibe: "Heritage charm",

@@ -697,8 +697,8 @@ export default function HomePage() {
               <div className="grid grid-cols-2 gap-6 items-start">
                 <div className="aspect-[3/4] rounded-xl shadow-2xl overflow-hidden relative">
                   <Image
-                    src="/images/dresscode-1.png"
-                    alt="Dress code inspiration — champagne satin evening dress"
+                    src="/images/dresscode-1.jpg"
+                    alt="Dress code inspiration — cocktail suit"
                     fill
                     className="object-cover"
                     sizes="224px"
@@ -706,8 +706,8 @@ export default function HomePage() {
                 </div>
                 <div className="aspect-[3/4] rounded-xl shadow-2xl overflow-hidden relative mt-12 md:mt-24">
                   <Image
-                    src="/images/dresscode-2.jpg"
-                    alt="Dress code inspiration"
+                    src="/images/dresscode-1.png"
+                    alt="Dress code inspiration — champagne satin evening dress"
                     fill
                     className="object-cover"
                     sizes="224px"
