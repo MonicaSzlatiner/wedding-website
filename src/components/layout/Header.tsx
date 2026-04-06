@@ -26,8 +26,10 @@ export function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // Determine active section based on scroll position
-      const sections = navigation.items.map(item => item.href.replace("#", ""));
+      // Hash links only — skip "/gifts", "/rsvp", etc. (not in-page section ids)
+      const sections = navigation.items
+        .map((item) => item.href.replace("#", ""))
+        .filter((id) => id.length > 0 && !id.startsWith("/"));
       const scrollPosition = window.scrollY + 100;
 
       for (let i = sections.length - 1; i >= 0; i--) {

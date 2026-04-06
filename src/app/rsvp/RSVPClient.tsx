@@ -538,7 +538,8 @@ export function RSVPClient() {
                             color: "#F5F5F0",
                           }}
                         >
-                          * We apologize to our vegan friends but unfortunately
+                          <span aria-hidden>* </span>
+                          We apologize to our vegan friends but unfortunately
                           Parkheuvel is not able to accommodate a vegan menu as their
                           kitchen works extensively with butter and cream.
                         </p>
@@ -874,7 +875,8 @@ function PlusOneSection({
                   color: "#F5F5F0",
                 }}
               >
-                * We apologize to our vegan friends but unfortunately Parkheuvel
+                <span aria-hidden>* </span>
+                We apologize to our vegan friends but unfortunately Parkheuvel
                 is not able to accommodate a vegan menu as their kitchen works
                 extensively with butter and cream.
               </p>

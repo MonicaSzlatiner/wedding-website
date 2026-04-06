@@ -62,10 +62,29 @@ export default function HoneymoonFund() {
   const panelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    let cancelled = false
     fetch('/api/contributions/counts')
-      .then((r) => r.json())
-      .then(setCounts)
-      .catch(() => {})
+      .then(async (r) => {
+        const raw = await r.json().catch(() => null)
+        if (cancelled || raw == null || typeof raw !== 'object' || Array.isArray(raw)) {
+          return {}
+        }
+        const safe: Record<string, number> = {}
+        for (const [k, v] of Object.entries(raw)) {
+          const n = Number(v)
+          if (!Number.isNaN(n) && Number.isFinite(n)) safe[k] = n
+        }
+        return safe
+      })
+      .then((data) => {
+        if (!cancelled) setCounts(data)
+      })
+      .catch(() => {
+        if (!cancelled) setCounts({})
+      })
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   const selectedActivity = ACTIVITIES.find((a) => a.key === selected)
