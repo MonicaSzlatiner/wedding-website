@@ -532,8 +532,11 @@ export function RSVPClient() {
                           ))}
                         </div>
                         <p
-                          className="mt-4 text-[0.8rem] leading-relaxed"
-                          style={{ color: "rgba(45, 41, 38, 0.45)" }}
+                          className="mt-5 text-base leading-snug font-bold rounded-xl px-4 py-3.5 border border-[#C37B60]/35"
+                          style={{
+                            backgroundColor: "rgba(195, 123, 96, 0.14)",
+                            color: "#2D2926",
+                          }}
                         >
                           We apologize to our vegan friends but unfortunately
                           Parkheuvel is not able to accommodate a vegan menu as their
@@ -865,8 +868,11 @@ function PlusOneSection({
                 ))}
               </div>
               <p
-                className="mt-4 text-[0.8rem] leading-relaxed"
-                style={{ color: "rgba(45, 41, 38, 0.45)" }}
+                className="mt-5 text-base leading-snug font-bold rounded-xl px-4 py-3.5 border border-[#C37B60]/35"
+                style={{
+                  backgroundColor: "rgba(195, 123, 96, 0.14)",
+                  color: "#2D2926",
+                }}
               >
                 We apologize to our vegan friends but unfortunately Parkheuvel
                 is not able to accommodate a vegan menu as their kitchen works

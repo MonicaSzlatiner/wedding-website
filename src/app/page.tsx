@@ -20,8 +20,12 @@ import {
   BuildingStorefrontIcon,
   PhotoIcon,
   SparklesIcon,
+  ArrowTopRightOnSquareIcon,
 } from "@heroicons/react/24/outline";
 import { PublicSiteChrome } from "@/components/layout/PublicSiteChrome";
+
+const parkingMapLinkClassName =
+  "inline-flex items-center gap-0.5 underline decoration-[#C37B60]/55 underline-offset-[3px] hover:decoration-[#C37B60] transition-colors";
 
 // Custom train icon
 function TrainIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
@@ -364,24 +368,48 @@ export default function HomePage() {
                   <ul className="space-y-2">
                     <li className="text-sm leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
                       <span className="font-medium" style={{ color: "#2D2926" }}>
-                        <a href="https://www.google.com/maps/place/Parklaan,+Rotterdam/@51.9077502,4.4713439,18.07z" target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: "#C37B60" }}>
+                        <a
+                          href="https://www.google.com/maps/place/Parklaan,+Rotterdam/@51.9077502,4.4713439,18.07z"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={parkingMapLinkClassName}
+                          style={{ color: "#C37B60" }}
+                          aria-label="Parklaan — opens Google Maps in a new tab"
+                        >
                           Parklaan
+                          <ArrowTopRightOnSquareIcon className="w-3.5 h-3.5 flex-shrink-0 opacity-75" aria-hidden />
                         </a>
                       </span>
                       {" "}— paid street parking, ~5 min walk through the park. Closest and easiest.
                     </li>
                     <li className="text-sm leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
                       <span className="font-medium" style={{ color: "#2D2926" }}>
-                        <a href="https://maps.google.com/?q=Westzeedijk+361,+3015+CP+Rotterdam" target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: "#C37B60" }}>
+                        <a
+                          href="https://maps.google.com/?q=Westzeedijk+361,+3015+CP+Rotterdam"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={parkingMapLinkClassName}
+                          style={{ color: "#C37B60" }}
+                          aria-label="Parkeergarage Westzeedijk — opens Google Maps in a new tab"
+                        >
                           Parkeergarage Westzeedijk
+                          <ArrowTopRightOnSquareIcon className="w-3.5 h-3.5 flex-shrink-0 opacity-75" aria-hidden />
                         </a>
                       </span>
                       {" "}— covered garage, ~10 min walk. Open 24/7, around &euro;2.70/hr.
                     </li>
                     <li className="text-sm leading-relaxed" style={{ color: "rgba(45, 41, 38, 0.6)" }}>
                       <span className="font-medium" style={{ color: "#2D2926" }}>
-                        <a href="https://www.google.com/maps/place/?q=place_id:ChIJSxHdIIM0xEcRvcnb5I6LJJc" target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: "#C37B60" }}>
+                        <a
+                          href="https://www.google.com/maps/place/?q=place_id:ChIJSxHdIIM0xEcRvcnb5I6LJJc"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={parkingMapLinkClassName}
+                          style={{ color: "#C37B60" }}
+                          aria-label="Parking at the venue — opens Google Maps in a new tab"
+                        >
                           At the venue
+                          <ArrowTopRightOnSquareIcon className="w-3.5 h-3.5 flex-shrink-0 opacity-75" aria-hidden />
                         </a>
                       </span>
                       {" "}— a handful of spots right at Parkheuvel, but they go fast.
