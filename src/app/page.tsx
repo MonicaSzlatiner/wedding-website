@@ -697,8 +697,8 @@ export default function HomePage() {
               <div className="grid grid-cols-2 gap-6 items-start">
                 <div className="aspect-[3/4] rounded-xl shadow-2xl overflow-hidden relative">
                   <Image
-                    src="/images/dresscode-1.jpg"
-                    alt="Dress code inspiration"
+                    src="/images/dresscode-1.png"
+                    alt="Dress code inspiration — champagne satin evening dress"
                     fill
                     className="object-cover"
                     sizes="224px"
