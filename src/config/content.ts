@@ -65,12 +65,12 @@ export const weddingConfig = {
       {
         time: "17:00",
         title: "Ceremony",
-        description: "We're starting at half past four. Sharp. Please be seated by 4:15.",
+        description: "We're starting at 17:00. Sharp. Please be seated by 16:55.",
       },
       {
         time: "18:00",
         title: "Toast & Dinner",
-        description: "A multi-course dinner at Parkheuvel with views of the river. Bring your appetite.",
+        description: "A four-course dinner at Parkheuvel with views of the river. Bring your appetite.",
       },
 
       {
