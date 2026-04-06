@@ -12,7 +12,18 @@ function getSupabaseAdmin() {
   return createClient(supabaseUrl, supabaseServiceKey);
 }
 
-const VALID_DIETARY = ["standard", "vegetarian", "allergies"];
+const VALID_DIETARY = ["standard", "vegetarian", "allergies"] as const;
+
+/** Map legacy / alternate stored values to current canonical slugs. */
+function normalizeDietary(
+  raw: string | null | undefined
+): string | null {
+  if (raw == null || raw === "") return null;
+  const s = String(raw).toLowerCase().trim();
+  if (s === "vegan") return "vegetarian";
+  if ((VALID_DIETARY as readonly string[]).includes(s)) return s;
+  return String(raw).trim();
+}
 
 interface SubmitBody {
   guest_id: string;
@@ -42,24 +53,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const dietaryPref = normalizeDietary(body.dietary_preference ?? undefined);
+    const plusOneDietaryPref = normalizeDietary(
+      body.plus_one_dietary_preference ?? undefined
+    );
+
     if (
       body.attending &&
-      body.dietary_preference &&
-      !VALID_DIETARY.includes(body.dietary_preference)
+      dietaryPref &&
+      !(VALID_DIETARY as readonly string[]).includes(dietaryPref)
     ) {
       return NextResponse.json(
         { error: "Invalid dietary preference" },
-        { status: 400 }
-      );
-    }
-
-    if (
-      body.plus_one_attending &&
-      body.plus_one_dietary_preference &&
-      !VALID_DIETARY.includes(body.plus_one_dietary_preference)
-    ) {
-      return NextResponse.json(
-        { error: "Invalid plus one dietary preference" },
         { status: 400 }
       );
     }
@@ -79,20 +84,31 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (
+      guest.plus_one_allowed &&
+      body.plus_one_attending &&
+      plusOneDietaryPref &&
+      !(VALID_DIETARY as readonly string[]).includes(plusOneDietaryPref)
+    ) {
+      return NextResponse.json(
+        { error: "Invalid plus one dietary preference" },
+        { status: 400 }
+      );
+    }
+
     const update: Record<string, unknown> = {
       attending: body.attending,
       rsvp_submitted_at: new Date().toISOString(),
     };
 
     if (body.attending) {
-      update.dietary_preference = body.dietary_preference || null;
+      update.dietary_preference = dietaryPref || null;
       update.allergies = body.allergies || null;
 
       if (guest.plus_one_allowed && body.plus_one_attending) {
         update.plus_one_attending = true;
         update.plus_one_name = body.plus_one_name || null;
-        update.plus_one_dietary_preference =
-          body.plus_one_dietary_preference || null;
+        update.plus_one_dietary_preference = plusOneDietaryPref || null;
         update.plus_one_allergies = body.plus_one_allergies || null;
       } else {
         update.plus_one_attending = false;
@@ -123,15 +139,28 @@ export async function POST(request: NextRequest) {
     }
 
     const isUpdate = guest.rsvp_submitted_at !== null;
+    const effectivePlusOneAttending =
+      body.attending &&
+      guest.plus_one_allowed &&
+      Boolean(body.plus_one_attending);
+
     const emailData = {
       guestName: guest.name,
       attending: body.attending,
-      dietaryPreference: body.attending ? body.dietary_preference : null,
+      dietaryPreference: body.attending ? dietaryPref : null,
       allergies: body.attending ? body.allergies : null,
-      plusOneName: body.plus_one_name,
-      plusOneAttending: body.plus_one_attending,
-      plusOneDietaryPreference: body.plus_one_dietary_preference,
-      plusOneAllergies: body.plus_one_allergies,
+      plusOneName: effectivePlusOneAttending ? body.plus_one_name : null,
+      plusOneAttending: !body.attending
+        ? null
+        : guest.plus_one_allowed
+          ? Boolean(body.plus_one_attending)
+          : false,
+      plusOneDietaryPreference: effectivePlusOneAttending
+        ? plusOneDietaryPref
+        : null,
+      plusOneAllergies: effectivePlusOneAttending
+        ? body.plus_one_allergies
+        : null,
       isUpdate,
     };
 

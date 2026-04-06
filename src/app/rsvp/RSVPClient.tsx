@@ -87,10 +87,17 @@ export function RSVPClient() {
     setAttending(g.attending);
     setDietary((g.dietary_preference as DietaryPreference) || null);
     setAllergies(g.allergies || "");
-    setBringingGuest(g.plus_one_attending ?? null);
-    setPlusOneName(g.plus_one_name || "");
-    setPlusOneDietary((g.plus_one_dietary_preference as DietaryPreference) || null);
-    setPlusOneAllergies(g.plus_one_allergies || "");
+    if (g.has_plus_one) {
+      setBringingGuest(g.plus_one_attending ?? null);
+      setPlusOneName(g.plus_one_name || "");
+      setPlusOneDietary((g.plus_one_dietary_preference as DietaryPreference) || null);
+      setPlusOneAllergies(g.plus_one_allergies || "");
+    } else {
+      setBringingGuest(null);
+      setPlusOneName("");
+      setPlusOneDietary(null);
+      setPlusOneAllergies("");
+    }
   }
 
   function resetForm() {
@@ -184,10 +191,18 @@ export function RSVPClient() {
       return;
     }
 
-    if (attending && guest.has_plus_one && bringingGuest && !plusOneDietary) {
+    if (
+      attending &&
+      guest.has_plus_one &&
+      bringingGuest &&
+      !plusOneDietary
+    ) {
       setSubmitError("Please select a dietary preference for your plus one.");
       return;
     }
+
+    const plusOneActive =
+      attending && guest.has_plus_one && Boolean(bringingGuest);
 
     setIsSubmitting(true);
     setSubmitError(null);
@@ -201,12 +216,14 @@ export function RSVPClient() {
           attending,
           dietary_preference: attending ? dietary : null,
           allergies: attending ? allergies || null : null,
-          plus_one_name: attending && bringingGuest ? plusOneName.trim() : null,
-          plus_one_attending: attending ? bringingGuest ?? false : null,
-          plus_one_dietary_preference:
-            attending && bringingGuest ? plusOneDietary : null,
-          plus_one_allergies:
-            attending && bringingGuest ? plusOneAllergies || null : null,
+          plus_one_name: plusOneActive ? plusOneName.trim() : null,
+          plus_one_attending: attending
+            ? guest.has_plus_one
+              ? (bringingGuest ?? false)
+              : false
+            : null,
+          plus_one_dietary_preference: plusOneActive ? plusOneDietary : null,
+          plus_one_allergies: plusOneActive ? plusOneAllergies || null : null,
         }),
       });
 
@@ -224,12 +241,14 @@ export function RSVPClient() {
         attending,
         dietary_preference: attending ? dietary : null,
         allergies: attending ? allergies || null : null,
-        plus_one_name: attending && bringingGuest ? plusOneName.trim() : null,
-        plus_one_attending: attending ? bringingGuest ?? false : null,
-        plus_one_dietary_preference:
-          attending && bringingGuest ? plusOneDietary : null,
-        plus_one_allergies:
-          attending && bringingGuest ? plusOneAllergies || null : null,
+        plus_one_name: plusOneActive ? plusOneName.trim() : null,
+        plus_one_attending: attending
+          ? guest.has_plus_one
+            ? (bringingGuest ?? false)
+            : false
+          : null,
+        plus_one_dietary_preference: plusOneActive ? plusOneDietary : null,
+        plus_one_allergies: plusOneActive ? plusOneAllergies || null : null,
       });
 
       setSubmitted(true);
