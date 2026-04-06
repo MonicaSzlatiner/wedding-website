@@ -317,6 +317,10 @@ export const weddingConfig = {
         answer: "Yes, there's paid parking near the venue in the Het Park area. Check the travel section for links to best spots to park",
       },
       {
+        question: "Will there be a vegan menu?",
+        answer: "We apologize to our vegan friends, but unfortunately Parkheuvel is not able to accommodate a vegan menu — their kitchen works extensively with butter and cream. If you have other dietary needs (for example vegetarian options or allergies), please add them in the notes field when you RSVP.",
+      },
+      {
         question: "What time should I arrive?",
         answer: "By 16:30 PM, please. We will actually start on time.",
       },

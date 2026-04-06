@@ -535,9 +535,9 @@ export function RSVPClient() {
                           className="mt-4 text-[0.8rem] leading-relaxed"
                           style={{ color: "rgba(45, 41, 38, 0.45)" }}
                         >
-                          Parkheuvel&apos;s menu is not fully vegan, their kitchen
-                          works extensively with butter and cream. Please use the
-                          notes field below if you have specific requirements.
+                          We apologize to our vegan friends but unfortunately
+                          Parkheuvel is not able to accommodate a vegan menu as their
+                          kitchen works extensively with butter and cream.
                         </p>
                       </div>
 
@@ -868,9 +868,9 @@ function PlusOneSection({
                 className="mt-4 text-[0.8rem] leading-relaxed"
                 style={{ color: "rgba(45, 41, 38, 0.45)" }}
               >
-                Parkheuvel&apos;s menu is not fully vegan, their kitchen
-                works extensively with butter and cream. Please use the
-                notes field below if you have specific requirements.
+                We apologize to our vegan friends but unfortunately Parkheuvel
+                is not able to accommodate a vegan menu as their kitchen works
+                extensively with butter and cream.
               </p>
             </div>
 
