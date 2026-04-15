@@ -547,7 +547,7 @@ export default function HomePage() {
                   </p>
                   
                   <div className="space-y-6 md:space-y-10">
-                    {category.items.map((item) => (
+                    {(category.items ?? []).map((item) => (
                       <div key={item.name} className="flex gap-3 items-start">
                         <span className="flex-shrink-0 pt-1" aria-hidden>
                           <ExploreCategoryIcon name={category.name} />

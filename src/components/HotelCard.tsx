@@ -48,9 +48,9 @@ export function HotelCard({ hotel }: HotelCardProps) {
       </h3>
 
       {/* Badges */}
-      {hotel.badges.length > 0 && (
+      {(hotel.badges ?? []).length > 0 && (
         <div className="flex flex-wrap gap-2 mb-4">
-          {hotel.badges.map((badge, index) => (
+          {(hotel.badges ?? []).map((badge, index) => (
             <span
               key={index}
               className="text-[10px] uppercase font-medium px-2 py-1 rounded"

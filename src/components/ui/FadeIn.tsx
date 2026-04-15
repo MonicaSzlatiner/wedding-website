@@ -40,7 +40,10 @@ export function FadeIn({
   }
 
   // Calculate initial position based on direction
-  const initialPosition = {
+  const initialPosition: Record<
+    NonNullable<FadeInProps["direction"]>,
+    { y?: number; x?: number }
+  > = {
     up: { y: distance },
     down: { y: -distance },
     left: { x: distance },
@@ -48,12 +51,14 @@ export function FadeIn({
     none: {},
   };
 
+  const fromDir = initialPosition[direction] ?? initialPosition.up;
+
   return (
     <motion.div
       className={className}
       initial={{
         opacity: 0,
-        ...initialPosition[direction],
+        ...fromDir,
       }}
       whileInView={{
         opacity: 1,

@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adyen Interview Prep: Q&A Bank</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; font-size: 15px; color: #333; background: #f5f6f8; }
+
+  .cover {
+    background: #1F4E79;
+    color: white;
+    padding: 60px 64px 48px;
+  }
+  .cover h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .cover .subtitle { font-size: 18px; color: #C8DCEF; margin-bottom: 6px; }
+  .cover .meta { font-size: 14px; color: #9bbdd4; margin-bottom: 40px; }
+  .cover-note {
+    background: rgba(255,255,255,0.1);
+    border-left: 4px solid #C55A11;
+    padding: 18px 24px;
+    border-radius: 0 6px 6px 0;
+    max-width: 780px;
+  }
+  .cover-note p { font-size: 14px; color: #dce9f5; line-height: 1.7; margin-bottom: 10px; }
+  .cover-note p:last-child { margin-bottom: 0; }
+  .cover-note strong { color: white; }
+
+  .nav {
+    background: #163a5e;
+    padding: 16px 64px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    border-bottom: 3px solid #C55A11;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav a {
+    color: #9bbdd4;
+    text-decoration: none;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .nav a:hover { background: rgba(255,255,255,0.1); color: white; }
+
+  .content { max-width: 900px; margin: 0 auto; padding: 40px 32px 80px; }
+
+  .bucket { margin-bottom: 56px; }
+
+  .bucket-header {
+    background: #1F4E79;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    padding: 12px 20px;
+    border-radius: 6px 6px 0 0;
+    border-bottom: 3px solid #C55A11;
+  }
+
+  .question-block {
+    background: white;
+    border-radius: 0 0 8px 8px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  .question-block + .question-block {
+    border-radius: 8px;
+    margin-top: 12px;
+  }
+
+  .q-label {
+    background: #EEF4FB;
+    padding: 18px 24px;
+    border-left: 5px solid #C55A11;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1F4E79;
+    line-height: 1.5;
+  }
+  .q-label span {
+    display: inline-block;
+    background: #C55A11;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+
+  .answer-section { padding: 20px 24px 0; }
+  .answer-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #C55A11;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .answer-text {
+    font-size: 14.5px;
+    line-height: 1.8;
+    color: #2a2a2a;
+    margin-bottom: 12px;
+  }
+
+  .probes-section {
+    margin: 20px 0 0;
+    background: #F0F6FF;
+    border-top: 1px solid #D6E4F0;
+    padding: 20px 24px;
+  }
+  .probes-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #1F4E79;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .probe-item {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #D6E4F0;
+  }
+  .probe-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .probe-item.hard {
+    background: #FFF5EE;
+    border-left: 3px solid #C55A11;
+    padding: 14px 16px;
+    border-radius: 0 6px 6px 0;
+    margin-left: -4px;
+  }
+
+  .probe-q {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1F4E79;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  .probe-q::before { content: "↳ Probe: "; color: #C55A11; }
+
+  .probe-item.hard .probe-q { color: #8B2000; }
+  .probe-item.hard .probe-q::before { content: "🔥 Hard Probe: "; color: #C55A11; }
+
+  .probe-a {
+    font-size: 14px;
+    line-height: 1.75;
+    color: #3a3a3a;
+    padding-left: 18px;
+    border-left: 2px solid #D6E4F0;
+  }
+  .probe-item.hard .probe-a { border-left-color: #f0b090; }
+
+  .failure-box {
+    background: #FFF0F0;
+    border: 1px solid #ffcccc;
+    border-left: 4px solid #cc0000;
+    padding: 14px 18px;
+    margin: 16px 0 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .failure-box .ftag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #cc0000;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .failure-box p {
+    font-size: 13.5px;
+    color: #5a0000;
+    line-height: 1.7;
+  }
+
+  .pov-box {
+    background: #F0FFF4;
+    border: 1px solid #b2dfcc;
+    border-left: 4px solid #1a7a45;
+    padding: 16px 20px;
+    margin: 16px 24px 20px;
+    border-radius: 0 6px 6px 0;
+  }
+  .pov-box .ptag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #1a7a45;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .pov-box p {
+    font-size: 14px;
+    color: #1a3a2a;
+    line-height: 1.75;
+  }
+
+  .silence-section {
+    background: #2d2d2d;
+    color: #e0e0e0;
+    padding: 32px 40px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+  }
+  .silence-section h3 { color: #C55A11; font-size: 16px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+  .silence-section p { font-size: 14px; line-height: 1.8; margin-bottom: 12px; }
+  .silence-section p:last-child { margin-bottom: 0; }
+  .silence-section strong { color: white; }
+
+  @media print {
+    .nav { display: none; }
+    body { background: white; }
+    .content { padding: 20px; }
+    .question-block { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>ADYEN INTERVIEW PREP</h1>
+  <div class="subtitle">Principal Engineer Panel: Question &amp; Answer Bank — Hardened Edition</div>
+  <div class="meta">2 Principal Engineers &nbsp;·&nbsp; 60 minutes &nbsp;·&nbsp; Conversational but probing</div>
+  <div class="cover-note">
+    <p><strong>How to use this:</strong> Read each answer once to internalize the logic, then close the doc and say it out loud in your own words. If you sound like you memorized something, you've already lost the room.</p>
+    <p><strong>The 🔥 hard probes are where this interview will actually be decided.</strong> Anyone can survive the opening questions. What separates Director-level candidates is the third follow-up when you're already mid-answer and slightly off balance.</p>
+    <p><strong>Watch the failure mode warnings.</strong> They mark the exact moment answers go wrong. Knowing what "going off the rails" looks like in real time means you can catch yourself.</p>
+    <p><strong>Your three go-to stories:</strong> Decathlon micro-frontend rebuild &nbsp;·&nbsp; gRPC rollback &nbsp;·&nbsp; Canada rollout. Secondary: JET scaling &nbsp;·&nbsp; BE director conflict &nbsp;·&nbsp; payment acceptance rate.</p>
+  </div>
+</div>
+
+<div class="nav">
+  <a href="#b1">Architecture &amp; Decisions</a>
+  <a href="#b2">Tech Debt &amp; SDLC</a>
+  <a href="#b3">Platform &amp; Frontend</a>
+  <a href="#b4">People &amp; Culture</a>
+  <a href="#b5">Adyen-Specific</a>
+  <a href="#b6">Your Point of View</a>
+  <a href="#silence">When They Go Silent</a>
+</div>
+
+<div class="content">
+
+  <!-- BUCKET 1 -->
+  <div class="bucket" id="b1">
+    <div class="bucket-header">BUCKET 1: TECHNICAL ARCHITECTURE &amp; DECISIONS</div>
+
+    <div class="question-block">
+      <div class="q-label"><span>Q1</span>Walk us through the most technically complex thing you've built or led. We want to understand the decisions you made.</div>
+      <div class="answer-section">
+        <div class="answer-tag">Your Answer</div>
+        <div class="answer-text">When I joined Decathlon, complexity was hitting from multiple directions at once. On the technical side the frontend was a monolith serving 30-plus countries, with years of country-level overrides layered on top. The backend was Oracle, expensive, unstable at peak, and not going to scale. The business had already decided to rebuild it as microservices with DDD, which meant the frontend had to follow.</div>
+        <div class="answer-text">The first real architectural call I had to own was how to split the frontend. We landed on micro-frontends: navigation, product, checkout, and post-purchase as independently deployable applications, composed at the edge through Cloudflare Workers. The logic was straightforward: a checkout deploy should never put navigation at risk, and each country team needed to move at their own pace.</div>
+        <div class="answer-text">The harder decision was how to handle the transition. We kept the legacy system running in parallel, fully staffed, keeping revenue stable while the new platform was being built. Two simultaneous streams. Some people thought it was inefficient, and they weren't entirely wrong. But the alternative, cutting over too early and losing conversion across 30 markets, is not a risk you can manage your way out of once it's happened.</div>
+        <div class="answer-text">We went from one country to 30 on the new platform. Payment acceptance improved. NPS went up. But the thing I'm most proud of is that the team who built the legacy system ended up owning the migration plan. That only happened because I spent the first six months in France asking questions and having lunch with people, not telling them what was broken.</div>
+        <div class="failure-box">
+          <div class="ftag">Failure Mode to Watch</div>
+          <p>Don't rush through the technical part to get to the human story. They are principal engineers. They want to sit in the architecture for a while. Let them. If they ask a follow-up on Cloudflare or micro-frontend composition, that is a good sign, not a trap.</p>
+        </div>
+      </div>
+      <div class="probes-section">
+        <div class="probes-tag">Likely Probes + How to Handle Them</div>
+
+        <div class="probe-item">
+          <div class="probe-q">Why Cloudflare Workers for composition? What were the real alternatives?</div>
+          <div class="probe-a">The question was where to stitch the micro-frontends together: server-side, client-side, or at the edge. Server-side means latency and tight coupling to your infrastructure. Client-side means the browser assembles the page, which creates performance problems and visible layout shifts at scale. Edge composition keeps each application independently deployable while the assembly happens close to the user. Cloudflare was already in our stack for CDN and security, so extending it for composition reduced the surface area of new infrastructure we had to manage. Not a religious choice, the pragmatic one given what we already had.</div>
+        </div>
+
+        <div class="probe-item">
+          <div class="probe-q">How did you handle shared state between the applications: session, cart, user identity?</div>
+          <div class="probe-a">We made a deliberate call that each application should be as stateless as possible, and that shared state like session and cart would live in dedicated backend services. The applications consumed APIs. They didn't pass state to each other directly. The session manager was the hard one: centralize and accept it becomes a shared dependency, or keep it local and accept consistency risk. We went centralized for session because the consistency risk of distributed session across 30 countries was too high. That was a tradeoff, not a perfect answer.</div>
+        </div>
+
+        <div class="probe-item">
+          <div class="probe-q">What went wrong? What would you do differently?</div>
+          <div class="probe-a">The design system took longer than it should have. We built components at the application level first and tried to extract shared ones later. That's backwards. You end up with three slightly different versions of the same button and a migration project nobody budgeted for. If I did it again I'd have a small team on shared components from week one, even if the library was mostly empty at the start. The forcing function of having a place to put shared things means teams build for reuse by default.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">If Cloudflare goes down, what happens to your users?</div>
+          <div class="probe-a">That's a real single point of failure and I won't pretend otherwise. Our mitigation was twofold. First, Cloudflare's edge network has significantly higher availability than our own infrastructure, so we were trading a self-managed risk for a lower-probability managed risk. Second, we built fallback behavior at the application level so that if composition failed, users would land on a degraded but functional experience rather than a blank page. We also had circuit breaker logic so individual application failures didn't cascade. Was it perfect? No. But the alternative, self-hosting the composition layer, introduced a different class of operational risk that we had less capacity to manage. At the scale we were operating, Cloudflare's SLA was a better bet than our own ops capability at that point in the journey.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">You said session was centralized. So you had a single point of failure in the middle of a micro-frontend architecture that was supposed to be resilient. How do you justify that?</div>
+          <div class="probe-a">Honestly, it's the right tension to surface. We accepted that tradeoff explicitly and documented it in an ADR. The reasoning: a micro-frontend architecture gives you deployment independence and team autonomy, but it does not give you data independence for free. Session consistency across applications is a harder problem than deployment independence, and trying to solve both at the same time would have introduced more complexity than the architecture could absorb at that stage. We treated the session service as a reliability priority: separate on-call rotation, tighter SLO, more aggressive monitoring. The architecture was resilient at the application layer. Session was the exception, and we treated it like one.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">You ran two parallel streams for the transition. How did you actually prevent the legacy team from being treated as second-class citizens?</div>
+          <div class="probe-a">This was a real cultural risk and I took it seriously from day one. A few things we did deliberately. The legacy team had equal access to me, equal visibility in leadership updates, and the same engineering standards applied to their work. We framed their role explicitly as: you are keeping revenue alive while the new platform is being proven. That is not maintenance, that is a critical business function. We also made sure that engineers from the legacy team had first right of refusal on the new platform as roles opened up. Some of them made the move within six months. Others chose to stay and eventually own the wind-down, which they took pride in. The moment you let a two-tier culture form, the legacy team disengages and things start breaking quietly. I had seen that pattern before and I was not going to let it happen here.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label"><span>Q2</span>How do you make architectural decisions? Walk us through your actual process.</div>
+      <div class="answer-section">
+        <div class="answer-tag">Your Answer</div>
+        <div class="answer-text">The first thing I try to do is separate the decision from the discussion. A lot of architectural decisions fail not because the wrong choice was made but because the people who have to live with it didn't have a chance to shape it. You get compliance instead of commitment, and workarounds instead of buy-in.</div>
+        <div class="answer-text">My actual process: what problem are we solving and what are we explicitly not solving. What are the real options, not just the obvious one versus the default. What does each option close off long term. What are the failure modes. And critically: who needs to have been part of this before we decide.</div>
+        <div class="answer-text">The ADR culture I've built everywhere I've worked comes from this. Writing the decision down forces clarity. You have to name what you chose, what you didn't choose, and why. The key question I always make people answer is: is this a one-way door or a two-way door. Reversible decision, move fast and document. Irreversible decision, slow down and get the right people in the room.</div>
+        <div class="answer-text">The gRPC situation at Decathlon is a good example. Technically solid proposal. We wrote it up, named the options, said clearly we are not proceeding now because of X and we will revisit when Y is true. That created accountability in both directions. It didn't just kill the idea.</div>
+        <div class="failure-box">
+          <div class="ftag">Failure Mode to Watch</div>
+          <p>Don't make this sound like a framework you read in a book. The one-way door / two-way door language is well known. If you say it without grounding it in a real example immediately, it lands flat. Always attach a story.</p>
+        </div>
+      </div>
+      <div class="probes-section">
+        <div class="probes-tag">Likely Probes + How to Handle Them</div>
+
+        <div class="probe-item">
+          <div class="probe-q">Who gets to be in the room? How do you avoid it becoming a committee?</div>
+          <div class="probe-a">Who has to live with this, and who has information I don't have. Those people are in the room. Everyone else gets the ADR. The mistake is conflating input with decision rights. I want broad input but a small decision group: the relevant tech lead, the EM, and me. If it crosses team boundaries, one representative per team. Eight people reaching consensus on an architectural decision will produce the least controversial option, not the right one.</div>
+        </div>
+
+        <div class="probe-item">
+          <div class="probe-q">What happens when you make the wrong call?</div>
+          <div class="probe-a">You name it early and clearly. The worst outcome is letting a bad decision compound because you don't want to be the person who reverses themselves. The ADR culture actually helps: the reasoning is documented, so you can say we decided this when we believed X, and now we know X is not true. That's not a failure. That's how decisions are supposed to work.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">Give me an example of an architectural decision you made that you later found out was wrong. Not "we adjusted" — actually wrong.</div>
+          <div class="probe-a">The component-level build approach for the design system. I made the call early that teams should move fast and we'd extract shared components later once patterns emerged. The theory was sound: don't over-architect before you understand the problem. The reality was that "later" never arrived because there was always something more urgent. By the time we got to it we had meaningful duplication and inconsistency across applications that cost real engineering time to untangle. The right call would have been to invest in shared components earlier even with imperfect information, because the cost of retrofit was higher than the cost of early over-engineering would have been. I learned that the "extract later" approach works in codebases with strong discipline. In fast-moving orgs with multiple teams, it doesn't survive contact with reality.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">How do you handle it when you've made a decision, documented it in an ADR, and then new information emerges that makes it look wrong, but reversing it would be expensive?</div>
+          <div class="probe-a">You have to be honest about the cost of both paths: the cost of staying with the decision and carrying the wrong bet forward, versus the cost of reversal. The thing I try not to do is frame it as sunk cost. The time and money already spent is gone either way. The question is purely forward-looking: which path from here creates more value or less pain. I've reversed decisions that were expensive to reverse when the evidence was clear enough. The key is bringing the team along with the reasoning, not announcing a reversal. If the ADR had a revisit condition, you can point to it and say this condition is now true. That gives the team a foundation rather than just whiplash.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label"><span>Q3</span>How do you stay technically credible when you're not the one writing the code?</div>
+      <div class="answer-section">
+        <div class="answer-tag">Your Answer</div>
+        <div class="answer-text">I don't try to fake fluency I don't have. What I do instead is make sure I understand the tradeoffs, not the implementation. I can't tell you which specific Redis configuration to use, but I can tell you why session state centralization creates a different risk profile than local storage, and what that means for our ability to scale across regions. That's the level I operate at and I'm honest about it.</div>
+        <div class="answer-text">What actually keeps me credible: I read every ADR and ask questions when the reasoning isn't clear. Not gotcha questions. Genuine ones. I've had engineers come back later and say that question you asked actually changed how we approached it. I take post-mortems seriously and push for the actual root cause, not the comfortable one. And when I push back on a technical direction, I push back on the reasoning and I come in with something specific.</div>
+        <div class="answer-text">The other thing is I hire people who will challenge me. If everyone in the room is nodding when I say something technical, I get nervous. I want the disagreement on the table early, while it's still useful.</div>
+        <div class="failure-box">
+          <div class="ftag">Failure Mode to Watch</div>
+          <p>Do not over-explain how much you respect engineers or how much you "lean on" your team. That reads as insecurity. You are a Director. You have a real point of view. State it directly.</p>
+        </div>
+      </div>
+      <div class="probes-section">
+        <div class="probes-tag">Likely Probes + How to Handle Them</div>
+
+        <div class="probe-item">
+          <div class="probe-q">Give us a specific example where you got it wrong technically and an engineer corrected you.</div>
+          <div class="probe-a">The session manager decision. My initial instinct was to keep session local to each micro-frontend because it felt cleaner from an autonomy standpoint. One of the engineers walked me through what that actually meant for a user who adds to cart in one application and navigates to checkout in another. The synchronization problem was real and I hadn't thought it through at that level. He was right. We went centralized. That's the dynamic I want: engineer has information I don't have, brings it clearly, decision changes.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">Give me a specific technical opinion you hold right now that you'd be willing to defend in this room.</div>
+          <div class="probe-a">I think most frontend teams at scale underinvest in the contract layer between backend and frontend, and then spend years paying for it. The pattern I've seen repeatedly is: backend designs for its own data model, frontend transforms everything, transformation logic drifts across clients, and suddenly you have a quality and consistency problem that's expensive to fix because it's everywhere. My opinion is that an experience API layer, a backend for frontend that translates internal data models into experience-optimized contracts, is not optional at scale. It feels like overhead when you're moving fast. It becomes load-bearing infrastructure faster than most teams expect. I've seen the cost of not having it at Decathlon and I wouldn't skip it again.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">You keep talking about ADRs. But in fast-moving environments ADRs become shelfware nobody reads. What makes yours different?</div>
+          <div class="probe-a">ADRs fail when they're treated as documentation, written after the decision is already made, to justify something that's already done. That's not an ADR, that's a press release. The ones that actually work are written before the decision is finalized, with genuine alternatives captured, including the one that lost. The reason people stop reading them is because they learn quickly that the document doesn't reflect how decisions actually got made. If your ADRs are honest, including about the things that were uncertain or the arguments that nearly won, engineers will read them because they contain real information. I made ADRs non-negotiable at Decathlon and the test was whether the engineers who disagreed with a decision felt their position was accurately represented in the document. If they said yes, the ADR was working. If they said no, I'd ask for a revision before the decision was announced.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- BUCKET 2 -->
+  <div class="bucket" id="b2">
+    <div class="bucket-header">BUCKET 2: TECHNICAL DEBT &amp; SDLC</div>
+
+    <div class="question-block">
+      <div class="q-label"><span>Q4</span>How do you manage technical debt without bringing the roadmap to a stop?</div>
+      <div class="answer-section">
+        <div class="answer-tag">Your Answer</div>
+        <div class="answer-text">I don't think of technical debt as a backlog item. I think of it as a tax rate. The question is always: is this tax rate sustainable, or is it compounding.</div>
+        <div class="answer-text">The way I make it visible is through delivery data. If a team is consistently taking 30 percent longer than estimated on features that touch a particular system, that system has a debt problem. I don't need a separate debt audit. The data is already there. When I can show a product manager that the next three features they want will each take twice as long as they should, suddenly it's a business conversation, not an engineering complaint.</div>
+        <div class="answer-text">The mechanism I use is ring-fencing a percentage of every sprint rather than a separate debt sprint. Separate sprints sound clean but they never survive the first time something urgent comes up. Built-in capacity is much harder to argue away.</div>
+        <div class="answer-text">I'm also strict about distinguishing actual debt from old code that works fine. If you call everything debt you create urgency theater and teams stop taking it seriously.</div>
+        <div class="failure-box">
+          <div class="ftag">Failure Mode to Watch</div>
+          <p>Don't let this become a list of process things you do. They want to hear you think about debt as a business problem, not an engineering hygiene problem. The tax rate framing is the right one. Stay in it.</p>
+        </div>
+      </div>
+      <div class="probes-section">
+        <div class="probes-tag">Likely Probes + How to Handle Them</div>
+
+        <div class="probe-item">
+          <div class="probe-q">How do you decide which debt to pay down and which to live with?</div>
+          <div class="probe-a">Three filters. Does it block something we need to build in the next six months. Does it create reliability risk at current scale. Does it affect a team's ability to recruit or retain good engineers, because nobody wants to work in a codebase that makes them feel bad about their craft. Debt that fails all three stays on the list but doesn't get prioritized. Debt that hits any one gets a conversation. Debt that hits two or more gets scheduled.</div>
+        </div>
+
+        <div class="probe-item">
+          <div class="probe-q">What does good SDLC look like to you?</div>
+          <div class="probe-a">Good delivery is boring in the right ways. Predictable cadence, no heroics required to ship. Teams have a clear definition of ready before they start work. A real definition of done that includes observability, not just "it deployed." Post-mortems that actually change something. The biggest improvement I made at Decathlon was a lightweight but non-negotiable documentation gate: before a significant technical change, there had to be an ADR. Not a 20-page spec. An ADR. It forced the right conversation before the code was written, not after it was in production.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">You ring-fence capacity for debt. But product managers always find a reason why this sprint is the exception. How do you actually protect that capacity when the pressure is real?</div>
+          <div class="probe-a">You make the cost of not protecting it visible in product terms. The conversation I have is not "we need time for tech debt." It's "here's our current velocity on this part of the system, here's what it will be in three months if we don't address this, and here are the three features on your roadmap that will be affected." When a product manager understands that the thing they're asking me to deprioritize is directly connected to the delivery of something they care about in Q3, the conversation changes. The other thing I do is make the protected capacity non-negotiable at the team level and absorb the stakeholder pressure myself. The team should not be the ones defending their own capacity in a sprint planning meeting. That's my job.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">How do you know when debt has crossed the line from manageable to actually dangerous?</div>
+          <div class="probe-a">A few signals. Incidents in the same system that keep recurring despite fixes, which means you're patching symptoms not causes. Engineers who have been there a long time starting to avoid a particular area of the codebase, which means even the people who know it best don't trust it. New engineers who can't become productive on a system after a reasonable ramp period, which means the system is too complex to be safely changed. And the most important one: when your most senior engineers start saying "I don't know what will happen if we change this." At that point debt has become risk that you don't have full visibility into, and that's genuinely dangerous at scale. That's when it stops being a product conversation and becomes an executive conversation.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- BUCKET 3 -->
+  <div class="bucket" id="b3">
+    <div class="bucket-header">BUCKET 3: PLATFORM THINKING &amp; FRONTEND ARCHITECTURE</div>
+
+    <div class="question-block">
+      <div class="q-label"><span>Q5</span>How do you think about the relationship between backend APIs and frontend experience?</div>
+      <div class="answer-section">
+        <div class="answer-tag">Your Answer</div>
+        <div class="answer-text">This tension is one I've lived closely. At Decathlon the backend was designing APIs for their own convenience, which is natural: you design around your data model. The result was things like name fields structured as last name, first name because that's how the database stored it. Every frontend had to transform that. Multiply it across dozens of fields and you end up with logic leaking into the frontend that has no business being there. Then you have three frontends carrying slightly different versions of that logic and they start to drift.</div>
+        <div class="answer-text">The principle I push for is that the backend should design for consumers, not for its own data structure. That doesn't mean the frontend dictates the API. It means the API is a product that someone has to use, and usability matters.</div>
+        <div class="answer-text">At the volume Adyen operates, with thousands of merchants integrating against the same API, this tension is structurally baked in. The platform is API-first and that's a real strength. But the experience layer has to meet the merchant where they are, not where the data model is. That's a solvable problem, but it requires frontend and backend teams to have a real contract conversation, not just "here's the endpoint."</div>
+        <div class="failure-box">
+          <div class="ftag">Failure Mode to Watch</div>
+          <p>This answer is Adyen's actual problem. Don't rush through it. This is the moment where your merchant experience makes you different from every other candidate. Slow down and own it.</p>
+        </div>
+      </div>
+      <div class="probes-section">
+        <div class="probes-tag">Likely Probes + How to Handle Them</div>
+
+        <div class="probe-item">
+          <div class="probe-q">How do you get backend teams to design for frontend consumers when they have their own roadmap?</div>
+          <div class="probe-a">You make the cost visible. When I showed the backend director at Decathlon that three frontend teams were each transforming the same data differently, and two had bugs because the transformation logic had drifted, the conversation changed. It stopped being me asking them to do extra work and became me showing them that their current approach was generating downstream quality problems. The other thing: give frontend a seat in API design reviews early, not as a veto but as a consumer perspective. When the people who have to integrate against something are in the room before it's designed, you get better contracts.</div>
+        </div>
+
+        <div class="probe-item">
+          <div class="probe-q">How do you drive adoption of shared components across autonomous teams?</div>
+          <div class="probe-a">Treat adoption as a product problem, not a communication problem. Start with the team that will benefit most and make them genuinely successful. When other teams see them shipping faster or not rebuilding the same component for the fourth time, you don't need a mandate. At Decathlon the shared component library started with one team. By month four, three others were contributing back to it. That dynamic only happens if the shared thing is actually better than building your own. If it's not, no amount of communication fixes it.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">You mentioned a backend for frontend pattern. At Adyen's scale, with thousands of merchants, how does that actually work without becoming a maintenance nightmare?</div>
+          <div class="probe-a">The risk you're naming is real: if the BFF layer becomes a bespoke translation layer for every merchant, you've just moved the complexity rather than solving it. The way you avoid that is by designing the BFF around experience domains, not merchant segments. So you have a BFF for the onboarding workflow, one for the reporting workflow, one for the transaction management workflow. Each one is a stable, versioned contract that any merchant can use. The customization happens through configuration and composition at that layer, not through bespoke code per merchant. The maintenance burden is then proportional to the number of workflows you have, not the number of merchants. That's manageable. The other thing you need is clear ownership: the team that owns the workflow owns the BFF for that workflow. You don't want a central BFF team becoming a bottleneck for the entire organization.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">What's the hardest part of getting engineers to actually maintain API contract discipline over time, especially when they're under delivery pressure?</div>
+          <div class="probe-a">The hardest part is that breaking a contract is always the fastest option in the short term. You need to change something, the "right" way takes two weeks, the breaking change takes two hours. Without a structural forcing function, the breaking change wins every time under pressure. The forcing function I've used is making contract changes a first-class deployment event: they require a version bump, a migration guide, and a deprecation period, and those requirements live in the CI pipeline, not in a document on Confluence. When the consequences of skipping the process are immediate and concrete rather than theoretical and future, engineers make different choices. The other part is making it easy to do the right thing: good tooling for contract testing, clear templates for deprecation notices, a standard process that doesn't require heroic effort. Discipline doesn't scale, but systems do.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label"><span>Q6</span>What do you think is hard about building platforms that other engineers build on top of?</div>
+      <div class="answer-section">
+        <div class="answer-tag">Your Answer</div>
+        <div class="answer-text">The hardest thing is that your customer is an engineer, and engineers are the most demanding customers there are. They know what's possible and they have strong opinions about how it should work.</div>
+        <div class="answer-text">The specific failure mode I've seen is platform teams optimizing for technical elegance rather than developer experience. You build something architecturally beautiful that takes three weeks to integrate against. Meanwhile teams are building workarounds because the workaround is faster. You've failed your customers even if you've technically built the right thing.</div>
+        <div class="answer-text">The other hard part is versioning and backwards compatibility. Every time you improve the platform you potentially break someone's integration. The discipline to maintain stable contracts while evolving the capability underneath is where a lot of platform teams get into trouble.</div>
+        <div class="answer-text">The thing that actually works is treating adoption as the metric, not capability. Best platform in the world, nobody using it, you haven't solved the problem.</div>
+      </div>
+      <div class="probes-section">
+        <div class="probes-tag">Likely Probes + How to Handle Them</div>
+
+        <div class="probe-item">
+          <div class="probe-q">How do you measure platform success?</div>
+          <div class="probe-a">Time to first integration: if a new team can integrate in two days, healthy platform. If it takes three weeks and a Slack conversation, something is wrong. Adoption rate over time: are teams choosing the platform or routing around it. Support load: same questions recurring means a documentation and onboarding problem. And developer satisfaction: if engineers dread touching the platform, they'll avoid it, and avoidance has a technical cost that shows up in places you don't expect.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">Platform teams often become bottlenecks. How do you build a platform that's genuinely enabling without the platform team becoming the critical path for everything?</div>
+          <div class="probe-a">The root cause of platform teams becoming bottlenecks is almost always that they own too much of the integration work themselves. They become a service team rather than a platform team. The shift I push for is: the platform team owns the capability and the developer experience of accessing it. The consuming team owns the integration. That only works if the platform is actually self-serve, which means good documentation, clear examples, fast onboarding, and a support model that handles questions without the platform team doing the work for you. The other thing is being deliberate about what the platform does and doesn't own. Scope creep is how platform teams become bottlenecks. Every time a consuming team has a problem and the platform team solves it directly rather than making the platform better, you're moving in the wrong direction.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">How do you handle the tension between platform stability, which consuming teams depend on, and platform evolution, which the business needs?</div>
+          <div class="probe-a">Semantic versioning and explicit deprecation timelines are the mechanical answer, but the harder part is the organizational one. Consuming teams need to trust that the platform won't break them without warning, and platform teams need consuming teams to actually migrate off old versions so they're not maintaining five versions in parallel forever. The thing that makes this work is a clear, consistently enforced contract on both sides: the platform commits to a minimum deprecation window and migration support, and consuming teams commit to migrating within that window. The failure mode is when that contract is implicit rather than explicit. Someone gets surprised, trust breaks, and then every future change becomes a negotiation. I'd rather have a slightly slower cadence of platform changes with very high predictability than a fast-moving platform that teams are afraid to depend on.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- BUCKET 4 -->
+  <div class="bucket" id="b4">
+    <div class="bucket-header">BUCKET 4: PEOPLE &amp; ENGINEERING CULTURE</div>
+
+    <div class="question-block">
+      <div class="q-label"><span>Q7</span>Tell us about a time you pushed back on a technical decision your engineers wanted to make.</div>
+      <div class="answer-section">
+        <div class="answer-tag">Your Answer</div>
+        <div class="answer-text">At Decathlon an external engineer we'd brought in proposed moving to gRPC for inter-service communication. Technically solid case: faster, more efficient for service-to-service calls, better typed contracts. And the person proposing it was very good.</div>
+        <div class="answer-text">What I pushed back on was the sequencing. We were mid-migration on the backend, teams were learning DDD for the first time, and now we were asking everyone to also upskill on gRPC simultaneously. I didn't think the technical argument was wrong. I thought the organizational cost was being seriously underweighted.</div>
+        <div class="answer-text">We ran a pilot with one service. It took longer than projected because the upskill time was real. We made a documented decision to defer broader rollout until the backend migration stabilized. Not cancelled. Deferred. I was explicit that the door wasn't closed.</div>
+        <div class="answer-text">What mattered most was that the engineer who proposed it understood the reasoning. I wasn't overruling him because I knew better technically. I was making a call about sequencing and risk, which is my job. He didn't love it. But he understood it. That's the best outcome you can hope for in that situation.</div>
+        <div class="failure-box">
+          <div class="ftag">Failure Mode to Watch</div>
+          <p>Don't soften the pushback to make yourself sound reasonable. You made a call your engineer disagreed with. Own that. Softening it makes you sound like you're still seeking their approval retroactively.</p>
+        </div>
+      </div>
+      <div class="probes-section">
+        <div class="probes-tag">Likely Probes + How to Handle Them</div>
+
+        <div class="probe-item">
+          <div class="probe-q">What if the whole team agreed with him and not with you?</div>
+          <div class="probe-a">Then I would have needed better reasoning or I would have changed my mind. What I try not to do is override technical judgment with seniority. If the whole team believes something and I can't articulate why they're wrong beyond a gut feeling, that's a signal I might be the one with the blind spot. In this case the pilot data supported the deferral. But if I'd been wrong, I'd want to know that early, not after we'd lost three months to a failed rollout.</div>
+        </div>
+
+        <div class="probe-item">
+          <div class="probe-q">How do you document decisions so they don't get relitigated constantly?</div>
+          <div class="probe-a">The ADR has to name the alternatives, not just the chosen option. If you only write down what you decided, people who disagreed will keep surfacing the alternatives they preferred. Write down: we considered X and Y, we chose Z for these reasons, and we will revisit if these conditions change. The revisit condition is important. It signals the decision is contextual, not permanent. That's usually enough to get people to move forward even when they disagreed with the outcome.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">You deferred the gRPC rollout. Did you ever actually revisit it, or did "deferred" quietly become "cancelled"?</div>
+          <div class="probe-a">Honest answer: the broad rollout didn't happen in my time there. The backend migration took longer than planned, and by the time it stabilized, the team's priorities had shifted. That's a real outcome and I won't dress it up. What I do think we got right is that the decision was explicit and the reasoning was documented. The engineer who proposed it knew the door wasn't closed and understood the conditions. When the priority didn't come back up it wasn't because someone quietly buried it. It was because the business context changed and other things became more important. "Deferred" becoming "de-prioritized due to changing context" is a legitimate outcome. "Deferred" quietly becoming "forgotten" because nobody wanted to revisit the conversation would have been a failure. We avoided the second one.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">Walk us through the exact moment you decided to push back. What information did you have and what was going through your head?</div>
+          <div class="probe-a">It was in the design review where the proposal was presented. The technical case was well-prepared and the energy in the room was positive. But as I listened I was running a parallel track: we are six months into a backend migration, the teams are stretched, we had just had two incidents related to the DDD transition creating unexpected coupling between services. And now we're proposing to also change the communication protocol that those same teams depend on. The information I had was: current team capacity, recent incident history, and the DDD learning curve we were already navigating. What was going through my head was that we were about to add a third simultaneous change to an organization that was already at its absorptive limit. The technical argument wasn't wrong. The timing was wrong. And timing is an organizational judgment, not a technical one. That's where my job starts.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label"><span>Q8</span>How do you handle a staff or principal engineer who is technically brilliant but creates friction?</div>
+      <div class="answer-section">
+        <div class="answer-tag">Your Answer</div>
+        <div class="answer-text">I start by figuring out whether the friction is coming from behavior or from style. Those are different problems.</div>
+        <div class="answer-text">Style friction is often rough edges: blunt, impatient in reviews, doesn't explain reasoning to junior engineers. Coachable. The underlying capability is real and the person usually doesn't know the impact they're having. You name the specific behavior, show them the effect, most of the time they can adjust.</div>
+        <div class="answer-text">Behavior friction is different. If someone is genuinely dismissive of other perspectives, not because they're blunt but because they don't think other viewpoints matter, that's a values problem. Technically brilliant people who don't create leverage for others are net negative at scale. They become bottlenecks. The team organizes around avoiding them.</div>
+        <div class="answer-text">I've had to exit someone at that level. It's hard. But a team that watches you protect a high performer who damages the culture will never fully trust you again. That trust is worth more than the individual's output.</div>
+        <div class="failure-box">
+          <div class="ftag">Failure Mode to Watch</div>
+          <p>They will probe on the exit. Don't generalize. Have a specific, honest version of how that process actually went. Vagueness here reads as either it didn't happen, or you handled it badly and don't want to say so.</p>
+        </div>
+      </div>
+      <div class="probes-section">
+        <div class="probes-tag">Likely Probes + How to Handle Them</div>
+
+        <div class="probe-item">
+          <div class="probe-q">How do you have that conversation with someone who thinks they're just being direct?</div>
+          <div class="probe-a">Lead with impact, not intent. Not "you're being difficult." Specifically: when you do X in a review, the effect is Y. Junior engineers are not bringing ideas to design discussions. Two people have told me they'd rather implement a suboptimal solution than ask you for help. That's concrete and hard to dismiss. Then I give a clear picture of what I need to see change and a timeframe. And I follow up, because a conversation that felt meaningful but changed nothing is worse than not having it.</div>
+        </div>
+
+        <div class="probe-item">
+          <div class="probe-q">What if they're the most technically capable person you have?</div>
+          <div class="probe-a">Then the cost of keeping them is even higher. The message you send to everyone else is: technical brilliance exempts you from how we treat each other here. The people who leave first are always your other strong engineers, the ones with options. You end up keeping the person causing the problem and losing the people being affected by it. A team that functions well at slightly lower technical peak is more valuable than a brilliant team that can't work together.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">You said you exited someone at that level. Walk us through exactly how that process went.</div>
+          <div class="probe-a">The person was technically exceptional but the pattern was consistent: dismissive in cross-team discussions, took credit for contributions that were collaborative, and when junior engineers raised concerns about his approach they were made to feel like the problem. I had three direct conversations over about four months with specific feedback and specific asks. After the second conversation behavior improved briefly and then returned. After the third conversation I involved HR and we started a formal performance improvement process. The PIP was honest: here are the behaviors, here are the standards, here is the timeline. It didn't result in the change we needed. The exit took about six weeks from the PIP start. It was hard. He was genuinely talented and losing that capability had a short-term cost. But within two months the team was visibly different: people were speaking up in design reviews who had been quiet for a year. That was the signal I needed to know the decision was right.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">How do you make sure you're not the problem? That your interpretation of "difficult" isn't just someone who disagrees with you?</div>
+          <div class="probe-a">That's the right question to ask and I ask it myself before any of these conversations. The test I use is: are multiple people experiencing the same thing independently, or is it just me. If it's just me, I'm probably the issue. If three separate people have come to me with the same experience of the same person without knowing the others had raised it, that's a pattern, not a personality conflict. The other check is whether the friction is about disagreement or about how disagreement is expressed. I actually want people who disagree with me. Engineers who push back on my reasoning make better decisions happen. What I can't tolerate is the method: dismissiveness, taking credit from others, making people feel small for raising concerns. Those aren't disagreement. Those are behaviors that make the team smaller over time.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label"><span>Q9</span>How do you develop technical leaders? What does that actually look like?</div>
+      <div class="answer-section">
+        <div class="answer-tag">Your Answer</div>
+        <div class="answer-text">Technical leadership is not a promotion, it's a capability you build deliberately. The way you build it is by giving people real problems with real stakes, not practice problems.</div>
+        <div class="answer-text">In practice: I make sure strong engineers have visibility upstream, in product discussions, in roadmap conversations, not just execution. When they're in those rooms they start seeing the tradeoffs that exist above the technical layer, and that changes how they think about what they build.</div>
+        <div class="answer-text">I use post-mortems deliberately as a leadership development moment. Who facilitates it, who does the analysis, who presents the findings. Those are skills you build by doing them under real conditions.</div>
+        <div class="answer-text">The thing I've gotten wrong is hiring someone into a staff or principal role and expecting them to operate at that level from day one. I had an experience where I hired a staff engineer who was technically exceptional but had never operated with the organizational scope that role required. I hadn't been clear enough about what that scope looked like at this company. That's on me. I now spend much more time in the first 90 days being explicit about what the role actually means here, not what it meant somewhere else.</div>
+        <div class="failure-box">
+          <div class="ftag">Failure Mode to Watch</div>
+          <p>Don't list development activities. They want to hear how you think about the gap between senior and staff, and whether you've actually helped someone make that transition. Go specific or this answer lands flat.</p>
+        </div>
+      </div>
+      <div class="probes-section">
+        <div class="probes-tag">Likely Probes + How to Handle Them</div>
+
+        <div class="probe-item">
+          <div class="probe-q">What's the real difference between how you work with a senior versus a staff engineer?</div>
+          <div class="probe-a">A senior engineer executes well within defined scope and identifies problems inside their area. A staff engineer should be seeing problems before they become problems, across areas that aren't directly their own, and raising them with enough context and proposed solutions that it moves the conversation forward rather than creating work for me. With a senior I'm more directive: here's the scope, here's the outcome, come back with a plan. With a staff engineer I expect them to come to me. They should be setting the agenda on technical direction, not waiting for me to set it. If a staff engineer is waiting to be told what to do, that's a conversation we need to have.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">Tell us about someone you developed into a technical leader. What specifically did you do and how long did it take?</div>
+          <div class="probe-a">At JET I had an engineer on the fintech domain who was technically very strong but operated in a narrow lane: heads down, shipped reliably, didn't engage much in cross-team discussions. I started deliberately putting her in product conversations, not to contribute technically but to observe the business tradeoffs being made. After a few sessions I started asking her to prepare a technical perspective before the meeting: what are the implications of each option from an engineering standpoint. Within about three months she was doing this unprompted and the product team was actively seeking her out before decisions were made. The other thing I did was give her the next architecture decision in our domain to own end to end: defining the options, running the analysis, writing the ADR, presenting to the team. She pushed back initially because she didn't feel ready. I told her she was already doing the thinking, we were just going to make it official. It took about six months before she was operating consistently at staff level. She's now a staff engineer there. What I did specifically: exposure to the right rooms, explicit ownership of real decisions, and getting out of the way once she had the foundation.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">What do you do when someone has the technical capability for a staff role but genuinely cannot operate at the organizational scope it requires?</div>
+          <div class="probe-a">First I check whether it's a capability gap or an exposure gap. A lot of engineers who struggle with organizational scope have simply never been given the opportunity to practice it. That's an exposure gap and it's fixable with deliberate investment over time. A genuine capability gap is different: the person finds organizational complexity draining rather than interesting, actively avoids cross-functional engagement, and doesn't improve meaningfully despite real opportunities. That's a signal the person may be in the wrong shape of role, not the wrong seniority. The most respectful thing I can do in that case is have an honest conversation: here's what I'm seeing, here's what the role requires, and here are the paths forward. Sometimes that means a different role that plays to their genuine strengths. The worst outcome is keeping someone in a role that doesn't fit them and calling it a development opportunity. That's not development. That's a slow exit dressed up as investment.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- BUCKET 5 -->
+  <div class="bucket" id="b5">
+    <div class="bucket-header">BUCKET 5: ADYEN-SPECIFIC &amp; THE WOULD-YOU-WORK-FOR-ME TEST</div>
+
+    <div class="question-block">
+      <div class="q-label"><span>Q10</span>Where do you see the biggest technical risks in a platform like Adyen's?</div>
+      <div class="answer-section">
+        <div class="answer-tag">Your Answer</div>
+        <div class="answer-text">From the outside, having been a merchant integrating against Adyen's platform, the thing that stands out is the gap between the API capability and the experience layer. The API is genuinely excellent: breadth of payment methods, routing intelligence, reliability at scale. But the portal and tooling still ask merchants to think like engineers. For large technical merchants that's fine. For the mid-market it's a real friction point and that's where competition is sharpest.</div>
+        <div class="answer-text">The technical risk I'd want to understand first is: how much of that experience layer is a UX problem versus an underlying data model problem. If the portal is hard to navigate because the APIs were designed API-first and the UI was built on top without a proper experience layer, that's a harder fix than a pure frontend problem.</div>
+        <div class="answer-text">I'd also want to map the seams between internal teams. At the volume Adyen operates, reliability questions are not just about technology. They're about organizational boundaries: who owns what, where do incidents cross team lines, how fast can you diagnose something that lives at an integration point between two systems. Those are the risks I'd want to understand before forming strong opinions about what to fix first.</div>
+        <div class="failure-box">
+          <div class="ftag">Failure Mode to Watch</div>
+          <p>Don't let this become flattery with a side of mild concern. You are a Director-level candidate with merchant experience. Have a real opinion. The UX vs data model question is the one that shows you've thought about this seriously. Make sure it lands.</p>
+        </div>
+      </div>
+      <div class="probes-section">
+        <div class="probes-tag">Likely Probes + How to Handle Them</div>
+
+        <div class="probe-item">
+          <div class="probe-q">How do you fix the experience layer without touching what's working?</div>
+          <div class="probe-a">You don't touch the API. That's the product merchants have invested in integrating against. The experience layer sits on top of it. The first move is building a proper abstraction between the API contracts and the UI: a representation of data designed for the experience, not the raw API response. That's not a rewrite, it's a layer. You build it incrementally, starting with the workflows that cause the most merchant pain, and migrate surface by surface. The underlying API stays stable. The merchant integration doesn't change. The portal experience evolves independently.</div>
+        </div>
+
+        <div class="probe-item">
+          <div class="probe-q">What would you do in your first 90 days?</div>
+          <div class="probe-a">Listen more than I talk. Understand the actual current state before forming opinions about what to change. Sit with principal engineers and understand where the real pain is, not the stated pain: those are often different. Understand how decisions get made today, formally and informally. Find the people who know where the bodies are buried, because every engineering org has them and they're usually not the loudest voices in the room. And be very careful not to walk in with a Decathlon playbook and apply it wholesale. The context is different. The scale is different. The culture is different. My job in the first 90 days is to understand this place, not to change it.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">You said you'd map the seams between teams. What does that actually mean in practice? How do you do that?</div>
+          <div class="probe-a">Concretely: I want to trace a merchant's journey through the platform from onboarding to a live transaction and identify every point where ownership changes hands between internal teams. Those seams are where incidents live, where things fall through, where "that's not our system" gets said in a post-mortem. I do this by sitting in incident reviews and looking at where the diagnosis slowed down, which is almost always at a team boundary. I look at where on-call escalations happen repeatedly, because repeated escalations mean the boundary is unclear or the ownership is contested. And I talk to the engineers who are closest to those seams, not their managers, because managers often don't have full visibility into where the friction actually is. It's not a formal audit. It's listening carefully to where people hesitate when you ask "who owns this."</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">You've been a merchant using Adyen's platform. What specifically frustrated you and what does that tell you about the engineering priorities?</div>
+          <div class="probe-a">The specific friction was that making configuration changes required understanding Adyen's internal data model, not our own business logic. Things that should have been simple, like adjusting payment method priority by market or understanding why a specific transaction failed in a specific country, required either deep technical knowledge or waiting for a support conversation. That told me two things about engineering priorities. First, the reporting and observability layer for merchants was built for Adyen's internal model, not for the questions merchants actually ask. Second, the configuration tooling assumed a level of technical sophistication that mid-market merchants often don't have and shouldn't need to have. Those are solvable problems and they're not core API problems. They're experience layer problems. That distinction is actually good news from an engineering standpoint because it means the hard infrastructure doesn't need to change. What needs to change is what sits between that infrastructure and the merchant.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label"><span>Q11</span>What does your day-to-day relationship with a principal engineer actually look like?</div>
+      <div class="answer-section">
+        <div class="answer-tag">Your Answer</div>
+        <div class="answer-text">My relationship with principal engineers is probably the most important working relationship I have. They are the technical conscience of the organization. If they don't trust my judgment, or if I'm consistently making decisions that ignore their input, then the technical direction of the team is just whatever I happen to believe. That's not good enough.</div>
+        <div class="answer-text">In practice: I protect their time for deep work and I don't drop urgent things on them without acknowledging the cost. I make sure their technical opinions reach upstream, into product discussions, into roadmap conversations, not just internal engineering. And I give them real problems with real stakes, not just execution support.</div>
+        <div class="answer-text">I also tell them directly when I disagree. Not to win, to think out loud. Some of my best decisions came from a principal engineer pushing back on something I was confident about and forcing me to actually defend the reasoning. If I can't defend it, it probably wasn't as solid as I thought.</div>
+        <div class="answer-text">My job is not to be the most technically knowledgeable person in the room. My job is to make sure the most technically knowledgeable people are working on the right problems and that their work actually lands.</div>
+        <div class="failure-box">
+          <div class="ftag">Failure Mode to Watch</div>
+          <p>Remember: the people interviewing you are principal engineers. They are not just assessing your answer. They are imagining you as their manager. Every word of this answer lands differently because of that. Be genuine. Don't perform humility.</p>
+        </div>
+      </div>
+      <div class="probes-section">
+        <div class="probes-tag">Likely Probes + How to Handle Them</div>
+
+        <div class="probe-item">
+          <div class="probe-q">What would make you a difficult manager for us?</div>
+          <div class="probe-a">If I got too directive on technical decisions without sufficient context. If I made architectural calls without bringing in the people who'd implement them. If I prioritized shipping speed to the point where I was consistently asking engineers to cut corners they knew would compound into problems later. And if I was conflict-avoidant with product or stakeholders and let unclear requirements land on the engineering team without pushing back. Those are my known failure modes. I'm not always perfect at guarding against them but I know what they look like.</div>
+        </div>
+
+        <div class="probe-item">
+          <div class="probe-q">How do you make sure strong engineers don't feel like they're just executing someone else's vision?</div>
+          <div class="probe-a">You give them the problem, not the solution. The difference between "go implement this design" and "here's the outcome we need and the constraint set, you tell me how we approach it." The second is harder to manage because you have to be genuinely open to a direction you didn't anticipate. But it's the only way strong engineers stay engaged. The other thing: be explicit about what's in their scope to decide and what isn't. Nothing is more demoralizing than putting real effort into a technical direction and having it overruled because someone more senior had a preference they never mentioned.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">We've had managers before who said all the right things and then behaved very differently under pressure. How do we know you're not one of them?</div>
+          <div class="probe-a">You don't, from this conversation. That's an honest answer. What I can tell you is where I've been tested and what happened. The BE director situation at Decathlon: there was a senior stakeholder pushing hard for a technical direction I thought was wrong. I pushed back directly, in a room with people more senior than me, and I named the specific risks. It cost me some political capital short-term. The gRPC decision: I made an unpopular call, documented the reasoning, and didn't walk it back when the engineer pushed back, because I thought the reasoning was sound. The Canada timeline: I said no to a date the business wanted, in writing, with specific conditions attached. The pattern I can point to is that I don't tend to fold under pressure when I think the reasoning is solid. What I'd ask you to do is talk to engineers I've worked with, not just the ones I'd put forward as references. That's a more reliable signal than anything I can tell you in this room.</div>
+        </div>
+
+        <div class="probe-item hard">
+          <div class="probe-q">If you joined and discovered the technical direction the team had been pursuing for 18 months was fundamentally wrong, how would you handle it?</div>
+          <div class="probe-a">Carefully and slowly. The first thing I'd do is make sure I actually understood it deeply enough to be confident in that assessment, because 18 months of work by people who are closer to the problem than I am deserves more than a fresh set of eyes saying it's wrong. I'd want to understand why those decisions were made, what information was available at the time, and what the current evidence is that something is fundamentally off. If after that I still believed it was wrong, I'd bring it to the principal engineers first, not to management. I'd say: here's what I'm seeing, here's why I think it's a problem, what am I missing. If after that conversation I was still concerned, I'd propose a structured review rather than a reversal: let's examine the assumptions together and see where they hold and where they don't. The worst thing I could do is walk in with 90 days of tenure and announce that 18 months of work is heading in the wrong direction. Even if I'm right, the way I handle it will determine whether the team can trust me enough to actually fix it.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- BUCKET 6: POINT OF VIEW -->
+  <div class="bucket" id="b6">
+    <div class="bucket-header">BUCKET 6: YOUR TECHNICAL POINT OF VIEW — FOR WHEN THEY STOP ASKING ABOUT THE PAST</div>
+
+    <div class="question-block">
+      <div class="q-label"><span>POV</span>At some point they will stop asking about what you've done and ask what you actually think. These are your opinions. Be ready to defend them.</div>
+      <div class="answer-section">
+        <div class="answer-tag">Opinion 1: On Frontend Architecture at Scale</div>
+        <div class="answer-text">Most companies reach for micro-frontends before they've exhausted what a well-structured monolith can do. Micro-frontends solve real problems: deployment independence, team autonomy, technology flexibility. But they introduce coordination costs, shared state complexity, and performance overhead that people underestimate until they're living inside it. My view is that micro-frontends are the right answer when your teams are genuinely blocked on each other's deployment cycles and your scale justifies the operational overhead. They're the wrong answer when you're doing it because it sounds modern or because you think it'll solve your team coordination problems. Team coordination problems are organizational. The architecture just gives them a new shape.</div>
+
+        <div class="answer-tag" style="margin-top:20px;">Opinion 2: On the BFF Pattern and API Contracts</div>
+        <div class="answer-text">A backend for frontend is not optional at scale. It feels like overhead when you're moving fast. It becomes load-bearing infrastructure faster than almost anyone expects. The reason is simple: as soon as you have more than one client consuming the same API, you have consumers with different needs. The API designed for one will be wrong for another. You either solve that in the contract layer deliberately, with a BFF, or you solve it accidentally, in every frontend, inconsistently. I've seen the cost of the second approach. I wouldn't skip the first again.</div>
+
+        <div class="answer-tag" style="margin-top:20px;">Opinion 3: On Design Systems and Component Governance</div>
+        <div class="answer-text">The failure mode of design systems is treating them as a design team deliverable that engineering is expected to adopt. The design systems that actually get used are built with engineers as first-class stakeholders from day one, have a clear ownership model, publish a roadmap, accept external contributions, and are measured by adoption not by the size of the component library. A component library that nobody uses is just a monument to good intentions. The metric that matters is: when a team needs a new UI pattern, do they reach for the design system first, or do they build their own. If the answer is consistently "build their own," something is broken in the system, not in the teams.</div>
+
+        <div class="answer-tag" style="margin-top:20px;">Opinion 4: On Technical Debt Framing</div>
+        <div class="answer-text">Calling everything technical debt is how organizations stop fixing anything. Debt is a specific thing: a deliberate shortcut taken with the intention of paying it back later. Most of what teams call debt is either poor original design, changing requirements, or accumulated complexity from growth. Those are different problems requiring different solutions. If you treat all three as "debt" you end up with a single backlog that nobody believes will ever get worked and a word that's lost all meaning. I prefer to be specific: this is a design decision that no longer fits our scale. This is a dependency we've outgrown. This is a shortcut we took in Q2 that we documented and now need to close. Specificity creates accountability. "Tech debt" often doesn't.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SILENCE SECTION -->
+  <div id="silence"></div>
+  <div class="silence-section">
+    <h3>When They Go Silent After Your Answer</h3>
+    <p>Principal engineers sometimes say nothing after you finish. They look at you and wait. This is deliberate. They want to see if you fill the silence with something you shouldn't have said: a qualification that undermines your answer, a backtrack, an apology for the strength of your position.</p>
+    <p><strong>The right move is to stop talking.</strong> If you said what you meant, you said it. The silence is not a signal that you were wrong. It is a test of whether you believe what you just said.</p>
+    <p>If the silence stretches past the point of comfort and you genuinely aren't sure if they followed, it is fine to say: <strong>"Does that answer what you were asking, or do you want me to go deeper on any part of that?"</strong> That's a check-in, not a retreat.</p>
+    <p>What you should never do: keep talking to fill the space, add qualifiers that soften a position you took deliberately, or laugh nervously and say "but I could be wrong about that." If you could be wrong about it, you should have said so when you gave the answer. Adding doubt after the silence is the worst version of both options.</p>
+    <p><strong>The silence is not the enemy. Your discomfort with it is.</strong></p>
+  </div>
+
+</div>
+</body>
+</html>
