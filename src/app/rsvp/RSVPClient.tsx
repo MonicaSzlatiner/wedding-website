@@ -572,8 +572,9 @@ export function RSVPClient() {
                         <div className="mt-3 text-right">
                           <Link
                             href="/menu"
-                            className="text-xs italic underline-offset-4 hover:underline transition-opacity hover:opacity-70"
-                            style={{ color: "rgba(45, 41, 38, 0.55)" }}
+                            target="_blank"
+                            className="text-sm italic underline underline-offset-4 transition-opacity hover:opacity-70"
+                            style={{ color: "#C37B60" }}
                           >
                             Curious what&apos;s on the menu? Take a peek &rarr;
                           </Link>
