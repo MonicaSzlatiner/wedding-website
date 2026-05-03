@@ -81,6 +81,56 @@ export const weddingConfig = {
     ],
   },
 
+  // Menu (hidden page — only reachable via direct links from RSVP and FAQ)
+  menu: {
+    eyebrow: "Four Courses",
+    heading: "The Menu",
+    subtitle:
+      "A four-course dinner by Parkheuvel, served with views of the Maas. Here's a peek at what's coming to the table.",
+    courses: [
+      {
+        course: "First",
+        title: "North Sea Crab",
+        accompaniments: "jalapeño · curry · apple",
+      },
+      {
+        course: "Second",
+        title: "Ravioli Bresse Chicken",
+        accompaniments: "langoustine · wild mushroom · lobster sauce",
+      },
+      {
+        course: "Third",
+        title: "Roe Deer",
+        accompaniments: "almond · orange · white asparagus",
+      },
+      {
+        course: "Dessert",
+        title: "Rhubarb",
+        accompaniments: "basil · strawberry · elderflower",
+      },
+    ],
+    allergyEyebrow: "Fish or Shellfish Allergy",
+    allergyHeading: "A Few Substitutions",
+    allergyIntro:
+      "If fish or shellfish isn't your friend, the kitchen has you covered. Here's how the menu shifts.",
+    substitutions: [
+      {
+        original: "North Sea Crab",
+        replacement: "Superior Queen Asparagus",
+        accompaniments: "flammande · peterselie · perle imperial kaviaar",
+        note: "Yes, it comes with caviar — and it's beautiful. If caviar is also off-limits, just let us know in the dietary notes on your RSVP and we'll sort it out with Parkheuvel.",
+      },
+      {
+        original: "Ravioli Bresse Chicken",
+        replacement: "Ravioli Bresse Chicken",
+        accompaniments: "served without langoustine · mushroom sauce instead",
+        note: null,
+      },
+    ],
+    seasonalNote:
+      "The menu may vary slightly — Parkheuvel works exclusively with fresh, seasonal ingredients.",
+  },
+
   // Dress code
   dressCode: {
     label: "The Dress Code",
@@ -315,6 +365,10 @@ export const weddingConfig = {
       {
         question: "Is there parking available?",
         answer: "Yes, there's paid parking near the venue in the Het Park area. Check the travel section for links to best spots to park",
+      },
+      {
+        question: "What will we be eating?",
+        answer: "A four-course dinner by Parkheuvel — thoughtful, seasonal, and very much worth showing up for. <a href=\"/menu\">Take a peek at the full menu</a>.",
       },
       {
         question: "Will there be a vegan menu?",
