@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useHydrationSafeReducedMotion } from "@/hooks/useHydrationSafeReducedMotion";
@@ -568,6 +569,15 @@ export function RSVPClient() {
                             color: "#2D2926",
                           }}
                         />
+                        <div className="mt-3 text-right">
+                          <Link
+                            href="/menu"
+                            className="text-xs italic underline-offset-4 hover:underline transition-opacity hover:opacity-70"
+                            style={{ color: "rgba(45, 41, 38, 0.55)" }}
+                          >
+                            Curious what&apos;s on the menu? Take a peek &rarr;
+                          </Link>
+                        </div>
                       </div>
 
                       {/* Plus one section */}
