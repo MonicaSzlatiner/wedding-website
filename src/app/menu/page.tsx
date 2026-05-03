@@ -15,7 +15,7 @@ export default function MenuPage() {
     <>
       {/* Hero Section */}
       <section
-        className="pt-24 pb-16 md:pt-32 md:pb-20"
+        className="pt-24 md:pt-32 pb-0"
         style={{ backgroundColor: "#F5F5F0" }}
       >
         <Container size="content">
