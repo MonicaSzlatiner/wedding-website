@@ -169,14 +169,14 @@ export default function HoneymoonFund() {
                 </p>
 
                 <p
-                  className="text-[0.7rem] leading-relaxed mb-3"
+                  className="text-xs leading-relaxed mb-3"
                   style={{ color: 'rgba(45, 41, 38, 0.5)' }}
                 >
                   {activity.desc}
                 </p>
 
                 <p
-                  className="text-[0.65rem] uppercase font-bold flex items-center justify-center gap-1.5"
+                  className="text-[0.7rem] uppercase font-bold flex items-center justify-center gap-1.5"
                   style={{ letterSpacing: '0.08em', color: 'rgba(45, 41, 38, 0.35)' }}
                 >
                   <span
@@ -267,7 +267,7 @@ export default function HoneymoonFund() {
               />
             </div>
             <p
-              className="text-[0.78rem] font-light leading-relaxed mb-6"
+              className="text-sm font-light leading-relaxed mb-6"
               style={{ color: 'rgba(45, 41, 38, 0.45)' }}
             >
               Give whatever feels right &mdash; there&rsquo;s no minimum and no wrong answer.
