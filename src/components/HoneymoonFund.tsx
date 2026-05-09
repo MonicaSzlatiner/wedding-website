@@ -169,14 +169,14 @@ export default function HoneymoonFund() {
                 </p>
 
                 <p
-                  className="text-xs leading-relaxed mb-3"
+                  className="text-sm leading-relaxed mb-3"
                   style={{ color: 'rgba(45, 41, 38, 0.5)' }}
                 >
                   {activity.desc}
                 </p>
 
                 <p
-                  className="text-[0.7rem] uppercase font-bold flex items-center justify-center gap-1.5"
+                  className="text-xs uppercase font-bold flex items-center justify-center gap-1.5"
                   style={{ letterSpacing: '0.08em', color: 'rgba(45, 41, 38, 0.35)' }}
                 >
                   <span
