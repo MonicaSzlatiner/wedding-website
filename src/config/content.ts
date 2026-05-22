@@ -63,9 +63,9 @@ export const weddingConfig = {
       },
       
       {
-        time: "17:00",
+        time: "16:45",
         title: "Ceremony",
-        description: "We're starting at 17:00. Sharp. Please be seated by 16:45.",
+        description: "We're starting at 16:45. Sharp. Please be seated by 16:30.",
       },
       {
         time: "18:00",
@@ -76,7 +76,7 @@ export const weddingConfig = {
       {
         time: "20:30",
         title: "Dancing",
-        description: "The shoes come off and the music goes up. Stay as late as you can.",
+        description: "First dance. Father-daughter dance. Then DJ takes over — and this is the part people talk about afterward.",
       },
     ],
   },
