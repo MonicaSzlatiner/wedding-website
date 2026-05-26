@@ -405,7 +405,7 @@ export async function sendGiftThankYouToContributor(
         You sent us a gift. We saw it. We said wow. Out loud. In the house.
       </p>
       <p style="font-size: 16px; line-height: 1.7; margin: 0 0 20px 0;">
-        It's going toward the honeymoon &mdash; the adventures, the wrong turns, the mornings we won't want to end. You're part of that now, which is a really nice thing to be.
+        It's going straight to the honeymoon. Every bit of it.
       </p>
       <p style="font-size: 16px; line-height: 1.7; margin: 0 0 28px 0;">
         Thank you. Really.
@@ -421,7 +421,7 @@ export async function sendGiftThankYouToContributor(
 
   const textContent = `You sent us a gift. We saw it. We said wow. Out loud. In the house.
 
-It's going toward the honeymoon -- the adventures, the wrong turns, the mornings we won't want to end. You're part of that now, which is a really nice thing to be.
+It's going straight to the honeymoon. Every bit of it.
 
 Thank you. Really.
 
