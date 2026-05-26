@@ -59,7 +59,14 @@ export default function HoneymoonFund() {
   const [selected, setSelected] = useState<string | null>(null)
   const [amount, setAmount] = useState('')
   const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [formError, setFormError] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const panelRef = useRef<HTMLDivElement>(null)
+
+  const BANK_URL =
+    'https://www.ing.nl/de-ing/payreq?trxid=mdH0dM8iGbS0qO6zsJ7kTNQ0EjibEpPQ&flow-step=payment-request'
+  const PAYPAL_URL = 'https://paypal.me/monicaandlaurens'
 
   useEffect(() => {
     let cancelled = false
@@ -97,17 +104,53 @@ export default function HoneymoonFund() {
     }, 100)
   }
 
-  function recordContribution() {
+  async function handlePayment(paymentMethod: 'bank' | 'paypal', paymentUrl: string) {
     if (!selectedActivity) return
-    fetch('/api/contributions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        guest_name: name.trim() || null,
-        activity: selectedActivity.name,
-        amount_cents: amountNum > 0 ? Math.round(amountNum * 100) : null,
-      }),
-    }).catch(() => {})
+
+    const trimmedName = name.trim()
+    const trimmedEmail = email.trim()
+
+    if (!trimmedName) {
+      setFormError('Please enter your name.')
+      return
+    }
+    if (!trimmedEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      setFormError('Please enter a valid email address.')
+      return
+    }
+
+    setFormError(null)
+    setIsSubmitting(true)
+
+    try {
+      const res = await fetch('/api/contributions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          guest_name: trimmedName,
+          guest_email: trimmedEmail,
+          activity: selectedActivity.name,
+          amount_cents: amountNum > 0 ? Math.round(amountNum * 100) : null,
+          payment_method: paymentMethod,
+        }),
+      })
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        setFormError(
+          typeof data.error === 'string'
+            ? data.error
+            : 'Something went wrong. Please try again.'
+        )
+        return
+      }
+
+      window.open(paymentUrl, '_blank', 'noopener,noreferrer')
+    } catch {
+      setFormError('Something went wrong. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -243,6 +286,25 @@ export default function HoneymoonFund() {
               className="text-[10px] uppercase font-bold mb-3"
               style={{ letterSpacing: '0.2em', color: 'rgba(45, 41, 38, 0.5)' }}
             >
+              Your email
+            </p>
+            <input
+              type="email"
+              autoComplete="email"
+              placeholder="So we can send you a thank you"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full font-serif italic text-lg outline-none border-b-2 pb-1 mb-6 bg-transparent transition-colors duration-200 focus:border-[#C37B60]"
+              style={{
+                borderBottomColor: email ? '#C37B60' : 'rgba(45, 41, 38, 0.15)',
+                color: '#2D2926',
+              }}
+            />
+
+            <p
+              className="text-[10px] uppercase font-bold mb-3"
+              style={{ letterSpacing: '0.2em', color: 'rgba(45, 41, 38, 0.5)' }}
+            >
               Your contribution
             </p>
             <div className="flex items-baseline gap-2 mb-2">
@@ -273,35 +335,43 @@ export default function HoneymoonFund() {
               Give whatever feels right &mdash; there&rsquo;s no minimum and no wrong answer.
             </p>
 
+            {formError && (
+              <p
+                className="text-sm mb-4 leading-relaxed"
+                style={{ color: '#C37B60' }}
+                role="alert"
+              >
+                {formError}
+              </p>
+            )}
+
             <div className="flex gap-3">
-              <a
-                href="https://www.ing.nl/de-ing/payreq?trxid=mdH0dM8iGbS0qO6zsJ7kTNQ0EjibEpPQ&flow-step=payment-request"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={recordContribution}
-                className="flex-1 text-center py-3 rounded-full text-[0.75rem] font-medium tracking-wide transition-opacity duration-200 hover:opacity-85 active:scale-[0.98]"
+              <button
+                type="button"
+                disabled={isSubmitting}
+                onClick={() => handlePayment('bank', BANK_URL)}
+                className="flex-1 text-center py-3 rounded-full text-[0.75rem] font-medium tracking-wide transition-opacity duration-200 hover:opacity-85 active:scale-[0.98] disabled:opacity-50"
                 style={{
                   backgroundColor: '#1B2A4A',
                   color: '#E8DDB8',
                   letterSpacing: '0.04em',
                 }}
               >
-                Bank transfer
-              </a>
-              <a
-                href="https://paypal.me/monicaandlaurens"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={recordContribution}
-                className="flex-1 text-center py-3 rounded-full text-[0.75rem] font-medium tracking-wide transition-colors duration-200 hover:bg-[#1B2A4A] hover:text-[#E8DDB8] active:scale-[0.98]"
+                {isSubmitting ? 'One moment…' : 'Bank transfer'}
+              </button>
+              <button
+                type="button"
+                disabled={isSubmitting}
+                onClick={() => handlePayment('paypal', PAYPAL_URL)}
+                className="flex-1 text-center py-3 rounded-full text-[0.75rem] font-medium tracking-wide transition-colors duration-200 hover:bg-[#1B2A4A] hover:text-[#E8DDB8] active:scale-[0.98] disabled:opacity-50"
                 style={{
                   border: '1px solid #1B2A4A',
                   color: '#1B2A4A',
                   letterSpacing: '0.04em',
                 }}
               >
-                PayPal
-              </a>
+                {isSubmitting ? 'One moment…' : 'PayPal'}
+              </button>
             </div>
           </motion.div>
         )}

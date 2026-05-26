@@ -1,23 +1,16 @@
-import nodemailer from "nodemailer";
+import { sendMail } from "@/lib/mail";
 
 /**
- * Email notification utility for wedding website
- * Uses Fastmail SMTP for sending emails
+ * Email notification utility for wedding website.
+ * Uses Resend when RESEND_API_KEY is set, otherwise Fastmail SMTP.
  */
 
-// Fastmail SMTP configuration
-const smtpUser = process.env.FASTMAIL_SMTP_USER || "wedding@laurensandmonica.com";
-const smtpPass = process.env.FASTMAIL_SMTP_PASSWORD || "9y976g4f8a2a2u2t";
-
-const transporter = nodemailer.createTransport({
-  host: "smtp.fastmail.com",
-  port: 465,
-  secure: true, // SSL
-  auth: {
-    user: smtpUser,
-    pass: smtpPass,
-  },
-});
+const smtpUser =
+  process.env.FASTMAIL_SMTP_USER || "wedding@laurensandmonica.com";
+const hostFrom = `"L&M Wedding" <${smtpUser}>`;
+const guestFrom =
+  process.env.GIFT_THANK_YOU_FROM ||
+  `"Laurens & Monica" <hello@laurensandmonica.com>`;
 
 // Recipients for notifications
 const NOTIFICATION_RECIPIENTS = [
@@ -112,23 +105,13 @@ Submitted on ${dateFormatted}
 This is an automated notification from your wedding website.
   `.trim();
 
-  try {
-    await transporter.sendMail({
-      from: `"L&M Wedding" <${smtpUser}>`,
-      to: NOTIFICATION_RECIPIENTS.join(", "),
-      subject,
-      text: textContent,
-      html: htmlContent,
-    });
-
-    return { success: true };
-  } catch (error) {
-    console.error("Failed to send email notification:", error);
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
-    };
-  }
+  return sendMail({
+    from: hostFrom,
+    to: NOTIFICATION_RECIPIENTS,
+    subject,
+    text: textContent,
+    html: htmlContent,
+  });
 }
 
 const SITE_URL = "https://laurensandmonica.com";
@@ -252,23 +235,17 @@ Plans changed? Update your RSVP here: ${updateUrl}
 ---
 Laurens & Monica · August 1, 2026 · Parkheuvel, Rotterdam`.trim();
 
-  try {
-    await transporter.sendMail({
-      from: `"Laurens & Monica" <${smtpUser}>`,
-      to: data.guestEmail,
-      subject,
-      text: textContent,
-      html: htmlContent,
-    });
-
-    return { success: true };
-  } catch (error) {
-    console.error("Failed to send RSVP confirmation to guest:", error);
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
-    };
+  const result = await sendMail({
+    from: guestFrom,
+    to: data.guestEmail,
+    subject,
+    text: textContent,
+    html: htmlContent,
+  });
+  if (!result.success) {
+    console.error("Failed to send RSVP confirmation to guest:", result.error);
   }
+  return result;
 }
 
 interface RsvpNotificationData {
@@ -399,23 +376,66 @@ ${data.isUpdate ? "Updated" : "Submitted"} on ${now}
 ---
 This is an automated notification from your wedding website.`.trim();
 
-  try {
-    await transporter.sendMail({
-      from: `"L&M Wedding" <${smtpUser}>`,
-      to: NOTIFICATION_RECIPIENTS.join(", "),
-      subject,
-      text: textContent,
-      html: htmlContent,
-    });
+  return sendMail({
+    from: hostFrom,
+    to: NOTIFICATION_RECIPIENTS,
+    subject,
+    text: textContent,
+    html: htmlContent,
+  });
+}
 
-    return { success: true };
-  } catch (error) {
-    console.error("Failed to send RSVP email notification:", error);
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
-    };
-  }
+export interface GiftThankYouData {
+  guestName: string;
+  guestEmail: string;
+}
+
+/**
+ * Thank-you email to the contributor after a completed gift submission.
+ */
+export async function sendGiftThankYouToContributor(
+  data: GiftThankYouData
+): Promise<{ success: boolean; error?: string }> {
+  const firstName = data.guestName.trim().split(/\s+/)[0] || data.guestName;
+  const subject = `you're the best, ${firstName}.`;
+
+  const htmlContent = `
+    <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #2D2926;">
+      <p style="font-size: 16px; line-height: 1.7; margin: 0 0 20px 0;">
+        You sent us a gift. We saw it. We said wow. Out loud. In the house.
+      </p>
+      <p style="font-size: 16px; line-height: 1.7; margin: 0 0 20px 0;">
+        It's going toward the honeymoon &mdash; the adventures, the wrong turns, the mornings we won't want to end. You're part of that now, which is a really nice thing to be.
+      </p>
+      <p style="font-size: 16px; line-height: 1.7; margin: 0 0 28px 0;">
+        Thank you. Really.
+      </p>
+      <p style="font-size: 16px; line-height: 1.7; margin: 0 0 24px 0;">
+        Laurens &amp; Monica
+      </p>
+      <p style="font-size: 15px; line-height: 1.7; margin: 0; font-style: italic; color: rgba(45, 41, 38, 0.75);">
+        P.S. If you're coming to the wedding, you've already given us the best gift. This was just also very lovely of you.
+      </p>
+    </div>
+  `;
+
+  const textContent = `You sent us a gift. We saw it. We said wow. Out loud. In the house.
+
+It's going toward the honeymoon -- the adventures, the wrong turns, the mornings we won't want to end. You're part of that now, which is a really nice thing to be.
+
+Thank you. Really.
+
+Laurens & Monica
+
+P.S. If you're coming to the wedding, you've already given us the best gift. This was just also very lovely of you.`;
+
+  return sendMail({
+    from: guestFrom,
+    to: data.guestEmail,
+    subject,
+    text: textContent,
+    html: htmlContent,
+  });
 }
 
 interface WeeklySummaryData {
@@ -427,6 +447,129 @@ interface WeeklySummaryData {
   rsvpYes: number;
   rsvpNo: number;
   rsvpPending: number;
+}
+
+export interface GiftNotificationData {
+  guestName: string | null;
+  activity: string | null;
+  amountCents: number | null;
+  currency?: string;
+  paymentMethod: "PayPal" | "Bank transfer";
+  transactionId?: string | null;
+  payerEmail?: string | null;
+  /** True when PayPal webhook confirmed payment; false for bank link click. */
+  isConfirmedPayment: boolean;
+}
+
+function formatGiftAmount(
+  amountCents: number | null,
+  currency = "EUR"
+): string {
+  if (amountCents == null || amountCents <= 0) return "Amount not specified";
+  const symbol = currency === "EUR" ? "€" : `${currency} `;
+  return `${symbol}${(amountCents / 100).toFixed(2)}`;
+}
+
+/**
+ * Notify hosts when someone contributes to the honeymoon fund.
+ */
+export async function sendGiftNotification(
+  data: GiftNotificationData
+): Promise<{ success: boolean; error?: string }> {
+  const displayName = data.guestName?.trim() || data.payerEmail || "Someone";
+  const amountLabel = formatGiftAmount(data.amountCents, data.currency);
+  const method = data.paymentMethod;
+  const confirmed = data.isConfirmedPayment;
+  const subject = confirmed
+    ? `🎁 Payment received (${method}) — ${displayName} (${amountLabel})`
+    : `🎁 Gift started (${method}) — ${displayName} (${amountLabel})`;
+
+  const now = new Date().toLocaleString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZoneName: "short",
+  });
+
+  const htmlContent = `
+    <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+      <h1 style="font-size: 24px; font-weight: normal; font-style: italic; color: #2D2926; margin-bottom: 30px;">
+        Honeymoon Gift
+      </h1>
+      
+      <div style="background: #F5F5F0; padding: 30px; border-radius: 8px; margin-bottom: 30px;">
+        <p style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          From
+        </p>
+        <p style="margin: 0 0 20px 0; font-size: 20px; color: #2D2926;">
+          ${displayName}
+        </p>
+        
+        <p style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          Amount
+        </p>
+        <p style="margin: 0 0 20px 0; font-size: 18px; color: #2D6A4F; font-weight: bold;">
+          ${amountLabel}
+        </p>
+        
+        <p style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          Payment method
+        </p>
+        <p style="margin: 0 0 20px 0; font-size: 16px; color: #2D2926;">
+          ${data.paymentMethod}
+          ${data.isConfirmedPayment ? " — payment confirmed" : " — guest opened payment link (check your account to confirm)"}
+        </p>
+        
+        ${data.activity ? `
+        <p style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          They chose to fund
+        </p>
+        <p style="margin: 0 0 20px 0; font-size: 16px; color: #2D2926; font-style: italic;">
+          ${data.activity}
+        </p>` : ""}
+        
+        ${data.transactionId ? `
+        <p style="margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #C37B60;">
+          Transaction ID
+        </p>
+        <p style="margin: 0; font-size: 14px; color: rgba(45, 41, 38, 0.6); font-family: monospace;">
+          ${data.transactionId}
+        </p>` : ""}
+      </div>
+      
+      <p style="font-size: 14px; color: rgba(45, 41, 38, 0.6); margin: 0;">
+        ${data.isConfirmedPayment ? "Received" : "Recorded"} on ${now}
+      </p>
+      
+      <hr style="border: none; border-top: 1px solid rgba(45, 41, 38, 0.1); margin: 30px 0;" />
+      
+      <p style="font-size: 12px; color: rgba(45, 41, 38, 0.4); margin: 0; font-style: italic;">
+        This is an automated notification from your wedding website.
+      </p>
+    </div>
+  `;
+
+  const textContent = `Honeymoon Gift
+
+From: ${displayName}
+Amount: ${amountLabel}
+Payment: ${data.paymentMethod}${data.isConfirmedPayment ? " — confirmed" : " — guest opened payment link"}
+${data.activity ? `Funding: ${data.activity}\n` : ""}${data.transactionId ? `Transaction: ${data.transactionId}\n` : ""}
+${data.isConfirmedPayment ? "Received" : "Recorded"} on ${now}
+
+---
+This is an automated notification from your wedding website.`.trim();
+
+  return sendMail({
+    from: hostFrom,
+    to: NOTIFICATION_RECIPIENTS,
+    subject,
+    text: textContent,
+    html: htmlContent,
+  });
 }
 
 export async function sendWeeklySummary(
@@ -567,21 +710,11 @@ ${data.withoutAddress > 0 ? `Missing Addresses (${data.withoutAddress}):\n${miss
 ---
 Laurens & Monica · August 1, 2026 · Parkheuvel, Rotterdam`.trim();
 
-  try {
-    await transporter.sendMail({
-      from: `"L&M Wedding" <${smtpUser}>`,
-      to: NOTIFICATION_RECIPIENTS.join(", "),
-      subject,
-      text: textContent,
-      html: htmlContent,
-    });
-
-    return { success: true };
-  } catch (error) {
-    console.error("Failed to send weekly summary:", error);
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
-    };
-  }
+  return sendMail({
+    from: hostFrom,
+    to: NOTIFICATION_RECIPIENTS,
+    subject,
+    text: textContent,
+    html: htmlContent,
+  });
 }

@@ -13,12 +13,17 @@ export async function GET() {
 
     const { data, error } = await supabase
       .from('honeymoon_contributions')
-      .select('activity')
+      .select('activity, payment_status, paypal_order_id')
 
     if (error) throw error
 
     const counts: Record<string, number> = {}
     for (const row of data ?? []) {
+      const completed =
+        row.payment_status === 'completed' ||
+        row.payment_status == null ||
+        row.paypal_order_id != null
+      if (!completed) continue
       counts[row.activity] = (counts[row.activity] ?? 0) + 1
     }
 
