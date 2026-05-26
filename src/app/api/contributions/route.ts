@@ -1,10 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { sendGiftNotification } from "@/lib/email";
-import {
-  isValidContributorEmail,
-  sendContributorThankYouIfNeeded,
-} from "@/lib/contributions";
+import { isValidContributorEmail } from "@/lib/contributions";
 
 const PAYMENT_LABELS: Record<string, "PayPal" | "Bank transfer"> = {
   paypal: "PayPal",
@@ -14,10 +11,9 @@ const PAYMENT_LABELS: Record<string, "PayPal" | "Bank transfer"> = {
 /**
  * POST /api/contributions
  *
- * Records a gift submission (name + email from the form), notifies hosts,
- * and sends the contributor thank-you when the submission is complete.
- * PayPal: pending until webhook confirms payment, then thank-you is sent.
- * Bank: completed on submit (guest is sent to ING to pay).
+ * Records a gift submission (name + email from the form) and notifies hosts.
+ * Contributor thank-you is sent only for confirmed PayPal payments (webhook).
+ * Bank transfers are thanked manually by the hosts.
  */
 export async function POST(req: Request) {
   try {
@@ -97,10 +93,6 @@ export async function POST(req: Request) {
       });
     } catch (emailErr) {
       console.error("[contributions] host notification failed:", emailErr);
-    }
-
-    if (paymentStatus === "completed") {
-      await sendContributorThankYouIfNeeded(supabase, row);
     }
 
     return NextResponse.json({ ok: true, id: row.id });
