@@ -84,6 +84,15 @@ export function RSVPClient() {
     }
   }, [searchParams]);
 
+  /** When attending=yes and we have a default plus-one on file, preselect Yes + name. */
+  useEffect(() => {
+    if (attending !== true || !guest?.has_plus_one) return;
+    const suggested = guest.plus_one_name?.trim();
+    if (!suggested) return;
+    setPlusOneName((prev) => prev || suggested);
+    setBringingGuest((prev) => (prev === null || prev === undefined ? true : prev));
+  }, [attending, guest]);
+
   function prefillForm(g: GuestData) {
     setAttending(g.attending);
     setDietary((g.dietary_preference as DietaryPreference) || null);
