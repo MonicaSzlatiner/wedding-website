@@ -151,6 +151,7 @@ export function RSVPClient() {
         setSubmitted(true);
       } else {
         resetForm();
+        prefillForm(data);
         setShowForm(true);
       }
 
