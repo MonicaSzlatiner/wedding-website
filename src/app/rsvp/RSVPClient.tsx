@@ -89,8 +89,15 @@ export function RSVPClient() {
     setDietary((g.dietary_preference as DietaryPreference) || null);
     setAllergies(g.allergies || "");
     if (g.has_plus_one) {
-      setBringingGuest(g.plus_one_attending ?? null);
-      setPlusOneName(g.plus_one_name || "");
+      const defaultPlusOneName = g.plus_one_name?.trim();
+      setBringingGuest(
+        g.plus_one_attending !== null && g.plus_one_attending !== undefined
+          ? g.plus_one_attending
+          : defaultPlusOneName
+            ? true
+            : null
+      );
+      setPlusOneName(defaultPlusOneName || "");
       setPlusOneDietary((g.plus_one_dietary_preference as DietaryPreference) || null);
       setPlusOneAllergies(g.plus_one_allergies || "");
     } else {
