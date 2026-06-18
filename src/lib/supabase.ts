@@ -63,20 +63,46 @@ export interface RSVP {
 // ============================================
 
 /**
- * Look up a guest by their unique code
+ * Look up a guest by their unique code (Save the Date).
+ * Uses lookup_guest_by_code RPC — no direct table read for anon callers.
  */
 export async function getGuestByCode(code: string): Promise<Guest | null> {
-  const { data, error } = await supabase
-    .from("guests")
-    .select("*")
-    .eq("code", code.toUpperCase())
-    .single();
+  const normalized = code.toUpperCase().trim();
+  if (!normalized) return null;
 
-  if (error || !data) {
+  const { data, error } = await supabase.rpc("lookup_guest_by_code", {
+    lookup_code: normalized,
+  });
+
+  if (error || !data?.length) {
     return null;
   }
 
-  return data;
+  const row = data[0] as {
+    id: string;
+    name: string;
+    plus_one_allowed: boolean;
+  };
+
+  return {
+    id: row.id,
+    code: normalized,
+    name: row.name,
+    email: null,
+    plus_one_allowed: row.plus_one_allowed,
+    group_side: "Bride",
+    created_at: "",
+    invitation_name: null,
+    country: null,
+    address_line1: null,
+    address_line2: null,
+    city: null,
+    region: null,
+    postal_code: null,
+    address_freeform: null,
+    address_formatted: null,
+    address_updated_at: null,
+  };
 }
 
 /**
