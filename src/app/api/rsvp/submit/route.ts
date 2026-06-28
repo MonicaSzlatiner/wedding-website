@@ -164,20 +164,18 @@ export async function POST(request: NextRequest) {
       isUpdate,
     };
 
-    try {
-      await sendRsvpNotification(emailData);
-    } catch (emailErr) {
-      console.error("RSVP admin notification failed:", emailErr);
+    const notifyResult = await sendRsvpNotification(emailData);
+    if (!notifyResult.success) {
+      console.error("RSVP admin notification failed:", notifyResult.error);
     }
 
     if (guest.email) {
-      try {
-        await sendRsvpConfirmationToGuest({
-          ...emailData,
-          guestEmail: guest.email,
-        });
-      } catch (emailErr) {
-        console.error("RSVP guest confirmation failed:", emailErr);
+      const guestResult = await sendRsvpConfirmationToGuest({
+        ...emailData,
+        guestEmail: guest.email,
+      });
+      if (!guestResult.success) {
+        console.error("RSVP guest confirmation failed:", guestResult.error);
       }
     }
 
