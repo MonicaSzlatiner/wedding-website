@@ -51,7 +51,7 @@ const ACTIVITIES = [
 
 const PAYPAL_ME_BASE = 'https://paypal.me/monicaandlaurens'
 const BANK_URL =
-  'https://www.ing.nl/de-ing/payreq?trxid=mdH0dM8iGbS0qO6zsJ7kTNQ0EjibEpPQ&flow-step=payment-request'
+  'https://www.ing.nl/payreq/m/?trxid=kv1lcSx8o3RVd60g04Yp9HpxvSFx4nvx'
 const ZELLE_EMAIL = weddingConfig.gifts.zelle.email
 
 type PaymentMethod = 'bank' | 'paypal' | 'zelle'
