@@ -165,14 +165,10 @@ export default function HoneymoonFund() {
     const paymentUrl =
       paymentMethod === 'paypal' ? buildPayPalUrl(amountNum) : BANK_URL
 
-    const paymentTab =
-      paymentMethod === 'zelle'
-        ? null
-        : window.open(
-            paymentMethod === 'paypal' ? paymentUrl : 'about:blank',
-            '_blank',
-            'noopener,noreferrer'
-          )
+    // Open payment URL immediately on click (noopener returns null — can't redirect later).
+    if (paymentMethod === 'bank' || paymentMethod === 'paypal') {
+      window.open(paymentUrl, '_blank', 'noopener,noreferrer')
+    }
 
     try {
       const res = await fetch('/api/contributions', {
@@ -189,7 +185,6 @@ export default function HoneymoonFund() {
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}))
-        paymentTab?.close()
         setFormError(
           typeof data.error === 'string'
             ? data.error
@@ -198,14 +193,11 @@ export default function HoneymoonFund() {
         return
       }
 
-      if (paymentMethod === 'bank' && paymentTab) {
-        paymentTab.location.href = paymentUrl
-      } else if (paymentMethod === 'zelle') {
+      if (paymentMethod === 'zelle') {
         setZelleAmount(amountNum)
         setShowZelleOverlay(true)
       }
     } catch {
-      paymentTab?.close()
       setFormError('Something went wrong. Please try again.')
     } finally {
       setIsSubmitting(false)
