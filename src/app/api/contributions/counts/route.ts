@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import { NextResponse } from 'next/server'
+import { fetchContributionsForCounts } from '@/lib/contributionInsert'
 
 export const dynamic = 'force-dynamic'
 
@@ -11,14 +12,10 @@ export async function GET() {
       { global: { fetch: (url, opts) => fetch(url, { ...opts, cache: 'no-store' }) } }
     )
 
-    const { data, error } = await supabase
-      .from('honeymoon_contributions')
-      .select('activity, payment_status, paypal_order_id')
-
-    if (error) throw error
+    const data = await fetchContributionsForCounts(supabase)
 
     const counts: Record<string, number> = {}
-    for (const row of data ?? []) {
+    for (const row of data) {
       const completed =
         row.payment_status === 'completed' ||
         row.payment_status == null ||

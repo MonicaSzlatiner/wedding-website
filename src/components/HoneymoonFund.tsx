@@ -64,9 +64,15 @@ export default function HoneymoonFund() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const panelRef = useRef<HTMLDivElement>(null)
 
+const PAYPAL_ME_BASE = 'https://paypal.me/monicaandlaurens'
+
+function buildPayPalUrl(amount: number): string {
+  if (!(amount > 0) || !Number.isFinite(amount)) return PAYPAL_ME_BASE
+  const formatted = Number.isInteger(amount) ? String(amount) : amount.toFixed(2)
+  return `${PAYPAL_ME_BASE}/${formatted}EUR`
+}
   const BANK_URL =
     'https://www.ing.nl/de-ing/payreq?trxid=mdH0dM8iGbS0qO6zsJ7kTNQ0EjibEpPQ&flow-step=payment-request'
-  const PAYPAL_URL = 'https://paypal.me/monicaandlaurens'
 
   useEffect(() => {
     let cancelled = false
@@ -104,7 +110,7 @@ export default function HoneymoonFund() {
     }, 100)
   }
 
-  async function handlePayment(paymentMethod: 'bank' | 'paypal', paymentUrl: string) {
+  async function handlePayment(paymentMethod: 'bank' | 'paypal') {
     if (!selectedActivity) return
 
     const trimmedName = name.trim()
@@ -118,6 +124,20 @@ export default function HoneymoonFund() {
       setFormError('Please enter a valid email address.')
       return
     }
+    if (!(amountNum > 0) || !Number.isFinite(amountNum)) {
+      setFormError('Please enter an amount.')
+      return
+    }
+
+    const paymentUrl =
+      paymentMethod === 'paypal' ? buildPayPalUrl(amountNum) : BANK_URL
+
+    // Open payment tab immediately so popup blockers don't block it after the API call.
+    const paymentTab = window.open(
+      paymentMethod === 'paypal' ? paymentUrl : 'about:blank',
+      '_blank',
+      'noopener,noreferrer'
+    )
 
     setFormError(null)
     setIsSubmitting(true)
@@ -130,13 +150,14 @@ export default function HoneymoonFund() {
           guest_name: trimmedName,
           guest_email: trimmedEmail,
           activity: selectedActivity.name,
-          amount_cents: amountNum > 0 ? Math.round(amountNum * 100) : null,
+          amount_cents: Math.round(amountNum * 100),
           payment_method: paymentMethod,
         }),
       })
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}))
+        paymentTab?.close()
         setFormError(
           typeof data.error === 'string'
             ? data.error
@@ -145,8 +166,11 @@ export default function HoneymoonFund() {
         return
       }
 
-      window.open(paymentUrl, '_blank', 'noopener,noreferrer')
+      if (paymentMethod === 'bank' && paymentTab) {
+        paymentTab.location.href = paymentUrl
+      }
     } catch {
+      paymentTab?.close()
       setFormError('Something went wrong. Please try again.')
     } finally {
       setIsSubmitting(false)
@@ -349,7 +373,7 @@ export default function HoneymoonFund() {
               <button
                 type="button"
                 disabled={isSubmitting}
-                onClick={() => handlePayment('bank', BANK_URL)}
+                onClick={() => handlePayment('bank')}
                 className="flex-1 text-center py-3 rounded-full text-[0.75rem] font-medium tracking-wide transition-opacity duration-200 hover:opacity-85 active:scale-[0.98] disabled:opacity-50"
                 style={{
                   backgroundColor: '#1B2A4A',
@@ -362,7 +386,7 @@ export default function HoneymoonFund() {
               <button
                 type="button"
                 disabled={isSubmitting}
-                onClick={() => handlePayment('paypal', PAYPAL_URL)}
+                onClick={() => handlePayment('paypal')}
                 className="flex-1 text-center py-3 rounded-full text-[0.75rem] font-medium tracking-wide transition-colors duration-200 hover:bg-[#1B2A4A] hover:text-[#E8DDB8] active:scale-[0.98] disabled:opacity-50"
                 style={{
                   border: '1px solid #1B2A4A',

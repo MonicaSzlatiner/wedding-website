@@ -1,7 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
-import { sendGiftNotification } from "@/lib/email";
+import { insertContribution } from "@/lib/contributionInsert";
 import { isValidContributorEmail } from "@/lib/contributions";
+import { sendGiftNotification } from "@/lib/email";
 
 const PAYMENT_LABELS: Record<string, "PayPal" | "Bank transfer"> = {
   paypal: "PayPal",
@@ -63,24 +64,21 @@ export async function POST(req: Request) {
     const paymentStatus =
       payment_method === "paypal" ? "pending" : "completed";
 
-    const { data: row, error: insertError } = await supabase
-      .from("honeymoon_contributions")
-      .insert({
-        guest_name: guest_name.trim(),
-        guest_email: guest_email!.trim(),
-        activity: activity.trim(),
-        amount_cents: amount_cents ?? null,
-        payment_method,
-        payment_status: paymentStatus,
-      })
-      .select(
-        "id, guest_name, guest_email, activity, amount_cents, payment_method, payment_status, paypal_order_id, thank_you_sent_at"
-      )
-      .single();
+    const { data: row, error: insertError } = await insertContribution(supabase, {
+      guest_name: guest_name.trim(),
+      guest_email: guest_email!.trim(),
+      activity: activity.trim(),
+      amount_cents: amount_cents ?? null,
+      payment_method,
+      payment_status: paymentStatus,
+    });
 
     if (insertError || !row) {
       console.error("[contributions] insert error:", insertError);
-      throw insertError ?? new Error("Insert failed");
+      return NextResponse.json(
+        { error: insertError?.message ?? "Something went wrong" },
+        { status: 500 }
+      );
     }
 
     try {
