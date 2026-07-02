@@ -4,9 +4,10 @@ import { insertContribution } from "@/lib/contributionInsert";
 import { isValidContributorEmail } from "@/lib/contributions";
 import { sendGiftNotification } from "@/lib/email";
 
-const PAYMENT_LABELS: Record<string, "PayPal" | "Bank transfer"> = {
+const PAYMENT_LABELS: Record<string, "PayPal" | "Bank transfer" | "Zelle"> = {
   paypal: "PayPal",
   bank: "Bank transfer",
+  zelle: "Zelle",
 };
 
 /**
@@ -35,7 +36,7 @@ export async function POST(req: Request) {
       guest_email?: string | null;
       activity?: string;
       amount_cents?: number | null;
-      payment_method?: "bank" | "paypal";
+      payment_method?: "bank" | "paypal" | "zelle";
     };
 
     if (!activity?.trim()) {
@@ -63,6 +64,7 @@ export async function POST(req: Request) {
       PAYMENT_LABELS[payment_method] ?? PAYMENT_LABELS.bank;
     const paymentStatus =
       payment_method === "paypal" ? "pending" : "completed";
+    const currency = payment_method === "zelle" ? "USD" : "EUR";
 
     const { data: row, error: insertError } = await insertContribution(supabase, {
       guest_name: guest_name.trim(),
@@ -86,6 +88,7 @@ export async function POST(req: Request) {
         guestName: row.guest_name,
         activity: row.activity,
         amountCents: row.amount_cents,
+        currency,
         paymentMethod: paymentLabel,
         isConfirmedPayment: paymentStatus === "completed",
       });

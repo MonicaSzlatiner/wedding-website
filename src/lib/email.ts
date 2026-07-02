@@ -454,7 +454,7 @@ export interface GiftNotificationData {
   activity: string | null;
   amountCents: number | null;
   currency?: string;
-  paymentMethod: "PayPal" | "Bank transfer";
+  paymentMethod: "PayPal" | "Bank transfer" | "Zelle";
   transactionId?: string | null;
   payerEmail?: string | null;
   /** True when PayPal webhook confirmed payment; false for bank link click. */
@@ -466,8 +466,9 @@ function formatGiftAmount(
   currency = "EUR"
 ): string {
   if (amountCents == null || amountCents <= 0) return "Amount not specified";
-  const symbol = currency === "EUR" ? "€" : `${currency} `;
-  return `${symbol}${(amountCents / 100).toFixed(2)}`;
+  if (currency === "EUR") return `€${(amountCents / 100).toFixed(2)}`;
+  if (currency === "USD") return `$${(amountCents / 100).toFixed(2)}`;
+  return `${currency} ${(amountCents / 100).toFixed(2)}`;
 }
 
 /**

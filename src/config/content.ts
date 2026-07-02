@@ -342,6 +342,9 @@ export const weddingConfig = {
       enabled: false, // Set to true when Stripe is configured
       stripeLink: "", // Add Stripe payment link when ready
     },
+    zelle: {
+      email: "monicall415@gmail.com",
+    },
   },
 
   // FAQ

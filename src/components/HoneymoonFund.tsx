@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { weddingConfig } from '@/config/content'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -48,10 +49,29 @@ const ACTIVITIES = [
   },
 ]
 
+const PAYPAL_ME_BASE = 'https://paypal.me/monicaandlaurens'
+const BANK_URL =
+  'https://www.ing.nl/de-ing/payreq?trxid=mdH0dM8iGbS0qO6zsJ7kTNQ0EjibEpPQ&flow-step=payment-request'
+const ZELLE_EMAIL = weddingConfig.gifts.zelle.email
+
+type PaymentMethod = 'bank' | 'paypal' | 'zelle'
+type AmountCurrency = 'eur' | 'usd'
+
 function socialLabel(count: number): string {
   if (count === 0) return 'Be the first'
   if (count === 1) return '1 person contributed'
   return `${count} people contributed`
+}
+
+function buildPayPalUrl(amount: number): string {
+  if (!(amount > 0) || !Number.isFinite(amount)) return PAYPAL_ME_BASE
+  const formatted = Number.isInteger(amount) ? String(amount) : amount.toFixed(2)
+  return `${PAYPAL_ME_BASE}/${formatted}EUR`
+}
+
+function formatOverlayAmount(amount: number): string {
+  const formatted = Number.isInteger(amount) ? String(amount) : amount.toFixed(2)
+  return `$${formatted}`
 }
 
 export default function HoneymoonFund() {
@@ -62,17 +82,11 @@ export default function HoneymoonFund() {
   const [email, setEmail] = useState('')
   const [formError, setFormError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [amountCurrency, setAmountCurrency] = useState<AmountCurrency>('eur')
+  const [showZelleOverlay, setShowZelleOverlay] = useState(false)
+  const [zelleAmount, setZelleAmount] = useState<number | null>(null)
+  const [copied, setCopied] = useState(false)
   const panelRef = useRef<HTMLDivElement>(null)
-
-const PAYPAL_ME_BASE = 'https://paypal.me/monicaandlaurens'
-
-function buildPayPalUrl(amount: number): string {
-  if (!(amount > 0) || !Number.isFinite(amount)) return PAYPAL_ME_BASE
-  const formatted = Number.isInteger(amount) ? String(amount) : amount.toFixed(2)
-  return `${PAYPAL_ME_BASE}/${formatted}EUR`
-}
-  const BANK_URL =
-    'https://www.ing.nl/de-ing/payreq?trxid=mdH0dM8iGbS0qO6zsJ7kTNQ0EjibEpPQ&flow-step=payment-request'
 
   useEffect(() => {
     let cancelled = false
@@ -110,8 +124,24 @@ function buildPayPalUrl(amount: number): string {
     }, 100)
   }
 
-  async function handlePayment(paymentMethod: 'bank' | 'paypal') {
+  function setCurrencyForMethod(method: PaymentMethod) {
+    setAmountCurrency(method === 'zelle' ? 'usd' : 'eur')
+  }
+
+  async function copyZelleEmail() {
+    try {
+      await navigator.clipboard.writeText(ZELLE_EMAIL)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      setCopied(false)
+    }
+  }
+
+  async function handlePayment(paymentMethod: PaymentMethod) {
     if (!selectedActivity) return
+
+    setCurrencyForMethod(paymentMethod)
 
     const trimmedName = name.trim()
     const trimmedEmail = email.trim()
@@ -129,18 +159,20 @@ function buildPayPalUrl(amount: number): string {
       return
     }
 
+    setFormError(null)
+    setIsSubmitting(true)
+
     const paymentUrl =
       paymentMethod === 'paypal' ? buildPayPalUrl(amountNum) : BANK_URL
 
-    // Open payment tab immediately so popup blockers don't block it after the API call.
-    const paymentTab = window.open(
-      paymentMethod === 'paypal' ? paymentUrl : 'about:blank',
-      '_blank',
-      'noopener,noreferrer'
-    )
-
-    setFormError(null)
-    setIsSubmitting(true)
+    const paymentTab =
+      paymentMethod === 'zelle'
+        ? null
+        : window.open(
+            paymentMethod === 'paypal' ? paymentUrl : 'about:blank',
+            '_blank',
+            'noopener,noreferrer'
+          )
 
     try {
       const res = await fetch('/api/contributions', {
@@ -168,6 +200,9 @@ function buildPayPalUrl(amount: number): string {
 
       if (paymentMethod === 'bank' && paymentTab) {
         paymentTab.location.href = paymentUrl
+      } else if (paymentMethod === 'zelle') {
+        setZelleAmount(amountNum)
+        setShowZelleOverlay(true)
       }
     } catch {
       paymentTab?.close()
@@ -177,9 +212,13 @@ function buildPayPalUrl(amount: number): string {
     }
   }
 
+  function closeZelleOverlay() {
+    setShowZelleOverlay(false)
+    setCopied(false)
+  }
+
   return (
     <div>
-
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
         {ACTIVITIES.map((activity) => {
           const count = counts[activity.name] ?? 0
@@ -336,7 +375,7 @@ function buildPayPalUrl(amount: number): string {
                 className="font-serif italic text-2xl"
                 style={{ color: 'rgba(45, 41, 38, 0.4)' }}
               >
-                &euro;
+                {amountCurrency === 'usd' ? '$' : '\u20AC'}
               </span>
               <input
                 type="number"
@@ -357,6 +396,9 @@ function buildPayPalUrl(amount: number): string {
               style={{ color: 'rgba(45, 41, 38, 0.45)' }}
             >
               Give whatever feels right &mdash; there&rsquo;s no minimum and no wrong answer.
+              {amountCurrency === 'usd' && (
+                <span className="block mt-1">Zelle uses US dollars.</span>
+              )}
             </p>
 
             {formError && (
@@ -369,12 +411,14 @@ function buildPayPalUrl(amount: number): string {
               </p>
             )}
 
-            <div className="flex gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <button
                 type="button"
                 disabled={isSubmitting}
+                onMouseEnter={() => setCurrencyForMethod('bank')}
+                onFocus={() => setCurrencyForMethod('bank')}
                 onClick={() => handlePayment('bank')}
-                className="flex-1 text-center py-3 rounded-full text-[0.75rem] font-medium tracking-wide transition-opacity duration-200 hover:opacity-85 active:scale-[0.98] disabled:opacity-50"
+                className="text-center py-3 rounded-full text-[0.75rem] font-medium tracking-wide transition-opacity duration-200 hover:opacity-85 active:scale-[0.98] disabled:opacity-50"
                 style={{
                   backgroundColor: '#1B2A4A',
                   color: '#E8DDB8',
@@ -386,8 +430,10 @@ function buildPayPalUrl(amount: number): string {
               <button
                 type="button"
                 disabled={isSubmitting}
+                onMouseEnter={() => setCurrencyForMethod('paypal')}
+                onFocus={() => setCurrencyForMethod('paypal')}
                 onClick={() => handlePayment('paypal')}
-                className="flex-1 text-center py-3 rounded-full text-[0.75rem] font-medium tracking-wide transition-colors duration-200 hover:bg-[#1B2A4A] hover:text-[#E8DDB8] active:scale-[0.98] disabled:opacity-50"
+                className="text-center py-3 rounded-full text-[0.75rem] font-medium tracking-wide transition-colors duration-200 hover:bg-[#1B2A4A] hover:text-[#E8DDB8] active:scale-[0.98] disabled:opacity-50"
                 style={{
                   border: '1px solid #1B2A4A',
                   color: '#1B2A4A',
@@ -396,7 +442,116 @@ function buildPayPalUrl(amount: number): string {
               >
                 {isSubmitting ? 'One moment…' : 'PayPal'}
               </button>
+              <button
+                type="button"
+                disabled={isSubmitting}
+                onMouseEnter={() => setCurrencyForMethod('zelle')}
+                onFocus={() => setCurrencyForMethod('zelle')}
+                onClick={() => handlePayment('zelle')}
+                className="text-center py-3 rounded-full text-[0.75rem] font-medium tracking-wide transition-colors duration-200 hover:bg-[#1B2A4A] hover:text-[#E8DDB8] active:scale-[0.98] disabled:opacity-50"
+                style={{
+                  border: '1px solid #1B2A4A',
+                  color: '#1B2A4A',
+                  letterSpacing: '0.04em',
+                }}
+              >
+                {isSubmitting ? 'One moment…' : 'Zelle'}
+              </button>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showZelleOverlay && zelleAmount != null && (
+          <motion.div
+            key="zelle-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            style={{ backgroundColor: 'rgba(45, 41, 38, 0.45)' }}
+            onClick={closeZelleOverlay}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="zelle-overlay-title"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 8, scale: 0.98 }}
+              transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+              className="w-full max-w-md rounded-2xl p-8 text-center"
+              style={{ backgroundColor: 'white' }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <p
+                id="zelle-overlay-title"
+                className="text-[10px] uppercase font-bold mb-2"
+                style={{ letterSpacing: '0.2em', color: 'rgba(45, 41, 38, 0.5)' }}
+              >
+                Send via Zelle
+              </p>
+              <p
+                className="font-serif italic text-3xl mb-6"
+                style={{ color: '#2D2926' }}
+              >
+                {formatOverlayAmount(zelleAmount)}
+              </p>
+
+              <div
+                className="flex items-center justify-between gap-3 rounded-xl px-4 py-3 mb-6"
+                style={{ backgroundColor: '#F5F5F0' }}
+              >
+                <p
+                  className="font-serif text-sm break-all text-left"
+                  style={{ color: '#2D2926' }}
+                >
+                  {ZELLE_EMAIL}
+                </p>
+                <button
+                  type="button"
+                  onClick={copyZelleEmail}
+                  className="flex-shrink-0 text-[0.7rem] uppercase font-bold tracking-wide px-3 py-1.5 rounded-full transition-colors duration-200"
+                  style={{
+                    backgroundColor: copied ? '#C37B60' : '#1B2A4A',
+                    color: '#E8DDB8',
+                    letterSpacing: '0.08em',
+                  }}
+                >
+                  {copied ? 'Copied' : 'Copy'}
+                </button>
+              </div>
+
+              <ol
+                className="text-sm text-left space-y-2 mb-6 leading-relaxed"
+                style={{ color: 'rgba(45, 41, 38, 0.65)' }}
+              >
+                <li>1. Open your US bank app</li>
+                <li>2. Choose Zelle</li>
+                <li>3. Send to the email above</li>
+              </ol>
+
+              <p
+                className="text-xs mb-6"
+                style={{ color: 'rgba(45, 41, 38, 0.4)' }}
+              >
+                US bank accounts only
+              </p>
+
+              <button
+                type="button"
+                onClick={closeZelleOverlay}
+                className="w-full py-3 rounded-full text-[0.75rem] font-medium tracking-wide transition-opacity duration-200 hover:opacity-85"
+                style={{
+                  backgroundColor: '#1B2A4A',
+                  color: '#E8DDB8',
+                  letterSpacing: '0.04em',
+                }}
+              >
+                Done
+              </button>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

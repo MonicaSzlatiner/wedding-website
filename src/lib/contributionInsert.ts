@@ -5,7 +5,7 @@ export interface ContributionInsertInput {
   guest_email: string;
   activity: string;
   amount_cents: number | null;
-  payment_method: "bank" | "paypal";
+  payment_method: "bank" | "paypal" | "zelle";
   payment_status: "pending" | "completed";
 }
 
