@@ -74,8 +74,8 @@ export const weddingConfig = {
       },
 
       {
-        time: "20:30–24:00",
-        title: "Dancing",
+        time: "20:30–23:59",
+        title: "Dancing and Party",
         description: "First dance. Father-daughter dance. Then DJ takes over — and this is the part people talk about afterward.",
       },
     ],

@@ -88,7 +88,7 @@ const eventIcons: Record<string, React.FC<{ className?: string; style?: React.CS
   "Arrival": WineIcon,
   "Ceremony": CeremonyIcon,
   "Toast & Dinner": DiningIcon,
-  "Dancing": MusicIcon,
+  "Dancing and Party": MusicIcon,
 };
 
 function ExploreCategoryIcon({ name }: { name: string }) {
