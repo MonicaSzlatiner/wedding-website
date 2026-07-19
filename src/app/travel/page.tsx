@@ -3,11 +3,9 @@ import Image from "next/image";
 import { weddingConfig } from "@/config/content";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { VenueMap } from "@/components/VenueMap";
 import {
   PaperAirplaneIcon,
   TruckIcon,
-  MapPinIcon,
   ArrowTopRightOnSquareIcon,
 } from "@heroicons/react/24/outline";
 
@@ -80,46 +78,6 @@ export default function TravelPage() {
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Venue Anchor */}
-      <section className="py-12 md:py-16" style={{ backgroundColor: "#2D2926" }}>
-        <Container>
-          <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
-            {/* Left: Address */}
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <MapPinIcon className="h-4 w-4 flex-shrink-0" style={{ color: "#C37B60" }} />
-                <p
-                  className="text-[10px] uppercase font-bold"
-                  style={{ letterSpacing: "0.3em", color: "#C37B60" }}
-                >
-                  The Venue
-                </p>
-              </div>
-              <h2
-                className="font-serif text-4xl md:text-5xl italic mb-3"
-                style={{ fontWeight: 400, color: "#F5F5F0" }}
-              >
-                {venue.name}
-              </h2>
-              <p className="text-base mb-1" style={{ color: "rgba(245, 245, 240, 0.55)" }}>
-                {venue.address}
-              </p>
-              <p className="text-base mb-8" style={{ color: "rgba(245, 245, 240, 0.55)" }}>
-                {venue.postalCode} {venue.city}
-              </p>
-              <Button href={venue.googleMapsLink} variant="primary" external>
-                Get Directions
-              </Button>
-            </div>
-
-            {/* Right: Map */}
-            <div className="overflow-hidden rounded-sm" style={{ border: "1px solid rgba(245,245,240,0.1)" }}>
-              <VenueMap />
             </div>
           </div>
         </Container>
